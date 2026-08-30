@@ -7,16 +7,13 @@ const setupSockets = require('./sockets');
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
-
 // Create HTTP server
 const server = http.createServer(app);
 
 // Attach Socket.io
 const io = new Server(server, {
   cors: {
-    origin: true, // Allow all origins for Socket.io in development
+    origin: "*", // Allow all origins for Socket.io in development/initial deploy
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -29,18 +26,32 @@ setupSockets(io);
 app.set('socketio', io);
 
 // Start server
-server.listen(PORT, () => {
-  console.log(`
-  🚀 ===================================================
-  ⚡ WorkLink AI Server is running on port ${PORT}
-  🌍 Environment: ${process.env.NODE_ENV || 'development'}
-  🔗 API URL: http://localhost:${PORT}/api
-  ===================================================
-  `);
-});
+const startServer = async () => {
+  try {
+    // 1. Connect to MongoDB
+    await connectDB();
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  console.error(`❌ Unhandled Rejection: ${err.message}`);
-  // Keep server running in development
-});
+    // 2. Start Listening
+    server.listen(PORT, () => {
+      console.log(`
+      🚀 ===================================================
+      ⚡ WorkLink AI Server is running on port ${PORT}
+      🌍 Environment: ${process.env.NODE_ENV || 'development'}
+      🔗 API URL: http://localhost:${PORT}/api
+      ===================================================
+      `);
+    });
+  } catch (error) {
+    console.error(`❌ Server start error: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+// Check if running on Vercel (Serverless)
+if (process.env.VERCEL) {
+  // On Vercel, we export the app and don't start the listener manually
+  module.exports = server;
+} else {
+  // On persistent servers (Render, Railway, Local), we start the listener
+  startServer();
+}

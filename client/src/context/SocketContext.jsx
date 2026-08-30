@@ -11,9 +11,10 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (token && user) {
-      // Use empty string or relative path to use Vite proxy in dev,
-      // or window.location.origin in production.
-      const socketUrl = '/';
+      // For production (Render), we need the full URL.
+      // VITE_API_URL might be "https://api.com/api", so we remove "/api" to get the root.
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const socketUrl = apiUrl ? apiUrl.replace('/api', '') : '/';
 
       const newSocket = io(socketUrl, {
         auth: { token },
@@ -21,7 +22,8 @@ export const SocketProvider = ({ children }) => {
         reconnection: true,
         reconnectionAttempts: 10,
         reconnectionDelay: 1000,
-        // Vite proxy handles path mapping automatically if using '/'
+        // Relative path only works in dev with Vite proxy
+        // In production, socketUrl will be the Render backend URL.
       });
 
       newSocket.on('connect', () => {

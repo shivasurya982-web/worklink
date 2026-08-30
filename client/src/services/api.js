@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: '/api',
+  // Use environment variable for API URL in production, or fallback to relative path
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -27,7 +28,6 @@ API.interceptors.response.use(
       error.response?.data?.message || error.message || 'Something went wrong';
 
     if (error.response?.status === 401) {
-      // Clear token on unauthorized if not on auth pages
       if (!window.location.pathname.includes('/login')) {
         localStorage.removeItem('worklink_token');
         localStorage.removeItem('worklink_user');

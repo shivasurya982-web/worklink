@@ -43,8 +43,31 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// CORS Config - Absolute simplest for local dev
-app.use(cors({ origin: true, credentials: true }));
+// CORS Config
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:5174',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1 && process.env.NODE_ENV === 'production') {
+        var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // Body Parser Middleware
 app.use(express.json({ limit: '10mb' }));

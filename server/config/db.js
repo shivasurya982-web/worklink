@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/worklink-ai');
+    const conn = await mongoose.connect(process.env.MONGO_URI);
 
     console.log(`
     📁 ===================================================
-    📅 MongoDB Connected: ${conn.connection.host}
-    📦 Database Name: worklink-ai
+    📅 MongoDB Atlas Connected: ${conn.connection.host}
+    📦 Database Name: ${conn.connection.name}
     ===================================================
     `);
   } catch (error) {

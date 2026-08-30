@@ -3,6 +3,7 @@ const Customer = require('../models/Customer');
 const Booking = require('../models/Booking');
 const Category = require('../models/Category');
 const Complaint = require('../models/Complaint');
+const Review = require('../models/Review');
 const Notification = require('../models/Notification');
 const ApiResponse = require('../utils/apiResponse');
 const AnalyticsService = require('../services/analyticsService');
@@ -26,7 +27,7 @@ exports.getDashboard = async (req, res, next) => {
         .sort({ createdAt: -1 })
         .limit(10)
         .select('name email profession phone createdAt avatar identityProof certificates suggestedCategory'),
-      require('../models/Review').find().sort({ createdAt: -1 }).limit(5).populate('customer', 'name').populate('worker', 'name'),
+      Review.find().sort({ createdAt: -1 }).limit(5).populate('customer', 'name').populate('worker', 'name'),
     ]);
 
     ApiResponse.success(res, {

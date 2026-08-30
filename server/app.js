@@ -38,20 +38,13 @@ app.use(helmet({ contentSecurityPolicy: false }));
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: 1000,
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
 app.use('/api', limiter);
 
-// CORS Config
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
+// CORS Config - Absolute simplest for local dev
+app.use(cors({ origin: true, credentials: true }));
 
 // Body Parser Middleware
 app.use(express.json({ limit: '10mb' }));

@@ -34,6 +34,7 @@ const protect = async (req, res, next) => {
         user = await Worker.findById(decoded.id);
         break;
       default:
+        console.warn(`[Auth] Invalid role in token: ${decoded.role}`);
         return res.status(401).json({
           success: false,
           message: 'Invalid token role',
@@ -41,6 +42,7 @@ const protect = async (req, res, next) => {
     }
 
     if (!user) {
+      console.warn(`[Auth] User not found in DB for token ID: ${decoded.id} (${decoded.role})`);
       return res.status(401).json({
         success: false,
         message: 'User not found',
@@ -73,6 +75,7 @@ const protect = async (req, res, next) => {
         message: 'Token expired, please login again',
       });
     }
+    console.error(`[Auth] Token verification failed: ${error.message}`);
     return res.status(401).json({
       success: false,
       message: 'Not authorized, invalid token',

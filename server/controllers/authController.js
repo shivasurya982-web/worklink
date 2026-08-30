@@ -10,9 +10,13 @@ exports.adminLogin = async (req, res, next) => {
     const { email, password } = req.body;
     console.log(`[Auth] Admin login attempt: ${email}`);
 
+    if (!email || !password) {
+      return ApiResponse.badRequest(res, 'Email and password are required');
+    }
+
     const admin = await Admin.findOne({ email: email.toLowerCase() }).select('+password');
     if (!admin) {
-      console.log(`[Auth] Admin not found: ${email}`);
+      console.log(`[Auth] Admin not found for email: ${email}`);
       return ApiResponse.unauthorized(res, 'Invalid email or password');
     }
 
@@ -77,31 +81,39 @@ exports.customerLogin = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) return ApiResponse.badRequest(res, 'Please provide email and password');
 
-    console.log(`[Auth] Login attempt for: ${email}`);
+    console.log(`[Auth] Customer login request: ${email}`);
 
     // 1. Try Admin Login First (Cross-login support)
     const admin = await Admin.findOne({ email: email.toLowerCase() }).select('+password');
     if (admin) {
+      console.log(`[Auth] Admin account detected during customer login attempt: ${email}`);
       const isMatch = await admin.comparePassword(password);
       if (isMatch) {
-        console.log(`[Auth] Admin detected in customer login: ${email}`);
         if (!admin.isActive) return ApiResponse.forbidden(res, 'Admin account is deactivated');
         const token = generateToken(admin._id, 'admin');
+        console.log(`[Auth] Admin successfully logged in via customer login: ${email}`);
         return ApiResponse.success(res, {
           token,
           user: { _id: admin._id, name: admin.name, email: admin.email, role: 'admin', avatar: admin.avatar }
         }, 'Admin login successful');
       }
+      console.log(`[Auth] Admin password mismatch: ${email}`);
     }
 
     // 2. Try Customer Login
     const customer = await Customer.findOne({ email: email.toLowerCase() }).select('+password');
-    if (!customer || !(await customer.comparePassword(password))) {
-      console.log(`[Auth] Login failed for: ${email}`);
+    if (!customer) {
+      console.log(`[Auth] No customer account found for: ${email}`);
       return ApiResponse.unauthorized(res, 'Invalid email or password');
     }
 
-    console.log(`[Auth] Customer logged in: ${email}`);
+    const isMatch = await customer.comparePassword(password);
+    if (!isMatch) {
+      console.log(`[Auth] Customer password mismatch for: ${email}`);
+      return ApiResponse.unauthorized(res, 'Invalid email or password');
+    }
+
+    console.log(`[Auth] Customer logged in successfully: ${email}`);
     const token = generateToken(customer._id, 'customer');
     ApiResponse.success(res, {
       token,
@@ -168,16 +180,17 @@ exports.workerLogin = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) return ApiResponse.badRequest(res, 'Please provide email and password');
 
-    console.log(`[Auth] Worker login attempt for: ${email}`);
+    console.log(`[Auth] Worker login request: ${email}`);
 
     // 1. Try Admin Login First
     const admin = await Admin.findOne({ email: email.toLowerCase() }).select('+password');
     if (admin) {
+      console.log(`[Auth] Admin account detected during worker login attempt: ${email}`);
       const isMatch = await admin.comparePassword(password);
       if (isMatch) {
-        console.log(`[Auth] Admin detected in worker login: ${email}`);
         if (!admin.isActive) return ApiResponse.forbidden(res, 'Admin account is deactivated');
         const token = generateToken(admin._id, 'admin');
+        console.log(`[Auth] Admin successfully logged in via worker login: ${email}`);
         return ApiResponse.success(res, {
           token,
           user: { _id: admin._id, name: admin.name, email: admin.email, role: 'admin', avatar: admin.avatar }
@@ -187,15 +200,21 @@ exports.workerLogin = async (req, res, next) => {
 
     // 2. Try Worker Login
     const worker = await Worker.findOne({ email: email.toLowerCase() }).select('+password').populate('category', 'name slug');
-    if (!worker || !(await worker.comparePassword(password))) {
-      console.log(`[Auth] Worker login failed: ${email}`);
+    if (!worker) {
+      console.log(`[Auth] No worker account found for: ${email}`);
+      return ApiResponse.unauthorized(res, 'Invalid email or password');
+    }
+
+    const isMatch = await worker.comparePassword(password);
+    if (!isMatch) {
+      console.log(`[Auth] Worker password mismatch for: ${email}`);
       return ApiResponse.unauthorized(res, 'Invalid email or password');
     }
 
     if (worker.approvalStatus === 'pending') return ApiResponse.forbidden(res, 'Account under review');
     if (worker.approvalStatus === 'suspended') return ApiResponse.forbidden(res, 'Account suspended');
 
-    console.log(`[Auth] Worker logged in: ${email}`);
+    console.log(`[Auth] Worker logged in successfully: ${email}`);
     const token = generateToken(worker._id, 'worker');
     ApiResponse.success(res, {
       token,

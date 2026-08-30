@@ -3,6 +3,7 @@ const Booking = require('../models/Booking');
 const Favorite = require('../models/Favorite');
 const Worker = require('../models/Worker');
 const Notification = require('../models/Notification');
+const AIService = require('../services/aiService');
 const ApiResponse = require('../utils/apiResponse');
 const bcrypt = require('bcryptjs');
 
@@ -113,12 +114,16 @@ exports.getDashboardData = async (req, res, next) => {
     const customer = await Customer.findById(customerId);
     const coords = customer?.address?.coordinates?.coordinates;
 
-    const AIService = require('../services/aiService');
-    const recommendedWorkers = await AIService.getRecommendedWorkers({
-      lat: coords ? coords[1] : null,
-      lng: coords ? coords[0] : null,
-      limit: 6,
-    });
+    let recommendedWorkers = [];
+    try {
+      recommendedWorkers = await AIService.getRecommendedWorkers({
+        lat: coords ? coords[1] : null,
+        lng: coords ? coords[0] : null,
+        limit: 6,
+      });
+    } catch (aiErr) {
+      console.error('Recommended workers error:', aiErr.message);
+    }
 
     ApiResponse.success(res, {
       stats: {
@@ -127,7 +132,7 @@ exports.getDashboardData = async (req, res, next) => {
         unreadNotifications,
       },
       recentBookings,
-      recommendedWorkers,
+      recommendedWorkers: recommendedWorkers || [],
     });
   } catch (error) {
     next(error);

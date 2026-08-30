@@ -72,6 +72,35 @@ class AIService {
   }
 
   /**
+   * Get recommended workers for a customer
+   */
+  async getRecommendedWorkers({ lat, lng, limit = 6 }) {
+    const Worker = require('../models/Worker');
+    const LocationService = require('./locationService');
+
+    try {
+      // 1. Get approved and available workers
+      let workers = await Worker.find({
+        approvalStatus: 'approved',
+        isAvailable: true
+      }).populate('category', 'name icon').lean();
+
+      // 2. Filter by distance if location is available
+      if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+        workers = LocationService.filterByDistance(workers, parseFloat(lat), parseFloat(lng), 50);
+      }
+
+      // 3. Score them using basic criteria
+      const scored = await this.matchWorkers({}, workers);
+
+      return scored.slice(0, limit);
+    } catch (error) {
+      console.error('getRecommendedWorkers error:', error);
+      return [];
+    }
+  }
+
+  /**
    * Generate AI Assistant Responses for Chatbot
    */
   generateAssistantResponse(message) {

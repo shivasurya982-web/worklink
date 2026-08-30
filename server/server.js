@@ -16,7 +16,7 @@ const server = http.createServer(app);
 // Attach Socket.io
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: true, // Allow all origins for Socket.io in development
     methods: ['GET', 'POST'],
     credentials: true,
   },

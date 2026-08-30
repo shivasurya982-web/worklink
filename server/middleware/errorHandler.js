@@ -3,9 +3,9 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
 
-  // Log error in development
+  // Log error in development with full stack trace for better debugging
   if (process.env.NODE_ENV === 'development') {
-    console.error('❌ Error:', err);
+    console.error('❌ [SERVER ERROR]:', err);
   }
 
   // Mongoose bad ObjectId
@@ -39,10 +39,19 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({ success: false, message: error.message });
   }
 
+  // Handle CORS errors specifically if they reach here
+  if (err.message && err.message.includes('CORS')) {
+    return res.status(403).json({
+      success: false,
+      message: 'CORS Error: Connection from this origin is restricted.',
+      hint: 'Ensure CLIENT_URL in .env matches your browser address.'
+    });
+  }
+
   // Default server error
   res.status(err.statusCode || 500).json({
     success: false,
-    message: error.message || 'Internal Server Error',
+    message: error.message || 'Critical System Error: Please check server console.',
   });
 };
 

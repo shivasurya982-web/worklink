@@ -11,10 +11,9 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (token && user) {
-      // Connect to backend server URL
-      const socketUrl = process.env.NODE_ENV === 'production' 
-        ? window.location.origin 
-        : 'http://localhost:5000';
+      // Use empty string or relative path to use Vite proxy in dev,
+      // or window.location.origin in production.
+      const socketUrl = '/';
 
       const newSocket = io(socketUrl, {
         auth: { token },
@@ -22,6 +21,7 @@ export const SocketProvider = ({ children }) => {
         reconnection: true,
         reconnectionAttempts: 10,
         reconnectionDelay: 1000,
+        // Vite proxy handles path mapping automatically if using '/'
       });
 
       newSocket.on('connect', () => {

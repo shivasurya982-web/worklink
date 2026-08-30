@@ -117,7 +117,7 @@ const CustomerBookings = () => {
                 >
                   <div className="relative">
                     <img
-                      src={booking.worker?.avatar || 'https://via.placeholder.com/60'}
+                      src={booking.worker?.avatar || 'https://placehold.co/60'}
                       alt={booking.worker?.name}
                       className="w-14 h-14 rounded-full object-cover border border-accent-gold/40 group-hover:border-accent-gold transition-colors"
                     />

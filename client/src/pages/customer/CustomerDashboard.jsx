@@ -297,7 +297,7 @@ const CustomerDashboard = () => {
               <GlassCard key={booking._id} goldBorder className="p-4 bg-white border-2 border-accent-gold/20 shadow-md flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                    <div className="relative">
-                      <img src={booking.worker?.avatar || 'https://via.placeholder.com/50'} className="w-12 h-12 rounded-full object-cover border border-accent-gold/30" />
+                      <img src={booking.worker?.avatar || 'https://placehold.co/50'} className="w-12 h-12 rounded-full object-cover border border-accent-gold/30" />
                       <div className="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full border-2 border-white p-0.5"><CheckCircle2 className="w-2.5 h-2.5 text-white" /></div>
                    </div>
                    <div>

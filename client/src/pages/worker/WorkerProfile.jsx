@@ -240,12 +240,12 @@ const WorkerProfile = () => {
               <form onSubmit={handleSubmit} className="space-y-6 animate-slide-up">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pb-6 border-b border-gray-100">
                   <div className="flex flex-col items-center text-center gap-3">
-                    <img src={avatarFile ? URL.createObjectURL(avatarFile) : user?.avatar || 'https://via.placeholder.com/80'} className="w-24 h-24 rounded-full object-cover border-4 border-accent-gold/40 shadow-md" />
+                    <img src={avatarFile ? URL.createObjectURL(avatarFile) : user?.avatar || 'https://placehold.co/80'} className="w-24 h-24 rounded-full object-cover border-4 border-accent-gold/40 shadow-md" />
                     <input type="file" id="avatar-worker" accept="image/*" onChange={(e) => setAvatarFile(e.target.files[0])} className="hidden" />
                     <label htmlFor="avatar-worker" className="cursor-pointer px-4 py-2 bg-amber-50 text-accent-gold rounded-full text-[10px] font-bold border border-accent-gold/20 inline-flex items-center gap-2"><Camera className="w-3 h-3" /> Profile Photo</label>
                   </div>
                   <div className="flex flex-col items-center text-center gap-3">
-                    <div className="w-full h-24 bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 shadow-inner"><img src={coverFile ? URL.createObjectURL(coverFile) : user?.coverImage || 'https://via.placeholder.com/200x80'} className="w-full h-full object-cover" /></div>
+                    <div className="w-full h-24 bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 shadow-inner"><img src={coverFile ? URL.createObjectURL(coverFile) : user?.coverImage || 'https://placehold.co/200x80'} className="w-full h-full object-cover" /></div>
                     <input type="file" id="cover-worker" accept="image/*" onChange={(e) => setCoverFile(e.target.files[0])} className="hidden" />
                     <label htmlFor="cover-worker" className="cursor-pointer px-4 py-2 bg-blue-50 text-accent-blue rounded-full text-[10px] font-bold border border-blue-100 inline-flex items-center gap-2"><Camera className="w-3 h-3" /> Cover Banner</label>
                   </div>

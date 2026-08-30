@@ -24,7 +24,7 @@ const uploadImage = async (filePath, folder = 'worklink-ai') => {
     console.error('Cloudinary upload error:', error.message);
     // Fallback: return a placeholder URL if Cloudinary is not configured
     return {
-      url: `https://via.placeholder.com/400x400?text=Upload+Failed`,
+      url: `https://placehold.co/400x400?text=Upload+Failed`,
       publicId: null,
     };
   }

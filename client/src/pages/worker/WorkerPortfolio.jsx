@@ -135,7 +135,7 @@ const WorkerPortfolio = () => {
                     alt={item.title || 'Work sample'}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/400x300?text=Work+Sample';
+                      e.target.src = 'https://placehold.co/400x300?text=Work+Sample';
                     }}
                   />
                   <button

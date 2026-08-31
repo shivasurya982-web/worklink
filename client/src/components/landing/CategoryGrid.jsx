@@ -29,7 +29,7 @@ const CategoryGrid = () => {
     setLoading(true);
     try {
       const [settingsRes, catsRes] = await Promise.all([
-        API.get('/settings'),
+        API.get('/site/settings'),
         API.get('/categories')
       ]);
 

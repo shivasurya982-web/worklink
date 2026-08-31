@@ -290,6 +290,22 @@ const WorkerMessages = () => {
     } catch (err) {}
   };
 
+  const handleDeleteConversation = async (e, convId) => {
+    e.stopPropagation();
+    if (!window.confirm('Remove this conversation from your list?')) return;
+    try {
+      await API.delete(`/chat/conversations/${convId}`);
+      showToast('Deleted', 'Chat removed', 'info');
+      setConversations(prev => prev.filter(c => c._id !== convId));
+      if (selectedConversation?._id === convId) {
+        setSelectedConversation(null);
+        setView('list');
+      }
+    } catch (err) {
+      showToast('Error', 'Failed to remove chat', 'error');
+    }
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -379,9 +395,18 @@ const WorkerMessages = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-center mb-0.5">
                         <h4 className="text-xs font-bold text-text-primary truncate">{recipient.name}</h4>
-                        <span className="text-[9px] text-text-muted font-medium">
-                          {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
-                        </span>
+                        <div className="flex items-center gap-2">
+                           <span className="text-[9px] text-text-muted font-medium">
+                            {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                          </span>
+                          <button
+                            onClick={(e) => handleDeleteConversation(e, conv._id)}
+                            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-50 text-accent-red rounded transition-all"
+                            title="Delete Chat"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
                       <p className="text-[11px] text-text-muted truncate">
                          {conv.lastMessage || 'Open to view messages'}
@@ -534,10 +559,6 @@ const WorkerMessages = () => {
                   )}
 
                   <div className="flex items-center gap-2">
-                    <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
-                    <button type="button" onClick={() => fileInputRef.current.click()} className="p-3 rounded-2xl bg-gray-50 text-text-muted hover:bg-accent-blue hover:text-white transition-all border border-gray-200">
-                      <Paperclip className="w-5 h-5" />
-                    </button>
                     <button
                       type="button"
                       onClick={handleShareLocation}

@@ -11,7 +11,7 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    API.get('/settings')
+    API.get('/site/settings')
       .then((res) => {
         if (res.success && res.data) {
           setCmsSettings((prev) => ({ ...prev, ...res.data }));

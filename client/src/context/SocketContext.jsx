@@ -10,29 +10,37 @@ export const SocketProvider = ({ children }) => {
   const { user, token } = useAuth();
 
   useEffect(() => {
+    // Only attempt connection if we have a token
     if (token && user) {
-      // For production (Render), we need the full URL.
-      // VITE_API_URL might be "https://api.com/api", so we remove "/api" to get the root.
-      const apiUrl = import.meta.env.VITE_API_URL || '';
-      const socketUrl = apiUrl ? apiUrl.replace('/api', '') : '/';
+      // In development, we use relative path so Vite proxy handles it.
+      // In production, we use the VITE_API_URL if defined.
+      let socketUrl = '/';
+
+      if (import.meta.env.PROD && import.meta.env.VITE_API_URL) {
+        socketUrl = import.meta.env.VITE_API_URL.replace('/api', '');
+      }
+
+      console.log(`[Socket] Connecting to: ${socketUrl}`);
 
       const newSocket = io(socketUrl, {
         auth: { token },
         transports: ['websocket', 'polling'],
         reconnection: true,
-        reconnectionAttempts: 10,
-        reconnectionDelay: 1000,
-        // Relative path only works in dev with Vite proxy
-        // In production, socketUrl will be the Render backend URL.
+        reconnectionAttempts: 15,
+        reconnectionDelay: 2000,
+        // Path is handled by proxy in dev or root in prod
       });
 
       newSocket.on('connect', () => {
-        console.log('⚡ Socket connected:', newSocket.id);
+        console.log('⚡ [Socket] Connected successfully:', newSocket.id);
         newSocket.emit('authenticate', { userId: user._id, role: user.role });
       });
 
       newSocket.on('connect_error', (err) => {
-        console.warn('Socket connection warning:', err.message);
+        console.warn('⚠️ [Socket] Connection error:', err.message);
+        if (err.message === 'xhr poll error') {
+           console.error('[Socket] Server might be down or port 5000 is blocked.');
+        }
       });
 
       newSocket.on('user_online', ({ userId }) => {
@@ -52,9 +60,11 @@ export const SocketProvider = ({ children }) => {
       setSocket(newSocket);
 
       return () => {
+        console.log('[Socket] Disconnecting...');
         newSocket.disconnect();
       };
     } else {
+      // Clear socket if user logged out
       if (socket) {
         socket.disconnect();
         setSocket(null);

@@ -14,7 +14,12 @@ import {
 } from 'lucide-react';
 import API from '../../services/api';
 import LocationMessage from '../../components/chat/LocationMessage';
-
+const getImageUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path; // already a full URL, leave it
+  const backendBase = import.meta.env.VITE_API_URL?.replace('/api', '');
+  return `${backendBase}${path}`;
+};
 const CustomerMessages = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -302,6 +307,22 @@ const CustomerMessages = () => {
     }
   };
 
+  const handleDeleteConversation = async (e, convId) => {
+    e.stopPropagation();
+    if (!window.confirm('Remove this conversation from your list?')) return;
+    try {
+      await API.delete(`/chat/conversations/${convId}`);
+      showToast('Deleted', 'Chat removed from your inbox', 'info');
+      setConversations(prev => prev.filter(c => c._id !== convId));
+      if (selectedConversation?._id === convId) {
+        setSelectedConversation(null);
+        setView('list');
+      }
+    } catch (err) {
+      showToast('Error', 'Failed to remove chat', 'error');
+    }
+  };
+
   const handleCallAction = (phoneNumber) => {
     if (!phoneNumber) {
       showToast('Error', 'Phone number not available', 'error');
@@ -414,9 +435,18 @@ const CustomerMessages = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-center mb-0.5">
                         <h4 className="text-xs font-bold text-text-primary truncate">{recipient.name}</h4>
-                        <span className="text-[9px] text-text-muted font-medium">
-                          {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
-                        </span>
+                        <div className="flex items-center gap-2">
+                           <span className="text-[9px] text-text-muted font-medium">
+                            {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                          </span>
+                          <button
+                            onClick={(e) => handleDeleteConversation(e, conv._id)}
+                            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-50 text-accent-red rounded transition-all"
+                            title="Delete Chat"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
                       <p className="text-[11px] text-text-muted truncate flex items-center gap-1">
                          {conv.lastMessage || 'Start a conversation'}
@@ -510,8 +540,7 @@ const CustomerMessages = () => {
                             >
                               {msg.type === 'image' && (
                                 <div className="mb-2 -mx-1 -mt-1 rounded-xl overflow-hidden shadow-inner bg-black/5">
-                                   <img src={msg.image} alt="Sent" className="max-h-60 w-full object-cover cursor-zoom-in" onClick={() => window.open(msg.image)} />
-                                </div>
+<img src={getImageUrl(msg.image)} alt="Sent" className="max-h-60 w-full object-cover cursor-zoom-in" onClick={() => window.open(getImageUrl(msg.image))} />                                </div>
                               )}
 
                               {msg.type === 'location' ? (
@@ -574,10 +603,6 @@ const CustomerMessages = () => {
                   )}
 
                   <div className="flex items-center gap-2">
-                    <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
-                    <button type="button" onClick={() => fileInputRef.current.click()} className="p-3 rounded-2xl bg-gray-50 text-text-muted hover:bg-accent-gold hover:text-text-primary transition-all border border-gray-200 shadow-sm">
-                      <Paperclip className="w-5 h-5" />
-                    </button>
                     <button
                       type="button"
                       onClick={handleShareLocation}

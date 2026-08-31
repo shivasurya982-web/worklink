@@ -24,7 +24,7 @@ const HeroSection = () => {
   const fetchData = async () => {
     try {
       const [settingsRes, statsRes] = await Promise.all([
-        API.get('/settings'),
+        API.get('/site/settings'),
         API.get('/search/stats')
       ]);
 

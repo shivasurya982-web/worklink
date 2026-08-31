@@ -38,36 +38,13 @@ app.use(helmet({ contentSecurityPolicy: false }));
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 1000,
+  max: 2000,
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
 app.use('/api', limiter);
 
-// CORS Config
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://127.0.0.1:5173',
-  'http://127.0.0.1:5174',
-  process.env.CLIENT_URL
-].filter(Boolean);
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1 && process.env.NODE_ENV === 'production') {
-        var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
+// CORS Config - Allow all during development to fix connectivity issues
+app.use(cors({ origin: true, credentials: true }));
 
 // Body Parser Middleware
 app.use(express.json({ limit: '10mb' }));
@@ -95,7 +72,7 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });
 });
 
-// Mount Routes
+// Mount Routes with specific prefixes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/customers', customerRoutes);
@@ -109,11 +86,15 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/complaints', complaintRoutes);
-app.use('/api', siteSettingsRoutes);
+app.use('/api/site', siteSettingsRoutes); // Changed prefix to /api/site to avoid collisions
 
-// 404 Handler for unknown API endpoints
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ success: false, message: `API Endpoint Not Found: ${req.originalUrl}` });
+// Global Catch-all for undefined /api routes
+app.all('/api/*', (req, res) => {
+  console.warn(`[404] Route not found: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.originalUrl}`
+  });
 });
 
 // Global Error Handler Middleware

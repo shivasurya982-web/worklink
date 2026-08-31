@@ -45,7 +45,7 @@ const AdminSettings = () => {
   const fetchSettings = async () => {
     setLoading(true);
     try {
-      const res = await API.get('/settings');
+      const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setFormData((prev) => ({
           ...prev,
@@ -89,7 +89,7 @@ const AdminSettings = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await API.put('/site-settings', formData);
+      const res = await API.put('/site/site-settings', formData);
       if (res.success) {
         showToast('Website Content Saved!', 'All words, headlines & images updated live on the public pages.', 'success');
       }

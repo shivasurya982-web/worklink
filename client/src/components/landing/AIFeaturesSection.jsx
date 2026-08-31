@@ -23,7 +23,7 @@ const AIFeaturesSection = () => {
 
   const fetchSettings = async () => {
     try {
-      const res = await API.get('/settings');
+      const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setSettings({
           aiSectionTitle: res.data.aiSectionTitle || 'Smart Platform Features',

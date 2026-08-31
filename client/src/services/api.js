@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 const API = axios.create({
-  // Use environment variable for API URL in production, or fallback to relative path
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  // Always use relative /api in development to leverage Vite proxy
+  // Use environment variable only if explicitly defined (e.g. in production)
+  baseURL: import.meta.env.PROD && import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL
+    : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,6 +17,11 @@ API.interceptors.request.use(
     const token = localStorage.getItem('worklink_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+       // Log only in dev to help debugging
+       if (import.meta.env.DEV) {
+         console.warn('[API] No token found in localStorage for request:', config.url);
+       }
     }
     return config;
   },
@@ -27,10 +35,18 @@ API.interceptors.response.use(
     const message =
       error.response?.data?.message || error.message || 'Something went wrong';
 
+    // If unauthorized, clear local storage and redirect to login
     if (error.response?.status === 401) {
-      if (!window.location.pathname.includes('/login')) {
+      const isLoginPage = window.location.pathname.includes('/login');
+      const isRegisterPage = window.location.pathname.includes('/register');
+
+      if (!isLoginPage && !isRegisterPage) {
+        console.error('[API] Unauthorized access. Clearing session and redirecting.');
         localStorage.removeItem('worklink_token');
         localStorage.removeItem('worklink_user');
+
+        // Only redirect if we're not already trying to login
+        window.location.href = '/login?expired=true';
       }
     }
 

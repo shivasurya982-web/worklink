@@ -5,10 +5,10 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('worklink_user');
+    const saved = localStorage.getItem('worklyn_user');
     return saved ? JSON.parse(saved) : null;
   });
-  const [token, setToken] = useState(() => localStorage.getItem('worklink_token'));
+  const [token, setToken] = useState(() => localStorage.getItem('worklyn_token'));
   const [loading, setLoading] = useState(true);
 
   // Check auth state on mount
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           const res = await API.get('/auth/me');
           if (res.success && res.data.user) {
             setUser(res.data.user);
-            localStorage.setItem('worklink_user', JSON.stringify(res.data.user));
+            localStorage.setItem('worklyn_user', JSON.stringify(res.data.user));
           }
         } catch (err) {
           console.error('Failed to fetch user:', err.message);
@@ -34,8 +34,8 @@ export const AuthProvider = ({ children }) => {
   const saveAuthData = (newToken, newUser) => {
     setToken(newToken);
     setUser(newUser);
-    localStorage.setItem('worklink_token', newToken);
-    localStorage.setItem('worklink_user', JSON.stringify(newUser));
+    localStorage.setItem('worklyn_token', newToken);
+    localStorage.setItem('worklyn_user', JSON.stringify(newUser));
   };
 
   const loginCustomer = async (credentials) => {
@@ -80,14 +80,14 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setToken(null);
     setUser(null);
-    localStorage.removeItem('worklink_token');
-    localStorage.removeItem('worklink_user');
+    localStorage.removeItem('worklyn_token');
+    localStorage.removeItem('worklyn_user');
   };
 
   const updateUserProfile = (updatedUser) => {
     setUser((prev) => {
       const newU = { ...prev, ...updatedUser };
-      localStorage.setItem('worklink_user', JSON.stringify(newU));
+      localStorage.setItem('worklyn_user', JSON.stringify(newU));
       return newU;
     });
   };

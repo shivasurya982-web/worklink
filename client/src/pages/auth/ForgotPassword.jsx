@@ -72,7 +72,7 @@ const ForgotPassword = () => {
       <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
-            <span className="font-sora font-bold text-2xl text-text-primary">WorkLink</span>
+            <span className="font-sora font-bold text-2xl text-text-primary">Worklyn</span>
           </Link>
           <p className="text-xs text-text-secondary uppercase tracking-widest font-bold">Password Recovery</p>
         </div>

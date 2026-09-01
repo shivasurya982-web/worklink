@@ -29,7 +29,7 @@ const Contact = () => {
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
              <span className="text-xs font-bold text-accent-gold uppercase tracking-[0.2em] mb-4 block">Get Support</span>
-             <h1 className="text-4xl font-sora font-extrabold text-text-primary mb-4">Contact <span className="text-accent-gold">WorkLink</span></h1>
+             <h1 className="text-4xl font-sora font-extrabold text-text-primary mb-4">Contact <span className="text-accent-gold">Worklyn</span></h1>
              <p className="text-sm text-text-secondary leading-relaxed">
                Have questions about our services or need help with a booking? Our dedicated support team is available 24/7 to assist you.
              </p>
@@ -54,7 +54,7 @@ const Contact = () => {
                    </div>
                    <div>
                       <p className="text-[10px] font-bold text-text-muted uppercase">Email Us</p>
-                      <p className="text-sm font-bold text-text-primary">support@worklinkai.com</p>
+                      <p className="text-sm font-bold text-text-primary">support@worklynai.com</p>
                    </div>
                 </GlassCard>
 

@@ -4,11 +4,11 @@ import GlassCard from '../common/GlassCard';
 
 const faqs = [
   {
-    q: 'How does WorkLink match me with nearby workers?',
-    a: 'WorkLink uses a smart score-based system taking into account your GPS location, worker distance, skills, rating, completed jobs, and real-time availability to provide instant recommendations.',
+    q: 'How does Worklyn match me with nearby workers?',
+    a: 'Worklyn uses a smart score-based system taking into account your GPS location, worker distance, skills, rating, completed jobs, and real-time availability to provide instant recommendations.',
   },
   {
-    q: 'Are workers on WorkLink background-verified?',
+    q: 'Are workers on Worklyn background-verified?',
     a: 'Yes! Every worker submits identity proof (Aadhaar/PAN/Govt ID), address proof, and skill certificates during registration. Admin approval is mandatory before any worker can accept bookings.',
   },
   {
@@ -20,7 +20,7 @@ const faqs = [
     a: 'Yes, you can manage or cancel your bookings anytime directly from your Customer Dashboard. Cancellation details and timelines are recorded transparently.',
   },
   {
-    q: 'How do I register as a worker on WorkLink?',
+    q: 'How do I register as a worker on Worklyn?',
     a: 'Click "Become a Worker" on the navbar, complete the registration form with your profession, experience, portfolio, and identity documents. Once admin verifies your application, your profile becomes active.',
   },
 ];

@@ -59,7 +59,7 @@ const Services = () => {
                <span className="text-accent-gold">At Your Fingertips</span>
             </h1>
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-10 px-4">
-              Explore our wide range of professional home and commercial services. From urgent repairs to personal tutors, WorkLink connects you with verified experts in seconds.
+              Explore our wide range of professional home and commercial services. From urgent repairs to personal tutors, Worklyn connects you with verified experts in seconds.
             </p>
 
             {/* In-page Search */}
@@ -122,12 +122,12 @@ const Services = () => {
           </div>
         </section>
 
-        {/* ─── Why WorkLink ─── */}
+        {/* ─── Why Worklyn ─── */}
         <section className="py-24 overflow-hidden relative">
           <div className="container-responsive grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-2xl sm:text-4xl font-bold font-sora text-text-primary mb-6 leading-tight">
-                 Why Choose <span className="text-accent-gold text-hero">WorkLink?</span>
+                 Why Choose <span className="text-accent-gold text-hero">Worklyn?</span>
               </h2>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-8">
                 We've built a platform that puts trust, speed, and quality at the heart of every interaction. Experience the modern way of booking local services.
@@ -177,7 +177,7 @@ const Services = () => {
                <div className="relative z-10">
                  <h2 className="text-2xl sm:text-4xl font-sora font-extrabold mb-4">Ready to Get Started?</h2>
                  <p className="text-sm sm:text-lg font-medium opacity-90 mb-8 max-w-xl mx-auto">
-                   Join thousands of happy customers who trust WorkLink for all their home service needs.
+                   Join thousands of happy customers who trust Worklyn for all their home service needs.
                  </p>
                  <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <PremiumButton

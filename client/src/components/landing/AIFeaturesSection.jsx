@@ -6,7 +6,7 @@ import API from '../../services/api';
 const AIFeaturesSection = () => {
   const [settings, setSettings] = useState({
     aiSectionTitle: 'Smart Platform Features',
-    aiSectionSubtitle: 'WorkLink makes local services easier through practical tools and fast access.',
+    aiSectionSubtitle: 'Worklyn makes local services easier through practical tools and fast access.',
     aiFeaturesList: [
       { title: 'Smart Matchmaking', description: 'Score-based matching weighing distance, customer rating, experience, job success rate, and instant availability.' },
       { title: 'Easy Search', description: 'Search using plain English phrases like "AC technician under ₹1000" or "Emergency plumber near me".' },
@@ -27,7 +27,7 @@ const AIFeaturesSection = () => {
       if (res.success && res.data) {
         setSettings({
           aiSectionTitle: res.data.aiSectionTitle || 'Smart Platform Features',
-          aiSectionSubtitle: res.data.aiSectionSubtitle || 'WorkLink makes local services easier through practical tools and fast access.',
+          aiSectionSubtitle: res.data.aiSectionSubtitle || 'Worklyn makes local services easier through practical tools and fast access.',
           aiFeaturesList: res.data.aiFeaturesList?.length > 0 ? res.data.aiFeaturesList : settings.aiFeaturesList,
         });
       }

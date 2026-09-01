@@ -143,7 +143,7 @@ const Navbar = () => {
                   isAuthenticated ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-xl sm:text-2xl lg:text-3xl'
                 }`}>
                   <span className="bg-gradient-to-r from-text-primary via-accent-gold to-text-primary bg-[length:200%_auto] animate-title-shimmer bg-clip-text text-transparent block truncate px-4">
-                    WorkLink
+                    Worklyn
                   </span>
                   <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-accent-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-full" />
                 </h1>
@@ -453,7 +453,7 @@ const Navbar = () => {
 
         {/* Drawer Footer */}
         <div className="p-4 border-t border-gray-100 text-center">
-          <p className="text-[11px] text-text-muted">WorkLink © {new Date().getFullYear()}</p>
+          <p className="text-[11px] text-text-muted">Worklyn © {new Date().getFullYear()}</p>
         </div>
       </div>
     </>

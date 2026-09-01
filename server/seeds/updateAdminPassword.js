@@ -5,12 +5,12 @@ const connectDB = require('../config/db');
 const updatePassword = async () => {
   try {
     await connectDB();
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@worklinkai.com';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@worklynai.com';
     let admin = await Admin.findOne({ email: adminEmail });
 
     if (!admin) {
       admin = new Admin({
-        name: 'WorkLink Admin',
+        name: 'Worklyn Admin',
         email: adminEmail,
         password: 'admin',
         role: 'admin',

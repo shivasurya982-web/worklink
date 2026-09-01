@@ -11,7 +11,7 @@ const seedData = async () => {
   try {
     await connectDB();
 
-    console.log('🌱 Starting WorkLink AI database seeding...');
+    console.log('🌱 Starting Worklyn AI database seeding...');
 
     // 1. Seed Categories
     for (let i = 0; i < DEFAULT_CATEGORIES.length; i++) {
@@ -32,7 +32,7 @@ const seedData = async () => {
     const plumberCat = categories.find((c) => c.name.toLowerCase().includes('plumb'))?._id || (categories[0] ? categories[0]._id : null);
 
     // 2. Seed Admin
-    const adminEmail = 'admin@worklinkai.com';
+    const adminEmail = 'admin@worklynai.com';
     const adminPassword = 'admin';
 
     // Find and update or create
@@ -43,7 +43,7 @@ const seedData = async () => {
       console.log(`  + Admin Password Reset successfully for: ${adminEmail}`);
     } else {
       await Admin.create({
-        name: 'WorkLink Admin',
+        name: 'Worklyn Admin',
         email: adminEmail,
         password: adminPassword,
         role: 'admin',
@@ -53,7 +53,7 @@ const seedData = async () => {
     }
 
     // 3. Seed Demo Customer
-    const customerEmail = 'customer@worklinkai.com';
+    const customerEmail = 'customer@worklynai.com';
     const existingCustomer = await Customer.findOne({ email: customerEmail });
     if (!existingCustomer) {
       await Customer.create({
@@ -71,11 +71,11 @@ const seedData = async () => {
         isEmailVerified: true,
         securityHint: 'Tommy',
       });
-      console.log('  + Demo Customer Created: customer@worklinkai.com / Password123');
+      console.log('  + Demo Customer Created: customer@worklynai.com / Password123');
     }
 
     // 4. Seed Demo Workers
-    const worker1Email = 'electrician@worklinkai.com';
+    const worker1Email = 'electrician@worklynai.com';
     const existingWorker1 = await Worker.findOne({ email: worker1Email });
     if (!existingWorker1 && electricianCat) {
       await Worker.create({
@@ -103,15 +103,15 @@ const seedData = async () => {
           coordinates: { type: 'Point', coordinates: [72.83, 19.05] },
         },
       });
-      console.log('  + Demo Worker 1 Created: electrician@worklinkai.com / Password123');
+      console.log('  + Demo Worker 1 Created: electrician@worklynai.com / Password123');
     }
 
-    console.log('\n🎉 ALL DATA SEEDED SUCCESSFULLY FOR WORKLINK AI!');
+    console.log('\n🎉 ALL DATA SEEDED SUCCESSFULLY FOR WORKLYN AI!');
     console.log('--------------------------------------------------');
     console.log('🔑 LOGIN DETAILS:');
-    console.log('1. Admin:    admin@worklinkai.com     / admin');
-    console.log('2. Customer: customer@worklinkai.com  / Password123');
-    console.log('3. Worker:   electrician@worklinkai.com / Password123');
+    console.log('1. Admin:    admin@worklynai.com     / admin');
+    console.log('2. Customer: customer@worklynai.com  / Password123');
+    console.log('3. Worker:   electrician@worklynai.com / Password123');
     console.log('--------------------------------------------------');
 
     process.exit(0);

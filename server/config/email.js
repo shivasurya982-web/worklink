@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 // Create transporter
 const createTransporter = () => {
   // In development, log emails to console if no SMTP configured or using default placeholders
-  if (process.env.EMAIL_USER === 'noreply@worklinkai.com' || process.env.EMAIL_PASS === 'placeholder_password') {
+  if (process.env.EMAIL_USER === 'noreply@worklynai.com' || process.env.EMAIL_PASS === 'placeholder_password') {
     console.log('📧 [SMTP] Missing credentials. Email service running in console-log mode.');
     return null;
   }

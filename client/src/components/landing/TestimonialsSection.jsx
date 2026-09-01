@@ -15,14 +15,14 @@ const testimonials = [
     name: 'Amitabh Verma',
     role: 'Apartment Owner, Mumbai',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120',
-    comment: 'Booked AC servicing through WorkLink. Being able to track the technician on Google Maps and chat directly made the experience completely hassle-free.',
+    comment: 'Booked AC servicing through Worklyn. Being able to track the technician on Google Maps and chat directly made the experience completely hassle-free.',
     rating: 5,
   },
   {
     name: 'Ramesh Carpenter',
     role: 'Verified Worker, Bengaluru',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120',
-    comment: 'Since joining WorkLink, my monthly earnings have doubled! The worker dashboard makes managing my schedule and booking requests effortless.',
+    comment: 'Since joining Worklyn, my monthly earnings have doubled! The worker dashboard makes managing my schedule and booking requests effortless.',
     rating: 5,
   },
 ];

@@ -24,17 +24,17 @@ const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState('hero');
 
   const [formData, setFormData] = useState({
-    siteName: 'WorkLink',
+    siteName: 'Worklyn',
     announcementText: 'Verified Local Service Marketplace',
     heroBannerImage: '',
     heroTitle: 'Find & Book Trusted Local Experts In Seconds',
     heroSubtitle:
-      'WorkLink connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
+      'Worklyn connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
 
     contactPhone: '1800-000-0000',
-    contactEmail: 'support@worklinkai.com',
+    contactEmail: 'support@worklynai.com',
     stayUpdatedText: 'Get updates on new service categories and special discounts near you.',
-    footerCopyrightText: 'WorkLink. All rights reserved.',
+    footerCopyrightText: 'Worklyn. All rights reserved.',
     platformFeePercentage: 5,
   });
 

@@ -14,7 +14,7 @@ const API = axios.create({
 // Request Interceptor: Attach Token
 API.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('worklink_token');
+    const token = localStorage.getItem('worklyn_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
@@ -42,8 +42,8 @@ API.interceptors.response.use(
 
       if (!isLoginPage && !isRegisterPage) {
         console.error('[API] Unauthorized access. Clearing session and redirecting.');
-        localStorage.removeItem('worklink_token');
-        localStorage.removeItem('worklink_user');
+        localStorage.removeItem('worklyn_token');
+        localStorage.removeItem('worklyn_user');
 
         // Only redirect if we're not already trying to login
         window.location.href = '/login?expired=true';

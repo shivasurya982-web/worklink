@@ -5,7 +5,7 @@ import API from '../../services/api';
 
 const HowItWorks = () => {
   const [settings, setSettings] = useState({
-    howItWorksTitle: 'How WorkLink Works',
+    howItWorksTitle: 'How Worklyn Works',
     howItWorksSubtitle: 'Get your home or office repairs solved in 4 simple steps',
     howItWorksSteps: [
       { step: '01', title: 'Smart Search', description: 'Enter what service you need or your location. Our smart matching system finds nearby verified experts.' },
@@ -24,7 +24,7 @@ const HowItWorks = () => {
       const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setSettings({
-          howItWorksTitle: res.data.howItWorksTitle || 'How WorkLink Works',
+          howItWorksTitle: res.data.howItWorksTitle || 'How Worklyn Works',
           howItWorksSubtitle: res.data.howItWorksSubtitle || 'Get your home or office repairs solved in 4 simple steps',
           howItWorksSteps: res.data.howItWorksSteps?.length > 0 ? res.data.howItWorksSteps : settings.howItWorksSteps,
         });

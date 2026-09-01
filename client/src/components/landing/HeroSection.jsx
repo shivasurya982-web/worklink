@@ -8,7 +8,7 @@ const HeroSection = () => {
     announcementText: 'Verified Local Service Marketplace',
     heroTitle: 'Find & Book Trusted Local Experts In Seconds',
     heroSubtitle:
-      'WorkLink connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by intelligent matching.',
+      'Worklyn connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by intelligent matching.',
     heroBannerImage: '',
   });
   const [realStats, setRealStats] = useState({
@@ -75,7 +75,7 @@ const HeroSection = () => {
           {/* Big Brand Name */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-sora font-extrabold mb-6 tracking-tighter">
             <span className="bg-gradient-to-r from-text-primary via-accent-gold to-text-primary bg-[length:200%_auto] animate-title-shimmer bg-clip-text text-transparent">
-              WorkLink
+              Worklyn
             </span>
           </h2>
 

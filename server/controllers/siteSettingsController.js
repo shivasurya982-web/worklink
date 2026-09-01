@@ -28,7 +28,7 @@ exports.getSettings = async (req, res, next) => {
       // Try to create but handle if it fails
       try {
         settings = await SiteSettings.create({
-          siteName: 'WorkLink AI',
+          siteName: 'Worklyn AI',
           howItWorksSteps: defaultSteps,
           aiFeaturesList: defaultAIFeatures,
           statsCounters: defaultStats,
@@ -40,10 +40,10 @@ exports.getSettings = async (req, res, next) => {
 
     // Safety fallback object if DB didn't return anything
     const finalData = settings || {
-        siteName: 'WorkLink AI',
+        siteName: 'Worklyn AI',
         announcementText: 'Verified Local Service Marketplace',
         heroTitle: 'Find & Book Trusted Local Experts',
-        heroSubtitle: 'WorkLink AI connects you with verified experts nearby.',
+        heroSubtitle: 'Worklyn AI connects you with verified experts nearby.',
         statsCounters: defaultStats
     };
 
@@ -54,10 +54,10 @@ exports.getSettings = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       data: {
-        siteName: 'WorkLink AI',
+        siteName: 'Worklyn AI',
         announcementText: 'Verified Local Service Marketplace',
         heroTitle: 'Find & Book Trusted Local Experts',
-        heroSubtitle: 'WorkLink AI connects you with verified experts nearby.',
+        heroSubtitle: 'Worklyn AI connects you with verified experts nearby.',
         statsCounters: defaultStats
       }
     });

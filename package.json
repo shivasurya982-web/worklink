@@ -1,8 +1,8 @@
 {
-  "name": "worklink-ai",
+  "name": "worklyn-ai",
   "private": true,
   "version": "1.0.0",
-  "description": "WorkLink AI – AI Powered Local Service Marketplace",
+  "description": "Worklyn AI – AI Powered Local Service Marketplace",
   "type": "module",
   "scripts": {
     "dev": "vite",

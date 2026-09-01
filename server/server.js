@@ -34,7 +34,7 @@ const startServer = async () => {
 
     // 2. Start listening on 0.0.0.0 for better reachability
     server.listen(PORT, '0.0.0.0', () => {
-      console.log(`🚀 [SUCCESS]: WorkLink AI is LIVE on port ${PORT}`);
+      console.log(`🚀 [SUCCESS]: Worklyn AI is LIVE on port ${PORT}`);
       console.log(`🔗 Local: http://localhost:${PORT}`);
       console.log(`🔗 Network: http://0.0.0.0:${PORT}`);
     });

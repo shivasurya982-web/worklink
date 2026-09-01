@@ -1,7 +1,7 @@
 {
-  "name": "worklink-ai-server",
+  "name": "worklyn-ai-server",
   "version": "1.0.0",
-  "description": "WorkLink AI - AI Powered Local Service Marketplace Backend",
+  "description": "Worklyn AI - AI Powered Local Service Marketplace Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -7,7 +7,7 @@ cloudinary.config({
 });
 
 // Upload image to Cloudinary
-const uploadImage = async (filePath, folder = 'worklink-ai') => {
+const uploadImage = async (filePath, folder = 'worklyn-ai') => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
       folder,
@@ -31,7 +31,7 @@ const uploadImage = async (filePath, folder = 'worklink-ai') => {
 };
 
 // Upload multiple images
-const uploadMultipleImages = async (filePaths, folder = 'worklink-ai') => {
+const uploadMultipleImages = async (filePaths, folder = 'worklyn-ai') => {
   const uploadPromises = filePaths.map((filePath) => uploadImage(filePath, folder));
   return Promise.all(uploadPromises);
 };

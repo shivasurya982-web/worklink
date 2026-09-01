@@ -51,7 +51,7 @@ const RegisterCustomer = () => {
     try {
       const res = await registerCustomer(formData);
       if (res.success) {
-        showToast('Account Created!', 'Welcome to WorkLink.', 'success');
+        showToast('Account Created!', 'Welcome to Worklyn.', 'success');
         setIsSuccess(true);
       }
     } catch (err) {
@@ -69,7 +69,7 @@ const RegisterCustomer = () => {
                <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
             <h2 className="font-sora font-bold text-2xl text-text-primary">Registration Successful!</h2>
-            <p className="text-sm text-text-secondary">Your WorkLink account has been created. You can now start booking services.</p>
+            <p className="text-sm text-text-secondary">Your Worklyn account has been created. You can now start booking services.</p>
             <PremiumButton variant="gold" fullWidth onClick={() => navigate('/customer/dashboard')}>Go to Dashboard</PremiumButton>
          </GlassCard>
       </div>
@@ -95,7 +95,7 @@ const RegisterCustomer = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <span className="font-sora font-bold text-2xl text-text-primary">
-              WorkLink
+              Worklyn
             </span>
           </Link>
           <p className="text-xs text-text-secondary font-medium uppercase tracking-[0.15em]">Customer Registration</p>

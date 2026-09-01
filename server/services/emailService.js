@@ -16,7 +16,7 @@ class EmailService {
   async sendEmail({ to, subject, html }) {
     try {
       const info = await this.transporter.sendMail({
-        from: `"${process.env.EMAIL_FROM_NAME || 'WorkLink AI'}" <${process.env.EMAIL_USER}>`,
+        from: `"${process.env.EMAIL_FROM_NAME || 'Worklyn AI'}" <${process.env.EMAIL_USER}>`,
         to,
         subject,
         html,
@@ -36,11 +36,11 @@ class EmailService {
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
         <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-bottom: 1px solid #e2e8f0;">
-          <h1 style="color: #D4AF37; margin: 0;">WorkLink AI</h1>
+          <h1 style="color: #D4AF37; margin: 0;">Worklyn AI</h1>
         </div>
         <div style="padding: 32px;">
           <h2 style="color: #1e293b; margin-top: 0;">Verify your email address</h2>
-          <p style="color: #64748B; line-height: 1.6;">Welcome to WorkLink AI! Please verify your email address to activate your account and start using our services.</p>
+          <p style="color: #64748B; line-height: 1.6;">Welcome to Worklyn AI! Please verify your email address to activate your account and start using our services.</p>
           <div style="text-align: center; margin: 32px 0;">
             <a href="${verificationUrl}" style="background-color: #D4AF37; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Verify Email Address</a>
           </div>
@@ -48,7 +48,7 @@ class EmailService {
         </div>
       </div>
     `;
-    return this.sendEmail({ to: user.email, subject: 'Verify your WorkLink AI account', html });
+    return this.sendEmail({ to: user.email, subject: 'Verify your Worklyn AI account', html });
   }
 
   /**
@@ -58,7 +58,7 @@ class EmailService {
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
         <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-bottom: 1px solid #e2e8f0;">
-          <h1 style="color: #D4AF37; margin: 0;">WorkLink AI</h1>
+          <h1 style="color: #D4AF37; margin: 0;">Worklyn AI</h1>
         </div>
         <div style="padding: 32px;">
           <h2 style="color: #1e293b; margin-top: 0;">Reset your password</h2>
@@ -71,7 +71,7 @@ class EmailService {
         </div>
       </div>
     `;
-    return this.sendEmail({ to: user.email, subject: 'Password Reset - WorkLink AI', html });
+    return this.sendEmail({ to: user.email, subject: 'Password Reset - Worklyn AI', html });
   }
 
   /**
@@ -81,15 +81,15 @@ class EmailService {
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
         <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-bottom: 1px solid #e2e8f0;">
-          <h1 style="color: #D4AF37; margin: 0;">WorkLink AI</h1>
+          <h1 style="color: #D4AF37; margin: 0;">Worklyn AI</h1>
         </div>
         <div style="padding: 32px;">
           <h2 style="color: #1e293b; margin-top: 0;">${approved ? 'Application Approved!' : 'Application Update'}</h2>
           <p style="color: #64748B; line-height: 1.6;">Hello ${worker.name},</p>
           <p style="color: #64748B; line-height: 1.6;">
             ${approved
-              ? 'Congratulations! Your application to join WorkLink AI has been approved. You can now login to your dashboard and start accepting service bookings.'
-              : `Thank you for your interest in joining WorkLink AI. Unfortunately, your application has been rejected at this time for the following reason: ${worker.rejectionReason}`}
+              ? 'Congratulations! Your application to join Worklyn AI has been approved. You can now login to your dashboard and start accepting service bookings.'
+              : `Thank you for your interest in joining Worklyn AI. Unfortunately, your application has been rejected at this time for the following reason: ${worker.rejectionReason}`}
           </p>
           ${approved ? `
           <div style="text-align: center; margin: 32px 0;">
@@ -98,7 +98,7 @@ class EmailService {
         </div>
       </div>
     `;
-    return this.sendEmail({ to: worker.email, subject: `Application ${approved ? 'Approved' : 'Rejected'} - WorkLink AI`, html });
+    return this.sendEmail({ to: worker.email, subject: `Application ${approved ? 'Approved' : 'Rejected'} - Worklyn AI`, html });
   }
 
   /**
@@ -108,7 +108,7 @@ class EmailService {
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
         <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-bottom: 1px solid #e2e8f0;">
-          <h1 style="color: #D4AF37; margin: 0;">WorkLink AI</h1>
+          <h1 style="color: #D4AF37; margin: 0;">Worklyn AI</h1>
         </div>
         <div style="padding: 32px;">
           <h2 style="color: #1e293b; margin-top: 0;">Booking Update</h2>
@@ -121,7 +121,7 @@ class EmailService {
         </div>
       </div>
     `;
-    return this.sendEmail({ to: recipientEmail, subject: `Booking Update - WorkLink AI`, html });
+    return this.sendEmail({ to: recipientEmail, subject: `Booking Update - Worklyn AI`, html });
   }
 }
 

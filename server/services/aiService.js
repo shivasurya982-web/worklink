@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 /**
- * WorkLink AI Assistant Logic
+ * Worklyn AI Assistant Logic
  * This service handles intelligent matching and natural language search processing.
  */
 class AIService {
@@ -109,23 +109,23 @@ class AIService {
     const patterns = [
       {
         keys: ['how', 'book', 'service'],
-        response: 'To book a service on WorkLink AI: 1) Search for the professional you need, 2) View their profile and rates, 3) Click "Book Now" and select your preferred date/time.'
+        response: 'To book a service on Worklyn AI: 1) Search for the professional you need, 2) View their profile and rates, 3) Click "Book Now" and select your preferred date/time.'
       },
       {
         keys: ['become', 'worker', 'join'],
-        response: 'To become a WorkLink AI professional: 1) Click "Become a Worker" on the homepage, 2) Fill in your details and upload your ID proof, 3) Wait for admin approval (usually under 24 hours).'
+        response: 'To become a Worklyn AI professional: 1) Click "Become a Worker" on the homepage, 2) Fill in your details and upload your ID proof, 3) Wait for admin approval (usually under 24 hours).'
       },
       {
         keys: ['verify', 'safe'],
-        response: 'All workers on WorkLink AI go through a rigorous verification process: 1) Government Identity check, 2) Skill certificate review, 3) Background verification by our admin team.'
+        response: 'All workers on Worklyn AI go through a rigorous verification process: 1) Government Identity check, 2) Skill certificate review, 3) Background verification by our admin team.'
       },
       {
         keys: ['pay', 'cost', 'money'],
-        response: 'WorkLink AI uses a transparent pricing model. You can see the hourly rates of every professional upfront. Payment is settled directly with the worker after successful job completion.'
+        response: 'Worklyn AI uses a transparent pricing model. You can see the hourly rates of every professional upfront. Payment is settled directly with the worker after successful job completion.'
       },
       {
         keys: ['help', 'support', 'contact'],
-        response: 'Our support team is here for you! You can email us at support@worklinkai.com or reach out via the "Complaints" section in your dashboard.'
+        response: 'Our support team is here for you! You can email us at support@worklynai.com or reach out via the "Complaints" section in your dashboard.'
       }
     ];
 
@@ -136,7 +136,7 @@ class AIService {
     }
 
     return {
-      message: "I'm the WorkLink AI Assistant! I can help you find local workers, book services, track your bookings, or explain how our platform works. What can I help you with today?"
+      message: "I'm the Worklyn AI Assistant! I can help you find local workers, book services, track your bookings, or explain how our platform works. What can I help you with today?"
     };
   }
 }

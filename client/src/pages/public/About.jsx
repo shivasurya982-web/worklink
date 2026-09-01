@@ -16,10 +16,10 @@ const About = () => {
           <div className="container-responsive relative z-10 text-center">
             <span className="text-xs font-bold text-accent-gold uppercase tracking-[0.2em] mb-4 block">Our Journey</span>
             <h1 className="text-hero font-sora font-extrabold text-text-primary mb-6">
-               Redefining Local Services <br /> with <span className="text-accent-gold">WorkLink</span>
+               Redefining Local Services <br /> with <span className="text-accent-gold">Worklyn</span>
             </h1>
             <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              WorkLink is a platform designed to make it easier to find trusted, verified, and high-quality local professionals for everyday needs.
+              Worklyn is a platform designed to make it easier to find trusted, verified, and high-quality local professionals for everyday needs.
             </p>
           </div>
         </section>
@@ -50,7 +50,7 @@ const About = () => {
         <section className="py-20">
           <div className="container-responsive">
              <div className="text-center mb-16">
-                <h2 className="text-3xl font-sora font-bold text-text-primary mb-4">Why We Built WorkLink</h2>
+                <h2 className="text-3xl font-sora font-bold text-text-primary mb-4">Why We Built Worklyn</h2>
                 <div className="w-20 h-1 bg-accent-gold mx-auto rounded-full" />
              </div>
 

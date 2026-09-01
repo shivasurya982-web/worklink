@@ -7,7 +7,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   const [cmsSettings, setCmsSettings] = useState({
-    footerCopyrightText: 'WorkLink. All rights reserved.',
+    footerCopyrightText: 'Worklyn. All rights reserved.',
   });
 
   useEffect(() => {
@@ -30,11 +30,11 @@ const Footer = () => {
           <div className="max-w-xl">
             <Link to="/" className="inline-flex items-center gap-2 mb-4">
               <span className="font-sora font-bold text-xl text-text-primary">
-                WorkLink
+                Worklyn
               </span>
             </Link>
             <p className="text-sm text-text-secondary mb-5 leading-relaxed">
-              WorkLink is a local service marketplace — connecting trusted workers with nearby customers seamlessly.
+              Worklyn is a local service marketplace — connecting trusted workers with nearby customers seamlessly.
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-text-muted">
               <span className="flex items-center gap-1.5">
@@ -51,7 +51,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <p>© {year} {cmsSettings.footerCopyrightText || 'WorkLink. All rights reserved.'}</p>
+          <p>© {year} {cmsSettings.footerCopyrightText || 'Worklyn. All rights reserved.'}</p>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span className="flex items-center gap-1">
               Made with <Heart className="w-3 h-3 text-accent-red fill-accent-red" /> for local workers

@@ -76,7 +76,7 @@ const Login = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <span className="font-sora font-bold text-2xl text-text-primary">
-              WorkLink
+              Worklyn
             </span>
           </Link>
           <p className="text-xs text-text-secondary font-medium uppercase tracking-[0.15em]">Access Your Account</p>

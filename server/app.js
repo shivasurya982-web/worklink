@@ -61,7 +61,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Root route
 app.get('/', (req, res) => {
   res.json({
-    message: 'Welcome to WorkLink AI API',
+    message: 'Welcome to Worklyn AI API',
     status: 'Operational',
     version: '1.0.0',
   });

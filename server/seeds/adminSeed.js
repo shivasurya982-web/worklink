@@ -7,9 +7,9 @@ const seedAdmin = async () => {
   try {
     await connectDB();
 
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@worklinkai.com';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@worklynai.com';
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
-    const adminName = process.env.ADMIN_NAME || 'WorkLink Admin';
+    const adminName = process.env.ADMIN_NAME || 'Worklyn Admin';
 
     const existingAdmin = await Admin.findOne({ email: adminEmail });
 

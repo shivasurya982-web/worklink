@@ -5,7 +5,7 @@ import FloatingInput from '../../components/common/FloatingInput';
 import PremiumButton from '../../components/common/PremiumButton';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { Plus, Trash2, Edit } from 'lucide-react';
+import { Plus, Trash2, Edit, Grid } from 'lucide-react';
 import API from '../../services/api';
 
 const AdminCategories = () => {
@@ -55,9 +55,8 @@ const AdminCategories = () => {
 
     const formData = new FormData();
     formData.append('name', name);
-    // Keep internal defaults to prevent backend errors if they are required in schema
     formData.append('description', 'Service category');
-    formData.append('icon', 'Wrench');
+    formData.append('icon', 'Grid');
 
     try {
       let res;
@@ -65,12 +64,12 @@ const AdminCategories = () => {
         res = await API.put(`/categories/${editingCategory._id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        showToast('Category Updated', 'Service category updated successfully.', 'success');
+        showToast('Sync Successful', 'Service domain updated.', 'success');
       } else {
         res = await API.post('/categories', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        showToast('Category Added', 'New service category created successfully.', 'success');
+        showToast('Node Created', 'New service segment initialized.', 'success');
       }
 
       if (res.success) {
@@ -85,12 +84,12 @@ const AdminCategories = () => {
   };
 
   const handleDeleteCategory = async (catId) => {
-    if (!window.confirm('Are you sure you want to delete this category? Workers assigned to it may need categories updated.')) return;
+    if (!window.confirm('PERMANENTLY PURGE this category? This will affect node filtering.')) return;
 
     try {
       const res = await API.delete(`/categories/${catId}`);
       if (res.success) {
-        showToast('Category Deleted', 'Service category deleted successfully.', 'info');
+        showToast('Data Purged', 'Domain segment removed.', 'info');
         setCategories((prev) => prev.filter((c) => c._id !== catId));
       }
     } catch (err) {
@@ -100,61 +99,70 @@ const AdminCategories = () => {
 
   return (
     <DashboardLayout
-      title="Manage Categories"
-      subtitle="Configure, add, edit, or delete platform service categories"
+      title="Domain Architecture"
+      subtitle="Ecosystem segmentation and service node categorization"
     >
-      <div className="space-y-6">
+      <div className="space-y-10">
         <div className="flex justify-end">
           <PremiumButton
             variant="gold"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={handleOpenAddModal}
+            className="px-8 shadow-orange"
           >
-            Add New Category
+            INITIALIZE SEGMENT
           </PremiumButton>
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+          <div className="flex justify-center py-20">
+            <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
           </div>
         ) : categories.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat) => (
-              <GlassCard key={cat._id} goldBorder className="flex flex-col justify-between h-full p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-sora font-bold text-sm text-text-primary truncate pr-2">
-                    {cat.name}
-                  </h4>
-                  <span className="text-[9px] font-bold text-accent-gold bg-amber-50 px-2 py-0.5 rounded-full shrink-0">
-                    {cat.workerCount || 0} Pros
-                  </span>
+              <GlassCard key={cat._id} goldBorder className="flex flex-col justify-between h-full p-6 !bg-background-card border-border-primary/40 shadow-2xl group">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="min-w-0">
+                    <h4 className="font-sora font-black text-base text-white truncate pr-2 uppercase tracking-tight group-hover:text-accent-bright transition-colors">
+                      {cat.name}
+                    </h4>
+                    <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Operational Module</p>
+                  </div>
+                  <div className="bg-background-widget px-3 py-1 rounded-lg border border-accent-orange/20 shadow-xl shrink-0">
+                    <span className="text-[10px] font-black text-accent-bright uppercase tracking-tighter">
+                      {cat.workerCount || 0} NODES
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-1.5 pt-3 border-t border-gray-100">
+                <div className="flex items-center justify-end gap-3 pt-6 border-t border-white/5">
                   <button
                     onClick={() => handleOpenEditModal(cat)}
-                    className="p-2 rounded-xl bg-gray-50 hover:bg-amber-50 hover:text-accent-gold text-text-secondary transition-colors"
-                    title="Edit Category"
+                    className="p-3 rounded-xl bg-background-widget hover:bg-accent-orange/20 hover:text-accent-bright text-text-muted transition-all border border-white/5"
+                    title="Sync Config"
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit className="w-4.5 h-4.5" />
                   </button>
                   <button
                     onClick={() => handleDeleteCategory(cat._id)}
-                    className="p-2 rounded-xl bg-gray-50 hover:bg-red-50 hover:text-accent-red text-text-secondary transition-colors"
-                    title="Delete Category"
+                    className="p-3 rounded-xl bg-red-950/20 hover:bg-red-900/40 text-red-400 transition-all border border-red-500/20"
+                    title="Purge Domain"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4.5 h-4.5" />
                   </button>
                 </div>
               </GlassCard>
             ))}
           </div>
         ) : (
-          <GlassCard className="text-center py-12 text-xs text-text-muted">
-            No service categories defined on the platform yet.
-          </GlassCard>
+          <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+             <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
+                <Grid className="w-10 h-10 text-accent-bright opacity-20" />
+             </div>
+             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO DOMAIN SEGMENTS INITIALIZED.</p>
+          </div>
         )}
       </div>
 
@@ -163,19 +171,23 @@ const AdminCategories = () => {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          title={editingCategory ? 'Edit Category' : 'Add New Category'}
+          title={editingCategory ? 'DOMAIN RECONFIGURATION' : 'SEGMENT INITIALIZATION'}
         >
-          <form onSubmit={handleSubmit} className="space-y-6 pt-2">
-            <FloatingInput
-              id="name"
-              label="Category Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+          <form onSubmit={handleSubmit} className="space-y-10 pt-6">
+            <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner">
+               <FloatingInput
+                id="name"
+                label="SEGMENT IDENTIFIER"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="!bg-background-cardSecondary border-border-primary/30"
+              />
+              <p className="text-[10px] font-bold text-text-muted mt-4 uppercase tracking-[0.2em] px-2 italic">DETERMINE THE PRIMARY LABEL FOR THIS SERVICE CATEGORY MODULE.</p>
+            </div>
 
-            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={formLoading}>
-              {editingCategory ? 'Save Changes' : 'Create Category'}
+            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={formLoading} className="py-5 text-base shadow-orange font-black">
+              {editingCategory ? 'SYNC PARAMETERS' : 'EXECUTE INITIALIZATION'}
             </PremiumButton>
           </form>
         </Modal>

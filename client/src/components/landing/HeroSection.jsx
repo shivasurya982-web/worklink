@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import API from '../../services/api';
+import PremiumButton from '../common/PremiumButton';
 
 const HeroSection = () => {
   const [settings, setSettings] = useState({
     announcementText: 'Verified Local Service Marketplace',
     heroTitle: 'Find & Book Trusted Local Experts In Seconds',
     heroSubtitle:
-      'Worklyn connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by intelligent matching.',
+      'WorkLink connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by intelligent matching.',
     heroBannerImage: '',
   });
   const [realStats, setRealStats] = useState({
@@ -35,7 +36,7 @@ const HeroSection = () => {
         setRealStats(statsRes.data);
       }
     } catch {
-      // Keep default copy
+      // Keep defaults
     } finally {
       setLoadingStats(false);
     }
@@ -43,7 +44,6 @@ const HeroSection = () => {
 
   useEffect(() => {
     fetchData();
-    // Poll for live updates every 30 seconds
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -56,55 +56,57 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
-      {/* Background Orbs */}
-      <div className="absolute top-16 left-1/4 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-accent-gold/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-32 right-1/4 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-accent-blue/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+    <section className="relative pt-32 sm:pt-40 lg:pt-48 pb-16 sm:pb-24 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+      {/* Dynamic Orange Atmosphere */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
+         <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-accent-bright/10 rounded-full blur-[180px] animate-float opacity-50" />
+         <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-orange/15 rounded-full blur-[150px] animate-pulse-glow" />
+         <div className="absolute top-[30%] right-[10%] w-[40%] h-[40%] bg-accent-main/5 rounded-full blur-[120px]" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Banner Graphic if set in admin CMS */}
         {settings.heroBannerImage && (
-          <div className="mb-8 max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-accent-gold/20">
-            <img src={settings.heroBannerImage} alt="Hero Banner" className="w-full max-h-64 object-cover" />
+          <div className="mb-12 max-w-5xl mx-auto rounded-[3rem] overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.4)] border-4 border-white/10">
+            <img src={settings.heroBannerImage} alt="Hero Banner" className="w-full max-h-80 object-cover" />
           </div>
         )}
 
-        {/* Header Copy */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-
-          {/* Big Brand Name */}
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-sora font-extrabold mb-6 tracking-tighter">
-            <span className="bg-gradient-to-r from-text-primary via-accent-gold to-text-primary bg-[length:200%_auto] animate-title-shimmer bg-clip-text text-transparent">
-              Worklyn
-            </span>
-          </h2>
-
+        <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full glass-panel border border-accent-gold/30 text-xs font-semibold text-text-primary mb-8 shadow-sm animate-float">
-            <Sparkles className="w-3.5 h-3.5 text-accent-gold" />
+          <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-background-dark/80 backdrop-blur-xl border border-accent-main/40 text-[11px] font-black text-accent-bright mb-10 shadow-[0_15px_30px_rgba(0,0,0,0.3)] animate-slide-up uppercase tracking-[0.3em]">
+            <Sparkles className="w-4 h-4 text-accent-light" />
             <span>{settings.announcementText}</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-hero font-sora font-extrabold text-text-primary tracking-tight mb-5">
-            {settings.heroTitle}
+          {/* Big Headline */}
+          <h1 className="text-hero font-sora font-black text-white tracking-tighter mb-8 animate-slide-up drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)]">
+            {settings.heroTitle.split(' ').map((word, i) => (
+              <span key={i} className={i % 3 === 2 ? 'orange-gradient-text block sm:inline' : ''}>
+                {word}{' '}
+              </span>
+            ))}
           </h1>
 
-          <p className="text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-jakarta max-w-xl mx-auto">
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base lg:text-xl text-text-secondary leading-relaxed font-jakarta max-w-2xl mx-auto mb-12 animate-slide-up opacity-90 font-medium">
             {settings.heroSubtitle}
           </p>
+
         </div>
 
-        {/* Dynamic Stats Strip */}
-        <div className="mt-10 sm:mt-14 flex flex-wrap justify-center gap-6 sm:gap-10 text-center animate-fade-in">
-          {statsItems.map((s) => (
-            <div key={s.label}>
-              <div className="text-xl sm:text-2xl font-sora font-extrabold text-accent-gold">
-                {loadingStats && realStats.totalCustomers === 0 ? '...' : s.num}
+        {/* Dynamic Stats Row */}
+        <div className="max-w-5xl mx-auto bg-background-dark/40 backdrop-blur-3xl rounded-[2.5rem] p-8 sm:p-12 border border-white/5 shadow-2xl animate-fade-in">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+            {statsItems.map((s) => (
+              <div key={s.label} className="text-center group">
+                <div className="text-2xl sm:text-4xl font-sora font-black text-white mb-2 group-hover:text-accent-bright transition-colors">
+                  {loadingStats && realStats.totalCustomers === 0 ? '...' : s.num}
+                </div>
+                <div className="text-[10px] sm:text-[11px] font-black text-accent-light/60 uppercase tracking-[0.2em]">{s.label}</div>
               </div>
-              <div className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-0.5">{s.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

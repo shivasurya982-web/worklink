@@ -32,13 +32,8 @@ const CategoryGrid = () => {
         API.get('/site/settings'),
         API.get('/categories')
       ]);
-
-      if (settingsRes.success && settingsRes.data) {
-        setSettings((prev) => ({ ...prev, ...settingsRes.data }));
-      }
-      if (catsRes.success && catsRes.data) {
-        setCategories(catsRes.data.slice(0, 12)); // Show top 12
-      }
+      if (settingsRes.success && settingsRes.data) setSettings(prev => ({ ...prev, ...settingsRes.data }));
+      if (catsRes.success && catsRes.data) setCategories(catsRes.data.slice(0, 12));
     } catch (err) {
       console.error(err);
     } finally {
@@ -49,80 +44,46 @@ const CategoryGrid = () => {
   if (loading && categories.length === 0) {
     return (
       <div className="py-20 flex justify-center">
-         <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+         <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-bright border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <section className="section-py">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-3">
-          <div>
-            <span className="text-xs font-semibold text-accent-gold uppercase tracking-widest font-outfit">
-              Browse Services
-            </span>
-            <h2 className="text-section-title font-sora font-bold text-text-primary mt-1">
-              {settings.categorySectionTitle}
-            </h2>
-            <p className="text-sm text-text-secondary mt-1.5 max-w-md">
-              {settings.categorySectionSubtitle}
-            </p>
+    <section className="py-20 sm:py-24 relative overflow-hidden bg-background-dark/20">
+      <div className="container-responsive relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6 text-center md:text-left">
+          <div className="max-w-2xl mx-auto md:mx-0">
+            <span className="text-[10px] font-black text-accent-bright uppercase tracking-[0.4em] mb-4 block">Ecosystem Nodes</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sora font-black text-white tracking-tight">{settings.categorySectionTitle}</h2>
+            <p className="text-sm sm:text-base text-text-secondary mt-4 opacity-80 leading-relaxed font-medium">{settings.categorySectionSubtitle}</p>
           </div>
-          <Link
-            to="/search"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-gold hover:underline shrink-0"
-          >
-            View All Categories <ArrowRight className="w-3.5 h-3.5" />
+          <Link to="/search" className="hidden md:inline-flex items-center gap-2 text-xs font-black text-accent-bright hover:text-white transition-all uppercase tracking-widest">
+            View All <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* ── Grid: 2 col mobile → 3 col tablet → 4 col desktop ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {categories.map((cat) => {
             const Icon = iconMap[cat.icon] || Wrench;
-            // Generate a random-looking but stable color based on name if not provided
-            const colors = [
-              { color: 'from-yellow-400/20 to-amber-300/10', accent: 'text-amber-500' },
-              { color: 'from-blue-400/20 to-cyan-300/10',   accent: 'text-blue-500' },
-              { color: 'from-orange-400/20 to-red-300/10',  accent: 'text-orange-500' },
-              { color: 'from-pink-400/20 to-rose-300/10',   accent: 'text-pink-500' },
-              { color: 'from-cyan-400/20 to-blue-300/10',  accent: 'text-cyan-500' },
-              { color: 'from-green-400/20 to-emerald-300/10', accent: 'text-green-500' },
-            ];
-            const colorIdx = cat.name.length % colors.length;
-            const theme = colors[colorIdx];
-
             return (
-              <Link
-                key={cat._id}
-                to={`/search?category=${cat.slug || cat._id}`}
-                className="group block"
-              >
-                <div className="glass-card h-full p-4 sm:p-5 rounded-2xl border border-gray-100 flex flex-col">
-                  {/* Icon */}
-                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr ${theme.color} ${theme.accent} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+              <Link key={cat._id} to={`/search?category=${cat.slug || cat._id}`} className="group block h-full">
+                <div className="glass-card h-full p-6 sm:p-8 rounded-[2rem] border border-border-primary/40 hover:border-accent-orange/60 transition-all duration-300 flex flex-col items-center text-center">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-background-widget border border-white/5 text-accent-bright flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent-orange group-hover:text-white transition-all duration-300 shadow-xl">
+                    <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                   </div>
-
-                  {/* Text */}
-                  <h3 className="font-sora font-semibold text-sm sm:text-base text-text-primary mb-1 leading-tight">
-                    {cat.name}
-                  </h3>
-                  <p className="text-[11px] sm:text-xs text-text-muted mb-3 leading-snug flex-1 line-clamp-2">
-                    {cat.description || 'Explore top rated professionals.'}
-                  </p>
-
-                  {/* Badge */}
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-accent-gold bg-amber-50 px-2 sm:px-2.5 py-1 rounded-full w-fit border border-accent-gold/20">
-                    Verified Experts
-                  </span>
+                  <h3 className="font-sora font-bold text-base sm:text-lg text-white mb-2 group-hover:text-accent-bright transition-colors uppercase tracking-tight">{cat.name}</h3>
+                  <p className="text-[10px] sm:text-[11px] text-text-muted mb-6 leading-relaxed font-medium line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified node specialization'}</p>
+                  <div className="mt-auto px-4 py-1.5 rounded-full border border-accent-orange/30 text-[9px] font-black text-accent-light uppercase tracking-widest group-hover:bg-accent-orange group-hover:text-white transition-all">Scan Node</div>
                 </div>
               </Link>
             );
           })}
+        </div>
+        <div className="mt-10 md:hidden flex justify-center">
+           <Link to="/search" className="inline-flex items-center gap-2 text-xs font-black text-accent-bright uppercase tracking-widest">
+              Explore All <ArrowRight className="w-4 h-4" />
+           </Link>
         </div>
       </div>
     </section>

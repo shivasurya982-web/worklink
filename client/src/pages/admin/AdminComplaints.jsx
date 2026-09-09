@@ -59,7 +59,7 @@ const AdminComplaints = () => {
       });
 
       if (res.success) {
-        showToast('Status Updated', `Complaint status updated to ${newStatus}.`, 'success');
+        showToast('System Updated', `Conflict status updated to ${newStatus}.`, 'success');
         setModalOpen(false);
         fetchComplaints();
       }
@@ -71,13 +71,13 @@ const AdminComplaints = () => {
   };
 
   const handleDeleteComplaint = async (id) => {
-    if (!window.confirm('Are you sure you want to permanently delete this complaint?')) return;
+    if (!window.confirm('PERMANENTLY PURGE this conflict log?')) return;
 
     setDeleting(true);
     try {
       const res = await API.delete(`/complaints/admin/${id}`);
       if (res.success) {
-        showToast('Complaint Deleted', 'The complaint record has been removed.', 'info');
+        showToast('Data Purged', 'Conflict record removed.', 'info');
         setComplaints(prev => prev.filter(c => c._id !== id));
       }
     } catch (err) {
@@ -103,25 +103,25 @@ const AdminComplaints = () => {
 
   return (
     <DashboardLayout
-      title="Complaints & Support Control Center"
-      subtitle="Review customer & worker reports, assign priorities, and log official resolutions"
+      title="Conflict Monitoring"
+      subtitle="Ecosystem support tickets, node reports, and resolution logging"
     >
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-100 pb-3">
+      <div className="flex flex-wrap gap-3 mb-10 border-b border-white/5 pb-5">
         {[
-          { id: 'all', label: `All (${complaints.length})` },
-          { id: 'open', label: `Open (${complaints.filter((c) => c.status === 'open').length})` },
-          { id: 'in_review', label: `In Review (${complaints.filter((c) => c.status === 'in_review').length})` },
-          { id: 'resolved', label: `Resolved (${complaints.filter((c) => c.status === 'resolved').length})` },
-          { id: 'rejected', label: `Rejected (${complaints.filter((c) => c.status === 'rejected').length})` },
+          { id: 'all', label: `ALL (${complaints.length})` },
+          { id: 'open', label: `OPEN (${complaints.filter((c) => c.status === 'open').length})` },
+          { id: 'in_review', label: `AUDIT (${complaints.filter((c) => c.status === 'in_review').length})` },
+          { id: 'resolved', label: `RESOLVED (${complaints.filter((c) => c.status === 'resolved').length})` },
+          { id: 'rejected', label: `TERMINATED (${complaints.filter((c) => c.status === 'rejected').length})` },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
               activeTab === tab.id
-                ? 'bg-accent-gold text-text-primary shadow-md font-bold'
-                : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                ? 'bg-accent-orange text-white shadow-xl scale-105'
+                : 'bg-background-cardSecondary text-text-muted hover:text-white border border-border-primary/20'
             }`}
           >
             {tab.label}
@@ -130,85 +130,94 @@ const AdminComplaints = () => {
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+        <div className="flex justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
         </div>
       ) : filteredComplaints.length > 0 ? (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {filteredComplaints.map((c) => (
-            <GlassCard key={c._id} hover={false} className="p-6 border border-gray-100 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-3">
+            <GlassCard key={c._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl space-y-6 group relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 blur-3xl pointer-events-none" />
+
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-6 relative z-10">
                 {/* Complainant User Info */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <img
-                    src={c.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.user?.name || 'User')}&background=D4AF37&color=fff`}
+                    src={c.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.user?.name || 'User')}&background=F4510B&color=fff`}
                     alt={c.user?.name}
-                    className="w-10 h-10 rounded-full object-cover border border-accent-gold/40 shrink-0"
+                    className="w-16 h-16 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl shrink-0"
                   />
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-sora font-bold text-sm text-text-primary">{c.user?.name}</h4>
-                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs">
-                        {c.userModel}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-sora font-black text-xl text-white tracking-tighter uppercase">{c.user?.name}</h4>
+                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-black">
+                        {c.userModel} Node
                       </Badge>
                     </div>
-                    <p className="text-[10px] text-text-muted mt-0.5">
-                      {c.user?.email} • {c.user?.phone || 'No phone'}
+                    <p className="text-[10px] font-black text-text-muted mt-2 uppercase tracking-widest opacity-80">
+                      ID: {c.user?.email} | COMMS: {c.user?.phone || 'Unknown'}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0">
-                  <Badge variant={statusVariant(c.status)}>
-                    {(c.status || 'open').toUpperCase().replace(/_/g, ' ')}
+                <div className="flex items-center gap-4 shrink-0 self-end md:self-center">
+                  <Badge variant={statusVariant(c.status)} size="md" className="!rounded-xl px-5 font-black">
+                    {(c.status || 'open').replace(/_/g, ' ')}
                   </Badge>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <PremiumButton
                       variant="gold"
                       size="sm"
                       onClick={() => handleOpenActionModal(c)}
+                      className="px-6 shadow-orange font-black"
                     >
-                      Take Action
+                      Process
                     </PremiumButton>
                     <button
                       onClick={() => handleDeleteComplaint(c._id)}
-                      className="p-2 rounded-xl bg-red-50 text-accent-red hover:bg-red-100 transition-all border border-red-100"
-                      title="Delete Complaint"
+                      className="p-3 rounded-2xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-xl"
+                      title="Purge Ticket"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Subject & Description */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-xs text-text-primary">{c.subject}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 font-semibold text-text-muted">
-                    Category: {c.category}
-                  </span>
+              <div className="relative z-10 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-background-widget flex items-center justify-center border border-accent-bright/20"><AlertCircle className="w-4 h-4 text-accent-bright" /></div>
+                  <span className="font-black text-sm text-white uppercase tracking-tight">{c.subject}</span>
+                  <div className="bg-background-dark/50 px-3 py-1 rounded-lg border border-white/5">
+                    <span className="text-[9px] font-black text-accent-light uppercase tracking-widest">DOMAIN: {c.category}</span>
+                  </div>
                 </div>
-                <p className="text-xs text-text-secondary leading-relaxed bg-gray-50/80 p-3 rounded-xl border border-gray-100">
-                  "{c.description}"
-                </p>
+                <div className="bg-background-dark/30 p-6 rounded-[2rem] border-2 border-white/5 shadow-inner relative group min-h-[100px] hover:border-accent-main/20 transition-all">
+                  <p className="text-sm text-text-secondary leading-relaxed font-bold italic opacity-90 pr-8">
+                    "{c.description}"
+                  </p>
+                </div>
               </div>
 
               {c.resolutionNotes && (
-                <div className="p-3 bg-emerald-50 rounded-xl text-xs text-emerald-900 border border-emerald-200">
-                  <span className="font-bold text-emerald-700 block mb-0.5 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-accent-green" /> Resolution Notes:
+                <div className="p-6 bg-emerald-950/20 rounded-[2rem] text-sm text-emerald-400 border-2 border-emerald-500/20 shadow-inner animate-fade-in relative z-10">
+                  <span className="font-black text-emerald-400 block mb-3 flex items-center gap-2 uppercase tracking-[0.2em]">
+                    <CheckCircle2 className="w-5 h-5 text-accent-green" /> Resolution Artifact:
                   </span>
-                  {c.resolutionNotes}
+                  <p className="font-bold leading-relaxed">{c.resolutionNotes}</p>
                 </div>
               )}
             </GlassCard>
           ))}
         </div>
       ) : (
-        <GlassCard className="text-center py-12 text-xs text-text-muted">
-          No complaints found in this tab status.
-        </GlassCard>
+        <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+           <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
+              <ShieldCheck className="w-10 h-10 text-accent-green opacity-20" />
+           </div>
+           <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO CONFLICT LOGS DETECTED UNDER THIS PARAMETER.</p>
+        </div>
       )}
 
       {/* Action Modal */}
@@ -216,37 +225,39 @@ const AdminComplaints = () => {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          title={`Resolve Complaint: ${selectedComplaint?.subject}`}
+          title={`RESOLVE CONFLICT: ${selectedComplaint?.subject}`}
         >
-          <form onSubmit={handleUpdateStatus} className="space-y-4 pt-2">
-            <div>
-              <label className="text-xs font-semibold text-text-primary block mb-1">Update Status</label>
-              <select
-                value={newStatus}
-                onChange={(e) => setNewStatus(e.target.value)}
-                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-bold"
-              >
-                <option value="in_review">In Review</option>
-                <option value="resolved">Resolved</option>
-                <option value="rejected">Rejected</option>
-                <option value="open">Re-open</option>
-              </select>
+          <form onSubmit={handleUpdateStatus} className="space-y-10 pt-6">
+            <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner space-y-8">
+              <div>
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">SYSTEM STATE</label>
+                <select
+                  value={newStatus}
+                  onChange={(e) => setNewStatus(e.target.value)}
+                  className="w-full bg-background-card border-2 border-border-primary/40 rounded-2xl p-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
+                >
+                  <option value="in_review">In Review / Audit</option>
+                  <option value="resolved">Mark Resolved</option>
+                  <option value="rejected">Mark Terminated</option>
+                  <option value="open">Initialize State (Open)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">OFFICIAL RESOLUTION NOTES</label>
+                <textarea
+                  rows={5}
+                  value={resolutionNotes}
+                  onChange={(e) => setResolutionNotes(e.target.value)}
+                  placeholder="Document the administrative resolution protocol..."
+                  className="w-full bg-background-card border-2 border-border-primary/40 rounded-[2rem] p-6 text-sm font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl"
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="text-xs font-semibold text-text-primary block mb-1">Admin Resolution Notes</label>
-              <textarea
-                rows={4}
-                value={resolutionNotes}
-                onChange={(e) => setResolutionNotes(e.target.value)}
-                placeholder="Write official resolution notes to inform the customer/worker..."
-                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-                required
-              />
-            </div>
-
-            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={updating}>
-              Save Complaint Resolution
+            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={updating} className="py-5 text-base shadow-orange font-black">
+              SAVE RESOLUTION PROTOCOL
             </PremiumButton>
           </form>
         </Modal>

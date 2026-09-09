@@ -26,44 +26,46 @@ import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import API from '../../services/api';
 
-/* ── Review Item Component with Toggle ── */
+/* ── Review Item Component ── */
 const ReviewItem = ({ review }) => {
   const [showComment, setShowComment] = useState(false);
 
   return (
-    <div className="p-4 rounded-2xl bg-gray-50/80 border border-gray-100 space-y-2">
+    <div className="p-6 rounded-[2rem] bg-background-dark/50 border border-white/5 space-y-4 shadow-inner">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <img
-            src={review.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.customer?.name || 'Customer')}&background=D4AF37&color=fff`}
-            alt={review.customer?.name}
-            className="w-8 h-8 rounded-full object-cover"
-          />
-          <span className="text-xs font-semibold text-text-primary">
-            {review.customer?.name || 'Customer'}
-          </span>
-        </div>
         <div className="flex items-center gap-3">
+          <img
+            src={review.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.customer?.name || 'Customer')}&background=F4510B&color=fff`}
+            alt={review.customer?.name}
+            className="w-10 h-10 rounded-xl object-cover border-2 border-accent-main shadow-xl"
+          />
+          <div>
+            <span className="text-sm font-black text-white uppercase tracking-tight">
+              {review.customer?.name || 'ANONYMOUS NODE'}
+            </span>
+            <p className="text-[9px] font-black text-text-muted uppercase tracking-widest mt-0.5">Verified Consumer</p>
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-2">
           <RatingStars rating={review.rating} size="xs" />
           <button
             onClick={() => setShowComment(!showComment)}
-            className="text-[10px] font-bold text-accent-gold hover:underline flex items-center gap-0.5"
+            className="text-[9px] font-black text-accent-bright hover:text-white transition-colors uppercase tracking-[0.2em]"
           >
-            {showComment ? 'Hide Comment' : 'Read Comment'}
-            {showComment ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />}
+            {showComment ? 'DECRYPT LOG' : 'READ LOG'}
           </button>
         </div>
       </div>
 
       {showComment && (
-        <div className="animate-fade-in pt-1">
-          <p className="text-xs text-text-secondary leading-relaxed pl-10 border-l-2 border-accent-gold/20 italic">
+        <div className="animate-fade-in pt-2">
+          <p className="text-xs text-text-secondary leading-relaxed pl-6 border-l-2 border-accent-orange font-bold italic opacity-90">
             "{review.comment}"
           </p>
           {review.workerReply && (
-            <div className="p-3 bg-amber-50 rounded-xl text-xs text-amber-900 mt-3 border border-amber-200 ml-10">
-              <span className="font-bold text-accent-gold block mb-0.5">Worker Response:</span>
-              "{review.workerReply}"
+            <div className="p-4 bg-accent-orange/10 rounded-2xl text-xs text-accent-peach mt-4 border border-accent-orange/30 ml-6">
+              <span className="font-black text-accent-bright block mb-2 uppercase tracking-widest">NODE RESPONSE:</span>
+              <p className="font-medium">"{review.workerReply}"</p>
             </div>
           )}
         </div>
@@ -105,7 +107,6 @@ const WorkerProfilePage = () => {
     } catch (err) {}
   };
 
-  // Booking Form State
   const [bookingDate, setBookingDate] = useState('');
   const [bookingTime, setBookingTime] = useState('10:00');
   const [workDescription, setWorkDescription] = useState('');
@@ -117,7 +118,6 @@ const WorkerProfilePage = () => {
   });
   const [bookingLoading, setBookingLoading] = useState(false);
 
-  // Review Form State
   const [newRating, setNewRating] = useState(5);
   const [newComment, setNewComment] = useState('');
   const [reviewLoading, setReviewLoading] = useState(false);
@@ -151,7 +151,7 @@ const WorkerProfilePage = () => {
 
   const handleToggleFavorite = async () => {
     if (!isAuthenticated || role !== 'customer') {
-      showToast('Login Required', 'Please login as a customer to save favorites.', 'info');
+      showToast('Node Access Denied', 'Please initialize customer terminal to save modules.', 'info');
       navigate('/login');
       return;
     }
@@ -159,21 +159,21 @@ const WorkerProfilePage = () => {
       if (isFavorite) {
         await API.delete(`/customers/favorites/${id}`);
         setIsFavorite(false);
-        showToast('Removed', 'Professional removed from your favorites.', 'info');
+        showToast('Purged', 'Professional removed from local registry.', 'info');
       } else {
         await API.post(`/customers/favorites/${id}`);
         setIsFavorite(true);
-        showToast('Saved!', 'Professional added to your favorites ❤️', 'success');
+        showToast('Synchronized', 'Module pinned to your dashboard ❤️', 'success');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Could not update favorites.', 'error');
+      showToast('Error', err.message || 'Registry update failed.', 'error');
     }
   };
 
   const handleCreateBooking = async (e) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      showToast('Login Required', 'Please login as customer to book services.', 'info');
+      showToast('Access Denied', 'Initialize session to book requests.', 'info');
       navigate('/login');
       return;
     }
@@ -190,7 +190,7 @@ const WorkerProfilePage = () => {
       });
 
       if (res.success) {
-        showToast('Booking Request Sent!', 'Professional has been notified of your request.', 'success');
+        showToast('Signal Broadcasted!', 'Professional node notified of request.', 'success');
         setBookingModalOpen(false);
         navigate('/customer/bookings');
       }
@@ -215,14 +215,14 @@ const WorkerProfilePage = () => {
       });
 
       if (res.success) {
-        showToast('Rating Submitted!', 'Thank you for reviewing this professional.', 'success');
+        showToast('Data Synced', 'Quality audit recorded.', 'success');
         setReviewModalOpen(false);
         setNewComment('');
         setPendingBooking(null);
         fetchWorkerData();
       }
     } catch (err) {
-      showToast('Review Error', err.message || 'Failed to post review', 'error');
+      showToast('Audit Error', err.message || 'Failed to record audit', 'error');
     } finally {
       setReviewLoading(false);
     }
@@ -230,37 +230,17 @@ const WorkerProfilePage = () => {
 
   const handleStartChat = () => {
     if (!isAuthenticated) {
-      showToast('Login Required', 'Please login to chat with professionals.', 'info');
+      showToast('Link Failed', 'Initialize session to establish comms.', 'info');
       navigate('/login');
       return;
     }
     navigate(`/customer/messages?worker=${worker._id}`);
   };
 
-  const handleCallAction = (phoneNumber) => {
-    if (!isAuthenticated) {
-      showToast('Login Required', 'Please login to contact professionals.', 'info');
-      navigate('/login');
-      return;
-    }
-
-    if (!phoneNumber) return;
-    const cleanNumber = phoneNumber.replace(/\s+/g, '');
-
-    // Create link and click
-    const link = document.createElement('a');
-    link.href = `tel:${cleanNumber}`;
-    link.click();
-
-    // Laptop backup
-    navigator.clipboard.writeText(cleanNumber);
-    showToast('Dialing...', `Professional number ${phoneNumber} copied to clipboard as backup.`, 'success');
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-background-primary flex flex-col justify-center items-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-gold border-t-transparent" />
+        <div className="animate-spin rounded-full h-12 w-12 border-2 border-accent-bright border-t-transparent shadow-orange" />
       </div>
     );
   }
@@ -269,146 +249,143 @@ const WorkerProfilePage = () => {
     return (
       <div className="min-h-screen bg-background-primary flex flex-col">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center py-20 text-center">
-          <Sparkles className="w-12 h-12 text-accent-gold mb-3 opacity-50" />
-          <h2 className="text-xl font-sora font-bold text-text-primary">Professional Not Found</h2>
-          <p className="text-xs text-text-muted mt-1 mb-4">This profile does not exist or has been removed.</p>
-          <PremiumButton variant="gold" onClick={() => navigate('/search')}>Browse Professionals</PremiumButton>
+        <div className="flex-1 flex flex-col items-center justify-center py-32 text-center">
+          <div className="w-24 h-24 bg-background-dark rounded-[2rem] flex items-center justify-center mb-8 border border-white/5 shadow-2xl">
+            <Sparkles className="w-12 h-12 text-accent-bright opacity-20" />
+          </div>
+          <h2 className="text-3xl font-sora font-black text-white uppercase tracking-tighter">Node Not Found</h2>
+          <p className="text-xs font-black text-text-muted mt-2 mb-10 uppercase tracking-widest opacity-80">THIS PROFESSIONAL MODULE IS NO LONGER DETECTABLE ON THE NETWORK.</p>
+          <PremiumButton variant="gold" size="lg" onClick={() => navigate('/search')}>BACK TO DIRECTORY</PremiumButton>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col">
+    <div className="min-h-screen bg-background-primary flex flex-col relative overflow-hidden">
+      {/* Atmosphere */}
+      <div className="absolute top-0 right-0 w-full h-[600px] bg-accent-orange/10 blur-[150px] pointer-events-none" />
+
       <Navbar />
 
-      <main className="pt-20 sm:pt-24 pb-16 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6">
-        {/* Cover & Avatar Header */}
-        <div className="relative rounded-3xl overflow-hidden mb-8 shadow-xl">
+      <main className="pt-28 sm:pt-36 pb-24 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 relative z-10">
+        {/* Cover & Header */}
+        <div className="relative rounded-[3rem] overflow-hidden mb-12 shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-4 border-white/5 group">
           <img
-            src={worker.coverImage || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800'}
+            src={worker.coverImage || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200'}
             alt="Cover"
-            className="w-full h-56 md:h-72 object-cover"
+            className="w-full h-64 md:h-96 object-cover transition-transform duration-1000 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent" />
 
           {/* Floating Header Info */}
-          <div className="absolute bottom-6 left-6 right-6 flex flex-col md:flex-row md:items-end justify-between gap-4 text-white">
-            <div className="flex items-end gap-4">
-              <img
-                src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=D4AF37&color=fff`}
-                alt={worker.name}
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-white shadow-2xl shrink-0"
-              />
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-xl md:text-3xl font-sora font-bold text-white">{worker.name}</h1>
+          <div className="absolute bottom-8 left-8 right-8 flex flex-col lg:flex-row lg:items-end justify-between gap-8 text-white">
+            <div className="flex items-end gap-6">
+              <div className="relative shrink-0">
+                <img
+                  src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
+                  alt={worker.name}
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-[2rem] object-cover border-4 border-accent-main shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                />
+                {worker.isAvailable && <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent-green rounded-2xl border-4 border-background-dark shadow-2xl animate-pulse" />}
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <h1 className="text-3xl md:text-5xl font-sora font-black text-white tracking-tighter uppercase">{worker.name}</h1>
                   {worker.isVerified && (
-                    <Badge variant="verified" size="sm">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-accent-gold" /> Verified Pro
+                    <Badge variant="verified" size="sm" className="px-4 py-1.5 !rounded-xl">
+                      <CheckCircle2 className="w-4 h-4 text-accent-bright" /> VERIFIED NODE
                     </Badge>
                   )}
                 </div>
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                   <Badge variant="gold" size="xs" className="px-3 py-1 font-bold uppercase tracking-wider">
-                      {worker.profession}
-                   </Badge>
+                <div className="flex flex-wrap items-center gap-3 mt-4">
+                   <div className="bg-background-dark/50 backdrop-blur-xl px-4 py-1.5 rounded-xl border border-white/10">
+                      <span className="text-[10px] font-black text-accent-bright uppercase tracking-widest">{worker.profession}</span>
+                   </div>
                    {worker.category && (
-                     <Badge variant="blue" size="xs" className="px-3 py-1 font-bold uppercase tracking-wider">
-                        {worker.category.name}
-                     </Badge>
+                     <div className="bg-background-dark/50 backdrop-blur-xl px-4 py-1.5 rounded-xl border border-white/10">
+                        <span className="text-[10px] font-black text-accent-light uppercase tracking-widest">{worker.category.name}</span>
+                     </div>
                    )}
                 </div>
-                <p className="text-xs text-gray-200 mt-2 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5" /> {worker.address?.city || 'Local Area'}, {worker.address?.state || 'India'}
+                <p className="text-xs font-black text-white mt-4 flex items-center gap-2 uppercase tracking-[0.2em] opacity-90">
+                  <MapPin className="w-4 h-4 text-accent-bright" /> {worker.address?.city || 'LOCAL SECTOR'}
                 </p>
-                <div className="flex items-center gap-3 mt-2">
-                  <Badge variant={worker.isAvailable ? 'success' : 'danger'} size="xs">
-                    <Circle className={`w-2 h-2 mr-1 ${worker.isAvailable ? 'fill-current' : ''}`} />
-                    {worker.isAvailable ? 'Available Now' : 'Off Duty'}
-                  </Badge>
-                </div>
               </div>
             </div>
 
-            {/* Quick Contact & Chat Buttons */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            {/* Actions */}
+            <div className="flex items-center gap-3 flex-wrap">
               <button
                 onClick={handleStartChat}
-                className="px-4 py-2.5 rounded-full bg-accent-blue/90 hover:bg-accent-blue text-white text-xs font-bold flex items-center gap-1.5 shadow-md backdrop-blur-md transition-transform active:scale-95 min-h-[42px]"
+                className="px-6 py-3.5 rounded-2xl bg-background-widget/80 hover:bg-accent-orange text-white text-[11px] font-black flex items-center gap-2.5 shadow-2xl backdrop-blur-md transition-all uppercase tracking-widest border border-white/10"
               >
-                <MessageSquare className="w-4 h-4" /> Chat Now
+                <MessageSquare className="w-5 h-5" /> SYNC COMMS
               </button>
 
-              {/* ❤️ Favourite Button */}
               <button
                 onClick={handleToggleFavorite}
-                className={`px-4 py-2.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-md backdrop-blur-md transition-all active:scale-95 min-h-[42px] border ${
+                className={`px-6 py-3.5 rounded-2xl text-[11px] font-black flex items-center gap-2.5 shadow-2xl backdrop-blur-md transition-all uppercase tracking-widest border ${
                   isFavorite
-                    ? 'bg-red-500 text-white border-red-400 hover:bg-red-600'
-                    : 'bg-white/20 text-white border-white/30 hover:bg-white/30'
+                    ? 'bg-red-950/40 text-red-400 border-red-500/30'
+                    : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
                 }`}
-                title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
               >
-                <Heart className={`w-4 h-4 ${isFavorite ? 'fill-white' : ''}`} />
-                {isFavorite ? 'Saved' : 'Favourite'}
+                <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-400' : ''}`} />
+                {isFavorite ? 'PINNED' : 'PIN MODULE'}
               </button>
-
-              {pendingBookingForReview && (
-                <button
-                  onClick={() => setReviewModalOpen(true)}
-                  className="px-4 py-2.5 rounded-full bg-accent-gold hover:bg-amber-600 text-text-primary text-xs font-bold flex items-center gap-1.5 transition-all shadow-glow min-h-[42px] animate-pulse"
-                >
-                  <Star className="w-4 h-4 fill-text-primary" /> Rate Experience
-                </button>
-              )}
 
               <PremiumButton
                 variant="gold"
-                size="md"
+                size="lg"
                 onClick={() => setBookingModalOpen(true)}
                 disabled={!worker.isAvailable}
+                className="px-10 shadow-orange"
               >
-                {worker.isAvailable ? 'Book Service' : 'Off Duty'}
+                {worker.isAvailable ? 'INITIALIZE BOOKING' : 'NODE OFFLINE'}
               </PremiumButton>
             </div>
           </div>
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Left Column */}
-          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+          <div className="lg:col-span-2 space-y-10">
             {/* About */}
-            <GlassCard goldBorder className="p-6 rounded-3xl">
-              <h3 className="font-sora font-bold text-lg text-text-primary mb-3">About Professional</h3>
-              <p className="text-xs text-text-secondary leading-relaxed">{worker.description || 'Experienced local service provider.'}</p>
+            <GlassCard goldBorder className="p-8 sm:p-10 rounded-[3rem] !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl pointer-events-none" />
+              <h3 className="font-sora font-black text-2xl text-white mb-6 uppercase tracking-tighter flex items-center gap-4">
+                 <div className="w-1.5 h-8 bg-accent-bright rounded-full" /> NODE SPECIFICATION
+              </h3>
+              <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold italic opacity-90">
+                 "{worker.description || 'ELITE LOCAL SERVICE PROVIDER WITH VALIDATED MARKET CREDENTIALS.'}"
+              </p>
             </GlassCard>
 
             {/* Portfolio Grid */}
             {worker.portfolio?.length > 0 && (
-              <GlassCard className="p-6 rounded-3xl">
-                <h3 className="font-sora font-bold text-lg text-text-primary mb-4">Work Portfolio</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <GlassCard className="p-8 sm:p-10 rounded-[3rem] !bg-background-card border-border-primary/40 shadow-2xl">
+                <h3 className="font-sora font-black text-2xl text-white mb-10 uppercase tracking-tighter flex items-center gap-4">
+                   <div className="w-1.5 h-8 bg-accent-main rounded-full" /> OPERATIONAL ARTIFACTS
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   {worker.portfolio.map((item, idx) => (
-                    <div key={idx} className="flex flex-col rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50 hover:bg-white transition-colors group">
-                      <div className="h-40 overflow-hidden bg-gray-100">
+                    <div key={idx} className="flex flex-col rounded-[2rem] overflow-hidden border-2 border-white/5 bg-background-dark/40 hover:bg-background-dark/60 transition-all duration-500 group shadow-2xl">
+                      <div className="h-56 overflow-hidden bg-background-widget relative">
                         <img
                           src={item.url || item}
-                          alt={item.title || `Portfolio ${idx}`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          onError={(e) => {
-                            e.target.src = 'https://placehold.co/400x300?text=Work+Sample';
-                          }}
+                          alt={item.title || `Module ${idx}`}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
+                        <div className="absolute inset-0 bg-accent-orange/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <div className="p-3">
-                        <h4 className="font-sora font-bold text-xs text-text-primary mb-1">
-                          {item.title || `Completed Job #${idx + 1}`}
+                      <div className="p-6">
+                        <h4 className="font-sora font-black text-sm text-white mb-2 uppercase tracking-tight">
+                          {item.title || `SUCCESSFUL COMPLETION #${idx + 1}`}
                         </h4>
-                        <p className="text-[10px] text-text-secondary line-clamp-2 italic leading-relaxed">
-                          {item.description ? `"${item.description}"` : 'Professional service completion.'}
+                        <p className="text-[11px] text-text-muted font-bold italic leading-relaxed line-clamp-2">
+                          {item.description ? `"${item.description}"` : 'DOCUMENTED PROFESSIONAL SERVICE EXECUTION.'}
                         </p>
                       </div>
                     </div>
@@ -418,94 +395,74 @@ const WorkerProfilePage = () => {
             )}
 
             {/* Reviews Section */}
-            <GlassCard className="p-6 rounded-3xl">
-              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <GlassCard className="p-8 sm:p-10 rounded-[3rem] !bg-background-card border-border-primary/40 shadow-2xl">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-6">
                 <div>
-                  <h3 className="font-sora font-bold text-lg text-text-primary">
-                    Customer Reviews ({worker.totalReviews || reviews.length})
+                  <h3 className="font-sora font-black text-2xl text-white uppercase tracking-tighter flex items-center gap-4">
+                     <div className="w-1.5 h-8 bg-accent-gold rounded-full" /> QUALITY AUDITS
                   </h3>
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-3 mt-3">
                     <RatingStars rating={worker.rating || 0} size="sm" />
-                    <span className="text-xs font-bold text-accent-gold">({worker.rating || 0} / 5.0)</span>
+                    <span className="text-xs font-black text-accent-bright uppercase tracking-widest">({worker.rating || 0} INDEX)</span>
                   </div>
                 </div>
 
                 {pendingBookingForReview && (
-                  <PremiumButton variant="outline" size="sm" icon={Star} onClick={() => setReviewModalOpen(true)}>
-                    Rate Your Experience
+                  <PremiumButton variant="outline" size="sm" icon={Star} onClick={() => setReviewModalOpen(true)} className="px-6 font-black uppercase tracking-widest">
+                    POST AUDIT
                   </PremiumButton>
                 )}
               </div>
 
               {reviews.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {reviews.map((r) => (
                     <ReviewItem key={r._id} review={r} />
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-xs text-text-muted">
-                  No reviews submitted yet. Be the first to rate this professional!
+                <div className="text-center py-20 bg-background-dark/30 rounded-[2rem] border-2 border-dashed border-white/5 opacity-40">
+                   <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em]">NO EXTERNAL AUDITS RECORDED.</p>
                 </div>
               )}
             </GlassCard>
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6">
-            <GlassCard goldBorder className="p-6 rounded-3xl space-y-4">
-              <h3 className="font-sora font-bold text-base text-text-primary border-b border-gray-100 pb-3">
-                Service Overview
+          <div className="space-y-8">
+            <GlassCard goldBorder className="p-8 rounded-[2.5rem] space-y-6 !bg-background-card border-border-primary/40 shadow-2xl">
+              <h3 className="font-sora font-black text-lg text-white border-b border-white/5 pb-5 uppercase tracking-widest">
+                METRICS OVERVIEW
               </h3>
 
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-text-muted font-medium">Category:</span>
-                <span className="font-bold text-accent-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-100 capitalize">
-                  {worker.category?.name || 'General Service'}
-                </span>
+              <div className="space-y-5">
+                 <div className="flex items-center justify-between p-4 bg-background-dark/40 rounded-2xl border border-white/5">
+                   <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">STATUS</span>
+                   <Badge variant="verified" size="xs" className="!bg-accent-orange/20 text-accent-bright font-black">ACTIVE MODULE</Badge>
+                 </div>
+
+                 <div className="flex items-center justify-between p-4 bg-background-dark/40 rounded-2xl border border-white/5">
+                   <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">UNIT RATE</span>
+                   <span className="font-black text-lg text-accent-bright tracking-tighter">₹{worker.pricing?.hourly || 0}<span className="text-[10px] ml-1 opacity-70">/HR</span></span>
+                 </div>
+
+                 <div className="flex items-center justify-between p-4 bg-background-dark/40 rounded-2xl border border-white/5">
+                   <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">EXPERIENCE</span>
+                   <span className="font-black text-white uppercase text-xs">{worker.experience || 0} CYCLES</span>
+                 </div>
+
+                 <div className="flex items-center justify-between p-4 bg-background-dark/40 rounded-2xl border border-white/5">
+                   <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">CAPACITY</span>
+                   <span className="font-black text-white uppercase text-xs">{worker.completedJobs || 0} SUCCESSFUL</span>
+                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-text-muted">Profession:</span>
-                <span className="font-semibold text-accent-gold uppercase">{worker.profession}</span>
-              </div>
-
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-text-muted">Hourly Rate:</span>
-                <span className="font-bold text-base text-accent-gold">
-                  {worker.pricing?.currency || '₹'}{worker.pricing?.hourly || 0}/hr
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-text-muted">Experience:</span>
-                <span className="font-semibold text-text-primary">{worker.experience || 0} Years</span>
-              </div>
-
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-text-muted">Completed Jobs:</span>
-                <span className="font-semibold text-text-primary">{worker.completedJobs || 0} Jobs</span>
-              </div>
-
-              <div className="pt-3 space-y-2">
+              <div className="pt-6 space-y-4">
                 <button
                   onClick={handleStartChat}
-                  className="w-full btn-ai py-3 rounded-full text-xs font-bold flex items-center justify-center gap-2 min-h-[44px]"
+                  className="w-full py-4 rounded-2xl bg-background-widget text-accent-bright border-2 border-border-primary/30 font-black text-[11px] uppercase tracking-[0.2em] shadow-xl hover:bg-background-secondary transition-all"
                 >
-                  <MessageSquare className="w-4 h-4" /> Direct Chat
-                </button>
-
-                {/* Sidebar Favourite Button */}
-                <button
-                  onClick={handleToggleFavorite}
-                  className={`w-full py-3 rounded-full text-xs font-bold flex items-center justify-center gap-2 min-h-[44px] border transition-all ${
-                    isFavorite
-                      ? 'bg-red-50 text-accent-red border-red-200 hover:bg-red-100'
-                      : 'bg-gray-50 text-text-secondary border-gray-200 hover:bg-amber-50 hover:text-accent-gold hover:border-accent-gold/40'
-                  }`}
-                >
-                  <Heart className={`w-4 h-4 ${isFavorite ? 'fill-accent-red text-accent-red' : ''}`} />
-                  {isFavorite ? 'Saved to Favorites' : 'Add to Favorites'}
+                  <MessageSquare className="w-5 h-5 inline-block mr-2" /> Direct Comms
                 </button>
 
                 <PremiumButton
@@ -514,33 +471,37 @@ const WorkerProfilePage = () => {
                   fullWidth
                   onClick={() => setBookingModalOpen(true)}
                   disabled={!worker.isAvailable}
+                  className="shadow-orange py-5"
                 >
-                  {worker.isAvailable ? 'Book Service Request' : 'Currently Unavailable'}
+                  {worker.isAvailable ? 'REQUEST SERVICE' : 'LINK SUPPRESSED'}
                 </PremiumButton>
               </div>
             </GlassCard>
 
-            {/* Service Location Map */}
-            {worker.address?.coordinates?.coordinates &&
-             worker.address.coordinates.coordinates[0] !== 0 && (
-              <GlassCard goldBorder className="p-6 rounded-3xl space-y-4">
-                <h3 className="font-sora font-bold text-base text-text-primary border-b border-gray-100 pb-3 flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-accent-gold" /> Service Location
+            {/* Service Location Map Placeholder */}
+            {worker.address?.city && (
+              <GlassCard goldBorder className="p-8 rounded-[2.5rem] space-y-6 !bg-background-cardSecondary border-border-primary/40 shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-accent-orange/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <h3 className="font-sora font-black text-lg text-white border-b border-white/5 pb-5 flex items-center gap-3 uppercase tracking-widest relative z-10">
+                  <MapPin className="w-6 h-6 text-accent-bright" /> GEO ZONE
                 </h3>
-                <div
-                  id="worker-map"
-                  className="h-48 w-full rounded-2xl border border-gray-100"
-                />
-                <div className="flex justify-between items-center text-[10px]">
-                  <span className="text-text-muted">Exact location pinned by professional</span>
+
+                <div className="h-48 w-full rounded-3xl bg-background-dark border-2 border-white/5 flex items-center justify-center relative z-10 shadow-inner group-hover:border-accent-orange/20 transition-all duration-500">
+                    <div className="text-center space-y-3 px-6">
+                       <MapPin className="w-10 h-10 text-accent-bright mx-auto animate-bounce" />
+                       <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] leading-relaxed">PRIMARY NODE COORDINATES REGISTERED IN {worker.address.city.toUpperCase()}</p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-3 relative z-10 pt-2">
                   <button
                     onClick={() => {
-                      const [lng, lat] = worker.address.coordinates.coordinates;
-                      window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`);
+                      const addr = `${worker.address.street}, ${worker.address.city}`;
+                      window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`);
                     }}
-                    className="text-accent-blue font-bold hover:underline"
+                    className="w-full py-3 rounded-xl bg-background-dark/80 text-white font-black text-[10px] uppercase tracking-[0.2em] border border-white/5 hover:border-accent-bright transition-all shadow-xl"
                   >
-                    Get Directions
+                    GENERATE ROUTE
                   </button>
                 </div>
               </GlassCard>
@@ -549,135 +510,84 @@ const WorkerProfilePage = () => {
         </div>
       </main>
 
-      {/* Rating & Review Modal */}
-      <Modal
-        isOpen={reviewModalOpen}
-        onClose={() => setReviewModalOpen(false)}
-        title={`Rate & Review ${worker.name}`}
-      >
-        <form onSubmit={handleSubmitReview} className="space-y-4 pt-2">
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-2">Select Star Rating (1 to 5)</label>
-            <div className="flex items-center gap-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => setNewRating(star)}
-                  className="p-2 transition-transform hover:scale-110 focus:outline-none"
-                >
-                  <Star
-                    className={`w-7 h-7 ${
-                      star <= newRating
-                        ? 'fill-accent-gold text-accent-gold'
-                        : 'text-gray-300'
-                    }`}
-                  />
-                </button>
-              ))}
-              <span className="text-sm font-bold text-accent-gold ml-2">{newRating} / 5</span>
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Your Review & Comments</label>
-            <textarea
-              rows={4}
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Share your experience working with this professional..."
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
-
-          <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={reviewLoading}>
-            Submit Rating & Review
-          </PremiumButton>
-        </form>
-      </Modal>
+      <Footer />
 
       {/* Booking Modal */}
       <Modal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
-        title={`Book ${worker.name}`}
+        title={`SERVICE INITIALIZATION: ${worker.name}`}
       >
-        <form onSubmit={handleCreateBooking} className="space-y-4 pt-2">
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Scheduled Date</label>
-            <input
-              type="date"
-              value={bookingDate}
-              onChange={(e) => setBookingDate(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
+        <form onSubmit={handleCreateBooking} className="space-y-10 pt-6">
+          <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner space-y-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+               <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-widest ml-1">DEPLOYMENT DATE</label>
+                  <input
+                    type="date"
+                    value={bookingDate}
+                    onChange={(e) => setBookingDate(e.target.value)}
+                    className="w-full bg-background-card border-2 border-border-primary/40 rounded-2xl p-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl"
+                    required
+                  />
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-widest ml-1">START WINDOW</label>
+                  <input
+                    type="time"
+                    value={bookingTime}
+                    onChange={(e) => setBookingTime(e.target.value)}
+                    className="w-full bg-background-card border-2 border-border-primary/40 rounded-2xl p-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl"
+                    required
+                  />
+               </div>
+            </div>
 
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Scheduled Time</label>
-            <input
-              type="time"
-              value={bookingTime}
-              onChange={(e) => setBookingTime(e.target.value)}
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Work Description</label>
-            <textarea
-              rows={3}
-              value={workDescription}
-              onChange={(e) => setWorkDescription(e.target.value)}
-              placeholder="Describe the issue or service needed..."
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
-
-          <div className="space-y-3 pt-2 border-t border-gray-100">
-            <label className="text-xs font-bold text-accent-gold uppercase tracking-wider block">Service Address</label>
-            <input
-              type="text"
-              value={serviceAddress.street}
-              onChange={(e) => setServiceAddress({...serviceAddress, street: e.target.value})}
-              placeholder="Street Address"
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <input
-                type="text"
-                value={serviceAddress.city}
-                onChange={(e) => setServiceAddress({...serviceAddress, city: e.target.value})}
-                placeholder="City"
-                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-                required
-              />
-              <input
-                type="text"
-                value={serviceAddress.state}
-                onChange={(e) => setServiceAddress({...serviceAddress, state: e.target.value})}
-                placeholder="State"
-                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-accent-bright uppercase tracking-widest ml-1">SERVICE SPECIFICATIONS</label>
+              <textarea
+                rows={4}
+                value={workDescription}
+                onChange={(e) => setWorkDescription(e.target.value)}
+                placeholder="DESCRIBE OPERATIONAL REQUIREMENTS..."
+                className="w-full bg-background-card border-2 border-border-primary/40 rounded-[2rem] p-5 text-sm font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl"
                 required
               />
             </div>
-            <input
-              type="text"
-              value={serviceAddress.zip}
-              onChange={(e) => setServiceAddress({...serviceAddress, zip: e.target.value})}
-              placeholder="PIN Code"
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
+
+            <div className="space-y-6 pt-4 border-t border-white/5">
+              <label className="text-[11px] font-black text-white uppercase tracking-[0.3em] block mb-4 ml-1">DESTINATION COORDINATES</label>
+              <FloatingInput
+                id="street"
+                label="STREET NODE"
+                value={serviceAddress.street}
+                onChange={(e) => setServiceAddress({...serviceAddress, street: e.target.value})}
+                required
+                className="!bg-background-card border-border-primary/30"
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <FloatingInput
+                  id="city"
+                  label="CITY"
+                  value={serviceAddress.city}
+                  onChange={(e) => setServiceAddress({...serviceAddress, city: e.target.value})}
+                  required
+                  className="!bg-background-card border-border-primary/30"
+                />
+                <FloatingInput
+                  id="state"
+                  label="REGION"
+                  value={serviceAddress.state}
+                  onChange={(e) => setServiceAddress({...serviceAddress, state: e.target.value})}
+                  required
+                  className="!bg-background-card border-border-primary/30"
+                />
+              </div>
+            </div>
           </div>
 
-          <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={bookingLoading}>
-            Confirm Booking Request
+          <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={bookingLoading} className="py-5 text-base font-black shadow-orange">
+            EXECUTE BROADCAST REQUEST
           </PremiumButton>
         </form>
       </Modal>

@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle2, MapPin, Heart, Clock } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { CheckCircle2, MapPin, Heart, Star, Briefcase } from 'lucide-react';
 import GlassCard from './GlassCard';
 import RatingStars from './RatingStars';
 import Badge from './Badge';
 import PremiumButton from './PremiumButton';
 
-const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook, compact = false }) => {
+const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) => {
+  const navigate = useNavigate();
   const {
     _id,
     name,
@@ -18,105 +19,84 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook, comp
     pricing,
     isVerified,
     isAvailable,
-    matchPercentage,
     distance,
   } = worker;
 
-  const avatarUrl =
-    avatar ||
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=D4AF37&color=fff`;
+  const avatarUrl = avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=F4510B&color=fff`;
 
   return (
-    <GlassCard goldBorder className="relative flex flex-col justify-between h-full group">
+    <GlassCard goldBorder className="relative flex flex-col justify-between h-full group !bg-background-card border-border-primary/60 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
 
-      {/* ── Top Row: Avatar + Badges ── */}
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
+      {/* Top Section */}
+      <div className="flex items-start justify-between mb-6">
         <div className="relative shrink-0">
           <img
             src={avatarUrl}
             alt={name}
             loading="lazy"
-            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-accent-gold/40 shadow-sm group-hover:scale-105 transition-transform"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
           />
           {isAvailable && (
-            <span
-              className="absolute bottom-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-accent-green border-2 border-white rounded-full"
-              title="Available Now"
-              aria-label="Available Now"
-            />
+            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent-green border-4 border-background-card rounded-xl shadow-xl" />
           )}
         </div>
 
-        <div className="flex flex-col items-end gap-1.5 min-w-0 ml-2">
-          {isVerified && (
-            <Badge variant="verified" size="xs">
-              <CheckCircle2 className="w-3 h-3 text-accent-gold" /> Verified
-            </Badge>
-          )}
+        <div className="flex flex-col items-end gap-2">
+          {isVerified && <Badge variant="verified" size="xs" className="!rounded-lg">VERIFIED</Badge>}
           {onToggleFavorite && (
             <button
-              onClick={() => onToggleFavorite(_id)}
-              className="p-1.5 rounded-full hover:bg-gray-100 transition-colors text-text-muted hover:text-accent-red"
-              aria-label={isFavorite ? 'Remove from favourites' : 'Add to favourites'}
+              onClick={(e) => { e.preventDefault(); onToggleFavorite(_id); }}
+              className="p-2 rounded-xl bg-background-cardSecondary border border-white/5 hover:border-accent-red transition-all text-text-muted hover:text-accent-red"
             >
-              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-accent-red text-accent-red' : ''}`} />
+              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-accent-red text-accent-red shadow-lg' : ''}`} />
             </button>
           )}
         </div>
       </div>
 
-      {/* ── Worker Info ── */}
-      <div className="flex-1 mb-3 sm:mb-4">
-        <Link to={`/workers/${_id}`} className="hover:underline block">
-          <h4 className="font-sora font-semibold text-sm sm:text-base text-text-primary line-clamp-1 leading-tight">
-            {name}
-          </h4>
-        </Link>
-        <p className="text-xs font-medium text-text-secondary mb-2 leading-tight">{profession}</p>
+      {/* Info Section */}
+      <div className="flex-1 mb-6">
+        <h4 className="font-sora font-black text-base text-white line-clamp-1 leading-tight group-hover:text-accent-bright transition-colors uppercase tracking-tight">
+          {name}
+        </h4>
+        <p className="text-[10px] font-black text-accent-light uppercase tracking-widest mt-1 opacity-90">{profession}</p>
 
-        <div className="w-full overflow-hidden">
+        <div className="mt-4">
           <RatingStars rating={rating} totalReviews={totalReviews} size="xs" />
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mt-2.5 sm:mt-3 text-xs text-text-secondary bg-gray-50/80 rounded-xl p-2 sm:p-2.5 border border-gray-100">
-          <div>
-            <span className="text-text-muted text-[10px]">Experience</span>
-            <div className="font-semibold text-text-primary">{experience} yrs</div>
+        <div className="grid grid-cols-2 gap-3 mt-6 text-[10px] font-black text-text-secondary bg-background-cardSecondary/60 rounded-2xl p-4 border border-border-primary/20 shadow-inner">
+          <div className="space-y-1">
+            <p className="text-text-muted uppercase tracking-widest opacity-60">Cycles</p>
+            <p className="text-white">{experience} Yrs</p>
           </div>
-          <div>
-            <span className="text-text-muted text-[10px]">Rate</span>
-            <div className="font-semibold text-accent-gold">
-              {pricing?.currency || '₹'}{pricing?.hourly || 0}/hr
-            </div>
+          <div className="space-y-1">
+            <p className="text-text-muted uppercase tracking-widest opacity-60">Unit</p>
+            <p className="text-accent-bright">₹{pricing?.hourly || 0}/Hr</p>
           </div>
-          {(worker.address?.street || worker.address?.city || (distance !== undefined && distance !== null)) && (
-            <div className="col-span-2 flex items-center gap-1 text-text-muted text-[11px] pt-1 border-t border-gray-100 mt-1 truncate">
-              <MapPin className="w-3 h-3 text-accent-gold shrink-0" />
-              <span className="truncate">
-                {[worker.address?.street, worker.address?.city].filter(Boolean).join(', ') || `${distance} km away`}
-              </span>
+          {(worker.address?.city || distance) && (
+            <div className="col-span-2 flex items-center gap-2 text-text-muted border-t border-white/5 pt-2 mt-1">
+              <MapPin className="w-3 h-3 text-accent-bright" />
+              <span className="truncate uppercase tracking-tighter opacity-80">{worker.address?.city || `${distance} KM`}</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* ── Action Buttons ── */}
-      <div className="grid grid-cols-2 gap-1.5 sm:gap-2 pt-2 sm:pt-3 border-t border-gray-100">
-        <Link to={`/workers/${_id}`} className="min-h-[40px] flex">
-          <PremiumButton variant="outline" size="sm" fullWidth className="flex-1">
-            Profile
-          </PremiumButton>
-        </Link>
-        <PremiumButton
-          variant="gold"
-          size="sm"
-          fullWidth
-          onClick={() => onBook && onBook(worker)}
-          className="min-h-[40px]"
+      {/* Actions */}
+      <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/5">
+        <button
+          onClick={() => navigate(`/workers/${_id}`)}
+          className="flex-1 py-3 rounded-xl border border-border-primary/40 text-[10px] font-black text-white hover:bg-white/5 uppercase tracking-widest transition-all"
         >
-          Book Now
-        </PremiumButton>
+          PROFILE
+        </button>
+        <button
+          onClick={() => onBook && onBook(worker)}
+          className="flex-1 py-3 rounded-xl bg-accent-orange text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-accent-bright hover:-translate-y-1 transition-all border border-accent-highlight/30"
+        >
+          DEPLOY
+        </button>
       </div>
     </GlassCard>
   );

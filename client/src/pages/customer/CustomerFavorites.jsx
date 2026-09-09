@@ -5,6 +5,8 @@ import WorkerCard from '../../components/common/WorkerCard';
 import API from '../../services/api';
 import { useNotification } from '../../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
+import { Heart, Sparkles } from 'lucide-react';
+import PremiumButton from '../../components/common/PremiumButton';
 
 const CustomerFavorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -35,7 +37,7 @@ const CustomerFavorites = () => {
     try {
       const res = await API.delete(`/customers/favorites/${workerId}`);
       if (res.success) {
-        showToast('Removed from Favorites', 'Worker removed from your favorites list.', 'info');
+        showToast('Node Purged', 'Professional removed from local dashboard.', 'info');
         setFavorites((prev) => prev.filter((fav) => fav.worker && fav.worker._id !== workerId));
       }
     } catch (err) {
@@ -45,15 +47,15 @@ const CustomerFavorites = () => {
 
   return (
     <DashboardLayout
-      title="Saved Favorites"
-      subtitle="Quickly access and book your favorite local service professionals"
+      title="Pinned Modules"
+      subtitle="Rapid access to frequently deployed service professionals"
     >
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+        <div className="flex justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
         </div>
       ) : favorites.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {favorites.map((fav) => (
             <WorkerCard
               key={fav._id}
@@ -65,9 +67,14 @@ const CustomerFavorites = () => {
           ))}
         </div>
       ) : (
-        <GlassCard className="text-center py-12 text-xs text-text-muted">
-          Your favorites list is empty. Browse worker profiles and click the heart icon to save them here!
-        </GlassCard>
+        <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+           <div className="w-24 h-24 bg-background-dark rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5 opacity-20">
+              <Heart className="w-12 h-12 text-accent-bright" />
+           </div>
+           <h4 className="font-sora font-black text-2xl text-white mb-3">Registry Empty</h4>
+           <p className="text-sm text-text-muted max-w-[320px] mx-auto leading-relaxed font-bold uppercase tracking-widest opacity-80 mb-10">Scan the market directory and pin professional nodes for rapid re-deployment.</p>
+           <PremiumButton variant="gold" size="lg" onClick={() => navigate('/customer/search')}>OPEN DIRECTORY</PremiumButton>
+        </div>
       )}
     </DashboardLayout>
   );

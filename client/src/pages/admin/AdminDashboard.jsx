@@ -41,7 +41,7 @@ const AdminDashboard = () => {
     try {
       const res = await API.put(`/admin/workers/${workerId}/approve`);
       if (res.success) {
-        showToast('Worker Approved!', 'Worker is now active on the platform.', 'success');
+        showToast('Worker Approved!', 'Node initialized and active.', 'success');
         setPendingWorkers((prev) => prev.filter((w) => w._id !== workerId));
         setSelectedWorker(null);
       }
@@ -51,11 +51,11 @@ const AdminDashboard = () => {
   };
 
   const handleRejectWorker = async (workerId) => {
-    const reason = prompt('Enter rejection reason:') || 'Application does not meet requirements';
+    const reason = prompt('Enter rejection reason:') || 'Parameters do not meet standards';
     try {
       const res = await API.put(`/admin/workers/${workerId}/reject`, { reason });
       if (res.success) {
-        showToast('Worker Rejected', 'Notification sent to applicant.', 'info');
+        showToast('Application Terminated', 'Notification sent to node.', 'info');
         setPendingWorkers((prev) => prev.filter((w) => w._id !== workerId));
         setSelectedWorker(null);
       }
@@ -66,109 +66,122 @@ const AdminDashboard = () => {
 
   return (
     <DashboardLayout
-      title="Control Center & Verification Queue"
-      subtitle="Full platform administration, worker approval, and system control"
+      title="Control Center"
+      subtitle="Total ecosystem administration and terminal monitoring"
     >
-      {/* Control Center Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <GlassCard className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-amber-50 text-accent-gold flex items-center justify-center">
-            <Users className="w-6 h-6" />
+      {/* Metrics Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-orange/10 transition-all" />
+          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-bright flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-orange group-hover:text-white transition-all duration-500">
+            <Users className="w-8 h-8" />
           </div>
-          <div>
-            <div className="text-2xl font-sora font-bold text-text-primary">
+          <div className="min-w-0">
+            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
               {stats?.totalCustomers || 0}
             </div>
-            <div className="text-xs text-text-muted">Total Customers</div>
+            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Total Consumers</div>
           </div>
         </GlassCard>
 
-        <GlassCard className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-accent-blue flex items-center justify-center">
-            <ShieldCheck className="w-6 h-6" />
+        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-green/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-green/10 transition-all" />
+          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-green flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-green group-hover:text-white transition-all duration-500">
+            <ShieldCheck className="w-8 h-8" />
           </div>
-          <div>
-            <div className="text-2xl font-sora font-bold text-text-primary">
+          <div className="min-w-0">
+            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
               {stats?.totalWorkers || 0}
             </div>
-            <div className="text-xs text-text-muted">Approved Workers</div>
+            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Verified Nodes</div>
           </div>
         </GlassCard>
 
-        <GlassCard className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-yellow-50 text-yellow-600 flex items-center justify-center">
-            <CheckSquare className="w-6 h-6" />
+        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-orange/10 transition-all" />
+          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-bright flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-bright group-hover:text-white transition-all duration-500">
+            <CheckSquare className="w-8 h-8" />
           </div>
-          <div>
-            <div className="text-2xl font-sora font-bold text-text-primary">
+          <div className="min-w-0">
+            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
               {stats?.pendingWorkers || pendingWorkers.length}
             </div>
-            <div className="text-xs text-text-muted">Pending Approvals</div>
+            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Verification Queue</div>
           </div>
         </GlassCard>
       </div>
 
-      {/* Pending Worker Verification Queue */}
-      <div className="mb-10">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-sora font-bold text-lg text-text-primary flex items-center gap-2">
-            <CheckSquare className="w-5 h-5 text-accent-gold" /> Pending Worker Approval Queue ({pendingWorkers.length})
+      {/* Verification Queue */}
+      <div className="mb-16">
+        <div className="flex items-center justify-between mb-8 px-2">
+          <h3 className="font-sora font-black text-2xl text-white flex items-center gap-4 tracking-tight">
+            <CheckSquare className="w-8 h-8 text-accent-bright" /> APPROVAL PROTOCOL ({pendingWorkers.length})
           </h3>
         </div>
 
         {loading ? (
-           <div className="flex justify-center py-12">
-             <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+           <div className="flex justify-center py-20">
+             <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
            </div>
         ) : pendingWorkers.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {pendingWorkers.map((worker) => (
-              <GlassCard key={worker._id} hover={false} className="p-5 border border-gray-200">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
+              <GlassCard key={worker._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl group">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                  <div className="flex items-center gap-6">
                     <img
-                      src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=D4AF37&color=fff`}
+                      src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
                       alt={worker.name}
-                      className="w-12 h-12 rounded-full object-cover border border-accent-gold/40"
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
                     />
-                    <div>
-                      <h4 className="text-sm font-semibold text-text-primary flex items-center gap-2">
+                    <div className="min-w-0">
+                      <h4 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
                         {worker.name}
                         <Badge variant="warning" size="xs">
-                          PENDING VERIFICATION
+                          Pending Audit
                         </Badge>
                       </h4>
-                      <p className="text-xs text-text-muted">
-                        Profession: {worker.profession} | Phone: {worker.phone} | Exp: {worker.experience} yrs
-                      </p>
-                      <p className="text-xs text-text-secondary mt-1">
-                        Email: {worker.email}
+                      <div className="flex flex-wrap items-center gap-5 mt-3">
+                        <p className="text-[10px] font-black text-accent-light uppercase tracking-widest bg-background-widget/40 px-3 py-1.5 rounded-lg border border-white/5">
+                          Module: {worker.profession}
+                        </p>
+                        <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
+                          Contact: {worker.phone}
+                        </p>
+                        <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
+                          Exp: {worker.experience} Cycles
+                        </p>
+                      </div>
+                      <p className="text-[10px] text-text-muted font-bold mt-3 opacity-60 uppercase tracking-tighter">
+                        System ID: {worker.email}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-4 shrink-0 self-end lg:self-center">
                     <button
                       onClick={() => setSelectedWorker(worker)}
-                      className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-text-primary flex items-center gap-1"
+                      className="px-6 py-3.5 rounded-2xl bg-background-widget border border-white/5 text-[10px] font-black text-white hover:bg-background-secondary transition-all flex items-center gap-2.5 uppercase tracking-widest shadow-xl"
                     >
-                      <Eye className="w-4 h-4 text-accent-gold" /> Review Application
+                      <Eye className="w-4 h-4 text-accent-bright" /> Review Node
                     </button>
 
                     <PremiumButton
                       variant="danger"
                       size="sm"
                       onClick={() => handleRejectWorker(worker._id)}
+                      className="px-6 !rounded-xl"
                     >
-                      Reject
+                      Purge
                     </PremiumButton>
 
                     <PremiumButton
                       variant="gold"
                       size="sm"
                       onClick={() => handleApproveWorker(worker._id)}
+                      className="px-8 !rounded-xl shadow-orange"
                     >
-                      Approve & Verify
+                      Authorize
                     </PremiumButton>
                   </div>
                 </div>
@@ -176,9 +189,12 @@ const AdminDashboard = () => {
             ))}
           </div>
         ) : (
-          <GlassCard className="text-center py-8 text-xs text-text-muted">
-            ✅ Verification Queue Clear! No pending worker applications right now.
-          </GlassCard>
+          <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+             <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
+                <CheckSquare className="w-10 h-10 text-accent-green opacity-20" />
+             </div>
+             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">QUERIES PROCESSED. QUEUE CLEAR.</p>
+          </div>
         )}
       </div>
 
@@ -187,29 +203,32 @@ const AdminDashboard = () => {
         <Modal
           isOpen={!!selectedWorker}
           onClose={() => setSelectedWorker(null)}
-          title={`Review Worker: ${selectedWorker.name}`}
+          title={`NODE AUDIT: ${selectedWorker.name}`}
         >
-          <div className="space-y-4 text-xs">
-            <div className="grid grid-cols-2 gap-3 p-3 bg-gray-50 rounded-xl">
-               <div><span className="font-semibold text-text-primary">Profession:</span> {selectedWorker.profession}</div>
-               <div><span className="font-semibold text-text-primary">Experience:</span> {selectedWorker.experience} years</div>
-               <div><span className="font-semibold text-text-primary">Email:</span> {selectedWorker.email}</div>
-               <div><span className="font-semibold text-text-primary">Phone:</span> {selectedWorker.phone}</div>
+          <div className="space-y-8 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">DOMAIN</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.profession}</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">CYCLES</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.experience} YEARS</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">IDENTIFIER</p><p className="text-sm font-bold text-white lowercase">{selectedWorker.email}</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">COMMS</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.phone}</p></div>
             </div>
 
             {selectedWorker.identityProof && (
-              <div>
-                <span className="font-semibold text-text-primary block mb-1">Identity Proof Document:</span>
-                <img src={selectedWorker.identityProof} alt="ID Proof" className="max-h-60 w-full object-contain rounded-xl border border-gray-200 shadow-inner bg-white" />
+              <div className="space-y-3">
+                <span className="text-[10px] font-black text-white uppercase tracking-[0.3em] block ml-2">Verification Artifact:</span>
+                <div className="relative group rounded-[2.5rem] overflow-hidden border-2 border-border-primary/30 shadow-2xl bg-background-dark p-2">
+                   <img src={selectedWorker.identityProof} alt="ID Proof" className="max-h-80 w-full object-contain rounded-[2rem] transition-transform duration-700 group-hover:scale-105" />
+                   <div className="absolute inset-0 bg-accent-orange/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                </div>
               </div>
             )}
 
-            <div className="pt-4 border-t border-gray-100 flex justify-end gap-2">
-              <PremiumButton variant="danger" size="sm" onClick={() => handleRejectWorker(selectedWorker._id)}>
-                Reject Application
+            <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4">
+              <PremiumButton variant="danger" size="lg" fullWidth onClick={() => handleRejectWorker(selectedWorker._id)} className="py-4">
+                TERMINATE APPLICATION
               </PremiumButton>
-              <PremiumButton variant="gold" size="sm" onClick={() => handleApproveWorker(selectedWorker._id)}>
-                Approve & Activate
+              <PremiumButton variant="gold" size="lg" fullWidth onClick={() => handleApproveWorker(selectedWorker._id)} className="py-4 shadow-orange">
+                AUTHORIZE NODE
               </PremiumButton>
             </div>
           </div>

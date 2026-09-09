@@ -24,17 +24,17 @@ const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState('hero');
 
   const [formData, setFormData] = useState({
-    siteName: 'Worklyn',
+    siteName: 'WorkLink',
     announcementText: 'Verified Local Service Marketplace',
     heroBannerImage: '',
     heroTitle: 'Find & Book Trusted Local Experts In Seconds',
     heroSubtitle:
-      'Worklyn connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
+      'WorkLink connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
 
     contactPhone: '1800-000-0000',
-    contactEmail: 'support@worklynai.com',
+    contactEmail: 'support@worklinkai.com',
     stayUpdatedText: 'Get updates on new service categories and special discounts near you.',
-    footerCopyrightText: 'Worklyn. All rights reserved.',
+    footerCopyrightText: 'WorkLink. All rights reserved.',
     platformFeePercentage: 5,
   });
 
@@ -76,10 +76,10 @@ const AdminSettings = () => {
       const res = await API.post('/upload/image', body);
       if (res.success && res.data?.url) {
         setFormData((prev) => ({ ...prev, heroBannerImage: res.data.url }));
-        showToast('Banner Uploaded!', 'Banner image updated.', 'success');
+        showToast('System Updated', 'Hero banner module uploaded.', 'success');
       }
     } catch (err) {
-      showToast('Upload Error', err.message || 'Image upload failed', 'error');
+      showToast('Error', err.message || 'Module upload failed', 'error');
     } finally {
       setUploadingBanner(false);
     }
@@ -91,10 +91,10 @@ const AdminSettings = () => {
     try {
       const res = await API.put('/site/site-settings', formData);
       if (res.success) {
-        showToast('Website Content Saved!', 'All words, headlines & images updated live on the public pages.', 'success');
+        showToast('Parameters Synced', 'Global CMS attributes updated across all nodes.', 'success');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Failed to save settings', 'error');
+      showToast('Error', err.message || 'Synchronization failed', 'error');
     } finally {
       setSaving(false);
     }
@@ -102,30 +102,30 @@ const AdminSettings = () => {
 
   return (
     <DashboardLayout
-      title="Website CMS & Content Manager"
-      subtitle="Full control to edit all words, headlines, images, and contact information across non-login pages"
+      title="Ecosystem Configuration"
+      subtitle="Administrative terminal for global parameters, content modules, and platform economics"
     >
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+        <div className="flex justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6 max-w-5xl">
+        <form onSubmit={handleSubmit} className="space-y-10 max-w-5xl">
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-gray-200">
+          <div className="flex items-center gap-3 overflow-x-auto pb-4 border-b border-white/5 custom-scrollbar">
             {[
-              { id: 'hero', label: 'Hero & Banner', icon: Sparkles },
-              { id: 'contact', label: 'Contact & Footer', icon: Phone },
-              { id: 'platform', label: 'Platform Fee', icon: Percent },
+              { id: 'hero', label: 'Atmosphere & Hero', icon: Sparkles },
+              { id: 'contact', label: 'Nodes & Footer', icon: Phone },
+              { id: 'platform', label: 'Economics', icon: Percent },
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
                 onClick={() => setActiveTab(id)}
-                className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shrink-0 ${
+                className={`px-6 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all shrink-0 ${
                   activeTab === id
-                    ? 'bg-gradient-to-r from-accent-gold to-amber-500 text-white shadow-md'
-                    : 'bg-white text-text-secondary hover:bg-gray-50 border border-gray-200'
+                    ? 'bg-accent-orange text-white shadow-xl scale-105'
+                    : 'bg-background-cardSecondary text-text-muted hover:text-white border border-border-primary/20'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -136,114 +136,123 @@ const AdminSettings = () => {
 
           {/* TAB 1: HERO & BANNER */}
           {activeTab === 'hero' && (
-            <GlassCard goldBorder className="p-6 rounded-3xl space-y-5 animate-fade-in">
-              <h3 className="font-sora font-bold text-base text-text-primary flex items-center gap-2 border-b border-gray-100 pb-3">
-                <Sparkles className="w-5 h-5 text-accent-gold" /> Homepage Hero Words & Graphic Banner
+            <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-10 animate-fade-in border-border-primary/40 shadow-2xl">
+              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
+                <Sparkles className="w-7 h-7 text-accent-bright" /> Global Hero Parameters
               </h3>
 
-              <div>
-                <label className="text-xs font-semibold text-text-primary block mb-1">Announcement Badge Text</label>
-                <input
-                  type="text"
-                  name="announcementText"
-                  value={formData.announcementText}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-medium"
-                  required
-                />
-              </div>
+              <div className="grid grid-cols-1 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">ANNOUNCEMENT SIGNAL</label>
+                  <input
+                    type="text"
+                    name="announcementText"
+                    value={formData.announcementText}
+                    onChange={handleChange}
+                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="text-xs font-semibold text-text-primary block mb-1">Main Hero Headline</label>
-                <input
-                  type="text"
-                  name="heroTitle"
-                  value={formData.heroTitle}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-bold"
-                  required
-                />
-              </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">PRIMARY HEADLINE</label>
+                  <input
+                    type="text"
+                    name="heroTitle"
+                    value={formData.heroTitle}
+                    onChange={handleChange}
+                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="text-xs font-semibold text-text-primary block mb-1">Hero Subtitle / Description</label>
-                <textarea
-                  rows={3}
-                  name="heroSubtitle"
-                  value={formData.heroSubtitle}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-                  required
-                />
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUBTITLE / LOG</label>
+                  <textarea
+                    rows={4}
+                    name="heroSubtitle"
+                    value={formData.heroSubtitle}
+                    onChange={handleChange}
+                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-[2rem] p-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    required
+                  />
+                </div>
               </div>
 
               {/* Banner Image Upload */}
-              <div className="pt-3 border-t border-gray-100">
-                <label className="text-xs font-semibold text-text-primary block mb-2">
-                  Hero Graphic Banner Image (Optional)
+              <div className="pt-8 border-t border-white/5">
+                <label className="text-[10px] font-black text-white uppercase tracking-widest block mb-6 ml-1">
+                  ATMOSPHERIC BANNER ARTIFACT
                 </label>
                 {formData.heroBannerImage && (
-                  <div className="mb-3 relative rounded-2xl overflow-hidden max-h-48 border border-gray-200">
-                    <img src={formData.heroBannerImage} alt="Banner" className="w-full h-48 object-cover" />
+                  <div className="mb-6 relative rounded-[2.5rem] overflow-hidden max-h-56 border-2 border-border-primary/40 shadow-2xl bg-background-dark p-2">
+                    <img src={formData.heroBannerImage} alt="Banner" className="w-full h-52 object-cover rounded-[2rem]" />
                     <button
                       type="button"
                       onClick={() => setFormData((prev) => ({ ...prev, heroBannerImage: '' }))}
-                      className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600"
+                      className="absolute top-6 right-6 p-2.5 bg-red-600/90 text-white rounded-xl hover:bg-red-700 shadow-2xl transition-all"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
                 )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleBannerUpload}
-                  disabled={uploadingBanner}
-                  className="text-xs text-text-muted file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-accent-gold hover:file:bg-amber-100"
-                />
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="banner-upload"
+                    accept="image/*"
+                    onChange={handleBannerUpload}
+                    disabled={uploadingBanner}
+                    className="hidden"
+                  />
+                  <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all uppercase tracking-widest shadow-xl">
+                    {uploadingBanner ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                    {uploadingBanner ? 'UPLOADING...' : 'INITIALIZE UPLOAD'}
+                  </label>
+                </div>
               </div>
             </GlassCard>
           )}
 
           {/* TAB 2: CONTACT & FOOTER */}
           {activeTab === 'contact' && (
-            <GlassCard className="p-6 rounded-3xl space-y-4 animate-fade-in">
-              <h3 className="font-sora font-bold text-base text-text-primary flex items-center gap-2 border-b border-gray-100 pb-3">
-                <Phone className="w-5 h-5 text-accent-blue" /> Contact Info & Footer Copy
+            <GlassCard className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-8 animate-fade-in border-border-primary/40 shadow-2xl">
+              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
+                <Phone className="w-7 h-7 text-accent-light" /> Node Comms & Footer Metadata
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-text-primary block mb-1">Helpline Phone Number</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">CENTRAL HELPLINE</label>
                   <input
                     type="text"
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleChange}
-                    className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
+                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
                   />
                 </div>
 
-                <div>
-                  <label className="text-xs font-semibold text-text-primary block mb-1">Support Email Address</label>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SYSTEM SUPPORT ID</label>
                   <input
                     type="email"
                     name="contactEmail"
                     value={formData.contactEmail}
                     onChange={handleChange}
-                    className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
+                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="text-xs font-semibold text-text-primary block mb-1">Footer Copyright Text</label>
+              <div className="space-y-3">
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">FOOTER DESIGNATION</label>
                 <input
                   type="text"
                   name="footerCopyrightText"
                   value={formData.footerCopyrightText}
                   onChange={handleChange}
-                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
+                  className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
                 />
               </div>
             </GlassCard>
@@ -251,33 +260,36 @@ const AdminSettings = () => {
 
           {/* TAB 3: PLATFORM FEE */}
           {activeTab === 'platform' && (
-            <GlassCard className="p-6 rounded-3xl space-y-4 animate-fade-in">
-              <h3 className="font-sora font-bold text-base text-text-primary flex items-center gap-2 border-b border-gray-100 pb-3">
-                <Percent className="w-5 h-5 text-emerald-600" /> Platform Commission Fee
+            <GlassCard className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-8 animate-fade-in border-border-primary/40 shadow-2xl">
+              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
+                <Percent className="w-7 h-7 text-emerald-400" /> Ecosystem Economics
               </h3>
 
-              <div>
-                <label className="text-xs font-semibold text-text-primary block mb-1">
-                  Platform Commission Fee (%)
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">
+                  PLATFORM OPERATIONAL TAX (%)
                 </label>
-                <input
-                  type="number"
-                  name="platformFeePercentage"
-                  value={formData.platformFeePercentage}
-                  onChange={handleChange}
-                  min="0"
-                  max="50"
-                  className="w-full sm:w-48 bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-bold"
-                  required
-                />
+                <div className="flex items-center gap-5">
+                   <input
+                    type="number"
+                    name="platformFeePercentage"
+                    value={formData.platformFeePercentage}
+                    onChange={handleChange}
+                    min="0"
+                    max="50"
+                    className="w-full sm:w-48 bg-background-dark/50 border-2 border-border-primary/40 rounded-2xl p-5 text-xl font-black text-white focus:outline-none focus:border-accent-main shadow-2xl text-center"
+                    required
+                  />
+                  <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Global transaction percentage applied to all successful service completions.</p>
+                </div>
               </div>
             </GlassCard>
           )}
 
           {/* Save Button */}
-          <div className="flex justify-end pt-2">
-            <PremiumButton type="submit" variant="gold" size="lg" icon={Save} loading={saving}>
-              Save All Website Words & Details
+          <div className="flex justify-end pt-6">
+            <PremiumButton type="submit" variant="gold" size="lg" icon={Save} loading={saving} className="px-16 py-6 text-base font-black shadow-orange">
+              SYNC ECOSYSTEM ATTRIBUTES
             </PremiumButton>
           </div>
         </form>

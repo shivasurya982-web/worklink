@@ -5,15 +5,15 @@ import API from '../../services/api';
 
 const AIFeaturesSection = () => {
   const [settings, setSettings] = useState({
-    aiSectionTitle: 'Smart Platform Features',
-    aiSectionSubtitle: 'Worklyn makes local services easier through practical tools and fast access.',
+    aiSectionTitle: 'Intelligent Service Architecture',
+    aiSectionSubtitle: 'WorkLink utilizes advanced matching algorithms and real-time coordination tools.',
     aiFeaturesList: [
       { title: 'Smart Matchmaking', description: 'Score-based matching weighing distance, customer rating, experience, job success rate, and instant availability.' },
-      { title: 'Easy Search', description: 'Search using plain English phrases like "AC technician under ₹1000" or "Emergency plumber near me".' },
-      { title: 'Live Location Tracking', description: 'Interactive map with live worker location pins, travel distance, and service radius coverage.' },
-      { title: 'Document Verification', description: 'Admin verification portal ensuring identity proof, license, and skills certificates before worker activation.' },
-      { title: 'Live Messaging', description: 'Instant chat messaging, typing indicators, read receipts, and live status updates without refresh.' },
-      { title: 'Business Insights', description: 'Interactive analytics dashboard tracking revenue growth, customer conversion, and top service categories.' },
+      { title: 'Natural Language Search', description: 'Search using plain English phrases like "AC technician under ₹1000" or "Emergency plumber near me".' },
+      { title: 'Geospatial Tracking', description: 'Interactive map with live worker location pins, travel distance, and service radius coverage.' },
+      { title: 'Identity Verification', description: 'Admin verification portal ensuring identity proof, license, and skills certificates before worker activation.' },
+      { title: 'Real-Time Comms', description: 'Instant chat messaging, typing indicators, read receipts, and live status updates without refresh.' },
+      { title: 'Market Insights', description: 'Interactive analytics dashboard tracking revenue growth, customer conversion, and top service categories.' },
     ],
   });
 
@@ -26,8 +26,8 @@ const AIFeaturesSection = () => {
       const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setSettings({
-          aiSectionTitle: res.data.aiSectionTitle || 'Smart Platform Features',
-          aiSectionSubtitle: res.data.aiSectionSubtitle || 'Worklyn makes local services easier through practical tools and fast access.',
+          aiSectionTitle: res.data.aiSectionTitle || 'Intelligent Service Architecture',
+          aiSectionSubtitle: res.data.aiSectionSubtitle || 'WorkLink utilizes advanced matching algorithms and real-time coordination tools.',
           aiFeaturesList: res.data.aiFeaturesList?.length > 0 ? res.data.aiFeaturesList : settings.aiFeaturesList,
         });
       }
@@ -39,29 +39,29 @@ const AIFeaturesSection = () => {
   const icons = [Sparkles, FileText, Navigation, ShieldCheck, MessageSquare, BarChart2];
 
   return (
-    <section className="py-20 relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-accent-gold/5 rounded-full blur-[100px] pointer-events-none" />
+    <section className="py-24 sm:py-32 relative overflow-hidden bg-background-dark/10">
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent-orange/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="container-responsive relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold text-accent-gold uppercase tracking-[0.2em] mb-3 block">Cutting Edge Tech</span>
-          <h2 className="text-3xl sm:text-4xl font-sora font-extrabold text-text-primary mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24">
+          <span className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] mb-6 block">Advanced Intelligence</span>
+          <h2 className="text-3xl sm:text-5xl font-sora font-black text-white tracking-tighter mb-6">
              {settings.aiSectionTitle}
           </h2>
-          <p className="text-sm text-text-secondary leading-relaxed">
+          <p className="text-sm sm:text-lg text-text-secondary leading-relaxed font-medium opacity-80">
             {settings.aiSectionSubtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
            {settings.aiFeaturesList.map((feature, i) => {
              const Icon = icons[i % icons.length];
              return (
-               <GlassCard key={i} className="p-8 border border-gray-100 hover:border-accent-gold/20 transition-all duration-300 group hover:-translate-y-1 shadow-sm hover:shadow-xl">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-50 text-accent-gold flex items-center justify-center mb-6 group-hover:bg-accent-gold group-hover:text-white transition-all duration-300 shadow-inner">
-                     <Icon className="w-6 h-6" />
+               <GlassCard key={i} className="p-10 sm:p-12 border border-border-primary/20 !bg-background-card/80 hover:!bg-background-card hover:border-accent-orange/50 transition-all duration-500 group hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                  <div className="w-16 h-16 rounded-[2rem] bg-background-widget text-accent-bright flex items-center justify-center mb-8 group-hover:bg-accent-orange group-hover:text-white transition-all duration-500 shadow-2xl group-hover:shadow-accent-orange/30 border border-white/5">
+                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="font-sora font-bold text-base text-text-primary mb-3">{feature.title}</h3>
-                  <p className="text-xs text-text-muted leading-relaxed">
+                  <h3 className="font-sora font-black text-lg sm:text-xl text-white mb-4 tracking-tight group-hover:text-accent-bright transition-colors uppercase">{feature.title}</h3>
+                  <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-medium opacity-90">
                     {feature.description}
                   </p>
                </GlassCard>

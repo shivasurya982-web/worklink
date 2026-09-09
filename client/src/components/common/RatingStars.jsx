@@ -10,21 +10,21 @@ const RatingStars = ({ rating = 0, totalReviews, size = 'sm', interactive = fals
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <div className="flex items-center gap-0.5 shrink-0">
+    <div className="flex flex-wrap items-center gap-2">
+      <div className="flex items-center gap-1 shrink-0">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
             type="button"
             disabled={!interactive}
             onClick={() => interactive && onChange && onChange(star)}
-            className={`${interactive ? 'cursor-pointer hover:scale-110 transition-transform' : 'cursor-default'}`}
+            className={`${interactive ? 'cursor-pointer hover:scale-125 transition-all duration-300' : 'cursor-default'}`}
           >
             <Star
-              className={`${sizes[size]} ${
+              className={`${sizes[size]} transition-all duration-500 ${
                 star <= Math.round(rating)
-                  ? 'fill-accent-gold text-accent-gold'
-                  : 'fill-gray-100 text-gray-300'
+                  ? 'fill-accent-bright text-accent-bright drop-shadow-[0_0_5px_rgba(255,122,24,0.4)]'
+                  : 'fill-background-dark text-white/10'
               }`}
             />
           </button>
@@ -32,12 +32,16 @@ const RatingStars = ({ rating = 0, totalReviews, size = 'sm', interactive = fals
       </div>
 
       {rating > 0 && !interactive && (
-        <span className="text-xs font-semibold text-text-primary ml-0.5 shrink-0 inline-flex items-center">
-          {Number(rating).toFixed(1)}
+        <div className="inline-flex items-center gap-1.5 ml-1">
+          <span className="text-xs font-black text-white px-2 py-0.5 rounded-lg bg-background-widget border border-white/5 shadow-xl">
+            {Number(rating).toFixed(1)}
+          </span>
           {totalReviews !== undefined && (
-            <span className="text-text-muted font-normal ml-0.5">({totalReviews})</span>
+            <span className="text-[10px] font-black text-text-muted uppercase tracking-tighter opacity-60">
+              | {totalReviews} AUDITS
+            </span>
           )}
-        </span>
+        </div>
       )}
     </div>
   );

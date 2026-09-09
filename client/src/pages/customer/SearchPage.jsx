@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   Search, MapPin, Filter, LayoutGrid, List, Map,
-  Sparkles, ShieldCheck, X, ChevronDown, ChevronUp, ArrowRight
+  Sparkles, ShieldCheck, X, ChevronDown, ChevronUp, ArrowRight, Star, Briefcase
 } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
@@ -16,10 +16,10 @@ const FilterChip = ({ label, active, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all min-h-[36px] ${
+    className={`px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border transition-all min-h-[42px] ${
       active
-        ? 'bg-accent-gold text-text-primary border-accent-gold shadow-sm'
-        : 'bg-white border-gray-200 text-text-secondary hover:border-accent-gold hover:text-accent-gold'
+        ? 'bg-accent-orange text-white border-accent-bright shadow-[0_10px_20px_rgba(244,81,11,0.3)]'
+        : 'bg-background-cardSecondary border-border-primary/40 text-text-muted hover:border-accent-bright hover:text-white'
     }`}
   >
     {label}
@@ -28,50 +28,45 @@ const FilterChip = ({ label, active, onClick }) => (
 
 /* ── Filter Panel ── */
 const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, setVerified, minRating, setMinRating, category, setCategory, onApply }) => (
-  <div className="space-y-5 text-xs">
+  <div className="space-y-8 text-xs">
     {/* Area / Location */}
     <div>
-      <p className="font-semibold text-text-primary mb-2 px-1 flex items-center justify-between">
-        <span className="flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5 text-accent-gold" /> Filter by Area
+      <p className="font-black text-white mb-4 px-1 flex items-center justify-between uppercase tracking-[0.3em] text-[10px]">
+        <span className="flex items-center gap-2.5">
+          <MapPin className="w-4 h-4 text-accent-bright" /> GEO ZONE
         </span>
         {area && (
           <button
             type="button"
             onClick={() => { handleAreaChange(''); onApply?.(); }}
-            className="text-[10px] text-accent-gold hover:underline font-normal"
+            className="text-accent-bright hover:underline font-black"
           >
-            Clear
+            RESET
           </button>
         )}
       </p>
 
-      <div className="relative mb-2">
+      <div className="relative mb-4 group">
         <input
           type="text"
           value={area}
           onChange={(e) => handleAreaChange(e.target.value)}
-          placeholder="Type area, city, street..."
-          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold pr-7"
+          placeholder="ENTER CITY OR DISTRICT..."
+          className="w-full bg-background-card border-2 border-border-primary/30 rounded-2xl px-5 py-4 text-xs font-bold text-white placeholder:text-text-muted focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
         />
         {area && (
           <button
             type="button"
             onClick={() => { handleAreaChange(''); onApply?.(); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
           >
-            <X className="w-3.5 h-3.5" />
+            <X className="w-5 h-5" />
           </button>
         )}
       </div>
 
       {availableAreas.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-2">
-          <FilterChip
-            label="All Areas"
-            active={area === ''}
-            onClick={() => { handleAreaChange(''); onApply?.(); }}
-          />
+        <div className="flex flex-wrap gap-2.5 mt-4">
           {availableAreas.slice(0, 6).map((a) => (
             <FilterChip
               key={a}
@@ -86,29 +81,29 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
 
     {/* Verified */}
     <div>
-      <label className="flex items-center justify-between cursor-pointer gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-        <span className="flex items-center gap-2 font-semibold text-text-primary">
-          <ShieldCheck className="w-4 h-4 text-accent-gold" />
-          Verified Only
+      <label className="flex items-center justify-between cursor-pointer gap-4 p-5 rounded-[1.5rem] bg-background-card border-2 border-border-primary/20 hover:border-accent-orange transition-all shadow-xl group">
+        <span className="flex items-center gap-3 font-black text-white uppercase tracking-[0.2em] text-[10px]">
+          <ShieldCheck className="w-5 h-5 text-accent-green group-hover:scale-110 transition-transform" />
+          VERIFIED ONLY
         </span>
         <input
           type="checkbox"
           checked={verifiedOnly}
           onChange={(e) => { setVerified(e.target.checked); onApply?.(); }}
-          className="w-4 h-4 rounded accent-amber-500 cursor-pointer"
+          className="w-6 h-6 rounded-lg accent-accent-orange cursor-pointer border-2 border-white/10"
         />
       </label>
     </div>
 
     {/* Rating */}
     <div>
-      <p className="font-semibold text-text-primary mb-2 px-1">Minimum Rating</p>
-      <div className="flex flex-wrap gap-2">
+      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">RELIABILITY INDEX</p>
+      <div className="flex flex-wrap gap-2.5">
         {[
-          { val: 0,   label: 'All' },
-          { val: 4,   label: '4★+' },
-          { val: 4.5, label: '4.5★+' },
-          { val: 4.8, label: '4.8★+' },
+          { val: 0,   label: 'ANY' },
+          { val: 4,   label: '4.0+' },
+          { val: 4.5, label: '4.5+' },
+          { val: 4.8, label: '4.8+' },
         ].map(({ val, label }) => (
           <FilterChip
             key={val}
@@ -122,12 +117,12 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
 
     {/* Category */}
     <div>
-      <p className="font-semibold text-text-primary mb-2 px-1">Category</p>
-      <div className="flex flex-wrap gap-2">
+      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">SERVICE DOMAIN</p>
+      <div className="flex flex-wrap gap-2.5">
         {['', 'electrician', 'plumber', 'carpenter', 'ac-technician', 'cleaner', 'mechanic'].map((c) => (
           <FilterChip
             key={c}
-            label={c === '' ? 'All' : c.charAt(0).toUpperCase() + c.slice(1).replace('-', ' ')}
+            label={c === '' ? 'ALL' : c.replace('-', ' ')}
             active={category === c}
             onClick={() => { setCategory(c); onApply?.(); }}
           />
@@ -236,48 +231,51 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col">
+    <div className="min-h-screen bg-background-primary flex flex-col relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 right-0 w-full h-[500px] bg-accent-orange/10 blur-[150px] pointer-events-none" />
+
       <Navbar />
 
-      <main className="flex-1 pt-20 sm:pt-28 pb-24 lg:pb-16">
-        <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-6">
+      <main className="flex-1 pt-32 sm:pt-40 pb-24 lg:pb-32 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          {/* Search Bar */}
-          <div className="relative mb-5 sm:mb-7 z-20">
+          {/* Search Header Bar */}
+          <div className="relative mb-12 z-30">
             <form
               onSubmit={(e) => {
                 handleSearch(e);
                 setShowSuggestions(false);
               }}
-              className="glass-card bg-white/95 rounded-2xl p-1.5 sm:p-2 border border-accent-gold/25 shadow-xl flex items-center gap-2"
+              className="glass-card !bg-background-dark/90 rounded-[2.5rem] p-2.5 border-2 border-accent-main/40 shadow-[0_30px_80px_rgba(0,0,0,0.7)] flex items-center gap-4"
             >
-              <div className="pl-3 text-accent-gold shrink-0">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <div className="pl-5 text-accent-bright shrink-0">
+                <Sparkles className="w-7 h-7" />
               </div>
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => query.trim() && setShowSuggestions(true)}
-                placeholder="Search workers, services..."
-                className="flex-1 min-w-0 bg-transparent text-sm text-text-primary placeholder-text-muted focus:outline-none py-2 px-1"
+                placeholder="ENTER SERVICE NEED OR EXPERT NAME..."
+                className="flex-1 min-w-0 bg-transparent text-base font-black text-white placeholder:text-text-muted focus:outline-none py-4 px-2 uppercase tracking-widest"
                 autoComplete="off"
               />
               <button
                 type="submit"
-                className="btn-primary px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold shrink-0"
+                className="btn-primary px-10 sm:px-14 py-4 sm:py-5 rounded-[1.8rem] text-sm font-black uppercase tracking-[0.2em] shrink-0 shadow-[0_10px_30px_rgba(244,81,11,0.4)]"
               >
-                Search
+                Execute Scan
               </button>
             </form>
 
-            {/* Live Search Suggestions Dropdown */}
+            {/* Suggestions */}
             {showSuggestions && (suggestions.categories.length > 0 || suggestions.workers.length > 0) && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-fade-in z-30 max-h-[400px] overflow-y-auto">
-                {/* Categories Section */}
+              <div className="absolute top-full left-0 right-0 mt-4 bg-background-cardSecondary rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-border-primary/40 overflow-hidden animate-fade-in z-30 max-h-[500px] overflow-y-auto backdrop-blur-2xl">
+                {/* Categories */}
                 {suggestions.categories.length > 0 && (
-                  <div className="p-2 border-b border-gray-50">
-                    <p className="text-[10px] font-bold text-accent-gold uppercase tracking-widest px-3 mb-2">Categories</p>
+                  <div className="p-4 border-b border-white/5">
+                    <p className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] px-6 mb-4">Domain Nodes</p>
                     {suggestions.categories.map((cat) => (
                       <button
                         key={cat._id}
@@ -289,23 +287,21 @@ const SearchPage = () => {
                           setShowSuggestions(false);
                           setQuery('');
                         }}
-                        className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-amber-50 flex items-center gap-3 transition-colors group"
+                        className="w-full text-left px-6 py-4 rounded-2xl hover:bg-background-widget/60 flex items-center gap-5 transition-all group"
                       >
-                        <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center group-hover:bg-white border border-amber-100/50">
-                          <Sparkles className="w-4 h-4 text-accent-gold" />
+                        <div className="w-12 h-12 rounded-2xl bg-background-dark flex items-center justify-center group-hover:bg-accent-orange border border-border-primary/30 transition-colors shadow-xl">
+                          <Sparkles className="w-6 h-6 text-accent-light group-hover:text-white" />
                         </div>
-                        <div>
-                          <p className="text-xs font-bold text-text-primary">{cat.name}</p>
-                        </div>
+                        <p className="text-base font-black text-white uppercase tracking-widest">{cat.name}</p>
                       </button>
                     ))}
                   </div>
                 )}
 
-                {/* Workers Section */}
+                {/* Professionals */}
                 {suggestions.workers.length > 0 && (
-                  <div className="p-2">
-                    <p className="text-[10px] font-bold text-accent-blue uppercase tracking-widest px-3 mb-2">Professionals</p>
+                  <div className="p-4">
+                    <p className="text-[11px] font-black text-accent-peach uppercase tracking-[0.4em] px-6 mb-4">Active Modules</p>
                     {suggestions.workers.map((worker) => (
                       <button
                         key={worker._id}
@@ -314,66 +310,56 @@ const SearchPage = () => {
                           setShowSuggestions(false);
                           setQuery('');
                         }}
-                        className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-blue-50 flex items-center gap-3 transition-colors group"
+                        className="w-full text-left px-6 py-4 rounded-2xl hover:bg-background-widget/60 flex items-center gap-5 transition-all group"
                       >
                         <img
-                          src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=random`}
+                          src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
                           alt={worker.name}
-                          className="w-8 h-8 rounded-full object-cover border border-blue-100"
+                          className="w-14 h-14 rounded-full object-cover border-2 border-accent-main group-hover:border-accent-bright transition-all"
                         />
                         <div>
-                          <p className="text-xs font-bold text-text-primary">{worker.name}</p>
-                          <p className="text-[9px] text-text-muted italic">{worker.profession}</p>
+                          <p className="text-base font-black text-white uppercase tracking-wider">{worker.name}</p>
+                          <p className="text-[11px] text-text-muted font-bold tracking-tight italic">{worker.profession}</p>
                         </div>
                       </button>
                     ))}
                   </div>
                 )}
 
-                {/* View all button */}
                 <button
-                  onClick={() => {
-                    handleSearch();
-                    setShowSuggestions(false);
-                  }}
-                  className="w-full p-3 bg-gray-50 text-center text-[10px] font-bold text-text-secondary hover:text-accent-gold transition-colors flex items-center justify-center gap-2"
+                  onClick={() => { handleSearch(); setShowSuggestions(false); }}
+                  className="w-full p-7 bg-background-dark/80 text-center text-xs font-black text-text-secondary hover:text-accent-bright transition-all border-t border-white/5 flex items-center justify-center gap-5 uppercase tracking-[0.4em]"
                 >
-                  See all results for "{query}" <ArrowRight className="w-3 h-3" />
+                  LOAD FULL DATASET <ArrowRight className="w-6 h-6" />
                 </button>
               </div>
             )}
-
-            {/* Click outside to close overlay */}
-            {showSuggestions && (
-              <div
-                className="fixed inset-0 z-20"
-                onClick={() => setShowSuggestions(false)}
-              />
-            )}
           </div>
 
-          {/* Header Row */}
-          <div className="flex items-center justify-between gap-3 mb-5 sm:mb-7 flex-wrap">
+          {/* Title Row */}
+          <div className="flex items-center justify-between gap-6 mb-12 flex-wrap">
             <div>
-              <h1 className="text-lg sm:text-2xl font-sora font-bold text-text-primary flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-accent-gold" />
-                AI Service Search
+              <h1 className="text-3xl sm:text-5xl font-sora font-black text-white flex items-center gap-5 tracking-tighter">
+                <div className="w-14 h-14 rounded-3xl bg-background-dark flex items-center justify-center border-2 border-accent-bright/30 shadow-2xl">
+                   <Search className="w-7 h-7 text-accent-bright" />
+                </div>
+                MARKET SCAN
               </h1>
-              <p className="text-xs text-text-secondary mt-0.5">
-                {workers.length} verified workers found
+              <p className="text-[11px] font-black text-accent-light uppercase tracking-[0.3em] mt-3 opacity-90">
+                {workers.length} VERIFIED NODES DETECTED IN RADIUS
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <button
                 onClick={() => setFilterOpen(!filterOpen)}
-                className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 bg-white text-xs font-semibold text-text-secondary hover:border-accent-gold hover:text-accent-gold transition-colors min-h-[40px]"
+                className="lg:hidden flex items-center gap-3 px-8 py-4 rounded-2xl border-2 border-border-primary/40 bg-background-card text-[11px] font-black text-white hover:border-accent-orange transition-all shadow-2xl uppercase tracking-widest"
               >
-                <Filter className="w-4 h-4" />
-                Filters
+                <Filter className="w-5 h-5 text-accent-bright" />
+                FILTERS
               </button>
 
-              <div className="flex items-center bg-white rounded-xl border border-gray-200 shadow-sm p-1">
+              <div className="flex items-center bg-background-cardSecondary rounded-2xl border-2 border-border-primary/30 shadow-2xl p-1.5 backdrop-blur-xl">
                 {[
                   { mode: 'grid', icon: LayoutGrid },
                   { mode: 'list', icon: List },
@@ -382,57 +368,26 @@ const SearchPage = () => {
                   <button
                     key={mode}
                     onClick={() => setViewMode(mode)}
-                    className={`p-2 rounded-lg transition-all min-h-[36px] min-w-[36px] ${
+                    className={`p-3.5 rounded-xl transition-all min-h-[48px] min-w-[48px] ${
                       viewMode === mode
-                        ? 'bg-accent-gold/20 text-accent-gold'
-                        : 'text-text-muted hover:text-text-primary'
+                        ? 'bg-accent-orange text-white shadow-2xl scale-105'
+                        : 'text-text-muted hover:text-white'
                     }`}
                     aria-label={`${mode} view`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-6 h-6" />
                   </button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Mobile Filter Drawer */}
-          {filterOpen && (
-            <div className="lg:hidden mb-5">
-              <GlassCard goldBorder className="bg-white/98 p-5 rounded-2xl relative">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-sora font-semibold text-sm text-text-primary flex items-center gap-2">
-                    <Filter className="w-4 h-4 text-accent-gold" /> Filter Workers
-                  </h3>
-                  <button
-                    onClick={() => setFilterOpen(false)}
-                    className="p-1.5 rounded-full hover:bg-gray-100 text-text-muted"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                <FilterPanel
-                  area={area}
-                  handleAreaChange={handleAreaChange}
-                  availableAreas={availableAreas}
-                  verifiedOnly={verifiedOnly}
-                  setVerified={setVerified}
-                  minRating={minRating}
-                  setMinRating={setMinRating}
-                  category={category}
-                  setCategory={setCategory}
-                  onApply={() => setFilterOpen(false)}
-                />
-              </GlassCard>
-            </div>
-          )}
-
           {/* Layout Grid */}
-          <div className="flex gap-5 lg:gap-7 items-start">
-            <aside className="hidden lg:block w-56 xl:w-64 shrink-0 sticky top-28">
-              <GlassCard goldBorder className="bg-white/95 p-5 rounded-3xl">
-                <h3 className="font-sora font-semibold text-sm text-text-primary flex items-center gap-2 mb-5 pb-3 border-b border-gray-100">
-                  <Filter className="w-4 h-4 text-accent-gold" /> Filters
+          <div className="flex gap-10 lg:gap-12 items-start">
+            <aside className={`hidden lg:block w-72 xl:w-80 shrink-0 sticky top-36 transition-all duration-500`}>
+              <GlassCard goldBorder className="!bg-background-cardSecondary p-8 rounded-[3rem] border border-border-primary/60 shadow-[0_30px_70px_rgba(0,0,0,0.6)]">
+                <h3 className="font-sora font-black text-lg text-white flex items-center gap-4 mb-10 pb-5 border-b border-white/5 uppercase tracking-widest">
+                  <Filter className="w-6 h-6 text-accent-bright" /> DATA FILTERS
                 </h3>
                 <FilterPanel
                   area={area}
@@ -449,41 +404,26 @@ const SearchPage = () => {
             </aside>
 
             <div className="flex-1 min-w-0">
-
               {/* Map View */}
               {viewMode === 'map' && (
-                <GlassCard className="h-64 sm:h-96 flex flex-col items-center justify-center bg-blue-50/50 border border-accent-blue/30 text-center p-6 rounded-3xl mb-5">
-                  <MapPin className="w-10 h-10 sm:w-12 sm:h-12 text-accent-blue animate-bounce mb-3" />
-                  <h3 className="font-sora font-semibold text-base sm:text-lg text-text-primary">
-                    Interactive Google Maps View
+                <GlassCard className="h-[500px] sm:h-[600px] flex flex-col items-center justify-center !bg-background-dark/60 border-dashed border-2 border-accent-bright/30 text-center p-12 rounded-[4rem] mb-12 shadow-inner relative overflow-hidden group">
+                   <div className="absolute inset-0 bg-accent-orange/5 opacity-50 blur-[100px]" />
+                  <div className="w-24 h-24 bg-background-cardSecondary rounded-[2rem] flex items-center justify-center mb-10 shadow-3xl border border-white/5 group-hover:scale-110 transition-transform duration-700 relative z-10">
+                    <MapPin className="w-12 h-12 text-accent-bright animate-bounce" />
+                  </div>
+                  <h3 className="font-sora font-black text-3xl text-white tracking-tighter mb-5 relative z-10">
+                    SATELLITE POSITIONING
                   </h3>
-                  <p className="text-xs text-text-muted mt-1 mb-4 max-w-xs">
-                    {workers.length} verified workers within your location radius with live markers.
+                  <p className="text-sm text-text-muted mt-2 mb-10 max-w-sm mx-auto leading-relaxed font-bold uppercase tracking-wider opacity-80 relative z-10">
+                    VISUALIZING {workers.length} NODES ON SECURE GRID. INITIALIZE GPS HANDSHAKE TO PROCEED.
                   </p>
-                  <PremiumButton variant="ai" size="sm">Enable GPS Location</PremiumButton>
+                  <PremiumButton variant="ai" size="lg" className="px-16 py-5 relative z-10 shadow-[0_15px_40px_rgba(249,115,22,0.4)]">INITIALIZE GEO-SCAN</PremiumButton>
                 </GlassCard>
-              )}
-
-              {/* Loading */}
-              {loading && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="glass-card p-5 rounded-2xl animate-pulse h-52">
-                      <div className="flex items-start gap-3">
-                        <div className="w-14 h-14 bg-gray-200 rounded-full" />
-                        <div className="flex-1 space-y-2 mt-1">
-                          <div className="h-3 bg-gray-200 rounded w-3/4" />
-                          <div className="h-2.5 bg-gray-200 rounded w-1/2" />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               )}
 
               {/* Grid View */}
               {!loading && viewMode === 'grid' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
                   {workers.map((w) => (
                     <WorkerCard
                       key={w._id}
@@ -496,50 +436,60 @@ const SearchPage = () => {
 
               {/* List View */}
               {!loading && viewMode === 'list' && (
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-6 sm:space-y-8">
                   {workers.map((w) => (
                     <GlassCard
                       key={w._id}
                       goldBorder
-                      className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                      className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-8 !bg-background-card border-border-primary/60 shadow-2xl hover:border-accent-bright duration-500"
                     >
-                      <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                        <img
-                          src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name)}&background=D4AF37&color=fff`}
-                          alt={w.name}
-                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-accent-gold/40 shrink-0"
-                          loading="lazy"
-                        />
+                      <div className="flex items-center gap-6 sm:gap-10 min-w-0">
+                        <div className="relative shrink-0">
+                           <img
+                            src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name)}&background=F4510B&color=fff`}
+                            alt={w.name}
+                            className="w-20 h-20 sm:w-28 sm:h-20 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
+                            loading="lazy"
+                           />
+                           {w.isAvailable && <span className="absolute -bottom-1 -right-1 w-6 h-6 bg-accent-green rounded-2xl border-4 border-background-card" />}
+                        </div>
                         <div className="min-w-0">
-                          <h3 className="font-sora font-semibold text-sm sm:text-base text-text-primary truncate">
+                          <h3 className="font-sora font-black text-xl sm:text-2xl text-white truncate tracking-tight">
                             {w.name}
                           </h3>
-                          <p className="text-xs text-text-muted truncate">{w.profession}</p>
-                          <div className="flex items-center gap-2 sm:gap-3 text-xs mt-1 flex-wrap">
-                            <span className="text-accent-gold font-bold">★ {w.rating}</span>
-                            <span className="text-text-muted">{w.experience} yrs exp</span>
+                          <p className="text-[11px] sm:text-xs text-accent-light font-black uppercase tracking-[0.2em] mt-1.5">{w.profession}</p>
+                          <div className="flex items-center gap-6 sm:gap-10 text-[10px] sm:text-[11px] font-black uppercase tracking-widest mt-5 flex-wrap">
+                            <span className="text-accent-bright flex items-center gap-2 bg-background-dark/50 px-3 py-1.5 rounded-xl border border-white/5 shadow-xl">
+                              <Star className="w-4 h-4 fill-current" /> {w.rating} INDEX
+                            </span>
+                            <span className="text-text-secondary flex items-center gap-2 opacity-90">
+                               <Briefcase className="w-4 h-4" /> {w.experience} CYCLES
+                            </span>
                             {w.distance !== undefined && (
-                              <span className="text-text-muted">📍 {w.distance} km</span>
+                              <span className="text-text-secondary flex items-center gap-2 opacity-90">
+                                 <MapPin className="w-4 h-4" /> {w.distance} ZONE
+                              </span>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3 shrink-0">
+                      <div className="flex items-center gap-8 shrink-0 ml-auto sm:ml-0">
                         <div className="text-right hidden sm:block">
-                          <div className="text-sm font-bold text-accent-gold">
-                            ₹{w.pricing?.hourly || 350}/hr
+                          <div className="text-2xl font-black text-white tracking-tighter">
+                            ₹{w.pricing?.hourly || 350}<span className="text-[11px] font-bold text-text-muted tracking-widest ml-1">/HR</span>
                           </div>
-                          <div className="text-[10px] text-text-muted">
-                            {w.isAvailable ? 'Available Now' : 'Busy'}
+                          <div className={`text-[10px] font-black uppercase tracking-[0.3em] mt-2 ${w.isAvailable ? 'text-accent-green' : 'text-text-muted opacity-60'}`}>
+                            {w.isAvailable ? 'AVAILABLE NOW' : 'MODULE BUSY'}
                           </div>
                         </div>
                         <PremiumButton
                           variant="gold"
-                          size="sm"
+                          size="lg"
                           onClick={() => navigate(`/workers/${w._id}`)}
+                          className="px-12 py-5 font-black uppercase tracking-widest shadow-[0_15px_30px_rgba(244,81,11,0.4)]"
                         >
-                          View Profile
+                          ACCESS
                         </PremiumButton>
                       </div>
                     </GlassCard>
@@ -549,14 +499,16 @@ const SearchPage = () => {
 
               {/* Empty State */}
               {!loading && workers.length === 0 && (
-                <div className="text-center py-20">
-                  <Sparkles className="w-12 h-12 text-accent-gold mx-auto mb-4 opacity-50" />
-                  <h3 className="font-sora font-semibold text-text-primary mb-2">No Workers Found</h3>
-                  <p className="text-sm text-text-muted mb-5">
-                    No active workers match this query. Deleted workers have been removed.
+                <div className="text-center py-40 bg-background-cardSecondary/60 rounded-[4rem] border-2 border-dashed border-border-primary/40 shadow-inner">
+                  <div className="w-24 h-24 bg-background-dark rounded-[1.5rem] flex items-center justify-center mx-auto mb-10 shadow-3xl border border-white/5">
+                    <Sparkles className="w-12 h-12 text-accent-bright opacity-20" />
+                  </div>
+                  <h3 className="font-sora font-black text-3xl text-white mb-4 tracking-tighter">NULL DATA RETURNED</h3>
+                  <p className="text-sm text-text-muted mb-12 max-w-sm mx-auto font-bold uppercase tracking-widest leading-relaxed opacity-80">
+                    THE CURRENT SCAN PARAMETERS PRODUCED NO MATCHING NODES. ADJUST FILTERS TO CONTINUE.
                   </p>
-                  <PremiumButton variant="gold" onClick={() => { setCategory(''); setVerified(false); setMinRating(0); setQuery(''); setArea(''); setSearchParams(new URLSearchParams()); }}>
-                    Reset Filters
+                  <PremiumButton variant="gold" size="lg" className="px-16" onClick={() => { setCategory(''); setVerified(false); setMinRating(0); setQuery(''); setArea(''); setSearchParams(new URLSearchParams()); }}>
+                    PURGE SCAN SETTINGS
                   </PremiumButton>
                 </div>
               )}

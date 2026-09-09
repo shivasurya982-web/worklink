@@ -11,25 +11,24 @@ const PremiumButton = ({
   ...props
 }) => {
   const base =
-    'inline-flex items-center justify-center font-outfit font-semibold rounded-full transition-all duration-200 ' +
+    'inline-flex items-center justify-center font-outfit font-black rounded-2xl transition-all duration-300 ' +
     'active:scale-95 disabled:opacity-50 disabled:pointer-events-none disabled:transform-none ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ' +
-    'touch-manipulation select-none';
+    'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-main/30 ' +
+    'touch-manipulation select-none tracking-widest uppercase';
 
   const variants = {
-    gold:    'bg-gradient-to-r from-accent-gold to-accent-goldLight text-text-primary shadow-md shadow-accent-gold/25 hover:shadow-accent-gold/40 hover:-translate-y-0.5 focus-visible:ring-accent-gold',
-    ai:      'bg-gradient-to-r from-accent-blue to-blue-600 text-white shadow-md shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:-translate-y-0.5 focus-visible:ring-accent-blue',
-    outline: 'bg-white/80 border border-accent-gold/40 text-text-primary hover:border-accent-gold hover:bg-white hover:-translate-y-0.5 shadow-sm focus-visible:ring-accent-gold',
-    danger:  'bg-gradient-to-r from-accent-red to-red-600 text-white shadow-md shadow-accent-red/25 hover:shadow-accent-red/40 hover:-translate-y-0.5 focus-visible:ring-accent-red',
-    ghost:   'bg-transparent text-text-secondary hover:text-text-primary hover:bg-black/5 focus-visible:ring-gray-400',
+    gold:    'bg-gradient-to-r from-[#F4510B] to-[#FF7A18] text-white shadow-xl shadow-black/20 border-2 border-[#FF7A18]/30 hover:shadow-[#F4510B]/40 hover:-translate-y-1',
+    ai:      'bg-[#F97316] text-white shadow-xl shadow-black/20 border-2 border-[#FF7A18]/30 hover:bg-[#FF7A18] hover:-translate-y-1',
+    outline: 'bg-[#080808]/80 border-2 border-[#8F3208] text-[#FF9A4D] hover:border-[#FF7A18] hover:bg-[#080808] hover:-translate-y-1',
+    danger:  'bg-red-600 text-white shadow-lg border-2 border-red-500/30 hover:bg-red-700 hover:-translate-y-1',
+    ghost:   'bg-transparent text-text-secondary hover:text-text-primary hover:bg-white/5',
   };
 
-  // Touch-friendly minimum heights
   const sizes = {
-    xs: 'px-3 py-1.5 text-[11px] gap-1 min-h-[36px]',
-    sm: 'px-4 py-2 text-xs gap-1.5 min-h-[40px]',
-    md: 'px-5 py-2.5 text-sm gap-2 min-h-[44px]',
-    lg: 'px-7 py-3.5 text-base gap-2.5 min-h-[52px]',
+    xs: 'px-3 py-1.5 text-[9px] gap-1.5 min-h-[36px]',
+    sm: 'px-4 py-2.5 text-[10px] gap-2 min-h-[42px]',
+    md: 'px-6 py-3 text-xs gap-2.5 min-h-[48px]',
+    lg: 'px-8 py-4 text-sm gap-3 min-h-[56px] rounded-3xl',
   };
 
   return (
@@ -41,11 +40,11 @@ const PremiumButton = ({
       {...props}
     >
       {loading ? (
-        <span className="inline-block animate-spin rounded-full h-3.5 w-3.5 border-2 border-current border-t-transparent" />
+        <span className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent" />
       ) : Icon ? (
-        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
       ) : null}
-      {children}
+      <span className="truncate">{children}</span>
     </button>
   );
 };

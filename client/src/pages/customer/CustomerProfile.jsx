@@ -88,7 +88,7 @@ const CustomerProfile = () => {
 
       if (res.success && res.data?.customer) {
         updateUserProfile(res.data.customer);
-        showToast('Profile Updated', 'Profile updated successfully.', 'success');
+        showToast('Profile Updated', 'Node parameters synchronized.', 'success');
         setAvatarFile(null);
         setIsEditingProfile(false);
       }
@@ -102,172 +102,185 @@ const CustomerProfile = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      showToast('Mismatch', 'Passwords do not match.', 'error');
+      showToast('Mismatch', 'Security keys do not match.', 'error');
       return;
     }
     if (newPassword.length < 6) {
-      showToast('Too Short', 'Password must be at least 6 characters.', 'error');
+      showToast('Too Short', 'Key must be at least 6 characters.', 'error');
       return;
     }
     setPwLoading(true);
     try {
       const res = await API.put('/auth/change-password', { currentPassword, newPassword });
       if (res.success) {
-        showToast('Password Changed', 'Success! Please login again.', 'success');
+        showToast('Key Rotated', 'Password updated. Resetting terminal...', 'success');
         setTimeout(() => {
           logout();
           navigate('/login');
         }, 2000);
       }
     } catch (err) {
-      showToast('Error', err.message || 'Failed to change password', 'error');
+      showToast('Error', err.message || 'Key rotation failed', 'error');
     } finally {
       setPwLoading(false);
     }
   };
 
   return (
-    <DashboardLayout title="Account Settings" subtitle="Manage your profile and security">
-      <div className="max-w-2xl mx-auto space-y-6 pb-20">
+    <DashboardLayout title="Terminal Settings" subtitle="Configure consumer profile and security protocols">
+      <div className="max-w-2xl mx-auto space-y-8 pb-24">
 
         {/* Profile Card */}
-        <GlassCard goldBorder className="bg-white p-5 sm:p-8 rounded-3xl shadow-xl overflow-hidden">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-            <h3 className="font-sora font-bold text-lg text-text-primary flex items-center gap-2">
-              <User className="w-5 h-5 text-accent-gold" /> Personal Information
+        <GlassCard goldBorder className="!bg-background-card p-6 sm:p-10 rounded-[2.5rem] shadow-2xl overflow-hidden border-border-primary/40 relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl pointer-events-none" />
+
+          <div className="flex items-center justify-between mb-10 pb-5 border-b border-white/5 relative z-10">
+            <h3 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
+              <User className="w-6 h-6 text-accent-bright" /> IDENTIFIER DATA
             </h3>
             <button
               onClick={() => setIsEditingProfile(!isEditingProfile)}
-              className={`p-2 rounded-full transition-all ${isEditingProfile ? 'bg-red-50 text-accent-red' : 'bg-amber-50 text-accent-gold'}`}
+              className={`p-3 rounded-2xl transition-all shadow-xl ${isEditingProfile ? 'bg-red-950/20 text-red-400 border border-red-500/20' : 'bg-background-widget text-accent-bright border border-white/5'}`}
             >
               {isEditingProfile ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
             </button>
           </div>
 
           {!isEditingProfile ? (
-            <div className="space-y-6 animate-fade-in">
-              <div className="flex flex-col items-center sm:items-start gap-4 mb-6">
-                <img
-                  src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=D4AF37&color=fff`}
-                  alt="Avatar"
-                  className="w-24 h-24 rounded-full object-cover border-4 border-accent-gold/20 shadow-md"
-                />
+            <div className="space-y-10 animate-fade-in relative z-10">
+              <div className="flex flex-col items-center sm:items-start gap-6">
+                <div className="relative group">
+                   <img
+                    src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=F4510B&color=fff`}
+                    alt="Avatar"
+                    className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
+                   />
+                   <div className="absolute inset-0 bg-accent-orange/10 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
                 <div>
-                   <h4 className="font-sora font-bold text-xl text-text-primary">{name}</h4>
-                   <p className="text-sm text-text-muted">{email}</p>
+                   <h4 className="font-sora font-black text-3xl text-white tracking-tighter uppercase">{name}</h4>
+                   <p className="text-sm font-bold text-accent-light uppercase tracking-[0.2em] mt-2 opacity-80">{email}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 <div className="p-4 bg-gray-50 rounded-2xl">
-                    <p className="text-[10px] font-bold text-accent-gold uppercase tracking-wider mb-1">Phone Number</p>
-                    <p className="text-sm font-semibold text-text-primary">{phone || 'Not set'}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                 <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Comms Node</p>
+                    <p className="text-sm font-bold text-white uppercase">{phone || 'SIGNAL LOST'}</p>
                  </div>
-                 <div className="p-4 bg-gray-50 rounded-2xl">
-                    <p className="text-[10px] font-bold text-accent-gold uppercase tracking-wider mb-1">Recovery Hint</p>
-                    <p className="text-sm font-semibold text-text-primary">{securityHint || 'Not set'}</p>
+                 <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Security Hint</p>
+                    <p className="text-sm font-bold text-white uppercase italic">"{securityHint || 'NULL'}"</p>
                  </div>
-                 <div className="p-4 bg-gray-50 rounded-2xl sm:col-span-2">
-                    <p className="text-[10px] font-bold text-accent-gold uppercase tracking-wider mb-1">Service Address</p>
-                    <p className="text-sm font-semibold text-text-primary">
-                      {street ? `${street}, ${city}, ${state} - ${zip}` : 'No address provided'}
+                 <div className="p-6 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner sm:col-span-2">
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-3">Service Coordinates</p>
+                    <p className="text-sm font-bold text-white uppercase leading-relaxed tracking-tight">
+                      {street ? `${street}, ${city}, ${state} - ${zip}` : 'COORDINATES NOT INITIALIZED'}
                     </p>
                  </div>
               </div>
 
-              <button
+              <PremiumButton
+                variant="outline"
+                fullWidth
                 onClick={() => setIsEditingProfile(true)}
-                className="w-full py-3.5 rounded-2xl border-2 border-dashed border-accent-gold/30 text-accent-gold font-bold text-xs hover:bg-amber-50 transition-colors flex items-center justify-center gap-2"
+                className="py-5 font-black uppercase tracking-widest text-[11px] !rounded-2xl"
               >
-                 <Edit3 className="w-4 h-4" /> Edit Profile Details
-              </button>
+                 <Edit3 className="w-4 h-4 mr-2" /> Modify Profile Dataset
+              </PremiumButton>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 animate-slide-up">
-              {/* Avatar upload */}
-              <div className="flex flex-col items-center gap-4 pb-6">
+            <form onSubmit={handleSubmit} className="space-y-10 animate-slide-up relative z-10">
+              <div className="flex flex-col items-center gap-6 pb-6">
                 <div className="relative">
                   <img
-                    src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=D4AF37&color=fff`}
+                    src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=F4510B&color=fff`}
                     alt="Avatar"
-                    className="w-24 h-24 rounded-full object-cover border-4 border-accent-gold/40 shadow-md"
+                    className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
                   />
                 </div>
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-3">
                   <input type="file" id="avatar-input" accept="image/*" onChange={handleAvatarChange} className="hidden" />
-                  <label htmlFor="avatar-input" className="cursor-pointer px-4 py-2 bg-amber-50 text-accent-gold rounded-full text-[10px] font-bold border border-accent-gold/20 hover:bg-amber-100 transition-colors inline-flex items-center gap-2">
-                    <Camera className="w-3.5 h-3.5" /> Change Profile Photo
+                  <label htmlFor="avatar-input" className="cursor-pointer px-6 py-3 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all inline-flex items-center gap-2.5 uppercase tracking-widest shadow-xl">
+                    <Camera className="w-4 h-4" /> Upload Avatar Module
                   </label>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <h4 className="font-sora font-semibold text-sm text-text-primary border-l-4 border-accent-gold pl-3">Personal Details</h4>
-                <FloatingInput id="email" label="Email Address (Login ID)" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <FloatingInput id="name" label="Full Name" icon={User} value={name} onChange={(e) => setName(e.target.value)} required />
-                <FloatingInput id="phone" label="Phone Number" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required />
+              <div className="space-y-6">
+                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Personal Parameters</h4>
+                <FloatingInput id="email" label="Identifier (Email)" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="name" label="Full Designation" icon={User} value={name} onChange={(e) => setName(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="phone" label="Comms Frequency" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
 
-                <div className="pt-2">
-                  <label className="text-[10px] font-bold text-accent-gold uppercase tracking-wider ml-1 mb-1 block">Security Recovery Hint</label>
-                  <FloatingInput id="securityHint" icon={ShieldCheck} value={securityHint} onChange={(e) => setSecurityHint(e.target.value)} required />
+                <div className="pt-4">
+                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-[0.3em] ml-2 mb-3 block">Recovery Token</label>
+                  <FloatingInput id="securityHint" icon={ShieldCheck} value={securityHint} onChange={(e) => setSecurityHint(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
                 </div>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-gray-100">
-                <h4 className="font-sora font-semibold text-sm text-text-primary border-l-4 border-accent-gold pl-3">Service Location</h4>
-                <FloatingInput id="street" label="Street Address" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required />
-                <div className="grid grid-cols-2 gap-4">
-                  <FloatingInput id="city" label="City" value={city} onChange={(e) => setCity(e.target.value)} required />
-                  <FloatingInput id="state" label="State" value={state} onChange={(e) => setState(e.target.value)} required />
+              <div className="space-y-6 pt-8 border-t border-white/5">
+                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Spatial Metadata</h4>
+                <FloatingInput id="street" label="Street Node" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <div className="grid grid-cols-2 gap-5">
+                  <FloatingInput id="city" label="City" value={city} onChange={(e) => setCity(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                  <FloatingInput id="state" label="Region" value={state} onChange={(e) => setState(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
                 </div>
-                <FloatingInput id="zip" label="PIN Code" value={zip} onChange={(e) => setZip(e.target.value)} required />
+                <FloatingInput id="zip" label="Postal Index" value={zip} onChange={(e) => setZip(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
               </div>
 
-              <div className="flex gap-3">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)}>Cancel</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading}>Save Profile Updates</PremiumButton>
+              <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)} className="py-4 !rounded-2xl">Abort</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-4 !rounded-2xl shadow-orange">Push Updates</PremiumButton>
               </div>
             </form>
           )}
         </GlassCard>
 
         {/* Change Password Card */}
-        <GlassCard className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-100">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Lock className="w-5 h-5 text-accent-gold" />
-              <h3 className="font-sora font-bold text-lg text-text-primary">Password & Security</h3>
+        <GlassCard className="!bg-background-cardSecondary p-6 sm:p-10 rounded-[2.5rem] shadow-2xl border border-border-primary/20 relative overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent-orange/5 blur-3xl pointer-events-none" />
+
+          <div className="flex items-center justify-between mb-8 relative z-10">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-background-dark flex items-center justify-center border border-white/5 shadow-xl">
+                 <Lock className="w-6 h-6 text-accent-bright" />
+              </div>
+              <h3 className="font-sora font-black text-xl text-white uppercase tracking-tighter">Security Protocols</h3>
             </div>
             {!isEditingPassword && (
-              <PremiumButton variant="outline" size="sm" onClick={() => setIsEditingPassword(true)}>
-                Change Password
-              </PremiumButton>
+              <button
+                onClick={() => setIsEditingPassword(true)}
+                className="px-5 py-2.5 rounded-xl border border-accent-orange/30 text-[10px] font-black text-accent-bright hover:bg-accent-orange/10 transition-all uppercase tracking-widest shadow-lg"
+              >
+                Rotate Keys
+              </button>
             )}
           </div>
 
           {!isEditingPassword ? (
-             <p className="text-xs text-text-muted">It's a good idea to use a strong password that you don't use elsewhere.</p>
+             <p className="text-xs font-bold text-text-muted uppercase tracking-widest leading-relaxed opacity-70">ENCRYPT YOUR ACCESS WITH A HIGH-ENTROPY UNIQUE KEY TO PREVENT UNAUTHORIZED SYSTEM ENTRY.</p>
           ) : (
-            <form onSubmit={handleChangePassword} className="space-y-5 animate-slide-up mt-4">
-              <div className="space-y-4 pt-4 border-t border-gray-100">
-                <FloatingInput id="currentPassword" label="Current Password" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
-                <FloatingInput id="newPassword" label="New Password" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-                <FloatingInput id="confirmPassword" label="Confirm New Password" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <form onSubmit={handleChangePassword} className="space-y-8 animate-slide-up mt-8 relative z-10">
+              <div className="space-y-6 pt-6 border-t border-white/5">
+                <FloatingInput id="currentPassword" label="Current Key" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+                <FloatingInput id="newPassword" label="New Key" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+                <FloatingInput id="confirmPassword" label="Verify New Key" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
               </div>
 
-              <div className="flex gap-3">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)}>Cancel</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock}>
-                    Update & Re-login
+              <div className="flex flex-col sm:flex-row gap-4">
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)} className="py-4 !rounded-2xl">Abort</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock} className="py-4 !rounded-2xl shadow-orange">
+                    Execute Rotation
                  </PremiumButton>
               </div>
             </form>
           )}
         </GlassCard>
 
-        <div className="lg:hidden px-4 pt-4">
-          <button onClick={() => { logout(); navigate('/login'); }} className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold text-accent-red bg-red-50 border border-red-100">
-            <LogOut className="w-5 h-5" /> Sign Out
+        <div className="lg:hidden px-4 pt-6">
+          <button onClick={() => { logout(); navigate('/login'); }} className="w-full flex items-center justify-center gap-3 py-5 rounded-[2rem] text-xs font-black text-red-400 bg-red-950/20 border-2 border-red-500/20 shadow-2xl uppercase tracking-widest">
+            <LogOut className="w-6 h-6" /> Terminate Session
           </button>
         </div>
       </div>

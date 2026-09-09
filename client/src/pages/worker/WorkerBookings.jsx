@@ -35,7 +35,7 @@ const WorkerBookings = () => {
     let finalCost;
     if (newStatus === 'completed') {
       const input = prompt('Enter final job cost in ₹:');
-      if (input === null) return; // cancel
+      if (input === null) return;
       finalCost = parseInt(input || '0');
     }
 
@@ -46,7 +46,7 @@ const WorkerBookings = () => {
       });
 
       if (res.success) {
-        showToast('Booking Updated', `Booking is now marked as ${newStatus}.`, 'success');
+        showToast('Operation Synchronized', `Job status updated to ${newStatus}.`, 'success');
         fetchBookings();
       }
     } catch (err) {
@@ -55,110 +55,111 @@ const WorkerBookings = () => {
   };
 
   const handleDeleteBooking = async (id) => {
-    if (!window.confirm('Are you sure you want to remove this booking from your history?')) return;
+    if (!window.confirm('Confirm permanent record deletion?')) return;
     try {
       const res = await API.delete(`/bookings/${id}`);
       if (res.success) {
         setBookings(prev => prev.filter(b => b._id !== id));
-        showToast('Booking Removed', 'Booking history updated.', 'success');
+        showToast('Data Purged', 'Record removed from terminal.', 'info');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Could not delete booking', 'error');
+      showToast('Error', err.message || 'Purge failed', 'error');
     }
   };
 
-  // Group bookings
   const pendingJobs = bookings.filter(b => b.status === 'pending');
   const otherJobs = bookings.filter(b => b.status !== 'pending');
 
   return (
     <DashboardLayout
-      title="My Service Jobs"
-      subtitle="Accept new requests and manage your ongoing work assignments"
+      title="Service Assignments"
+      subtitle="Operational coordination and contract management terminal"
     >
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+        <div className="flex justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
         </div>
       ) : (
-        <div className="space-y-10">
+        <div className="space-y-12">
           {/* New Requests Section */}
           {pendingJobs.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="font-sora font-bold text-lg text-text-primary flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-accent-gold animate-bounce" /> New Booking Requests
+            <div className="space-y-6">
+              <h3 className="font-sora font-black text-2xl text-white flex items-center gap-4 tracking-tight">
+                <AlertCircle className="w-8 h-8 text-accent-bright animate-pulse" /> INCOMING REQUESTS
               </h3>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-8">
                 {pendingJobs.map((booking) => (
-                  <GlassCard key={booking._id} hover={false} className="p-0 border-2 border-accent-gold/20 overflow-hidden shadow-xl">
-                    {/* Header: Customer Info & Actions */}
-                    <div className="p-6 bg-gradient-to-r from-amber-50/50 to-white flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-gray-100">
-                      <div className="flex items-center gap-5">
-                        <div className="relative">
+                  <GlassCard key={booking._id} hover={false} className="p-0 !bg-background-card border-2 border-accent-main/30 overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.7)] relative">
+                    <div className="absolute top-0 left-0 w-2 h-full bg-accent-bright" />
+
+                    {/* Header */}
+                    <div className="p-8 bg-background-widget/40 flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-white/5 relative">
+                      <div className="flex items-center gap-6">
+                        <div className="relative shrink-0">
                           <img
-                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=D4AF37&color=fff`}
+                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=F4510B&color=fff`}
                             alt={booking.customer?.name}
-                            className="w-16 h-16 rounded-full object-cover border-2 border-accent-gold shadow-md"
+                            className="w-20 h-20 rounded-3xl object-cover border-2 border-accent-main shadow-2xl"
                           />
-                          <span className="absolute -bottom-1 -right-1 w-6 h-6 bg-accent-gold rounded-full flex items-center justify-center text-[10px] text-white font-bold border-2 border-white">!</span>
+                          <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent-bright rounded-2xl flex items-center justify-center text-[11px] text-white font-black border-4 border-background-widget shadow-xl animate-bounce">!</div>
                         </div>
-                        <div>
-                          <h4 className="font-sora font-extrabold text-lg text-text-primary uppercase tracking-tight flex items-center gap-2">
+                        <div className="min-w-0">
+                          <h4 className="font-sora font-black text-2xl text-white uppercase tracking-tighter truncate">
                             {booking.customer?.name}
                           </h4>
-                          <div className="flex flex-wrap items-center gap-3 mt-1 text-xs font-bold">
-                            <span className="flex items-center gap-1.5 text-accent-gold bg-amber-50 px-3 py-1 rounded-full border border-accent-gold/10">
-                              <Calendar className="w-3.5 h-3.5" /> {new Date(booking.scheduledDate).toLocaleDateString()}
+                          <div className="flex flex-wrap items-center gap-4 mt-3">
+                            <span className="flex items-center gap-2 text-[10px] font-black text-accent-bright bg-background-dark/50 px-4 py-2 rounded-xl border border-white/5 uppercase tracking-widest">
+                              <Calendar className="w-4 h-4" /> {new Date(booking.scheduledDate).toLocaleDateString()}
                             </span>
-                            <span className="flex items-center gap-1.5 text-accent-blue bg-blue-50 px-3 py-1 rounded-full border border-accent-blue/10">
-                              <Clock className="w-3.5 h-3.5" /> {booking.scheduledTime}
+                            <span className="flex items-center gap-2 text-[10px] font-black text-accent-light bg-background-dark/50 px-4 py-2 rounded-xl border border-white/5 uppercase tracking-widest">
+                              <Clock className="w-4 h-4" /> {booking.scheduledTime}
                             </span>
                             {booking.customer?.phone && (
-                              <a href={`tel:${booking.customer.phone}`} className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-600/10 hover:bg-emerald-100 transition-colors">
-                                <Phone className="w-3.5 h-3.5" /> {booking.customer.phone}
+                              <a href={`tel:${booking.customer.phone}`} className="flex items-center gap-2 text-[10px] font-black text-accent-peach bg-background-dark/50 px-4 py-2 rounded-xl border border-white/5 uppercase tracking-widest hover:bg-accent-orange/20 transition-all">
+                                <Phone className="w-4 h-4" /> {booking.customer.phone}
                               </a>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4 shrink-0">
                         <button
                           onClick={() => handleUpdateStatus(booking._id, 'cancelled')}
-                          className="px-6 py-2.5 rounded-xl border border-red-200 text-accent-red font-bold text-xs hover:bg-red-50 transition-all"
+                          className="flex-1 lg:flex-none px-8 py-4 rounded-2xl border-2 border-red-500/30 text-red-400 font-black text-[11px] uppercase tracking-widest hover:bg-red-500/10 transition-all"
                         >
-                          Reject
+                          Decline
                         </button>
-                        <PremiumButton variant="gold" size="md" className="px-10 shadow-glow font-extrabold uppercase tracking-wider" onClick={() => handleUpdateStatus(booking._id, 'accepted')}>
-                          Accept Job Now
+                        <PremiumButton variant="gold" size="lg" className="flex-1 lg:flex-none px-12 shadow-orange font-black uppercase tracking-widest" onClick={() => handleUpdateStatus(booking._id, 'accepted')}>
+                          Accept Assignment
                         </PremiumButton>
                       </div>
                     </div>
 
-                    {/* Body: Address & Reading Box Description */}
-                    <div className="p-6 space-y-5">
-                       {/* Customer Service Address */}
-                       <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                          <MapPin className="w-5 h-5 text-accent-gold shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-[10px] font-extrabold text-accent-gold uppercase tracking-widest mb-1">Customer Service Location</p>
-                            <p className="text-sm font-semibold text-text-primary leading-relaxed">
+                    {/* Body */}
+                    <div className="p-8 space-y-8 relative z-10">
+                       <div className="flex items-start gap-4 p-6 bg-background-widget/20 rounded-[2rem] border border-white/5">
+                          <div className="w-12 h-12 rounded-2xl bg-background-dark flex items-center justify-center border border-accent-bright/20 shadow-xl shrink-0">
+                            <MapPin className="w-6 h-6 text-accent-bright" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-[10px] font-black text-accent-light uppercase tracking-[0.3em] mb-2">Primary Service Site</p>
+                            <p className="text-base font-bold text-white leading-relaxed">
                               {booking.address?.street}, {booking.address?.city}, {booking.address?.state} - {booking.address?.zip}
                             </p>
                           </div>
                        </div>
 
-                       {/* Reading Box Description */}
                        <div>
-                         <p className="text-[10px] font-extrabold text-text-muted uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1">
-                           <MessageSquare className="w-3 h-3" /> Job Requirements & Description
+                         <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-4 flex items-center gap-3 px-2">
+                           <MessageSquare className="w-4 h-4 text-accent-main" /> SPECIFICATIONS
                          </p>
-                         <div className="bg-white p-5 rounded-2xl border-2 border-gray-100 shadow-inner relative group min-h-[100px]">
-                            <div className="absolute top-4 right-4 text-accent-gold/20 group-hover:text-accent-gold/40 transition-colors">
-                               <ChevronRight className="w-8 h-8" />
+                         <div className="bg-background-dark/30 p-7 rounded-[2.5rem] border-2 border-white/5 shadow-inner relative group min-h-[120px] hover:border-accent-main/20 transition-all">
+                            <div className="absolute top-6 right-6 text-accent-main/10 group-hover:text-accent-main/30 transition-all scale-150">
+                               <ChevronRight className="w-10 h-10" />
                             </div>
-                            <p className="text-sm text-text-secondary leading-relaxed font-medium whitespace-pre-wrap pr-10">
-                               {booking.description || 'No specific description provided by the customer.'}
+                            <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold italic opacity-90 pr-12">
+                               "{booking.description || 'NO SPECIFIC PARAMETERS TRANSMITTED.'}"
                             </p>
                          </div>
                        </div>
@@ -170,50 +171,55 @@ const WorkerBookings = () => {
           )}
 
           {/* Active & History Section */}
-          <div className="space-y-4">
-            <h3 className="font-sora font-bold text-lg text-text-primary">Ongoing & Previous Jobs</h3>
+          <div className="space-y-8">
+            <h3 className="font-sora font-black text-2xl text-white uppercase tracking-tight px-2">Mission History</h3>
             {otherJobs.length > 0 ? (
-               <div className="space-y-4">
+               <div className="space-y-5">
                   {otherJobs.map((booking) => (
-                    <GlassCard key={booking._id} hover={false} className="p-5 border border-gray-100">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div className="flex items-center gap-4">
+                    <GlassCard key={booking._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+                       <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+                        <div className="flex items-center gap-6 min-w-0">
                           <img
-                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=D4AF37&color=fff`}
+                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=F4510B&color=fff`}
                             alt={booking.customer?.name}
-                            className="w-12 h-12 rounded-full object-cover border border-gray-200"
+                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl shrink-0"
                           />
-                          <div>
-                            <h4 className="font-sora font-semibold text-sm text-text-primary">{booking.customer?.name}</h4>
-                            <div className="flex flex-wrap items-center gap-2 mt-0.5">
-                               <p className="text-[10px] text-text-muted flex items-center gap-1">
-                                  <Calendar className="w-3 h-3" /> {new Date(booking.scheduledDate).toLocaleDateString()} at {booking.scheduledTime}
+                          <div className="min-w-0">
+                            <h4 className="font-sora font-black text-xl text-white uppercase tracking-tighter truncate">{booking.customer?.name}</h4>
+                            <div className="flex flex-wrap items-center gap-5 mt-3">
+                               <p className="text-[10px] font-black text-text-muted flex items-center gap-2 uppercase tracking-widest">
+                                  <Calendar className="w-4 h-4 text-accent-bright" /> {new Date(booking.scheduledDate).toLocaleDateString()} AT {booking.scheduledTime}
                                </p>
-                               <p className="text-[10px] text-accent-gold flex items-center gap-1 font-medium">
-                                  <MapPin className="w-3 h-3" /> {booking.address?.street}, {booking.address?.city}
+                               <p className="text-[10px] font-black text-accent-light flex items-center gap-2 uppercase tracking-widest">
+                                  <MapPin className="w-4 h-4" /> {booking.address?.city}
                                </p>
                                {booking.customer?.phone && (
-                                 <p className="text-[10px] text-emerald-600 flex items-center gap-1 font-bold">
-                                   <Phone className="w-3 h-3" /> {booking.customer.phone}
+                                 <p className="text-[10px] font-black text-accent-peach flex items-center gap-2 uppercase tracking-widest">
+                                   <Phone className="w-4 h-4" /> {booking.customer.phone}
                                  </p>
                                )}
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3 shrink-0">
-                           <Badge variant={booking.status === 'completed' ? 'success' : booking.status === 'cancelled' ? 'danger' : 'blue'}>
-                              {booking.status.toUpperCase()}
+                        <div className="flex items-center gap-4 shrink-0 self-end lg:self-center">
+                           <Badge
+                            variant={booking.status === 'completed' ? 'success' : booking.status === 'cancelled' ? 'danger' : 'blue'}
+                            className="!rounded-xl px-5 py-2 font-black"
+                           >
+                              {booking.status}
                            </Badge>
 
-                           <PremiumButton variant="outline" size="sm" icon={MessageSquare} onClick={() => navigate(`/worker/messages?customer=${booking.customer?._id}`)}>Chat</PremiumButton>
+                           <PremiumButton variant="outline" size="sm" icon={MessageSquare} onClick={() => navigate(`/worker/messages?customer=${booking.customer?._id}`)} className="px-6 !rounded-xl">Sync</PremiumButton>
 
                            {booking.status === 'accepted' && (
-                             <PremiumButton variant="ai" size="sm" icon={CheckCircle} onClick={() => handleUpdateStatus(booking._id, 'completed')}>Complete</PremiumButton>
+                             <PremiumButton variant="gold" size="sm" icon={CheckCircle} onClick={() => handleUpdateStatus(booking._id, 'completed')} className="px-8 !rounded-xl shadow-orange">Finalize</PremiumButton>
                            )}
 
                            {(booking.status === 'completed' || booking.status === 'cancelled') && (
-                             <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 rounded-xl bg-red-50 text-accent-red hover:bg-red-100" title="Delete History"><Trash2 className="w-4 h-4" /></button>
+                             <button onClick={() => handleDeleteBooking(booking._id)} className="p-3.5 rounded-2xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-xl" title="Purge History"><Trash2 className="w-5 h-5" /></button>
                            )}
                         </div>
                       </div>
@@ -221,8 +227,11 @@ const WorkerBookings = () => {
                   ))}
                </div>
             ) : (
-               <div className="text-center py-10 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
-                  <p className="text-xs text-text-muted">No ongoing or past jobs to display.</p>
+               <div className="text-center py-24 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+                  <div className="w-16 h-16 bg-background-dark rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl opacity-20">
+                     <AlertCircle className="w-8 h-8 text-text-muted" />
+                  </div>
+                  <p className="text-xs font-black text-text-muted uppercase tracking-[0.3em]">NO HISTORICAL DATA DETECTED</p>
                </div>
             )}
           </div>

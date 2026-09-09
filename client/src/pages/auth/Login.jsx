@@ -18,7 +18,6 @@ const Login = () => {
   const { showToast } = useNotification();
   const navigate = useNavigate();
 
-  // If already logged in, redirect
   useEffect(() => {
     if (isAuthenticated) {
       if (userRole === 'admin') navigate('/admin/dashboard', { replace: true });
@@ -39,7 +38,6 @@ const Login = () => {
 
     try {
       let res;
-      // Admin login is automatically handled by the backend for both endpoints
       if (role === 'customer') {
         res = await loginCustomer({ email, password });
       } else {
@@ -48,7 +46,6 @@ const Login = () => {
 
       if (res?.success) {
         showToast('Welcome Back!', 'Login successful.', 'success');
-        // Redirect logic handled by useEffect above
       }
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
@@ -62,45 +59,45 @@ const Login = () => {
       {/* Home Button */}
       <Link
         to="/"
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full border border-accent-gold/20 shadow-sm hover:shadow-md hover:bg-white transition-all text-text-primary text-xs font-bold"
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-background-dark/80 backdrop-blur-md rounded-full border border-accent-main/30 shadow-2xl hover:shadow-accent-main/20 hover:bg-background-dark transition-all text-text-primary text-[11px] font-black uppercase tracking-widest"
       >
-        <Home className="w-4 h-4 text-accent-gold" />
+        <Home className="w-4 h-4 text-accent-bright" />
         <span>Back to Home</span>
       </Link>
 
-      {/* Decorative Orbs */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-accent-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-blue/5 rounded-full blur-3xl" />
+      {/* Decorative Atmosphere */}
+      <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-accent-main/10 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-accent-orange/15 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-md w-full relative z-10">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-2">
-            <span className="font-sora font-bold text-2xl text-text-primary">
-              Worklyn
+        <div className="text-center mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 mb-3">
+            <span className="font-sora font-black text-4xl text-white tracking-tighter">
+              WorkLink
             </span>
           </Link>
-          <p className="text-xs text-text-secondary font-medium uppercase tracking-[0.15em]">Access Your Account</p>
+          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Secure Access Point</p>
         </div>
 
-        <GlassCard goldBorder className="bg-white/95 p-8 rounded-3xl shadow-2xl">
+        <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-border-primary/50 relative">
           {/* Role Switcher */}
-          <div className="flex bg-gray-100 p-1 rounded-2xl mb-8">
+          <div className="flex bg-background-dark/50 p-1.5 rounded-2xl mb-10 border border-white/5">
             <button
               onClick={() => setRole('customer')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all ${
                 role === 'customer'
-                  ? 'bg-white text-accent-gold shadow-sm'
-                  : 'text-text-muted hover:text-text-primary'
+                  ? 'bg-accent-orange text-white shadow-xl'
+                  : 'text-text-muted hover:text-text-secondary'
               }`}
             >
               <User className="w-4 h-4" /> Customer
             </button>
             <button
               onClick={() => setRole('worker')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all ${
                 role === 'worker'
-                  ? 'bg-white text-accent-gold shadow-sm'
-                  : 'text-text-muted hover:text-text-primary'
+                  ? 'bg-accent-orange text-white shadow-xl'
+                  : 'text-text-muted hover:text-text-secondary'
               }`}
             >
               <Briefcase className="w-4 h-4" /> Professional
@@ -108,12 +105,12 @@ const Login = () => {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-xs text-accent-red font-semibold animate-shake">
+            <div className="mb-8 p-4 rounded-2xl bg-red-900/20 border border-red-500/30 text-[11px] text-red-400 font-black animate-shake text-center uppercase tracking-wider">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <FloatingInput
               id="email"
               type="email"
@@ -122,47 +119,47 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="!bg-background-cardSecondary border-border-primary/20"
             />
             <FloatingInput
               id="password"
               type="password"
-              label="Password"
+              label="Secret Password"
               icon={Lock}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="!bg-background-cardSecondary border-border-primary/20"
             />
 
-            <div className="flex justify-end">
+            <div className="flex justify-end pr-2">
               <Link
                 to="/forgot-password"
-                className="text-[11px] font-bold text-accent-gold hover:underline transition-all uppercase tracking-wider"
+                className="text-[10px] font-black text-accent-light hover:text-accent-bright transition-all uppercase tracking-[0.2em]"
               >
-                Forgot Password?
+                Reset Access Key?
               </Link>
             </div>
 
-            <div className="pt-2">
-              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={LogIn}>
-                Login as {role === 'customer' ? 'Customer' : 'Professional'}
+            <div className="pt-4">
+              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={LogIn} className="shadow-[0_15px_40px_rgba(244,81,11,0.4)]">
+                Login as {role === 'customer' ? 'Customer' : 'Pro'}
               </PremiumButton>
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-xs text-text-muted">
-              Don't have an account?{' '}
+          <div className="mt-12 pt-8 border-t border-white/5 text-center">
+            <p className="text-xs text-text-muted font-bold">
+              New to WorkLink?{' '}
               <Link
                 to={role === 'customer' ? '/register/customer' : '/register/worker'}
-                className="font-bold text-accent-gold hover:underline transition-all"
+                className="text-accent-bright hover:text-accent-light transition-all underline decoration-2 underline-offset-4"
               >
-                Sign Up Now
+                Join the Network
               </Link>
             </p>
           </div>
         </GlassCard>
-
-        {/* Footer links removed per user request */}
       </div>
     </div>
   );

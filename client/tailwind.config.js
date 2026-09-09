@@ -8,24 +8,37 @@ export default {
       },
       colors: {
         background: {
-          primary: '#FAFBFC',   // Pearl White
-          secondary: '#F3F4F6', // Soft Silver
-          card: '#FFFFFF',      // Frost White
+          primary: '#F4510B',   // Primary Orange
+          secondary: '#D8430A', // Deep Orange
+          deep: '#B93808',      // Dark Orange
+          card: '#080808',      // Black/Dark Card
+          dark: '#0D0D0D',      // Near Black
+          cardSecondary: '#15110E', // Dark Charcoal
+          widget: '#241208',    // Dark Orange Card
         },
         accent: {
-          gold: '#D4AF37',      // Iron Gold
-          goldLight: '#F5D060',
-          blue: '#00B8FF',      // Arc Reactor Blue
-          blueLight: '#80DCFF',
-          red: '#E63946',       // Iron Red
-          green: '#22C55E',     // Emerald Green
-          amber: '#F59E0B',     // Amber
+          main: '#F97316',      // Main Orange
+          bright: '#FF7A18',    // Bright Orange
+          light: '#FF9A4D',     // Light Orange
+          peach: '#FFD0A8',     // Soft Peach
+          highlight: '#FF6A00', // Pure Orange Highlight
+          gold: '#F97316',      // Alias for main orange to support existing components
+          goldLight: '#FF7A18', // Alias for bright orange
+          orange: '#F4510B',    // Primary orange
+          red: '#EF4444',       // Error Red
+          green: '#22C55E',     // Success Green
+          amber: '#FF9800',     // Warning Orange
         },
         text: {
-          primary: '#000000',   // Pure Black
-          secondary: '#1F2937', // Charcoal Black (Replaced grey)
-          muted: '#374151',     // Deep Slate Black (Replaced grey)
+          primary: '#FFF7F0',   // Warm White
+          secondary: '#F3D5C0', // Soft Peach/Cream
+          muted: '#C9A58E',     // Muted Brownish Orange
         },
+        border: {
+          primary: '#8F3208',   // Muted Orange Border
+          orange: '#D94B0B',    // Strong Orange Border
+          active: '#FF6A00',    // Bright Active Border
+        }
       },
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
@@ -37,10 +50,10 @@ export default {
         '3xl': '24px',
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(31, 41, 55, 0.06)',
-        'glass-hover': '0 14px 40px 0 rgba(212, 175, 55, 0.15)',
-        gold: '0 0 20px rgba(212, 175, 55, 0.25)',
-        blue: '0 0 20px rgba(0, 184, 255, 0.25)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+        'glass-hover': '0 14px 40px 0 rgba(249, 115, 22, 0.18)',
+        orange: '0 0 20px rgba(249, 115, 22, 0.25)',
+        bright: '0 0 25px rgba(255, 106, 0, 0.3)',
       },
       backdropBlur: {
         glass: '20px',
@@ -59,32 +72,8 @@ export default {
           '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
-          '0%, 100%': { transform: 'translateX(-20px) rotate(-5deg)' },
-          '50%': { transform: 'translateX(20px) rotate(5deg)' },
-        },
-        workBounce: {
-          '0%, 100%': { transform: 'translateY(0) scale(1)' },
-          '50%': { transform: 'translateY(-3px) scale(1.05)' },
-        },
-        hammer: {
-          '0%, 100%': { transform: 'rotate(-20deg)' },
-          '50%': { transform: 'rotate(30deg)' },
-        },
-        wrench: {
-          '0%, 100%': { transform: 'rotate(0deg)' },
-          '50%': { transform: 'rotate(45deg)' },
-        },
-        mop: {
-          '0%, 100%': { transform: 'translateX(-5px) rotate(-10deg)' },
-          '50%': { transform: 'translateX(5px) rotate(10deg)' },
-        },
-        lightning: {
-          '0%, 100%': { opacity: '1', filter: 'brightness(1)' },
-          '50%': { opacity: '0.6', filter: 'brightness(1.5)' },
-        },
-        glow: {
-          '0%, 100%': { filter: 'drop-shadow(0 0 2px #D4AF37)', opacity: '1' },
-          '50%': { filter: 'drop-shadow(0 0 8px #D4AF37)', opacity: '0.8' },
+          '0%, 100%': { filter: 'drop-shadow(0 0 2px #F97316)', opacity: '1' },
+          '50%': { filter: 'drop-shadow(0 0 8px #FF6A00)', opacity: '0.8' },
         },
         slideUpFade: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
@@ -95,8 +84,8 @@ export default {
           '50%': { transform: 'translateY(-10px)' },
         },
         pulseGlow: {
-          '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(0, 184, 255, 0.4))' },
-          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(0, 184, 255, 0.8))' },
+          '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(249, 115, 22, 0.4))' },
+          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(249, 115, 22, 0.8))' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },

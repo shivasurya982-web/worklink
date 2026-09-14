@@ -1,3 +1,4 @@
+import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, CheckSquare, ShieldCheck, Calendar, AlertCircle, Check, X, Eye, RefreshCw, Download } from 'lucide-react';

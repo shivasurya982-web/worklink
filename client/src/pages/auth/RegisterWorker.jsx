@@ -1,3 +1,4 @@
+import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Phone, Wrench, MapPin, Upload, Sparkles, CheckCircle2, ArrowRight, ArrowLeft, ShieldCheck, Home, FileText, Image as ImageIcon } from 'lucide-react';

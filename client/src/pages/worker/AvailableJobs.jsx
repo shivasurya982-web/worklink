@@ -1,3 +1,4 @@
+import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, MapPin, Calendar, Clock, ArrowRight, CheckCircle2, User, Briefcase, RefreshCw } from 'lucide-react';

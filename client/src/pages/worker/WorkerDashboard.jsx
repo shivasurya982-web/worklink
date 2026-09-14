@@ -1,3 +1,4 @@
+import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Star, Power, CheckCircle, Eye, AlertTriangle, Briefcase, Bell, Trash2, ArrowRight, Sparkles, TrendingUp, Users, MessageSquare, User, DollarSign } from 'lucide-react';

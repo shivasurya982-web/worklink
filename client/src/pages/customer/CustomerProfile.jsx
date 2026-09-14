@@ -149,7 +149,7 @@ const CustomerProfile = () => {
               <div className="flex flex-col items-center sm:items-start gap-6">
                 <div className="relative group">
                    <img
-                    src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=F4510B&color=fff`}
+                    src={getImageUrl(avatarPreview, DEFAULT_AVATAR(name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'User'))}
                     alt="Avatar"
                     className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
                    />
@@ -192,7 +192,7 @@ const CustomerProfile = () => {
               <div className="flex flex-col items-center gap-6 pb-6">
                 <div className="relative">
                   <img
-                    src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=F4510B&color=fff`}
+                    src={getImageUrl(avatarPreview, DEFAULT_AVATAR(name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'User'))}
                     alt="Avatar"
                     className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
                   />

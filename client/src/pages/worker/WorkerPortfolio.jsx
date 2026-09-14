@@ -128,10 +128,10 @@ const WorkerPortfolio = () => {
               <GlassCard key={item._id || index} className="p-0 overflow-hidden !bg-background-card border-border-primary/40 flex flex-col group h-full shadow-2xl relative">
                 <div className="relative h-56 overflow-hidden bg-background-widget">
                   <img
-                    src={item.url}
+                    src={getImageUrl(item.url, DEFAULT_COVER)}
                     alt={item.title || 'Work sample'}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1581578731522-a2049a4571ff?w=400'; }}
+                    onError={(e) => handleImageError(e, DEFAULT_COVER)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 

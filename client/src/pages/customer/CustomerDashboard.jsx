@@ -12,6 +12,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import BroadcastBookingModal from '../../components/common/BroadcastBookingModal';
 import API from '../../services/api';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const CustomerDashboard = () => {
   const { user } = useAuth();
@@ -156,7 +157,7 @@ const CustomerDashboard = () => {
                <div className="p-3">
                  {suggestions.workers.map(w => (
                    <button key={w._id} onClick={() => navigate(`/workers/${w._id}`)} className="w-full text-left px-5 py-3 rounded-2xl hover:bg-white/5 flex items-center gap-4 transition-all">
-                      <img src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name)}&background=F4510B&color=fff`} className="w-10 h-10 rounded-full object-cover border-2 border-accent-main" />
+                      <img src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))} className="w-10 h-10 rounded-full object-cover border-2 border-accent-main" />
                       <div><p className="text-sm font-bold text-white uppercase">{w.name}</p><p className="text-[10px] text-text-muted font-bold">{w.profession}</p></div>
                    </button>
                  ))}
@@ -191,7 +192,7 @@ const CustomerDashboard = () => {
             {pendingReviews.map(b => (
               <GlassCard key={b._id} className="p-5 flex items-center justify-between gap-4 border border-border-primary/40 !bg-background-cardSecondary shadow-2xl">
                  <div className="flex items-center gap-4 min-w-0">
-                    <img src={b.worker?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(b.worker?.name || 'P')}&background=F4510B&color=fff`} className="w-14 h-14 rounded-2xl object-cover border-2 border-accent-main" />
+                    <img src={getImageUrl(b.worker?.avatar, DEFAULT_AVATAR(b.worker?.name || 'P'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(b.worker?.name || 'P'))} className="w-14 h-14 rounded-2xl object-cover border-2 border-accent-main" />
                     <div className="min-w-0"><h4 className="text-sm font-black text-white truncate">{b.worker?.name}</h4><p className="text-[10px] text-accent-light font-bold uppercase tracking-widest mt-0.5">{b.worker?.profession}</p></div>
                  </div>
                  <PremiumButton variant="gold" size="sm" onClick={() => handleOpenReview(b)} className="font-black px-6">REVIEW</PremiumButton>

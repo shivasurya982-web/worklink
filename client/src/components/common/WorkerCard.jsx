@@ -5,6 +5,7 @@ import GlassCard from './GlassCard';
 import RatingStars from './RatingStars';
 import Badge from './Badge';
 import PremiumButton from './PremiumButton';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) => {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
     distance,
   } = worker;
 
-  const avatarUrl = avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=F4510B&color=fff`;
+  const fallbackAvatar = DEFAULT_AVATAR(name);
+  const avatarUrl = getImageUrl(avatar, fallbackAvatar);
 
   return (
     <GlassCard goldBorder className="relative flex flex-col justify-between h-full group !bg-background-card border-border-primary/60 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
@@ -34,6 +36,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
             src={avatarUrl}
             alt={name}
             loading="lazy"
+            onError={(e) => handleImageError(e, fallbackAvatar)}
             className="w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
           />
           {isAvailable && (

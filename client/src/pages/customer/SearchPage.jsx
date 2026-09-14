@@ -10,6 +10,7 @@ import GlassCard from '../../components/common/GlassCard';
 import WorkerCard from '../../components/common/WorkerCard';
 import PremiumButton from '../../components/common/PremiumButton';
 import API from '../../services/api';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 /* ── Filter Chip ── */
 const FilterChip = ({ label, active, onClick }) => (
@@ -309,8 +310,9 @@ const SearchPage = () => {
                         className="w-full text-left px-6 py-4 rounded-2xl hover:bg-background-widget/60 flex items-center gap-5 transition-all group"
                       >
                         <img
-                          src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
+                          src={getImageUrl(worker.avatar, DEFAULT_AVATAR(worker.name))}
                           alt={worker.name}
+                          onError={(e) => handleImageError(e, DEFAULT_AVATAR(worker.name))}
                           className="w-14 h-14 rounded-full object-cover border-2 border-accent-main group-hover:border-accent-bright transition-all"
                         />
                         <div>
@@ -439,8 +441,9 @@ const SearchPage = () => {
                       <div className="flex items-center gap-6 sm:gap-10 min-w-0">
                         <div className="relative shrink-0">
                            <img
-                            src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name)}&background=F4510B&color=fff`}
+                            src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))}
                             alt={w.name}
+                            onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))}
                             className="w-20 h-20 sm:w-28 sm:h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
                             loading="lazy"
                            />

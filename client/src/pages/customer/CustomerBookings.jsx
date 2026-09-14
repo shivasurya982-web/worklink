@@ -120,7 +120,7 @@ const CustomerBookings = () => {
                 >
                   <div className="relative shrink-0">
                     <img
-                      src={booking.worker?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.worker?.name || 'Pro')}&background=F4510B&color=fff`}
+                      src={getImageUrl(booking.worker?.avatar, DEFAULT_AVATAR(booking.worker?.name || 'Pro'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(booking.worker?.name || 'Pro'))}
                       alt={booking.worker?.name}
                       className="w-16 h-16 rounded-[1.5rem] object-cover border-2 border-accent-main group-hover:border-accent-bright transition-all shadow-xl"
                     />

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import API from '../../services/api';
 import PremiumButton from '../common/PremiumButton';
+import { getImageUrl, handleImageError } from '../../utils/imageUtils';
 
 const HeroSection = () => {
   const [settings, setSettings] = useState({
@@ -46,7 +47,12 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {settings.heroBannerImage && (
           <div className="mb-12 max-w-5xl mx-auto rounded-[3rem] overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.4)] border-4 border-white/10">
-            <img src={settings.heroBannerImage} alt="Hero Banner" className="w-full max-h-80 object-cover" />
+            <img
+              src={getImageUrl(settings.heroBannerImage)}
+              alt="Hero Banner"
+              onError={(e) => { e.target.style.display = 'none'; }}
+              className="w-full max-h-80 object-cover"
+            />
           </div>
         )}
 

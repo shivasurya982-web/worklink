@@ -101,7 +101,7 @@ const AdminCustomers = () => {
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                 <div className="flex items-center gap-6">
                   <img
-                    src={c.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=F4510B&color=fff`}
+                    src={getImageUrl(c.avatar, DEFAULT_AVATAR(c.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(c.name))}
                     alt={c.name}
                     className="w-16 h-16 sm:w-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all"
                   />
@@ -173,7 +173,7 @@ const AdminCustomers = () => {
             <div className="flex flex-col items-center text-center">
                <div className="relative mb-6">
                  <img
-                   src={selectedCustomer.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedCustomer.name)}&background=F4510B&color=fff`}
+                   src={getImageUrl(selectedCustomer.avatar, DEFAULT_AVATAR(selectedCustomer.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(selectedCustomer.name))}
                    className="w-32 h-32 rounded-[2.5rem] border-4 border-accent-main shadow-[0_20px_50px_rgba(0,0,0,0.5)] object-cover"
                  />
                  <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-background-dark border-2 border-white/10 flex items-center justify-center shadow-2xl">

@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                   <div className="flex items-center gap-6">
                     <img
-                      src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
+                      src={getImageUrl(worker.avatar, DEFAULT_AVATAR(worker.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(worker.name))}
                       alt={worker.name}
                       className="w-16 h-16 sm:w-20 sm:h-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
                     />
@@ -248,7 +248,7 @@ const AdminDashboard = () => {
               {selectedWorker.identityProof ? (
                 <div className="relative group rounded-[2.5rem] overflow-hidden border-2 border-border-primary/30 shadow-2xl bg-background-dark p-2">
                    <img
-                    src={selectedWorker.identityProof.startsWith('http') ? selectedWorker.identityProof : selectedWorker.identityProof}
+                    src={getImageUrl(selectedWorker.identityProof)}
                     alt="ID Proof"
                     className="max-h-80 w-full object-contain rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
                     onError={(e) => {

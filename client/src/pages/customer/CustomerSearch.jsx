@@ -9,6 +9,7 @@ import GlassCard from '../../components/common/GlassCard';
 import WorkerCard from '../../components/common/WorkerCard';
 import PremiumButton from '../../components/common/PremiumButton';
 import API from '../../services/api';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 /* ── Filter Chip ── */
 const FilterChip = ({ label, active, onClick }) => (
@@ -397,8 +398,9 @@ const CustomerSearch = () => {
                   <div className="flex items-center gap-8 min-w-0">
                     <div className="relative shrink-0">
                       <img
-                        src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name || 'User')}&background=F4510B&color=fff`}
+                        src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name || 'User'))}
                         alt={w.name || 'Worker'}
+                        onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name || 'User'))}
                         className="w-20 h-20 sm:w-28 sm:h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
                       />
                       {w.isAvailable && <span className="absolute -bottom-1 -right-1 w-7 h-7 bg-accent-green rounded-2xl border-4 border-background-card shadow-xl" />}

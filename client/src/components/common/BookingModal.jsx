@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Calendar, Clock, MapPin, FileText, DollarSign, Sparkles } from 'lucide-react';
 import FloatingInput from './FloatingInput';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const BookingModal = ({ worker, onClose, onBook }) => {
   const [form, setForm] = useState({
@@ -45,6 +46,8 @@ const BookingModal = ({ worker, onClose, onBook }) => {
 
   // Get today's date in YYYY-MM-DD format for min date
   const today = new Date().toISOString().split('T')[0];
+  const fallbackAvatar = DEFAULT_AVATAR(worker.name);
+  const avatarUrl = getImageUrl(worker.avatar, fallbackAvatar);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
@@ -56,11 +59,9 @@ const BookingModal = ({ worker, onClose, onBook }) => {
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-3">
             <img
-              src={
-                worker.avatar ||
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=D4AF37&color=fff`
-              }
+              src={avatarUrl}
               alt={worker.name}
+              onError={(e) => handleImageError(e, fallbackAvatar)}
               className="w-12 h-12 rounded-2xl object-cover border border-accent-gold/30"
             />
             <div>

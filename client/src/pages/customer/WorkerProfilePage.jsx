@@ -23,6 +23,7 @@ import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import GlassCard from '../../components/common/GlassCard';
 import PremiumButton from '../../components/common/PremiumButton';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
 import Badge from '../../components/common/Badge';
 import RatingStars from '../../components/common/RatingStars';
 import Modal from '../../components/common/Modal';
@@ -39,8 +40,9 @@ const ReviewItem = ({ review }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
-            src={review.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.customer?.name || 'Customer')}&background=F4510B&color=fff`}
+            src={getImageUrl(review.customer?.avatar, DEFAULT_AVATAR(review.customer?.name || 'Customer'))}
             alt={review.customer?.name}
+            onError={(e) => handleImageError(e, DEFAULT_AVATAR(review.customer?.name || 'Customer'))}
             className="w-10 h-10 rounded-xl object-cover border-2 border-accent-main shadow-xl"
           />
           <div className="min-w-0">
@@ -307,8 +309,9 @@ const WorkerProfilePage = () => {
         {/* Profile Header */}
         <div className="relative rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden mb-12 shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-4 border-white/5 group">
           <img
-            src={worker.coverImage || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200'}
+            src={getImageUrl(worker.coverImage, DEFAULT_COVER)}
             alt="Cover"
+            onError={(e) => handleImageError(e, DEFAULT_COVER)}
             className="w-full h-64 md:h-96 object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent" />
@@ -317,8 +320,9 @@ const WorkerProfilePage = () => {
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 text-center sm:text-left">
               <div className="relative shrink-0">
                 <img
-                  src={worker.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(worker.name)}&background=F4510B&color=fff`}
+                  src={getImageUrl(worker.avatar, DEFAULT_AVATAR(worker.name))}
                   alt={worker.name}
+                  onError={(e) => handleImageError(e, DEFAULT_AVATAR(worker.name))}
                   className="w-24 h-24 md:w-32 md:h-32 rounded-[2rem] object-cover border-4 border-accent-main shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                 />
                 {worker.isAvailable && <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent-green rounded-2xl border-4 border-background-dark shadow-2xl animate-pulse" />}
@@ -407,8 +411,9 @@ const WorkerProfilePage = () => {
                     <div key={idx} className="flex flex-col rounded-[2.5rem] overflow-hidden border-2 border-white/5 bg-background-dark/40 hover:bg-background-dark/60 transition-all duration-500 group shadow-2xl">
                       <div className="h-56 overflow-hidden bg-background-widget relative">
                         <img
-                          src={item.url || item}
+                          src={getImageUrl(item.url || item, DEFAULT_COVER)}
                           alt={item.title || `Work Photo ${idx}`}
+                          onError={(e) => handleImageError(e, DEFAULT_COVER)}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-accent-orange/5 opacity-0 group-hover:opacity-100 transition-opacity" />

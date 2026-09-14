@@ -184,7 +184,7 @@ const AdminSettings = () => {
                 </label>
                 {formData.heroBannerImage && (
                   <div className="mb-6 relative rounded-[2.5rem] overflow-hidden max-h-56 border-2 border-border-primary/40 shadow-2xl bg-background-dark p-2">
-                    <img src={formData.heroBannerImage} alt="Banner" className="w-full h-52 object-cover rounded-[2rem]" />
+                    <img src={getImageUrl(formData.heroBannerImage)} alt="Banner" className="w-full h-52 object-cover rounded-[2rem]" />
                     <button
                       type="button"
                       onClick={() => setFormData((prev) => ({ ...prev, heroBannerImage: '' }))}

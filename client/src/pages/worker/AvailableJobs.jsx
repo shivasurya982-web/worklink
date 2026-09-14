@@ -79,7 +79,7 @@ const AvailableJobs = () => {
                 {/* Header: Customer Info */}
                 <div className="flex items-center gap-4 mb-8 pb-6 border-b border-white/5">
                   <img
-                    src={job.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(job.customer?.name)}&background=F4510B&color=fff`}
+                    src={getImageUrl(job.customer?.avatar, DEFAULT_AVATAR(job.customer?.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(job.customer?.name))}
                     className="w-14 h-14 rounded-2xl object-cover border-2 border-accent-main shadow-xl"
                   />
                   <div className="min-w-0">

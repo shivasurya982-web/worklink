@@ -139,7 +139,7 @@ const WorkerDashboard = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <img
-                        src={review.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.customer?.name || 'C')}&background=F4510B&color=fff`}
+                        src={getImageUrl(review.customer?.avatar, DEFAULT_AVATAR(review.customer?.name || 'C'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(review.customer?.name || 'C'))}
                         alt={review.customer?.name}
                         className="w-10 h-10 rounded-xl object-cover border-2 border-accent-main shadow-lg"
                       />

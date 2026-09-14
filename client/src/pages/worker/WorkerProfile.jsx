@@ -190,7 +190,7 @@ const WorkerProfile = () => {
                 <div className="flex flex-col sm:flex-row items-center sm:items-end gap-8 mb-4">
                   <div className="relative group shrink-0">
                      <img
-                      src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=F4510B&color=fff`}
+                      src={getImageUrl(user?.avatar, DEFAULT_AVATAR(name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'User'))}
                       className="w-32 h-32 md:w-40 md:h-40 rounded-[2.5rem] object-cover border-4 border-accent-main shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-all duration-700"
                       alt={name}
                      />
@@ -240,7 +240,7 @@ const WorkerProfile = () => {
                    <p className="text-[10px] font-black text-accent-bright uppercase tracking-widest mb-4 flex items-center gap-2"><CheckSquare className="w-4 h-4" /> Verification Document</p>
                    {idPreview ? (
                       <div className="relative group rounded-[2rem] overflow-hidden border-2 border-border-primary/30 max-w-sm">
-                         <img src={idPreview} alt="Identity Proof" className="w-full h-48 object-cover transition-transform group-hover:scale-105" />
+                         <img src={getImageUrl(idPreview)} alt="Identity Proof" className="w-full h-48 object-cover transition-transform group-hover:scale-105" />
                          <div className="absolute inset-0 bg-accent-orange/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                    ) : (
@@ -264,12 +264,12 @@ const WorkerProfile = () => {
               <form onSubmit={handleSubmit} className="space-y-12 animate-slide-up relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 pb-10 border-b border-white/5">
                   <div className="flex flex-col items-center text-center gap-5">
-                    <img src={avatarFile ? URL.createObjectURL(avatarFile) : user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'U')}&background=F4510B&color=fff`} className="w-32 h-32 rounded-[2.5rem] object-cover border-4 border-accent-main shadow-2xl" />
+                    <img src={avatarFile ? URL.createObjectURL(avatarFile) : getImageUrl(user?.avatar, DEFAULT_AVATAR(name || 'U'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'U'))} className="w-32 h-32 rounded-[2.5rem] object-cover border-4 border-accent-main shadow-2xl" />
                     <input type="file" id="avatar-worker" accept="image/*" onChange={(e) => setAvatarFile(e.target.files[0])} className="hidden" />
                     <label htmlFor="avatar-worker" className="cursor-pointer px-6 py-3 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-accent-orange hover:text-white transition-all inline-flex items-center gap-3 uppercase tracking-widest shadow-xl"><Camera className="w-5 h-5" /> CHANGE PHOTO</label>
                   </div>
                   <div className="flex flex-col items-center text-center gap-5">
-                    <div className="w-full h-32 bg-background-dark rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-inner"><img src={coverFile ? URL.createObjectURL(coverFile) : user?.coverImage || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800'} className="w-full h-full object-cover" /></div>
+                    <div className="w-full h-32 bg-background-dark rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-inner"><img src={coverFile ? URL.createObjectURL(coverFile) : getImageUrl(user?.coverImage, DEFAULT_COVER)} onError={(e) => handleImageError(e, DEFAULT_COVER)} className="w-full h-full object-cover" /></div>
                     <input type="file" id="cover-worker" accept="image/*" onChange={(e) => setCoverFile(e.target.files[0])} className="hidden" />
                     <label htmlFor="cover-worker" className="cursor-pointer px-6 py-3 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-accent-orange hover:text-white transition-all inline-flex items-center gap-3 uppercase tracking-widest shadow-xl"><Camera className="w-5 h-5" /> CHANGE COVER</label>
                   </div>
@@ -329,7 +329,7 @@ const WorkerProfile = () => {
                   <div className={`relative border-2 border-dashed rounded-[2rem] p-8 text-center transition-all ${idFile ? 'border-accent-bright bg-accent-orange/5' : 'border-white/10 hover:border-accent-orange/40'}`}>
                     {idPreview ? (
                       <div className="space-y-4">
-                         <img src={idFile ? URL.createObjectURL(idFile) : idPreview} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-2xl border border-white/10" />
+                         <img src={idFile ? URL.createObjectURL(idFile) : getImageUrl(idPreview)} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-2xl border border-white/10" />
                          <p className="text-[9px] font-black text-accent-bright uppercase tracking-widest">Selected for upload</p>
                       </div>
                     ) : (

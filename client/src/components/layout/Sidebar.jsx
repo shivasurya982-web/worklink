@@ -8,6 +8,7 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import Badge from '../common/Badge';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 /* ── Nav item lists ── */
 const customerItems = [
@@ -59,8 +60,9 @@ const SidebarContent = ({ onClose }) => {
       {/* User Card */}
       <div className="flex items-center gap-3 p-4 bg-background-dark/50 rounded-2xl mb-6 border border-white/5 shadow-xl">
         <img
-          src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=F4510B&color=fff`}
+          src={getImageUrl(user?.avatar, DEFAULT_AVATAR(user?.name || 'User'))}
           alt={user?.name}
+          onError={(e) => handleImageError(e, DEFAULT_AVATAR(user?.name || 'User'))}
           className="w-11 h-11 rounded-full object-cover border-2 border-accent-main shrink-0 shadow-lg"
         />
         <div className="flex-1 min-w-0">

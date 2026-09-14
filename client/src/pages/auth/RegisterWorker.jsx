@@ -247,7 +247,7 @@ const RegisterWorker = () => {
                 <div className={`relative border-2 border-dashed rounded-[2rem] p-8 text-center transition-all ${idFile ? 'border-accent-bright bg-accent-orange/5' : 'border-border-primary/30 hover:border-accent-orange/40'}`}>
                   {idPreview ? (
                     <div className="space-y-4">
-                       <img src={idPreview} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-2xl border border-white/10" />
+                       <img src={getImageUrl(idPreview)} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-2xl border border-white/10" />
                        <button type="button" onClick={() => { setIdFile(null); setIdPreview(''); }} className="text-[10px] font-black text-red-400 uppercase tracking-widest hover:underline">Remove & Reselect</button>
                     </div>
                   ) : (

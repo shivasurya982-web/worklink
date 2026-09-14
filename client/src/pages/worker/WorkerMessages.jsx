@@ -363,7 +363,7 @@ const WorkerMessages = () => {
                   >
                     <div className="relative shrink-0">
                       <img
-                        src={recipient.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(recipient.name || 'User')}&background=F4510B&color=fff`}
+                        src={getImageUrl(recipient.avatar, DEFAULT_AVATAR(recipient.name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(recipient.name || 'User'))}
                         alt={recipient.name}
                         className={`w-14 h-14 rounded-2xl object-cover border-2 shadow-xl ${isSelected ? 'border-white' : 'border-accent-main'}`}
                       />
@@ -417,7 +417,7 @@ const WorkerMessages = () => {
                     <>
                       <div className="relative">
                         <img
-                          src={recipient.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(recipient.name)}&background=F4510B&color=fff`}
+                          src={getImageUrl(recipient.avatar, DEFAULT_AVATAR(recipient.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(recipient.name))}
                           className="w-12 h-12 rounded-2xl object-cover shadow-2xl border-2 border-accent-main"
                         />
                         {online && <span className="absolute bottom-0 right-0 w-4 h-4 bg-accent-green rounded-full border-2 border-background-card shadow-lg" />}

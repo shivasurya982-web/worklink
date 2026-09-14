@@ -16,6 +16,7 @@ import { useNotification } from '../../context/NotificationContext';
 import PremiumButton from '../common/PremiumButton';
 import Badge from '../common/Badge';
 import API from '../../services/api';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -136,8 +137,9 @@ const Navbar = () => {
                     className="flex items-center gap-2 p-1.5 rounded-full bg-background-cardSecondary hover:bg-background-card transition-colors border border-border-primary/40 shadow-lg"
                   >
                     <img
-                      src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=F4510B&color=fff`}
-                      alt=""
+                      src={getImageUrl(user?.avatar, DEFAULT_AVATAR(user?.name || 'U'))}
+                      alt={user?.name || 'User'}
+                      onError={(e) => handleImageError(e, DEFAULT_AVATAR(user?.name || 'U'))}
                       className="w-8 h-8 rounded-full object-cover border border-accent-main"
                     />
                     <ChevronDown className="w-4 h-4 text-text-muted" />

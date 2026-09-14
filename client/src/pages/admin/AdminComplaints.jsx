@@ -143,7 +143,7 @@ const AdminComplaints = () => {
                 {/* Complainant User Info */}
                 <div className="flex items-center gap-5">
                   <img
-                    src={c.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.user?.name || 'User')}&background=F4510B&color=fff`}
+                    src={getImageUrl(c.user?.avatar, DEFAULT_AVATAR(c.user?.name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(c.user?.name || 'User'))}
                     alt={c.user?.name}
                     className="w-16 h-16 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl shrink-0"
                   />

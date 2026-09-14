@@ -2,6 +2,7 @@ import React from 'react';
 import { Star, Quote } from 'lucide-react';
 import GlassCard from '../common/GlassCard';
 import RatingStars from '../common/RatingStars';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const testimonials = [
   {
@@ -52,8 +53,9 @@ const TestimonialsSection = () => {
               </div>
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
                 <img
-                  src={t.avatar}
+                  src={getImageUrl(t.avatar, DEFAULT_AVATAR(t.name))}
                   alt={t.name}
+                  onError={(e) => handleImageError(e, DEFAULT_AVATAR(t.name))}
                   className="w-10 h-10 rounded-full object-cover border border-accent-gold/40"
                 />
                 <div>

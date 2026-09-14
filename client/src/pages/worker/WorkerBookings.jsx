@@ -96,7 +96,7 @@ const WorkerBookings = () => {
                       <div className="flex items-center gap-6">
                         <div className="relative shrink-0">
                           <img
-                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=F4510B&color=fff`}
+                            src={getImageUrl(booking.customer?.avatar, DEFAULT_AVATAR(booking.customer?.name || 'C'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(booking.customer?.name || 'C'))}
                             alt={booking.customer?.name}
                             className="w-20 h-20 rounded-3xl object-cover border-2 border-accent-main shadow-2xl"
                           />
@@ -194,7 +194,7 @@ const WorkerBookings = () => {
                       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
                         <div className="flex items-center gap-6 min-w-0">
                           <img
-                            src={booking.customer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.customer?.name || 'C')}&background=F4510B&color=fff`}
+                            src={getImageUrl(booking.customer?.avatar, DEFAULT_AVATAR(booking.customer?.name || 'C'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(booking.customer?.name || 'C'))}
                             alt={booking.customer?.name}
                             className="w-16 h-16 sm:w-20 sm:h-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl shrink-0"
                           />

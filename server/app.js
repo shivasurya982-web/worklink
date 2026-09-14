@@ -32,8 +32,14 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Security Middleware
-app.use(helmet({ contentSecurityPolicy: false }));
+// Security Middleware - Allow cross-origin images for Vercel/Render frontend
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
 // Rate limiting
 const limiter = rateLimit({
@@ -43,7 +49,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// CORS Config - Allow all during development to fix connectivity issues
+// CORS Config - Allow all origins including Vercel
 app.use(cors({ origin: true, credentials: true }));
 
 // Body Parser Middleware
@@ -55,8 +61,16 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Static folder for uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Static folder for uploaded files with cross-origin headers
+app.use(
+  '/uploads',
+  (req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  },
+  express.static(path.join(__dirname, 'uploads'))
+);
 
 // Root route
 app.get('/', (req, res) => {

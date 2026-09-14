@@ -5,10 +5,9 @@
   "description": "Worklyn AI – AI Powered Local Service Marketplace",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev": "npm --prefix client run dev",
+    "build": "cd client && npm install && npm run build",
+    "preview": "npm --prefix client run preview"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.2",

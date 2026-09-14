@@ -62,6 +62,11 @@ const workerSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+    pricing: {
+      hourly: { type: Number, default: 0 },
+      minimum: { type: Number, default: 0 },
+      currency: { type: String, default: '₹' },
+    },
     description: {
       type: String,
       default: '',
@@ -89,6 +94,10 @@ const workerSchema = new mongoose.Schema(
     certificates: {
       type: [String],
       default: [],
+    },
+    identityProof: {
+      type: String,
+      default: '',
     },
     isAvailable: {
       type: Boolean,

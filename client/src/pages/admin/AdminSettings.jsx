@@ -9,10 +9,10 @@ import {
   Sparkles,
   Phone,
   Mail,
-  Percent,
   Upload,
   Image as ImageIcon,
   Trash2,
+  RefreshCw,
 } from 'lucide-react';
 import API from '../../services/api';
 
@@ -24,18 +24,17 @@ const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState('hero');
 
   const [formData, setFormData] = useState({
-    siteName: 'WorkLink',
+    siteName: 'Worklyn',
     announcementText: 'Verified Local Service Marketplace',
     heroBannerImage: '',
     heroTitle: 'Find & Book Trusted Local Experts In Seconds',
     heroSubtitle:
-      'WorkLink connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
+      'Worklyn connects you with verified electricians, plumbers, carpenters, mechanics, and technicians nearby — powered by smart local matching.',
 
     contactPhone: '1800-000-0000',
-    contactEmail: 'support@worklinkai.com',
+    contactEmail: 'support@worklynai.com',
     stayUpdatedText: 'Get updates on new service categories and special discounts near you.',
-    footerCopyrightText: 'WorkLink. All rights reserved.',
-    platformFeePercentage: 5,
+    footerCopyrightText: 'Worklyn. All rights reserved.',
   });
 
   useEffect(() => {
@@ -76,10 +75,10 @@ const AdminSettings = () => {
       const res = await API.post('/upload/image', body);
       if (res.success && res.data?.url) {
         setFormData((prev) => ({ ...prev, heroBannerImage: res.data.url }));
-        showToast('System Updated', 'Hero banner module uploaded.', 'success');
+        showToast('Success', 'Homepage image uploaded.', 'success');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Module upload failed', 'error');
+      showToast('Error', err.message || 'Upload failed', 'error');
     } finally {
       setUploadingBanner(false);
     }
@@ -91,10 +90,10 @@ const AdminSettings = () => {
     try {
       const res = await API.put('/site/site-settings', formData);
       if (res.success) {
-        showToast('Parameters Synced', 'Global CMS attributes updated across all nodes.', 'success');
+        showToast('Success', 'Website settings saved.', 'success');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Synchronization failed', 'error');
+      showToast('Error', err.message || 'Save failed', 'error');
     } finally {
       setSaving(false);
     }
@@ -102,8 +101,8 @@ const AdminSettings = () => {
 
   return (
     <DashboardLayout
-      title="Ecosystem Configuration"
-      subtitle="Administrative terminal for global parameters, content modules, and platform economics"
+      title="Website Settings"
+      subtitle="Change website text, contact info, and fees"
     >
       {loading ? (
         <div className="flex justify-center py-20">
@@ -114,9 +113,8 @@ const AdminSettings = () => {
           {/* Navigation Tabs */}
           <div className="flex items-center gap-3 overflow-x-auto pb-4 border-b border-white/5 custom-scrollbar">
             {[
-              { id: 'hero', label: 'Atmosphere & Hero', icon: Sparkles },
-              { id: 'contact', label: 'Nodes & Footer', icon: Phone },
-              { id: 'platform', label: 'Economics', icon: Percent },
+              { id: 'hero', label: 'Homepage Text', icon: Sparkles },
+              { id: 'contact', label: 'Contact & Footer', icon: Phone },
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -138,12 +136,12 @@ const AdminSettings = () => {
           {activeTab === 'hero' && (
             <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-10 animate-fade-in border-border-primary/40 shadow-2xl">
               <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
-                <Sparkles className="w-7 h-7 text-accent-bright" /> Global Hero Parameters
+                <Sparkles className="w-7 h-7 text-accent-bright" /> Homepage Header
               </h3>
 
               <div className="grid grid-cols-1 gap-8">
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">ANNOUNCEMENT SIGNAL</label>
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">TOP SMALL TEXT</label>
                   <input
                     type="text"
                     name="announcementText"
@@ -155,7 +153,7 @@ const AdminSettings = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">PRIMARY HEADLINE</label>
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">MAIN BIG TITLE</label>
                   <input
                     type="text"
                     name="heroTitle"
@@ -167,7 +165,7 @@ const AdminSettings = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUBTITLE / LOG</label>
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUBTITLE TEXT</label>
                   <textarea
                     rows={4}
                     name="heroSubtitle"
@@ -182,7 +180,7 @@ const AdminSettings = () => {
               {/* Banner Image Upload */}
               <div className="pt-8 border-t border-white/5">
                 <label className="text-[10px] font-black text-white uppercase tracking-widest block mb-6 ml-1">
-                  ATMOSPHERIC BANNER ARTIFACT
+                  MAIN IMAGE (HERO BANNER)
                 </label>
                 {formData.heroBannerImage && (
                   <div className="mb-6 relative rounded-[2.5rem] overflow-hidden max-h-56 border-2 border-border-primary/40 shadow-2xl bg-background-dark p-2">
@@ -207,7 +205,7 @@ const AdminSettings = () => {
                   />
                   <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all uppercase tracking-widest shadow-xl">
                     {uploadingBanner ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                    {uploadingBanner ? 'UPLOADING...' : 'INITIALIZE UPLOAD'}
+                    {uploadingBanner ? 'UPLOADING...' : 'UPLOAD NEW IMAGE'}
                   </label>
                 </div>
               </div>
@@ -218,12 +216,12 @@ const AdminSettings = () => {
           {activeTab === 'contact' && (
             <GlassCard className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-8 animate-fade-in border-border-primary/40 shadow-2xl">
               <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
-                <Phone className="w-7 h-7 text-accent-light" /> Node Comms & Footer Metadata
+                <Phone className="w-7 h-7 text-accent-light" /> Contact Info & Footer
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">CENTRAL HELPLINE</label>
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUPPORT PHONE</label>
                   <input
                     type="text"
                     name="contactPhone"
@@ -234,7 +232,7 @@ const AdminSettings = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SYSTEM SUPPORT ID</label>
+                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUPPORT EMAIL</label>
                   <input
                     type="email"
                     name="contactEmail"
@@ -246,7 +244,7 @@ const AdminSettings = () => {
               </div>
 
               <div className="space-y-3">
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">FOOTER DESIGNATION</label>
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">FOOTER COPYRIGHT TEXT</label>
                 <input
                   type="text"
                   name="footerCopyrightText"
@@ -258,38 +256,10 @@ const AdminSettings = () => {
             </GlassCard>
           )}
 
-          {/* TAB 3: PLATFORM FEE */}
-          {activeTab === 'platform' && (
-            <GlassCard className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-8 animate-fade-in border-border-primary/40 shadow-2xl">
-              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
-                <Percent className="w-7 h-7 text-emerald-400" /> Ecosystem Economics
-              </h3>
-
-              <div className="space-y-4">
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">
-                  PLATFORM OPERATIONAL TAX (%)
-                </label>
-                <div className="flex items-center gap-5">
-                   <input
-                    type="number"
-                    name="platformFeePercentage"
-                    value={formData.platformFeePercentage}
-                    onChange={handleChange}
-                    min="0"
-                    max="50"
-                    className="w-full sm:w-48 bg-background-dark/50 border-2 border-border-primary/40 rounded-2xl p-5 text-xl font-black text-white focus:outline-none focus:border-accent-main shadow-2xl text-center"
-                    required
-                  />
-                  <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Global transaction percentage applied to all successful service completions.</p>
-                </div>
-              </div>
-            </GlassCard>
-          )}
-
           {/* Save Button */}
           <div className="flex justify-end pt-6">
             <PremiumButton type="submit" variant="gold" size="lg" icon={Save} loading={saving} className="px-16 py-6 text-base font-black shadow-orange">
-              SYNC ECOSYSTEM ATTRIBUTES
+              SAVE ALL SETTINGS
             </PremiumButton>
           </div>
         </form>

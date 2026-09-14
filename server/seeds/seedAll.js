@@ -63,7 +63,7 @@ const seedData = async () => {
         phone: '+919876543210',
         address: {
           street: '123 MG Road',
-          city: 'Mumbai',
+          city: 'Tiruchendur',
           state: 'Maharashtra',
           zip: '400001',
           coordinates: { lat: 19.076, lng: 72.8777 },
@@ -97,7 +97,7 @@ const seedData = async () => {
         securityHint: 'St Marys',
         address: {
           street: '45 Bandra West',
-          city: 'Mumbai',
+          city: 'Tiruchendur',
           state: 'Maharashtra',
           zip: '400050',
           coordinates: { type: 'Point', coordinates: [72.83, 19.05] },

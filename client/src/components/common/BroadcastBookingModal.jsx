@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, FileText, Sparkles, LayoutGrid } from 'lucide-react';
+import { Calendar, Clock, MapPin, FileText, Sparkles, LayoutGrid, Maximize2, X } from 'lucide-react';
 import API from '../../services/api';
 import PremiumButton from './PremiumButton';
 import Modal from './Modal';
 
 const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
+  const [bookingType, setBookingType] = useState('small'); // 'small' or 'large'
   const [form, setForm] = useState({
     category: '',
     city: '',
     scheduledDate: '',
-    scheduledTime: '',
+    endDate: '',
+    scheduledTime: '10:00',
+    workingHours: 'full-day',
+    customHours: '',
     description: '',
     estimatedCost: 500,
   });
@@ -43,8 +47,13 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
     e.preventDefault();
     setError('');
 
-    if (!form.category || !form.city || !form.scheduledDate || !form.scheduledTime) {
-      setError('Required parameters missing.');
+    if (!form.category || !form.city || !form.scheduledDate) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+
+    if (bookingType === 'large' && !form.endDate) {
+      setError('Please select an end date for large works.');
       return;
     }
 
@@ -52,12 +61,20 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
     try {
       const payload = {
         category: form.category,
+        bookingType,
         broadcastArea: { city: form.city },
         scheduledDate: form.scheduledDate,
-        scheduledTime: form.scheduledTime,
         description: form.description,
         estimatedCost: form.estimatedCost,
       };
+
+      if (bookingType === 'small') {
+        payload.scheduledTime = form.scheduledTime;
+      } else {
+        payload.endDate = form.endDate;
+        payload.scheduledTime = '00:00';
+        payload.workingHours = form.workingHours === 'full-day' ? 'Full Day (8am - 8pm)' : form.customHours;
+      }
 
       const res = await API.post('/bookings/broadcast', payload);
       if (res.success) {
@@ -65,7 +82,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
         onClose();
       }
     } catch (err) {
-      setError(err.message || 'Signal broadcast failed.');
+      setError(err.message || 'Failed to post request.');
     } finally {
       setLoading(false);
     }
@@ -77,11 +94,32 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Signal Broadcast"
+      title="Post a Job Request"
       maxWidth="max-w-xl"
     >
       <form onSubmit={handleSubmit} className="space-y-6 relative z-10 pb-2">
-        <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] -mt-4 mb-6 opacity-80">Notify all available market nodes instantly</p>
+
+        {/* Booking Type Toggle */}
+        <div className="flex bg-background-dark/50 p-1.5 rounded-2xl border border-white/5 mb-6">
+           <button
+             type="button"
+             onClick={() => setBookingType('small')}
+             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+               bookingType === 'small' ? 'bg-accent-orange text-white shadow-xl' : 'text-text-muted hover:text-text-secondary'
+             }`}
+           >
+             <LayoutGrid className="w-4 h-4" /> Small Work
+           </button>
+           <button
+             type="button"
+             onClick={() => setBookingType('large')}
+             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+               bookingType === 'large' ? 'bg-accent-orange text-white shadow-xl' : 'text-text-muted hover:text-text-secondary'
+             }`}
+           >
+             <Maximize2 className="w-4 h-4" /> Large Work
+           </button>
+        </div>
 
         {error && (
           <div className="p-3 rounded-xl bg-red-950/20 border border-red-500/30 text-[10px] text-red-400 font-black text-center uppercase tracking-widest animate-shake">
@@ -90,10 +128,9 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
         )}
 
         <div className="space-y-5 bg-background-dark/30 p-5 sm:p-6 rounded-3xl border border-white/5 shadow-inner">
-          {/* Category */}
           <div className="space-y-2">
             <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">
-              SERVICE DOMAIN SEGMENT
+              WHAT SERVICE DO YOU NEED?
             </label>
             <select
               name="category"
@@ -103,64 +140,163 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
               className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
               disabled={fetchingCats}
             >
-              <option value="">SELECT DOMAIN</option>
+              <option value="">SELECT CATEGORY</option>
               {categories.map((cat) => (
                 <option key={cat._id} value={cat._id} className="bg-background-card">{cat.name}</option>
               ))}
             </select>
           </div>
 
-          {/* Area */}
           <div className="space-y-2">
             <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">
-              TARGET GEO ZONE
+              YOUR CITY / AREA
             </label>
-            <input
-              type="text"
-              name="city"
-              value={form.city}
-              onChange={handleChange}
-              placeholder="E.G. MUMBAI, DELHI, ETC."
-              required
-              className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
-            />
-          </div>
-
-          {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">START DATE</label>
+            <div className="grid grid-cols-2 gap-4">
               <input
-                type="date"
-                name="scheduledDate"
-                value={form.scheduledDate}
+                type="text"
+                name="city"
+                value={form.city}
                 onChange={handleChange}
-                min={today}
+                placeholder="e.g. Tiruchendur"
                 required
-                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl"
+                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
               />
-            </div>
-            <div className="space-y-2">
-              <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">TIME WINDOW</label>
               <input
-                type="time"
-                name="scheduledTime"
-                value={form.scheduledTime}
+                type="text"
+                name="zip"
+                value={form.zip || ''}
                 onChange={handleChange}
+                placeholder="Pin Code"
                 required
-                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl"
+                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
               />
             </div>
           </div>
 
-          {/* Description */}
+          {/* Date & Time based on type */}
+          {bookingType === 'small' ? (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">DATE</label>
+                <div className="relative group cursor-pointer" onClick={(e) => {
+                  const input = e.currentTarget.querySelector('input');
+                  if (input) input.showPicker();
+                }}>
+                  <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                  <input
+                    type="date"
+                    name="scheduledDate"
+                    value={form.scheduledDate}
+                    onChange={handleChange}
+                    min={today}
+                    required
+                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">TIME</label>
+                <div className="relative group cursor-pointer" onClick={(e) => {
+                  const input = e.currentTarget.querySelector('input');
+                  if (input) input.showPicker();
+                }}>
+                  <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                  <input
+                    type="time"
+                    name="scheduledTime"
+                    value={form.scheduledTime}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">START DATE</label>
+                  <div className="relative group cursor-pointer" onClick={(e) => {
+                    const input = e.currentTarget.querySelector('input');
+                    if (input) input.showPicker();
+                  }}>
+                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                    <input
+                      type="date"
+                      name="scheduledDate"
+                      value={form.scheduledDate}
+                      onChange={handleChange}
+                      min={today}
+                      required
+                      className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">END DATE</label>
+                  <div className="relative group cursor-pointer" onClick={(e) => {
+                    const input = e.currentTarget.querySelector('input');
+                    if (input) input.showPicker();
+                  }}>
+                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                    <input
+                      type="date"
+                      name="endDate"
+                      value={form.endDate}
+                      onChange={handleChange}
+                      min={form.scheduledDate || today}
+                      required
+                      className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">DAILY AVAILABILITY</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setForm(prev => ({...prev, workingHours: 'full-day'}))}
+                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
+                      form.workingHours === 'full-day' ? 'bg-accent-orange/20 border-accent-orange text-white' : 'bg-background-card border-white/5 text-text-muted'
+                    }`}
+                  >
+                    Full Day
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setForm(prev => ({...prev, workingHours: 'custom'}))}
+                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
+                      form.workingHours === 'custom' ? 'bg-accent-orange/20 border-accent-orange text-white' : 'bg-background-card border-white/5 text-text-muted'
+                    }`}
+                  >
+                    Custom Time
+                  </button>
+                </div>
+                {form.workingHours === 'custom' && (
+                  <input
+                    type="text"
+                    name="customHours"
+                    placeholder="e.g. 10 AM to 4 PM"
+                    value={form.customHours}
+                    onChange={handleChange}
+                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl mt-2 uppercase tracking-widest"
+                    required={form.workingHours === 'custom'}
+                  />
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">OPERATIONAL REQUIREMENTS</label>
+            <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">JOB DETAILS</label>
             <textarea
               name="description"
               value={form.description}
               onChange={handleChange}
-              placeholder="DESCRIBE SERVICE PARAMETERS..."
+              placeholder="Describe what you need help with..."
               rows={3}
               className="w-full bg-background-card border border-border-primary/30 rounded-2xl p-4 text-xs font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl resize-none uppercase tracking-wider"
             />
@@ -175,7 +311,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
           fullWidth
           className="py-4 text-sm font-black shadow-orange"
         >
-          {loading ? 'EXECUTING BROADCAST...' : 'EXECUTE GLOBAL BROADCAST'}
+          {loading ? 'SENDING...' : 'SEND REQUEST'}
         </PremiumButton>
       </form>
     </Modal>

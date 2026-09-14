@@ -57,7 +57,7 @@ const SidebarContent = ({ onClose }) => {
   return (
     <div className="flex flex-col h-full">
       {/* User Card */}
-      <div className="flex items-center gap-3 p-4 bg-background-widget/40 rounded-2xl mb-6 border border-accent-main/20 shadow-xl">
+      <div className="flex items-center gap-3 p-4 bg-background-dark/50 rounded-2xl mb-6 border border-white/5 shadow-xl">
         <img
           src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=F4510B&color=fff`}
           alt={user?.name}
@@ -67,7 +67,6 @@ const SidebarContent = ({ onClose }) => {
           <h4 className="text-xs font-bold text-text-primary truncate uppercase">{user?.name}</h4>
           <p className="text-[9px] text-text-muted font-extrabold uppercase tracking-tighter opacity-70">{role}</p>
         </div>
-        <Badge variant="gold" size="xs" className="text-[9px] uppercase font-black">{role?.charAt(0)}</Badge>
       </div>
 
       {/* Nav Items */}
@@ -179,7 +178,7 @@ export const MobileBottomNav = () => {
 const Sidebar = () => {
   return (
     <aside className="hidden lg:flex w-64 xl:w-72 shrink-0 sticky top-28 h-[calc(100vh-140px)]">
-      <div className="glass-panel !bg-gradient-to-b !from-[#8F2F08] !to-[#B93808] rounded-[2.5rem] p-5 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)] w-full flex flex-col overflow-hidden">
+      <div className="glass-panel !bg-background-cardSecondary rounded-[2.5rem] p-5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] w-full flex flex-col overflow-hidden">
         <SidebarContent />
       </div>
     </aside>

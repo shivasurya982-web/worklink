@@ -5,7 +5,7 @@ import PremiumButton from '../../components/common/PremiumButton';
 import Badge from '../../components/common/Badge';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { AlertCircle, PlusCircle, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, PlusCircle, CheckCircle2, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 import API from '../../services/api';
 
 const WorkerComplaints = () => {
@@ -48,7 +48,7 @@ const WorkerComplaints = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.subject || !formData.description) {
-      showToast('Validation Error', 'Please fill subject and description.', 'error');
+      showToast('Error', 'Please fill all required fields.', 'error');
       return;
     }
 
@@ -56,7 +56,7 @@ const WorkerComplaints = () => {
     try {
       const res = await API.post('/complaints', formData);
       if (res.success) {
-        showToast('Complaint Lodged', 'Your report has been sent to Admin.', 'success');
+        showToast('Report Sent', 'We have received your message.', 'success');
         setModalOpen(false);
         setFormData({
           subject: '',
@@ -68,7 +68,7 @@ const WorkerComplaints = () => {
         fetchData();
       }
     } catch (err) {
-      showToast('Error', err.message || 'Failed to submit complaint', 'error');
+      showToast('Error', err.message || 'Failed to send report', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -85,136 +85,165 @@ const WorkerComplaints = () => {
 
   return (
     <DashboardLayout
-      title="Worker Complaints & Support"
-      subtitle="Report client issues, unpaid jobs, or safety concerns directly to Admin"
+      title="Help & Support"
+      subtitle="Report any issues with customers or jobs to our team"
     >
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="font-sora font-semibold text-sm text-text-primary flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-accent-blue" /> My Reports & Tickets ({complaints.length})
+      <div className="mb-8 p-6 rounded-[2rem] bg-accent-orange/10 border border-accent-orange/30 flex items-start gap-4 shadow-xl">
+        <ShieldCheck className="w-6 h-6 text-accent-bright shrink-0 mt-0.5" />
+        <div>
+          <p className="text-sm font-black text-white uppercase tracking-widest">Support for Workers</p>
+          <p className="text-[11px] text-text-secondary mt-2 font-bold opacity-80 leading-relaxed uppercase tracking-wider">If you have issues with payment or customer behavior, please let us know. Our team will look into it and help you resolve the problem.</p>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-6">
+        <h3 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
+          <AlertCircle className="w-7 h-7 text-accent-bright" /> My Support Requests ({complaints.length})
         </h3>
         <PremiumButton
           variant="gold"
-          size="sm"
+          size="lg"
           icon={PlusCircle}
           onClick={() => setModalOpen(true)}
+          className="w-full sm:w-auto px-10 shadow-orange"
         >
-          Lodge New Report
+          New Request
         </PremiumButton>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+        <div className="flex justify-center py-24">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
         </div>
       ) : complaints.length > 0 ? (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {complaints.map((c) => (
-            <GlassCard key={c._id} hover={false} className="p-6 border border-gray-100 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h4 className="font-sora font-bold text-sm text-text-primary">{c.subject}</h4>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 font-semibold text-text-muted">
-                      {c.category}
-                    </span>
+            <GlassCard key={c._id} className="p-8 !bg-background-card border-border-primary/40 space-y-6 shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl pointer-events-none" />
+
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/5 pb-6 relative z-10">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <h4 className="font-sora font-black text-xl text-white uppercase tracking-tight truncate">{c.subject}</h4>
+                    <Badge variant="blue" size="xs" className="!rounded-lg px-3 py-1 font-black text-[9px]">
+                      {c.category.toUpperCase()}
+                    </Badge>
                   </div>
-                  <p className="text-[10px] text-text-muted mt-1">
-                    Submitted on {new Date(c.createdAt).toLocaleDateString()} at {new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </p>
+                  <div className="flex items-center gap-4 mt-3">
+                    <p className="text-[10px] font-black text-text-muted uppercase tracking-widest flex items-center gap-2">
+                       <Clock className="w-3.5 h-3.5" /> Sent on {new Date(c.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
-                  <Badge variant={statusVariant(c.status)}>
-                    {c.status.toUpperCase().replace(/_/g, ' ')}
+                <div className="shrink-0">
+                  <Badge variant={statusVariant(c.status)} className="!rounded-xl px-6 py-2.5 font-black uppercase text-[11px] shadow-xl">
+                    {c.status.replace(/_/g, ' ')}
                   </Badge>
                 </div>
               </div>
 
-              <p className="text-xs text-text-secondary leading-relaxed bg-gray-50/80 p-3 rounded-xl border border-gray-100">
-                "{c.description}"
-              </p>
+              <div className="bg-background-dark/50 p-6 rounded-[2rem] border border-white/5 shadow-inner relative">
+                 <p className="text-sm text-text-secondary leading-relaxed font-bold italic opacity-90">
+                    "{c.description}"
+                 </p>
+              </div>
 
               {c.resolutionNotes && (
-                <div className="p-3 bg-amber-50 rounded-xl text-xs text-amber-900 border border-amber-200">
-                  <span className="font-bold text-accent-gold block mb-0.5 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-accent-gold" /> Admin Resolution Note:
+                <div className="p-6 bg-accent-orange/5 rounded-[2rem] border border-accent-orange/30 shadow-inner animate-fade-in">
+                  <span className="font-black text-accent-bright block mb-2 uppercase tracking-widest flex items-center gap-2 text-[10px]">
+                    <CheckCircle2 className="w-4 h-4" /> Support Response:
                   </span>
-                  {c.resolutionNotes}
+                  <p className="text-sm text-text-primary font-bold">{c.resolutionNotes}</p>
                 </div>
               )}
             </GlassCard>
           ))}
         </div>
       ) : (
-        <GlassCard className="text-center py-12 text-xs text-text-muted">
-          No reports lodged yet. Click "Lodge New Report" if you encounter any issue with a customer or booking.
-        </GlassCard>
+        <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[4rem] border-2 border-dashed border-border-primary/20 shadow-inner group">
+           <div className="w-20 h-20 rounded-[1.5rem] bg-background-dark text-accent-bright flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5 group-hover:scale-110 transition-all opacity-20">
+              <Sparkles className="w-10 h-10" />
+           </div>
+           <h3 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">No Reports Yet</h3>
+           <p className="max-w-xs mx-auto text-xs font-bold text-text-muted uppercase tracking-widest mt-3 leading-relaxed opacity-70">You haven't reported any issues yet. We're here to help if you need us.</p>
+           <PremiumButton
+             variant="gold"
+             size="lg"
+             className="mt-10 px-12 shadow-orange"
+             onClick={() => setModalOpen(true)}
+           >
+             Create Support Request
+           </PremiumButton>
+        </div>
       )}
 
       {/* Lodge Complaint Modal */}
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        title="Lodge a Worker Support Report"
+        title="SEND A REPORT TO SUPPORT"
       >
-        <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Issue Category</label>
-            <select
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-medium"
-            >
-              <option value="Customer Behavior">Customer Behavior</option>
-              <option value="Payment Problem">Payment Problem</option>
-              <option value="Service Issue">Job Details Mismatch</option>
-              <option value="App Bug">App Bug</option>
-              <option value="Other">Other</option>
-            </select>
+        <form onSubmit={handleSubmit} className="space-y-8 pt-4 pb-2">
+          <div className="space-y-6 bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-2">What is the problem?</label>
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="w-full bg-background-card border-2 border-border-primary/30 rounded-2xl px-5 py-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest appearance-none"
+              >
+                <option value="Customer Behavior">Customer Behavior</option>
+                <option value="Payment Problem">Payment Problem</option>
+                <option value="Service Issue">Job Details Wrong</option>
+                <option value="App Bug">App Bug</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-2">Which job was this for? (Optional)</label>
+              <select
+                value={formData.bookingId}
+                onChange={(e) => setFormData({ ...formData, bookingId: e.target.value })}
+                className="w-full bg-background-card border-2 border-border-primary/30 rounded-2xl px-5 py-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest appearance-none"
+              >
+                <option value="">-- Select a customer --</option>
+                {bookings.map((b) => (
+                  <option key={b._id} value={b._id}>
+                    {b.customer?.name || 'Customer'} - {new Date(b.scheduledDate).toLocaleDateString()}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-2">Subject</label>
+              <input
+                type="text"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                placeholder="Short title of the issue..."
+                className="w-full bg-background-card border-2 border-border-primary/30 rounded-2xl px-5 py-4 text-xs font-bold text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
+                required
+              />
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-2">Tell us more</label>
+              <textarea
+                rows={5}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                placeholder="Explain what happened here..."
+                className="w-full bg-background-card border-2 border-border-primary/30 rounded-[2rem] p-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-wider placeholder:text-text-muted"
+                required
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Related Job (Optional)</label>
-            <select
-              value={formData.bookingId}
-              onChange={(e) => setFormData({ ...formData, bookingId: e.target.value })}
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold font-medium"
-            >
-              <option value="">-- Select Job (Optional) --</option>
-              {bookings.map((b) => (
-                <option key={b._id} value={b._id}>
-                  {b.customer?.name || 'Customer'} - {new Date(b.scheduledDate).toLocaleDateString()} ({b.status})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Report Subject</label>
-            <input
-              type="text"
-              value={formData.subject}
-              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-              placeholder="Brief summary of the issue..."
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-semibold text-text-primary block mb-1">Detailed Description</label>
-            <textarea
-              rows={4}
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Explain the situation in detail..."
-              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-accent-gold"
-              required
-            />
-          </div>
-
-          <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={submitting}>
-            Submit Report to Admin
+          <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={submitting} className="py-5 shadow-orange font-black">
+            SEND TO SUPPORT
           </PremiumButton>
         </form>
       </Modal>

@@ -26,7 +26,7 @@ exports.getDashboard = async (req, res, next) => {
       Worker.find({ approvalStatus: 'pending' })
         .sort({ createdAt: -1 })
         .limit(10)
-        .select('name email profession phone createdAt avatar identityProof certificates suggestedCategory'),
+        .select('name email profession phone createdAt avatar identityProof certificates suggestedCategory address description securityHint'),
       Review.find().sort({ createdAt: -1 }).limit(5).populate('customer', 'name').populate('worker', 'name'),
     ]);
 
@@ -64,7 +64,7 @@ exports.getWorkers = async (req, res, next) => {
     const [workers, total] = await Promise.all([
       Worker.find(query)
         .populate('category', 'name slug')
-        .select('-password')
+        .select('-password') // Get everything except password
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),

@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
+const { uploadWorkerFiles } = require('../middleware/upload');
 
 // Standard Email/Pass Auth
 router.post('/admin/login', authController.adminLogin);
 router.post('/customer/register', authController.customerRegister);
 router.post('/customer/login', authController.customerLogin);
-router.post('/worker/register', authController.workerRegister);
+router.post('/worker/register', uploadWorkerFiles, authController.workerRegister);
 router.post('/worker/login', authController.workerLogin);
 
 // Register Hint Verification Based Password Recovery

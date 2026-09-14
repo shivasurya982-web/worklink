@@ -96,6 +96,7 @@ exports.updateProfile = async (req, res, next) => {
     if (req.files) {
       if (req.files.avatar) updates.avatar = `/uploads/${req.files.avatar[0].filename}`;
       if (req.files.coverImage) updates.coverImage = `/uploads/${req.files.coverImage[0].filename}`;
+      if (req.files.identityProof) updates.identityProof = `/uploads/${req.files.identityProof[0].filename}`;
     } else if (req.file) {
       updates.avatar = `/uploads/${req.file.filename}`;
     }
@@ -187,8 +188,7 @@ exports.getDashboardData = async (req, res, next) => {
       AnalyticsService.getWorkerAnalytics(workerId),
       Review.find({ worker: workerId })
         .populate('customer', 'name avatar')
-        .sort({ createdAt: -1 })
-        .limit(3),
+        .sort({ createdAt: -1 }),
     ]);
 
     const worker = await Worker.findById(workerId).select('rating totalReviews completedJobs profileViews isAvailable pricing totalEarnings');

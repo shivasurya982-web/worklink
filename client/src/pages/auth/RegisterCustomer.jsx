@@ -40,7 +40,7 @@ const RegisterCustomer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.password || !formData.phone || !formData.securityHint) {
-      setError('Required parameters missing.');
+      setError('Please fill in all fields.');
       return;
     }
 
@@ -50,7 +50,7 @@ const RegisterCustomer = () => {
     try {
       const res = await registerCustomer(formData);
       if (res.success) {
-        showToast('Registration Sync Complete', 'Node initialized.', 'success');
+        showToast('Success!', 'Account created successfully.', 'success');
         setIsSuccess(true);
       }
     } catch (err) {
@@ -68,10 +68,10 @@ const RegisterCustomer = () => {
                <CheckCircle2 className="w-12 h-12 text-emerald-400" />
             </div>
             <div className="space-y-2">
-               <h2 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">NODE INITIALIZED</h2>
-               <p className="text-sm text-text-secondary font-bold opacity-80">Consumer module successfully integrated into the WorkLink ecosystem.</p>
+               <h2 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">WELCOME!</h2>
+               <p className="text-sm text-text-secondary font-bold opacity-80">Your account is ready. You can now start booking services.</p>
             </div>
-            <PremiumButton variant="gold" size="lg" fullWidth onClick={() => navigate('/customer/dashboard')}>INITIALIZE TERMINAL</PremiumButton>
+            <PremiumButton variant="gold" size="lg" fullWidth onClick={() => navigate('/customer/dashboard')}>GO TO DASHBOARD</PremiumButton>
          </GlassCard>
       </div>
     );
@@ -89,10 +89,10 @@ const RegisterCustomer = () => {
 
       <div className="max-w-md w-full relative z-10 py-12">
         <div className="text-center mb-10">
-          <Link to="/" className="inline-flex items-center gap-2 mb-3">
-            <span className="font-sora font-black text-4xl text-white tracking-tighter">WorkLink</span>
+          <Link to="/" className="inline-flex items-center gap-2 mb-4">
+            <img src="/logo.png" alt="Worklyn Logo" className="h-12 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Protocol: Node Registration</p>
+          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Create Customer Account</p>
         </div>
 
         <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-border-primary/30">
@@ -103,38 +103,38 @@ const RegisterCustomer = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <FloatingInput id="name" label="Full Designation" icon={User} value={formData.name} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="email" type="email" label="Identifier (Email)" icon={Mail} value={formData.email} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="phone" type="tel" label="Comms Frequency" icon={Phone} value={formData.phone} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="password" type="password" label="Access Key" icon={Lock} value={formData.password} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+            <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+            <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+            <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+            <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
 
             <div className="pt-4 border-t border-white/5">
-               <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.3em] ml-2 mb-3 block">Security Token</label>
+               <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.3em] ml-2 mb-3 block">Security Hint</label>
                <FloatingInput
                 id="securityHint"
                 type="text"
-                label="Memorable Token"
+                label="Enter a secret word"
                 icon={ShieldCheck}
                 value={formData.securityHint}
                 onChange={handleChange}
                 required
                 className="!bg-background-cardSecondary border-border-primary/20"
                />
-               <p className="text-[9px] text-text-muted mt-3 px-2 leading-relaxed italic uppercase font-black tracking-widest opacity-60">ESSENTIAL FOR SECURE RECOVERY OPERATIONS.</p>
+               <p className="text-[9px] text-text-muted mt-3 px-2 leading-relaxed italic uppercase font-black tracking-widest opacity-60">REQUIRED TO RECOVER YOUR ACCOUNT IF YOU FORGET YOUR PASSWORD.</p>
             </div>
 
             <div className="pt-6">
               <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={ArrowRight} className="py-5 shadow-orange">
-                INITIALIZE NODE
+                CREATE ACCOUNT
               </PremiumButton>
             </div>
           </form>
 
           <div className="mt-10 pt-8 border-t border-white/5 text-center">
             <p className="text-xs text-text-muted font-bold uppercase tracking-widest">
-              Existing Link?{' '}
+              Already have an account?{' '}
               <Link to="/login" className="text-accent-bright hover:underline transition-all">
-                Sign In
+                Login
               </Link>
             </p>
           </div>

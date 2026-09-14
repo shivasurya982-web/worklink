@@ -5,15 +5,15 @@ import API from '../../services/api';
 
 const AIFeaturesSection = () => {
   const [settings, setSettings] = useState({
-    aiSectionTitle: 'Intelligent Service Architecture',
-    aiSectionSubtitle: 'WorkLink utilizes advanced matching algorithms and real-time coordination tools.',
+    aiSectionTitle: 'Smart Technology for Better Service',
+    aiSectionSubtitle: 'Worklyn uses intelligent tools to make hiring fast and reliable.',
     aiFeaturesList: [
-      { title: 'Smart Matchmaking', description: 'Score-based matching weighing distance, customer rating, experience, job success rate, and instant availability.' },
-      { title: 'Natural Language Search', description: 'Search using plain English phrases like "AC technician under ₹1000" or "Emergency plumber near me".' },
-      { title: 'Geospatial Tracking', description: 'Interactive map with live worker location pins, travel distance, and service radius coverage.' },
-      { title: 'Identity Verification', description: 'Admin verification portal ensuring identity proof, license, and skills certificates before worker activation.' },
-      { title: 'Real-Time Comms', description: 'Instant chat messaging, typing indicators, read receipts, and live status updates without refresh.' },
-      { title: 'Market Insights', description: 'Interactive analytics dashboard tracking revenue growth, customer conversion, and top service categories.' },
+      { title: 'Perfect Matching', description: 'Our smart system finds workers based on their location, ratings, experience, and current availability.' },
+      { title: 'Easy Search', description: 'Search for what you need using simple words like "fix my AC" or "plumber near me" to get instant results.' },
+      { title: 'Location Tracking', description: 'See where workers are on a map, how far they have to travel, and if they cover your neighborhood.' },
+      { title: 'Worker ID Checks', description: 'We check every worker\'s ID and certificates before they can start taking jobs on our app.' },
+      { title: 'Live Chat', description: 'Send instant messages, see when someone is typing, and get read receipts for better communication.' },
+      { title: 'Progress Tracking', description: 'Keep track of your bookings, payments, and history all in one easy-to-use dashboard.' },
     ],
   });
 
@@ -26,8 +26,8 @@ const AIFeaturesSection = () => {
       const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setSettings({
-          aiSectionTitle: res.data.aiSectionTitle || 'Intelligent Service Architecture',
-          aiSectionSubtitle: res.data.aiSectionSubtitle || 'WorkLink utilizes advanced matching algorithms and real-time coordination tools.',
+          aiSectionTitle: res.data.aiSectionTitle || 'Smart Technology for Better Service',
+          aiSectionSubtitle: res.data.aiSectionSubtitle || 'Worklyn uses intelligent tools to make hiring fast and reliable.',
           aiFeaturesList: res.data.aiFeaturesList?.length > 0 ? res.data.aiFeaturesList : settings.aiFeaturesList,
         });
       }
@@ -43,11 +43,11 @@ const AIFeaturesSection = () => {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent-orange/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="container-responsive relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24">
-          <span className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] mb-6 block">Advanced Intelligence</span>
-          <h2 className="text-3xl sm:text-5xl font-sora font-black text-white tracking-tighter mb-6">
+          <span className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] mb-6 block">Features</span>
+          <h2 className="text-3xl sm:text-5xl font-sora font-black text-white tracking-tighter mb-6 uppercase">
              {settings.aiSectionTitle}
           </h2>
-          <p className="text-sm sm:text-lg text-text-secondary leading-relaxed font-medium opacity-80">
+          <p className="text-sm sm:text-lg text-text-secondary leading-relaxed font-medium opacity-80 uppercase tracking-widest">
             {settings.aiSectionSubtitle}
           </p>
         </div>
@@ -61,7 +61,7 @@ const AIFeaturesSection = () => {
                      <Icon className="w-8 h-8" />
                   </div>
                   <h3 className="font-sora font-black text-lg sm:text-xl text-white mb-4 tracking-tight group-hover:text-accent-bright transition-colors uppercase">{feature.title}</h3>
-                  <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-medium opacity-90">
+                  <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-bold uppercase tracking-widest opacity-90">
                     {feature.description}
                   </p>
                </GlassCard>

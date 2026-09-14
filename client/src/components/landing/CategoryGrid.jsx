@@ -15,8 +15,8 @@ const iconMap = {
 
 const CategoryGrid = () => {
   const [settings, setSettings] = useState({
-    categorySectionTitle: 'Popular Service Categories',
-    categorySectionSubtitle: 'Browse top rated local experts by specialization',
+    categorySectionTitle: 'Popular Services',
+    categorySectionSubtitle: 'Find top-rated local experts by their skill',
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,12 +54,12 @@ const CategoryGrid = () => {
       <div className="container-responsive relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6 text-center md:text-left">
           <div className="max-w-2xl mx-auto md:mx-0">
-            <span className="text-[10px] font-black text-accent-bright uppercase tracking-[0.4em] mb-4 block">Ecosystem Nodes</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sora font-black text-white tracking-tight">{settings.categorySectionTitle}</h2>
-            <p className="text-sm sm:text-base text-text-secondary mt-4 opacity-80 leading-relaxed font-medium">{settings.categorySectionSubtitle}</p>
+            <span className="text-[10px] font-black text-accent-bright uppercase tracking-[0.4em] mb-4 block">Categories</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sora font-black text-white tracking-tight uppercase">{settings.categorySectionTitle}</h2>
+            <p className="text-sm sm:text-base text-text-secondary mt-4 opacity-80 leading-relaxed font-bold uppercase tracking-widest">{settings.categorySectionSubtitle}</p>
           </div>
           <Link to="/search" className="hidden md:inline-flex items-center gap-2 text-xs font-black text-accent-bright hover:text-white transition-all uppercase tracking-widest">
-            View All <ArrowRight className="w-4 h-4" />
+            See All <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -73,8 +73,8 @@ const CategoryGrid = () => {
                     <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                   </div>
                   <h3 className="font-sora font-bold text-base sm:text-lg text-white mb-2 group-hover:text-accent-bright transition-colors uppercase tracking-tight">{cat.name}</h3>
-                  <p className="text-[10px] sm:text-[11px] text-text-muted mb-6 leading-relaxed font-medium line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified node specialization'}</p>
-                  <div className="mt-auto px-4 py-1.5 rounded-full border border-accent-orange/30 text-[9px] font-black text-accent-light uppercase tracking-widest group-hover:bg-accent-orange group-hover:text-white transition-all">Scan Node</div>
+                  <p className="text-[10px] sm:text-[11px] text-text-muted mb-6 leading-relaxed font-bold line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified local workers ready to help.'}</p>
+                  <div className="mt-auto px-4 py-1.5 rounded-full border border-accent-orange/30 text-[9px] font-black text-accent-light uppercase tracking-widest group-hover:bg-accent-orange group-hover:text-white transition-all">Select</div>
                 </div>
               </Link>
             );
@@ -82,7 +82,7 @@ const CategoryGrid = () => {
         </div>
         <div className="mt-10 md:hidden flex justify-center">
            <Link to="/search" className="inline-flex items-center gap-2 text-xs font-black text-accent-bright uppercase tracking-widest">
-              Explore All <ArrowRight className="w-4 h-4" />
+              See All <ArrowRight className="w-4 h-4" />
            </Link>
         </div>
       </div>

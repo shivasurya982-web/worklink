@@ -25,10 +25,10 @@ const StatsSection = () => {
   }, []);
 
   const statItems = [
-    { label: 'Network Users', value: `${stats.totalCustomers}+`, icon: Users, color: 'text-accent-bright' },
-    { label: 'Active Modules', value: `${stats.totalWorkers}+`, icon: ShieldCheck, color: 'text-accent-bright' },
-    { label: 'Domain Sectors', value: `${stats.totalCategories}+`, icon: LayoutGrid, color: 'text-accent-bright' },
-    { label: 'Reliability', value: `${stats.averageRating}★`, icon: Zap, color: 'text-accent-bright' },
+    { label: 'Happy Customers', value: `${stats.totalCustomers}+`, icon: Users, color: 'text-accent-bright' },
+    { label: 'Verified Workers', value: `${stats.totalWorkers}+`, icon: ShieldCheck, color: 'text-accent-bright' },
+    { label: 'Service Types', value: `${stats.totalCategories}+`, icon: LayoutGrid, color: 'text-accent-bright' },
+    { label: 'Avg Rating', value: `${stats.averageRating}★`, icon: Zap, color: 'text-accent-bright' },
   ];
 
   return (

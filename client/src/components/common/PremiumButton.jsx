@@ -22,6 +22,7 @@ const PremiumButton = ({
     outline: 'bg-[#080808]/80 border-2 border-[#8F3208] text-[#FF9A4D] hover:border-[#FF7A18] hover:bg-[#080808] hover:-translate-y-1',
     danger:  'bg-red-600 text-white shadow-lg border-2 border-red-500/30 hover:bg-red-700 hover:-translate-y-1',
     ghost:   'bg-transparent text-text-secondary hover:text-text-primary hover:bg-white/5',
+    white:   'bg-white text-[#F4510B] shadow-xl hover:bg-[#FFF7F0] hover:-translate-y-1',
   };
 
   const sizes = {

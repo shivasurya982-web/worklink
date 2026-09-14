@@ -146,27 +146,75 @@ exports.workerRegister = async (req, res, next) => {
     const existing = await Worker.findOne({ $or: [{ email: email.toLowerCase() }, { phone }] });
     if (existing) return ApiResponse.badRequest(res, 'Email or phone already registered');
 
+    // Handle File Uploads with extreme thoroughness
+    let identityProof = '';
+
+    if (req.files && typeof req.files === 'object') {
+      const files = req.files;
+      const idProofFile = files.identityProof || files['identityProof'] || files.image;
+
+      if (idProofFile && Array.isArray(idProofFile) && idProofFile.length > 0) {
+        identityProof = `/uploads/${idProofFile[0].filename}`;
+      }
+    }
+
+    // If still empty, check if multer put it somewhere else (unlikely but safe)
+    if (!identityProof && req.file) {
+      identityProof = `/uploads/${req.file.filename}`;
+    }
+
+    // MANDATORY CHECK: Reject if no image. This tells us the upload definitely failed.
+    if (!identityProof) {
+      return ApiResponse.badRequest(res, 'Identity verification image upload failed. Please ensure the file is an image (JPG/PNG).');
+    }
+
     const workerData = {
-      name, email: email.toLowerCase(), password, phone, profession,
+      name,
+      email: email.toLowerCase(),
+      password,
+      phone,
+      profession,
+      description: req.body.description || '',
       experience: parseInt(experience) || 0,
-      pricing: { hourly: parseInt(hourlyRate) || 0, currency: '₹' },
+      pricing: { hourly: parseInt(hourlyRate || 0), currency: '₹' },
       address: { street, city, state, zip },
       approvalStatus: 'pending',
-      securityHint
+      securityHint,
+      identityProof
     };
 
-    if (category && category.trim() && category !== 'other') {
+    if (category && category.trim() && category !== 'other' && category !== 'undefined') {
       workerData.category = category;
     }
 
     const worker = await Worker.create(workerData);
+
+    // Notify Admins about new worker application
+    const Admin = require('../models/Admin');
+    const Notification = require('../models/Notification');
+    const admins = await Admin.find({ isActive: true });
+
+    if (admins.length > 0) {
+      const adminNotifications = admins.map(admin => ({
+        recipient: admin._id,
+        recipientModel: 'Admin',
+        type: 'approval',
+        title: 'New Worker Application',
+        message: `New professional application received from ${worker.name} (${worker.profession}).`,
+        link: '/admin/workers?status=pending',
+        data: { workerId: worker._id }
+      }));
+      await Notification.insertMany(adminNotifications);
+    }
+
     ApiResponse.created(res, {
       worker: {
         _id: worker._id,
         name: worker.name,
         email: worker.email,
         approvalStatus: worker.approvalStatus,
-        securityHint: worker.securityHint
+        securityHint: worker.securityHint,
+        identityProof: worker.identityProof
       }
     });
   } catch (error) {

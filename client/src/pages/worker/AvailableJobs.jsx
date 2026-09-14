@@ -34,17 +34,17 @@ const AvailableJobs = () => {
   };
 
   const handleAcceptJob = async (jobId) => {
-    if (!window.confirm('Initialize operational link with this consumer?')) return;
+    if (!window.confirm('Accept this job request from the customer?')) return;
 
     setAcceptingId(jobId);
     try {
       const res = await API.put(`/bookings/${jobId}/accept`);
       if (res.success) {
-        showToast('Link Established', 'Job module assigned to your terminal.', 'success');
+        showToast('Job Accepted', 'This job has been added to your dashboard.', 'success');
         navigate('/worker/bookings');
       }
     } catch (err) {
-      showToast('Error', err.message || 'Signal lost or intercepted by other node.', 'error');
+      showToast('Error', err.message || 'Job is no longer available.', 'error');
       fetchAvailableJobs();
     } finally {
       setAcceptingId(null);
@@ -53,15 +53,15 @@ const AvailableJobs = () => {
 
   return (
     <DashboardLayout
-      title="Opportunity Scanner"
-      subtitle="Monitoring market broadcasts for unassigned service nodes"
+      title="Job Openings"
+      subtitle="See latest job requests from customers"
     >
       <div className="flex justify-end mb-8 px-2">
          <button
           onClick={fetchAvailableJobs}
           className="flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-background-widget border border-border-primary/30 text-[10px] font-black text-accent-bright uppercase tracking-widest hover:bg-background-secondary transition-all shadow-xl"
          >
-           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh Grid
+           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
          </button>
       </div>
 
@@ -101,7 +101,7 @@ const AvailableJobs = () => {
                   </div>
                   <div className="flex items-center gap-3 text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">
                     <Clock className="w-4 h-4 text-accent-light" />
-                    <span>{job.scheduledTime} WINDOW</span>
+                    <span>{job.scheduledTime}</span>
                   </div>
                   <div className="flex items-start gap-3 text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">
                     <MapPin className="w-4 h-4 text-accent-main mt-0.5" />
@@ -118,14 +118,8 @@ const AvailableJobs = () => {
 
                 <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
                    <div className="flex flex-col">
-                      <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">EST. PAYOUT</span>
+                      <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">PAYOUT</span>
                       <span className="font-black text-xl text-accent-bright tracking-tighter">₹{job.estimatedCost}</span>
-                   </div>
-                   <div className="text-right">
-                      <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">DETECTION TIME</span>
-                      <p className="text-[10px] font-bold text-white uppercase tracking-tighter mt-0.5">
-                        {new Date(job.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </p>
                    </div>
                 </div>
               </div>
@@ -141,7 +135,7 @@ const AvailableJobs = () => {
                   onClick={() => handleAcceptJob(job._id)}
                   className="py-5 shadow-orange font-black tracking-widest"
                 >
-                  INITIALIZE LINK
+                  ACCEPT JOB
                 </PremiumButton>
               </div>
             </GlassCard>
@@ -153,12 +147,12 @@ const AvailableJobs = () => {
            <div className="w-24 h-24 bg-background-dark rounded-[2rem] flex items-center justify-center mx-auto mb-10 shadow-2xl border border-white/5 relative z-10">
               <Sparkles className="w-12 h-12 text-accent-bright opacity-20" />
            </div>
-           <h3 className="font-sora font-black text-2xl text-white mb-4 relative z-10">NO ACTIVE SIGNALS DETECTED</h3>
+           <h3 className="font-sora font-black text-2xl text-white mb-4 relative z-10">NO JOBS FOUND</h3>
            <p className="text-sm text-text-muted max-w-[320px] mx-auto leading-relaxed font-bold uppercase tracking-widest opacity-80 mb-10 relative z-10">
-             The market sector is currently dormant. Our algorithms will notify your terminal once a new broadcast is intercepted.
+             There are no new job requests at the moment. We will notify you when a customer needs help.
            </p>
            <PremiumButton variant="outline" size="lg" className="px-12 relative z-10" onClick={fetchAvailableJobs}>
-             FORCE RE-SCAN
+             CHECK AGAIN
            </PremiumButton>
         </div>
       )}

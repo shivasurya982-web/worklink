@@ -59,7 +59,7 @@ const AdminComplaints = () => {
       });
 
       if (res.success) {
-        showToast('System Updated', `Conflict status updated to ${newStatus}.`, 'success');
+        showToast('Updated', `Complaint status changed to ${newStatus}.`, 'success');
         setModalOpen(false);
         fetchComplaints();
       }
@@ -71,13 +71,13 @@ const AdminComplaints = () => {
   };
 
   const handleDeleteComplaint = async (id) => {
-    if (!window.confirm('PERMANENTLY PURGE this conflict log?')) return;
+    if (!window.confirm('Delete this complaint record forever?')) return;
 
     setDeleting(true);
     try {
       const res = await API.delete(`/complaints/admin/${id}`);
       if (res.success) {
-        showToast('Data Purged', 'Conflict record removed.', 'info');
+        showToast('Deleted', 'Complaint record removed.', 'info');
         setComplaints(prev => prev.filter(c => c._id !== id));
       }
     } catch (err) {
@@ -103,17 +103,17 @@ const AdminComplaints = () => {
 
   return (
     <DashboardLayout
-      title="Conflict Monitoring"
-      subtitle="Ecosystem support tickets, node reports, and resolution logging"
+      title="Manage Complaints"
+      subtitle="View and resolve issues reported by users and workers"
     >
       {/* Tabs */}
       <div className="flex flex-wrap gap-3 mb-10 border-b border-white/5 pb-5">
         {[
           { id: 'all', label: `ALL (${complaints.length})` },
-          { id: 'open', label: `OPEN (${complaints.filter((c) => c.status === 'open').length})` },
-          { id: 'in_review', label: `AUDIT (${complaints.filter((c) => c.status === 'in_review').length})` },
+          { id: 'open', label: `NEW (${complaints.filter((c) => c.status === 'open').length})` },
+          { id: 'in_review', label: `IN REVIEW (${complaints.filter((c) => c.status === 'in_review').length})` },
           { id: 'resolved', label: `RESOLVED (${complaints.filter((c) => c.status === 'resolved').length})` },
-          { id: 'rejected', label: `TERMINATED (${complaints.filter((c) => c.status === 'rejected').length})` },
+          { id: 'rejected', label: `REJECTED (${complaints.filter((c) => c.status === 'rejected').length})` },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -150,18 +150,18 @@ const AdminComplaints = () => {
                   <div className="min-w-0">
                     <div className="flex items-center gap-3 flex-wrap">
                       <h4 className="font-sora font-black text-xl text-white tracking-tighter uppercase">{c.user?.name}</h4>
-                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-black">
-                        {c.userModel} Node
+                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-black uppercase">
+                        {c.userModel}
                       </Badge>
                     </div>
                     <p className="text-[10px] font-black text-text-muted mt-2 uppercase tracking-widest opacity-80">
-                      ID: {c.user?.email} | COMMS: {c.user?.phone || 'Unknown'}
+                      Email: {c.user?.email} | Phone: {c.user?.phone || 'N/A'}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 shrink-0 self-end md:self-center">
-                  <Badge variant={statusVariant(c.status)} size="md" className="!rounded-xl px-5 font-black">
+                  <Badge variant={statusVariant(c.status)} size="md" className="!rounded-xl px-5 font-black uppercase">
                     {(c.status || 'open').replace(/_/g, ' ')}
                   </Badge>
                   <div className="flex items-center gap-3">
@@ -171,12 +171,12 @@ const AdminComplaints = () => {
                       onClick={() => handleOpenActionModal(c)}
                       className="px-6 shadow-orange font-black"
                     >
-                      Process
+                      Update
                     </PremiumButton>
                     <button
                       onClick={() => handleDeleteComplaint(c._id)}
                       className="p-3 rounded-2xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-xl"
-                      title="Purge Ticket"
+                      title="Delete Ticket"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
@@ -190,7 +190,7 @@ const AdminComplaints = () => {
                   <div className="w-8 h-8 rounded-lg bg-background-widget flex items-center justify-center border border-accent-bright/20"><AlertCircle className="w-4 h-4 text-accent-bright" /></div>
                   <span className="font-black text-sm text-white uppercase tracking-tight">{c.subject}</span>
                   <div className="bg-background-dark/50 px-3 py-1 rounded-lg border border-white/5">
-                    <span className="text-[9px] font-black text-accent-light uppercase tracking-widest">DOMAIN: {c.category}</span>
+                    <span className="text-[9px] font-black text-accent-light uppercase tracking-widest">TYPE: {c.category}</span>
                   </div>
                 </div>
                 <div className="bg-background-dark/30 p-6 rounded-[2rem] border-2 border-white/5 shadow-inner relative group min-h-[100px] hover:border-accent-main/20 transition-all">
@@ -203,7 +203,7 @@ const AdminComplaints = () => {
               {c.resolutionNotes && (
                 <div className="p-6 bg-emerald-950/20 rounded-[2rem] text-sm text-emerald-400 border-2 border-emerald-500/20 shadow-inner animate-fade-in relative z-10">
                   <span className="font-black text-emerald-400 block mb-3 flex items-center gap-2 uppercase tracking-[0.2em]">
-                    <CheckCircle2 className="w-5 h-5 text-accent-green" /> Resolution Artifact:
+                    <CheckCircle2 className="w-5 h-5 text-accent-green" /> Support Team Response:
                   </span>
                   <p className="font-bold leading-relaxed">{c.resolutionNotes}</p>
                 </div>
@@ -216,7 +216,7 @@ const AdminComplaints = () => {
            <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
               <ShieldCheck className="w-10 h-10 text-accent-green opacity-20" />
            </div>
-           <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO CONFLICT LOGS DETECTED UNDER THIS PARAMETER.</p>
+           <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO COMPLAINTS FOUND HERE.</p>
         </div>
       )}
 
@@ -225,31 +225,31 @@ const AdminComplaints = () => {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          title={`RESOLVE CONFLICT: ${selectedComplaint?.subject}`}
+          title={`Update Complaint: ${selectedComplaint?.subject}`}
         >
           <form onSubmit={handleUpdateStatus} className="space-y-10 pt-6">
             <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner space-y-8">
               <div>
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">SYSTEM STATE</label>
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">STATUS</label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
                   className="w-full bg-background-card border-2 border-border-primary/40 rounded-2xl p-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
                 >
-                  <option value="in_review">In Review / Audit</option>
-                  <option value="resolved">Mark Resolved</option>
-                  <option value="rejected">Mark Terminated</option>
-                  <option value="open">Initialize State (Open)</option>
+                  <option value="in_review">Mark as Under Review</option>
+                  <option value="resolved">Mark as Resolved</option>
+                  <option value="rejected">Mark as Rejected</option>
+                  <option value="open">Keep as New</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">OFFICIAL RESOLUTION NOTES</label>
+                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">REPLY TO USER</label>
                 <textarea
                   rows={5}
                   value={resolutionNotes}
                   onChange={(e) => setResolutionNotes(e.target.value)}
-                  placeholder="Document the administrative resolution protocol..."
+                  placeholder="Tell the user how you are fixing this..."
                   className="w-full bg-background-card border-2 border-border-primary/40 rounded-[2rem] p-6 text-sm font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl"
                   required
                 />
@@ -257,7 +257,7 @@ const AdminComplaints = () => {
             </div>
 
             <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={updating} className="py-5 text-base shadow-orange font-black">
-              SAVE RESOLUTION PROTOCOL
+              SAVE UPDATE
             </PremiumButton>
           </form>
         </Modal>

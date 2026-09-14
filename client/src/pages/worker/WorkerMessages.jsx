@@ -427,7 +427,7 @@ const WorkerMessages = () => {
                         <div className="flex items-center gap-2">
                            <div className={`w-2 h-2 rounded-full ${online ? 'bg-accent-green animate-pulse shadow-[0_0_8px_#22C55E]' : 'bg-text-muted'}`} />
                            <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${online ? 'text-accent-green' : 'text-text-muted'}`}>
-                             {online ? 'ONLINE' : 'LINK LOST'}
+                             {online ? 'ONLINE' : 'OFFLINE'}
                            </p>
                         </div>
                       </div>
@@ -516,44 +516,52 @@ const WorkerMessages = () => {
               </div>
 
               {/* Input Area */}
-              <div className="p-5 border-t border-border-primary/20 bg-background-dark/95 backdrop-blur-2xl shrink-0">
-                <form onSubmit={handleSendMessage} className="flex flex-col gap-4">
+              <div className="p-4 sm:p-6 border-t border-border-primary/20 bg-background-dark/95 backdrop-blur-2xl shrink-0">
+                <form onSubmit={handleSendMessage} className="max-w-5xl mx-auto">
                   {editingMessage && (
-                    <div className="flex items-center justify-between bg-accent-orange/10 px-5 py-3 rounded-2xl border border-accent-orange/30 animate-slide-up">
-                      <span className="text-[11px] font-black text-accent-bright flex items-center gap-2 uppercase tracking-[0.3em]">
-                         <Edit2 className="w-4 h-4" /> SYNC EDIT
+                    <div className="flex items-center justify-between bg-accent-orange/10 px-4 py-2 rounded-xl border border-accent-orange/30 animate-slide-up mb-3">
+                      <span className="text-[10px] font-black text-accent-bright flex items-center gap-2 uppercase tracking-widest">
+                         <Edit2 className="w-3.5 h-3.5" /> Editing Message
                       </span>
-                      <button type="button" onClick={() => { setEditingMessage(null); setMessageText(''); }} className="text-text-muted hover:text-accent-red p-1"><X className="w-5 h-5" /></button>
+                      <button type="button" onClick={() => { setEditingMessage(null); setMessageText(''); }} className="text-text-muted hover:text-accent-red p-1"><X className="w-4 h-4" /></button>
                     </div>
                   )}
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-end gap-2 sm:gap-3 bg-background-cardSecondary/50 p-2 rounded-[2rem] border border-white/5 shadow-inner">
                     <button
                       type="button"
                       onClick={handleShareLocation}
                       disabled={locationLoading || !selectedConversation}
-                      className="p-4 rounded-2xl bg-background-cardSecondary text-accent-bright hover:bg-accent-orange hover:text-white transition-all border border-border-primary/40 shadow-xl disabled:opacity-30 active:scale-95"
-                      title="Share Current Location"
+                      className="p-3 sm:p-4 rounded-full bg-background-card text-accent-bright hover:bg-accent-orange hover:text-white transition-all border border-border-primary/20 shadow-xl disabled:opacity-30 shrink-0"
+                      title="Share Location"
                     >
-                      {locationLoading ? <Loader2 className="w-6 h-6 animate-spin text-accent-bright" /> : <MapPin className="w-6 h-6" />}
+                      {locationLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />}
                     </button>
 
-                    <div className="flex-1 relative group">
-                      <input
-                        type="text"
-                        value={messageText}
-                        onChange={(e) => setMessageText(e.target.value)}
-                        placeholder={editingMessage ? "Updating dataset..." : "Broadcasting response..."}
-                        className="w-full bg-background-card border-border-primary/40 rounded-3xl px-6 py-4.5 text-sm font-bold focus:outline-none focus:border-accent-main focus:ring-8 focus:ring-accent-main/10 transition-all shadow-inner text-white placeholder:text-text-muted"
-                      />
-                    </div>
+                    <textarea
+                      rows={1}
+                      value={messageText}
+                      onChange={(e) => {
+                        setMessageText(e.target.value);
+                        e.target.style.height = 'auto';
+                        e.target.style.height = e.target.scrollHeight + 'px';
+                      }}
+                      placeholder="Write a message..."
+                      className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium py-3 px-2 text-white placeholder:text-text-muted resize-none max-h-32 custom-scrollbar overflow-y-auto"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleSendMessage(e);
+                        }
+                      }}
+                    />
 
                     <button
                       type="submit"
                       disabled={!messageText.trim() || sending}
-                      className="p-4.5 bg-accent-orange text-white rounded-3xl shadow-[0_15px_40px_rgba(244,81,11,0.4)] hover:scale-105 active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0 border border-accent-bright/30"
+                      className="p-3 sm:p-4 bg-accent-orange text-white rounded-full shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0 border border-accent-bright/30"
                     >
-                      {sending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6 fill-current" />}
+                      {sending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />}
                     </button>
                   </div>
                 </form>

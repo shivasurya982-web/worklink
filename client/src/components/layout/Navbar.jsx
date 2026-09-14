@@ -6,7 +6,7 @@ import {
   Menu,
   X,
   ChevronDown,
-  LayoutDashboard,
+  LayoutGrid,
   Trash2,
   Calendar,
   MessageSquare
@@ -62,8 +62,8 @@ const Navbar = () => {
 
   const getDashboardLabel = () => {
     if (role === 'admin') return 'Admin Panel';
-    if (role === 'worker') return 'Pro Dashboard';
-    return 'Dashboard';
+    if (role === 'worker') return 'My Dashboard';
+    return 'My Dashboard';
   };
 
   const handleDeleteNotification = async (e, id) => {
@@ -76,23 +76,20 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-background-dark/95 shadow-xl border-b border-accent-main/20' : 'bg-transparent'
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
+        scrolled ? 'bg-background-primary/80 shadow-xl border-b border-white/10' : 'bg-background-primary/20'
       }`}>
         <div className="container-responsive h-16 sm:h-20 flex items-center justify-between gap-4">
 
-          {/* Left Side: Spacer/Logo Area */}
           <div className="flex-1 lg:flex-none">
-            <Link to="/" className="inline-block">
-               <span className="font-sora font-black text-xl sm:text-2xl orange-gradient-text tracking-tighter">WorkLink</span>
+            <Link to="/" className="flex items-center gap-2">
+               <img src="/logo.png" alt="Worklyn Logo" className="h-8 sm:h-10 w-auto object-contain" />
             </Link>
           </div>
 
-          {/* Right Side: Actions */}
           <div className="flex items-center gap-2 sm:gap-4">
             {isAuthenticated ? (
               <>
-                {/* Notifications */}
                 <div className="relative" ref={notifRef}>
                   <button
                     onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
@@ -109,8 +106,8 @@ const Navbar = () => {
                   {notifDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 glass-card !bg-background-cardSecondary rounded-2xl shadow-2xl border border-border-primary/40 overflow-hidden">
                       <div className="p-4 border-b border-white/5 flex items-center justify-between bg-background-widget/40">
-                        <h3 className="text-xs font-black uppercase tracking-widest">Recent Alerts</h3>
-                        <button onClick={markAllAsRead} className="text-[10px] text-accent-bright font-black hover:underline uppercase">Mark Read</button>
+                        <h3 className="text-xs font-black uppercase tracking-widest">Notifications</h3>
+                        <button onClick={markAllAsRead} className="text-[10px] text-accent-bright font-black hover:underline uppercase">Mark All Read</button>
                       </div>
                       <div className="max-h-80 overflow-y-auto custom-scrollbar p-2">
                         {notifications.length > 0 ? (
@@ -126,18 +123,17 @@ const Navbar = () => {
                             </div>
                           ))
                         ) : (
-                          <p className="py-8 text-center text-[10px] text-text-muted uppercase font-bold">No Alerts</p>
+                          <p className="py-8 text-center text-[10px] text-text-muted uppercase font-bold">No new messages</p>
                         )}
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Desktop Profile */}
                 <div className="hidden sm:block relative" ref={dropdownRef}>
                   <button
                     onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                    className="flex items-center gap-2 p-1.5 rounded-full hover:bg-white/5 transition-colors border border-border-primary/20"
+                    className="flex items-center gap-2 p-1.5 rounded-full bg-background-cardSecondary hover:bg-background-card transition-colors border border-border-primary/40 shadow-lg"
                   >
                     <img
                       src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=F4510B&color=fff`}
@@ -150,7 +146,7 @@ const Navbar = () => {
                   {profileDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 glass-card !bg-background-cardSecondary rounded-2xl p-2 shadow-2xl border border-border-primary/40">
                       <Link to={getDashboardPath()} className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-text-secondary hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        <LayoutDashboard className="w-4 h-4" /> {getDashboardLabel()}
+                        <LayoutGrid className="w-4 h-4" /> {getDashboardLabel()}
                       </Link>
                       <button onClick={logout} className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-accent-red hover:bg-red-500/10 rounded-xl transition-all">
                         <LogOut className="w-4 h-4" /> Logout
@@ -165,12 +161,11 @@ const Navbar = () => {
                   <PremiumButton variant="outline" size="sm" className="hidden xs:flex">Login</PremiumButton>
                 </Link>
                 <Link to="/register/customer">
-                  <PremiumButton variant="gold" size="sm">Get Started</PremiumButton>
+                  <PremiumButton variant="gold" size="sm">Register</PremiumButton>
                 </Link>
               </div>
             )}
 
-            {/* Mobile Hamburger */}
             {isAuthenticated && (
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -183,7 +178,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setMobileMenuOpen(false)} />
@@ -194,7 +188,7 @@ const Navbar = () => {
             </div>
             <div className="flex-1 space-y-4">
               <Link to={getDashboardPath()} className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl text-sm font-bold">
-                <LayoutDashboard className="w-5 h-5 text-accent-bright" /> {getDashboardLabel()}
+                <LayoutGrid className="w-5 h-5 text-accent-bright" /> {getDashboardLabel()}
               </Link>
               <button onClick={logout} className="w-full flex items-center gap-3 p-4 bg-red-500/10 rounded-2xl text-sm font-bold text-accent-red">
                 <LogOut className="w-5 h-5" /> Logout

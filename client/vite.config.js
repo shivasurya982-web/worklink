@@ -18,7 +18,6 @@ export default defineConfig({
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/api')
       },
       '/uploads': {
         target: 'http://127.0.0.1:5000',
@@ -26,7 +25,7 @@ export default defineConfig({
         secure: false,
       },
       '/socket.io': {
-        target: 'http://127.0.0.1:5000',
+        target: 'ws://127.0.0.1:5000',
         ws: true,
         changeOrigin: true,
         secure: false,

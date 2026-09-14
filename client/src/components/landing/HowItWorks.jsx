@@ -5,11 +5,11 @@ import API from '../../services/api';
 
 const HowItWorks = () => {
   const [settings, setSettings] = useState({
-    howItWorksTitle: 'How WorkLink Works',
+    howItWorksTitle: 'How Worklyn Works',
     howItWorksSubtitle: 'Get your home or office repairs solved in 4 simple steps',
     howItWorksSteps: [
       { step: '01', title: 'Smart Search', description: 'Enter what service you need or your location. Our smart matching system finds nearby verified experts.' },
-      { step: '02', title: 'Compare & Book', description: 'View ratings, pricing, distance, and portfolio images. Select date and time that fits your schedule.' },
+      { step: '02', title: 'Compare & Book', description: 'View ratings, quotes, distance, and portfolio images. Chat directly with experts to discuss your job details.' },
       { step: '03', title: 'Real-Time Updates', description: 'Track the worker status live on Google Maps, chat in real-time, and get work updates.' },
       { step: '04', title: 'Service Done & Review', description: 'Pay directly after work completion, rate the professional, and leave a verified review.' },
     ],
@@ -24,7 +24,7 @@ const HowItWorks = () => {
       const res = await API.get('/site/settings');
       if (res.success && res.data) {
         setSettings({
-          howItWorksTitle: res.data.howItWorksTitle || 'How WorkLink Works',
+          howItWorksTitle: res.data.howItWorksTitle || 'How Worklyn Works',
           howItWorksSubtitle: res.data.howItWorksSubtitle || 'Get your home or office repairs solved in 4 simple steps',
           howItWorksSteps: res.data.howItWorksSteps?.length > 0 ? res.data.howItWorksSteps : settings.howItWorksSteps,
         });

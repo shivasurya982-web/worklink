@@ -62,21 +62,18 @@ const Login = () => {
         className="absolute top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-background-dark/80 backdrop-blur-md rounded-full border border-accent-main/30 shadow-2xl hover:shadow-accent-main/20 hover:bg-background-dark transition-all text-text-primary text-[11px] font-black uppercase tracking-widest"
       >
         <Home className="w-4 h-4 text-accent-bright" />
-        <span>Back to Home</span>
+        <span>Home</span>
       </Link>
 
-      {/* Decorative Atmosphere */}
       <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-accent-main/10 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-accent-orange/15 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-10">
-          <Link to="/" className="inline-flex items-center gap-2 mb-3">
-            <span className="font-sora font-black text-4xl text-white tracking-tighter">
-              WorkLink
-            </span>
+          <Link to="/" className="inline-flex items-center gap-2 mb-4">
+            <img src="/logo.png" alt="Worklyn Logo" className="h-12 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Secure Access Point</p>
+          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Login to your account</p>
         </div>
 
         <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-border-primary/50 relative">
@@ -100,7 +97,7 @@ const Login = () => {
                   : 'text-text-muted hover:text-text-secondary'
               }`}
             >
-              <Briefcase className="w-4 h-4" /> Professional
+              <Briefcase className="w-4 h-4" /> Worker
             </button>
           </div>
 
@@ -124,7 +121,7 @@ const Login = () => {
             <FloatingInput
               id="password"
               type="password"
-              label="Secret Password"
+              label="Password"
               icon={Lock}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -137,25 +134,25 @@ const Login = () => {
                 to="/forgot-password"
                 className="text-[10px] font-black text-accent-light hover:text-accent-bright transition-all uppercase tracking-[0.2em]"
               >
-                Reset Access Key?
+                Forgot Password?
               </Link>
             </div>
 
             <div className="pt-4">
               <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={LogIn} className="shadow-[0_15px_40px_rgba(244,81,11,0.4)]">
-                Login as {role === 'customer' ? 'Customer' : 'Pro'}
+                Login
               </PremiumButton>
             </div>
           </form>
 
           <div className="mt-12 pt-8 border-t border-white/5 text-center">
             <p className="text-xs text-text-muted font-bold">
-              New to WorkLink?{' '}
+              New here?{' '}
               <Link
                 to={role === 'customer' ? '/register/customer' : '/register/worker'}
                 className="text-accent-bright hover:text-accent-light transition-all underline decoration-2 underline-offset-4"
               >
-                Join the Network
+                Create an account
               </Link>
             </p>
           </div>

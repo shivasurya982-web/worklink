@@ -2,73 +2,76 @@ import React from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import GlassCard from '../../components/common/GlassCard';
-import { ShieldCheck, Zap, Heart, Users, Globe, Award, Sparkles } from 'lucide-react';
+import { ShieldCheck, Zap, Heart, Users, Globe, Award, Sparkles, Target, Activity } from 'lucide-react';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col">
+    <div className="min-h-screen bg-background-primary flex flex-col relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-full h-[600px] bg-accent-orange/10 blur-[150px] pointer-events-none" />
+
       <Navbar />
 
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pt-32 sm:pt-40 pb-24 relative z-10">
         {/* Hero Section */}
-        <section className="relative py-16 overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-4xl bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
+        <section className="relative py-20 overflow-hidden">
           <div className="container-responsive relative z-10 text-center">
-            <span className="text-xs font-bold text-accent-gold uppercase tracking-[0.2em] mb-4 block">Our Journey</span>
-            <h1 className="text-hero font-sora font-extrabold text-text-primary mb-6">
-               Redefining Local Services <br /> with <span className="text-accent-gold">Worklyn</span>
+            <span className="text-[11px] font-black text-white uppercase tracking-[0.4em] mb-6 block opacity-80 animate-fade-in">Our Story</span>
+            <h1 className="text-4xl sm:text-7xl font-sora font-black text-white mb-8 uppercase tracking-tighter">
+               We connect <br className="hidden sm:block" /> workers with <span className="orange-gradient-text">customers</span>
             </h1>
-            <p className="text-sm sm:text-base text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Worklyn is a platform designed to make it easier to find trusted, verified, and high-quality local professionals for everyday needs.
+            <p className="text-sm sm:text-lg text-text-secondary max-w-3xl mx-auto leading-relaxed font-bold uppercase tracking-wide opacity-90">
+              Worklyn is an easy-to-use website built to help people find trusted, verified, and high-quality local workers for any home or office task.
             </p>
           </div>
         </section>
 
         {/* Vision & Mission */}
-        <section className="py-12 bg-white/50">
-          <div className="container-responsive grid grid-cols-1 md:grid-cols-2 gap-8">
-            <GlassCard className="p-8 space-y-4 border border-gray-100">
-               <h2 className="font-sora font-bold text-xl text-text-primary flex items-center gap-2">
-                 <Globe className="w-6 h-6 text-accent-gold" /> Our Vision
+        <section className="py-16">
+          <div className="container-responsive grid grid-cols-1 md:grid-cols-2 gap-10">
+            <GlassCard goldBorder className="p-10 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+               <h2 className="font-sora font-black text-2xl text-white flex items-center gap-4 mb-6 uppercase tracking-tighter">
+                 <Target className="w-8 h-8 text-accent-bright" /> Our Vision
                </h2>
-               <p className="text-sm text-text-secondary leading-relaxed">
-                 To become the world's most trusted digital ecosystem for local services, where every home and office can find professional help in under 30 seconds with 100% confidence in quality and safety.
+               <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold italic opacity-90">
+                 "To be the most trusted place for local services, where everyone can find professional help quickly and safely."
                </p>
             </GlassCard>
-            <GlassCard className="p-8 space-y-4 border border-gray-100">
-               <h2 className="font-sora font-bold text-xl text-text-primary flex items-center gap-2">
-                 <Sparkles className="w-6 h-6 text-accent-gold" /> Our Mission
+            <GlassCard goldBorder className="p-10 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+               <h2 className="font-sora font-black text-2xl text-white flex items-center gap-4 mb-6 uppercase tracking-tighter">
+                 <Activity className="w-8 h-8 text-accent-bright" /> Our Mission
                </h2>
-               <p className="text-sm text-text-secondary leading-relaxed">
-                 To empower local skilled workers with better digital tools and provide customers with a seamless booking experience that eliminates the uncertainty of traditional service marketplaces.
+               <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold italic opacity-90">
+                 "To give local workers better digital tools and provide customers with a simple and reliable way to book services."
                </p>
             </GlassCard>
           </div>
         </section>
 
         {/* Key Values */}
-        <section className="py-20">
+        <section className="py-24">
           <div className="container-responsive">
-             <div className="text-center mb-16">
-                <h2 className="text-3xl font-sora font-bold text-text-primary mb-4">Why We Built Worklyn</h2>
-                <div className="w-20 h-1 bg-accent-gold mx-auto rounded-full" />
+             <div className="text-center mb-20">
+                <h2 className="text-3xl sm:text-5xl font-sora font-black text-white mb-6 uppercase tracking-tighter">Our Core Values</h2>
+                <div className="w-24 h-1.5 bg-accent-orange mx-auto rounded-full shadow-orange" />
              </div>
 
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 {[
-                  { icon: ShieldCheck, title: 'Verified Safety', desc: 'Every worker undergoes a rigorous multi-step verification of identity and skills.' },
-                  { icon: Zap, title: 'Instant Matching', desc: 'Our smart matching system analyzes local data to find your perfect match in seconds.' },
-                  { icon: Heart, title: 'Community First', desc: 'We prioritize the growth of local workers and the satisfaction of our neighbors.' },
-                  { icon: Award, title: 'Premium Quality', desc: 'Only the highest-rated professionals remain on our platform to ensure excellence.' },
-                  { icon: Users, title: 'Transparent Support', desc: 'Direct chat and a dedicated support team ensure you are never left alone with a problem.' },
-                  { icon: Globe, title: 'Anywhere Access', desc: 'Manage your home services from your pocket, whether you are at home or on the move.' }
+                  { icon: ShieldCheck, title: 'Safety First', desc: 'Every worker is checked to make sure they are who they say they are.' },
+                  { icon: Zap, title: 'Fast Matching', desc: 'Find the right person for your job in just a few seconds.' },
+                  { icon: Heart, title: 'Local Support', desc: 'We help local businesses and skilled workers in your neighborhood grow.' },
+                  { icon: Award, title: 'High Quality', desc: 'We only keep the best workers on our platform to ensure great service.' },
+                  { icon: Users, title: 'Real Help', desc: 'Our team is here to help you if anything goes wrong during a job.' },
+                  { icon: Globe, title: 'Easy Access', desc: 'Book and manage your services from anywhere using your phone.' }
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-col items-center text-center space-y-3 group">
-                     <div className="w-14 h-14 rounded-2xl bg-amber-50 text-accent-gold flex items-center justify-center group-hover:bg-accent-gold group-hover:text-white transition-all duration-300">
-                        <item.icon className="w-7 h-7" />
+                  <div key={i} className="flex flex-col items-center text-center space-y-6 group p-8 bg-background-card/40 rounded-[3rem] border border-white/5 hover:border-accent-orange/30 transition-all shadow-xl">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-bright flex items-center justify-center group-hover:bg-accent-orange group-hover:text-white transition-all shadow-2xl border border-white/5">
+                        <item.icon className="w-8 h-8" />
                      </div>
-                     <h3 className="font-sora font-bold text-base text-text-primary">{item.title}</h3>
-                     <p className="text-xs text-text-muted leading-relaxed">{item.desc}</p>
+                     <h3 className="font-sora font-black text-xl text-white uppercase tracking-tight">{item.title}</h3>
+                     <p className="text-xs text-text-muted leading-relaxed font-bold uppercase tracking-widest opacity-80">{item.desc}</p>
                   </div>
                 ))}
              </div>

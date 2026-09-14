@@ -109,7 +109,7 @@ class AIService {
     const patterns = [
       {
         keys: ['how', 'book', 'service'],
-        response: 'To book a service on Worklyn AI: 1) Search for the professional you need, 2) View their profile and rates, 3) Click "Book Now" and select your preferred date/time.'
+        response: 'To book a service on Worklyn AI: 1) Search for the professional you need, 2) View their profile and chat for a quote, 3) Click "Book Now" and select your preferred date/time.'
       },
       {
         keys: ['become', 'worker', 'join'],
@@ -121,7 +121,7 @@ class AIService {
       },
       {
         keys: ['pay', 'cost', 'money'],
-        response: 'Worklyn AI uses a transparent pricing model. You can see the hourly rates of every professional upfront. Payment is settled directly with the worker after successful job completion.'
+        response: 'Worklyn AI uses a quote-based pricing model. Pricing depends on your specific job details. You can chat directly with professionals to get a suitable quote. Payment is settled directly with the worker after successful job completion.'
       },
       {
         keys: ['help', 'support', 'contact'],

@@ -31,13 +31,25 @@ const bookingSchema = new mongoose.Schema(
       enum: ['pending', 'accepted', 'on_the_way', 'started', 'completed', 'cancelled'],
       default: 'pending',
     },
+    bookingType: {
+      type: String,
+      enum: ['small', 'large'],
+      default: 'small',
+    },
     scheduledDate: {
       type: Date,
       required: [true, 'Scheduled date is required'],
     },
+    endDate: {
+      type: Date,
+    },
     scheduledTime: {
       type: String,
       required: [true, 'Scheduled time is required'],
+    },
+    workingHours: {
+      type: String,
+      default: '',
     },
     address: {
       street: { type: String, default: '' },

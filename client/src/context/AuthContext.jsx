@@ -71,9 +71,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerWorker = async (data) => {
-    const res = data instanceof FormData
-      ? await API.post('/auth/worker/register', data, { headers: { 'Content-Type': 'multipart/form-data' } })
-      : await API.post('/auth/worker/register', data);
+    // Axios will automatically set the correct headers for FormData
+    const res = await API.post('/auth/worker/register', data);
     return res;
   };
 

@@ -13,7 +13,7 @@ const testimonials = [
   },
   {
     name: 'Amitabh Verma',
-    role: 'Apartment Owner, Mumbai',
+    role: 'Apartment Owner, Tiruchendur',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120',
     comment: 'Booked AC servicing through Worklyn. Being able to track the technician on Google Maps and chat directly made the experience completely hassle-free.',
     rating: 5,

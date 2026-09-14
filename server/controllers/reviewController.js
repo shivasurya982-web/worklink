@@ -1,6 +1,7 @@
 const Review = require('../models/Review');
 const Booking = require('../models/Booking');
 const Worker = require('../models/Worker');
+const Notification = require('../models/Notification');
 const ApiResponse = require('../utils/apiResponse');
 
 // @desc    Create a review for a worker
@@ -18,12 +19,12 @@ exports.createReview = async (req, res, next) => {
     }
 
     // Verify booking exists and is completed
-    const booking = await Booking.findById(bookingId);
+    const booking = await Booking.findById(bookingId).populate('customer', 'name');
     if (!booking) {
       return ApiResponse.notFound(res, 'Booking record not found');
     }
 
-    if (booking.customer.toString() !== req.user._id.toString()) {
+    if (booking.customer._id.toString() !== req.user._id.toString()) {
       return ApiResponse.forbidden(res, 'You can only review your own bookings');
     }
 
@@ -53,6 +54,17 @@ exports.createReview = async (req, res, next) => {
     // Mark booking as reviewed
     booking.isReviewed = true;
     await booking.save();
+
+    // Notify worker about the new review
+    Notification.create({
+      recipient: workerId,
+      recipientModel: 'Worker',
+      type: 'review',
+      title: 'New Review Received! ⭐',
+      message: `Customer ${booking.customer.name} gave you a ${rating}-star rating: "${comment?.slice(0, 50)}${comment?.length > 50 ? '...' : ''}"`,
+      link: `/worker/profile`,
+      data: { reviewId: review._id, rating },
+    }).catch(err => console.error('Review notification failed:', err.message));
 
     // The rating update for worker is handled in Review model's post-save hook
 

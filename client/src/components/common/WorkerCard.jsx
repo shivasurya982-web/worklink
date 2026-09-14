@@ -67,12 +67,12 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
 
         <div className="grid grid-cols-2 gap-3 mt-6 text-[10px] font-black text-text-secondary bg-background-cardSecondary/60 rounded-2xl p-4 border border-border-primary/20 shadow-inner">
           <div className="space-y-1">
-            <p className="text-text-muted uppercase tracking-widest opacity-60">Cycles</p>
+            <p className="text-text-muted uppercase tracking-widest opacity-60">Experience</p>
             <p className="text-white">{experience} Yrs</p>
           </div>
           <div className="space-y-1">
-            <p className="text-text-muted uppercase tracking-widest opacity-60">Unit</p>
-            <p className="text-accent-bright">₹{pricing?.hourly || 0}/Hr</p>
+            <p className="text-text-muted uppercase tracking-widest opacity-60">Pricing</p>
+            <p className="text-accent-bright leading-tight">Price Varies by Work</p>
           </div>
           {(worker.address?.city || distance) && (
             <div className="col-span-2 flex items-center gap-2 text-text-muted border-t border-white/5 pt-2 mt-1">
@@ -95,7 +95,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
           onClick={() => onBook && onBook(worker)}
           className="flex-1 py-3 rounded-xl bg-accent-orange text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-accent-bright hover:-translate-y-1 transition-all border border-accent-highlight/30"
         >
-          DEPLOY
+          BOOK NOW
         </button>
       </div>
     </GlassCard>

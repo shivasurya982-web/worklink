@@ -33,7 +33,7 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
     <div>
       <p className="font-black text-white mb-4 px-1 flex items-center justify-between uppercase tracking-[0.3em] text-[10px]">
         <span className="flex items-center gap-2.5">
-          <MapPin className="w-4 h-4 text-accent-bright" /> GEO ZONE
+          <MapPin className="w-4 h-4 text-accent-bright" /> AREA
         </span>
         {area && (
           <button
@@ -51,7 +51,7 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
           type="text"
           value={area}
           onChange={(e) => handleAreaChange(e.target.value)}
-          placeholder="ENTER CITY OR DISTRICT..."
+          placeholder="Type city or area name..."
           className="w-full bg-background-card border-2 border-border-primary/30 rounded-2xl px-5 py-4 text-xs font-bold text-white placeholder:text-text-muted focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
         />
         {area && (
@@ -97,7 +97,7 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
 
     {/* Rating */}
     <div>
-      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">RELIABILITY INDEX</p>
+      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">MIN RATING</p>
       <div className="flex flex-wrap gap-2.5">
         {[
           { val: 0,   label: 'ANY' },
@@ -117,7 +117,7 @@ const FilterPanel = ({ area, handleAreaChange, availableAreas, verifiedOnly, set
 
     {/* Category */}
     <div>
-      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">SERVICE DOMAIN</p>
+      <p className="font-black text-white mb-4 px-1 uppercase tracking-[0.3em] text-[10px]">SKILL CATEGORY</p>
       <div className="flex flex-wrap gap-2.5">
         {['', 'electrician', 'plumber', 'carpenter', 'ac-technician', 'cleaner', 'mechanic'].map((c) => (
           <FilterChip
@@ -147,7 +147,6 @@ const SearchPage = () => {
   const [loading, setLoading]       = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
 
-  // Live Search State
   const [suggestions, setSuggestions] = useState({ categories: [], workers: [] });
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -232,7 +231,6 @@ const SearchPage = () => {
 
   return (
     <div className="min-h-screen bg-background-primary flex flex-col relative overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute top-0 right-0 w-full h-[500px] bg-accent-orange/10 blur-[150px] pointer-events-none" />
 
       <Navbar />
@@ -250,14 +248,14 @@ const SearchPage = () => {
               className="glass-card !bg-background-dark/90 rounded-[2.5rem] p-2.5 border-2 border-accent-main/40 shadow-[0_30px_80px_rgba(0,0,0,0.7)] flex items-center gap-4"
             >
               <div className="pl-5 text-accent-bright shrink-0">
-                <Sparkles className="w-7 h-7" />
+                <Search className="w-7 h-7" />
               </div>
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => query.trim() && setShowSuggestions(true)}
-                placeholder="ENTER SERVICE NEED OR EXPERT NAME..."
+                placeholder="What service or worker are you looking for?"
                 className="flex-1 min-w-0 bg-transparent text-base font-black text-white placeholder:text-text-muted focus:outline-none py-4 px-2 uppercase tracking-widest"
                 autoComplete="off"
               />
@@ -265,17 +263,16 @@ const SearchPage = () => {
                 type="submit"
                 className="btn-primary px-10 sm:px-14 py-4 sm:py-5 rounded-[1.8rem] text-sm font-black uppercase tracking-[0.2em] shrink-0 shadow-[0_10px_30px_rgba(244,81,11,0.4)]"
               >
-                Execute Scan
+                Search
               </button>
             </form>
 
             {/* Suggestions */}
             {showSuggestions && (suggestions.categories.length > 0 || suggestions.workers.length > 0) && (
               <div className="absolute top-full left-0 right-0 mt-4 bg-background-cardSecondary rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-border-primary/40 overflow-hidden animate-fade-in z-30 max-h-[500px] overflow-y-auto backdrop-blur-2xl">
-                {/* Categories */}
                 {suggestions.categories.length > 0 && (
                   <div className="p-4 border-b border-white/5">
-                    <p className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] px-6 mb-4">Domain Nodes</p>
+                    <p className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] px-6 mb-4">Categories</p>
                     {suggestions.categories.map((cat) => (
                       <button
                         key={cat._id}
@@ -298,10 +295,9 @@ const SearchPage = () => {
                   </div>
                 )}
 
-                {/* Professionals */}
                 {suggestions.workers.length > 0 && (
                   <div className="p-4">
-                    <p className="text-[11px] font-black text-accent-peach uppercase tracking-[0.4em] px-6 mb-4">Active Modules</p>
+                    <p className="text-[11px] font-black text-accent-peach uppercase tracking-[0.4em] px-6 mb-4">Workers</p>
                     {suggestions.workers.map((worker) => (
                       <button
                         key={worker._id}
@@ -330,7 +326,7 @@ const SearchPage = () => {
                   onClick={() => { handleSearch(); setShowSuggestions(false); }}
                   className="w-full p-7 bg-background-dark/80 text-center text-xs font-black text-text-secondary hover:text-accent-bright transition-all border-t border-white/5 flex items-center justify-center gap-5 uppercase tracking-[0.4em]"
                 >
-                  LOAD FULL DATASET <ArrowRight className="w-6 h-6" />
+                  See All Results <ArrowRight className="w-6 h-6" />
                 </button>
               </div>
             )}
@@ -339,14 +335,11 @@ const SearchPage = () => {
           {/* Title Row */}
           <div className="flex items-center justify-between gap-6 mb-12 flex-wrap">
             <div>
-              <h1 className="text-3xl sm:text-5xl font-sora font-black text-white flex items-center gap-5 tracking-tighter">
-                <div className="w-14 h-14 rounded-3xl bg-background-dark flex items-center justify-center border-2 border-accent-bright/30 shadow-2xl">
-                   <Search className="w-7 h-7 text-accent-bright" />
-                </div>
-                MARKET SCAN
+              <h1 className="text-3xl sm:text-5xl font-sora font-black text-white flex items-center gap-5 tracking-tighter uppercase">
+                Find Workers
               </h1>
               <p className="text-[11px] font-black text-accent-light uppercase tracking-[0.3em] mt-3 opacity-90">
-                {workers.length} VERIFIED NODES DETECTED IN RADIUS
+                {workers.length} verified workers found near you
               </p>
             </div>
 
@@ -387,7 +380,7 @@ const SearchPage = () => {
             <aside className={`hidden lg:block w-72 xl:w-80 shrink-0 sticky top-36 transition-all duration-500`}>
               <GlassCard goldBorder className="!bg-background-cardSecondary p-8 rounded-[3rem] border border-border-primary/60 shadow-[0_30px_70px_rgba(0,0,0,0.6)]">
                 <h3 className="font-sora font-black text-lg text-white flex items-center gap-4 mb-10 pb-5 border-b border-white/5 uppercase tracking-widest">
-                  <Filter className="w-6 h-6 text-accent-bright" /> DATA FILTERS
+                  <Filter className="w-6 h-6 text-accent-bright" /> Filters
                 </h3>
                 <FilterPanel
                   area={area}
@@ -412,12 +405,12 @@ const SearchPage = () => {
                     <MapPin className="w-12 h-12 text-accent-bright animate-bounce" />
                   </div>
                   <h3 className="font-sora font-black text-3xl text-white tracking-tighter mb-5 relative z-10">
-                    SATELLITE POSITIONING
+                    WORKER MAP
                   </h3>
                   <p className="text-sm text-text-muted mt-2 mb-10 max-w-sm mx-auto leading-relaxed font-bold uppercase tracking-wider opacity-80 relative z-10">
-                    VISUALIZING {workers.length} NODES ON SECURE GRID. INITIALIZE GPS HANDSHAKE TO PROCEED.
+                    See where verified workers are located in your neighborhood.
                   </p>
-                  <PremiumButton variant="ai" size="lg" className="px-16 py-5 relative z-10 shadow-[0_15px_40px_rgba(249,115,22,0.4)]">INITIALIZE GEO-SCAN</PremiumButton>
+                  <PremiumButton variant="ai" size="lg" className="px-16 py-5 relative z-10 shadow-[0_15px_40px_rgba(249,115,22,0.4)]">Show Workers on Map</PremiumButton>
                 </GlassCard>
               )}
 
@@ -428,7 +421,7 @@ const SearchPage = () => {
                     <WorkerCard
                       key={w._id}
                       worker={w}
-                      onBook={(worker) => navigate(`/workers/${worker._id}`)}
+                      onBook={(worker) => navigate(`/workers/${worker._id}?book=true`)}
                     />
                   ))}
                 </div>
@@ -448,48 +441,46 @@ const SearchPage = () => {
                            <img
                             src={w.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(w.name)}&background=F4510B&color=fff`}
                             alt={w.name}
-                            className="w-20 h-20 sm:w-28 sm:h-20 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
+                            className="w-20 h-20 sm:w-28 sm:h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
                             loading="lazy"
                            />
                            {w.isAvailable && <span className="absolute -bottom-1 -right-1 w-6 h-6 bg-accent-green rounded-2xl border-4 border-background-card" />}
                         </div>
                         <div className="min-w-0">
-                          <h3 className="font-sora font-black text-xl sm:text-2xl text-white truncate tracking-tight">
+                          <h3 className="font-sora font-black text-xl sm:text-2xl text-white truncate tracking-tight uppercase">
                             {w.name}
                           </h3>
-                          <p className="text-[11px] sm:text-xs text-accent-light font-black uppercase tracking-[0.2em] mt-1.5">{w.profession}</p>
-                          <div className="flex items-center gap-6 sm:gap-10 text-[10px] sm:text-[11px] font-black uppercase tracking-widest mt-5 flex-wrap">
+                          <p className="text-xs font-black text-accent-light uppercase tracking-widest mt-1.5">{w.profession}</p>
+                          <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] mt-6 flex-wrap">
                             <span className="text-accent-bright flex items-center gap-2 bg-background-dark/50 px-3 py-1.5 rounded-xl border border-white/5 shadow-xl">
-                              <Star className="w-4 h-4 fill-current" /> {w.rating} INDEX
+                              <Star className="w-4 h-4 fill-accent-bright" /> {w.rating} Rating
                             </span>
                             <span className="text-text-secondary flex items-center gap-2 opacity-90">
-                               <Briefcase className="w-4 h-4" /> {w.experience} CYCLES
+                               <Briefcase className="w-4 h-4" /> {w.experience} Yrs Exp
                             </span>
-                            {w.distance !== undefined && (
-                              <span className="text-text-secondary flex items-center gap-2 opacity-90">
-                                 <MapPin className="w-4 h-4" /> {w.distance} ZONE
-                              </span>
-                            )}
+                            <span className="text-accent-green flex items-center gap-2">
+                               <ShieldCheck className="w-4 h-4" /> Verified
+                            </span>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-8 shrink-0 ml-auto sm:ml-0">
                         <div className="text-right hidden sm:block">
-                          <div className="text-2xl font-black text-white tracking-tighter">
-                            ₹{w.pricing?.hourly || 350}<span className="text-[11px] font-bold text-text-muted tracking-widest ml-1">/HR</span>
+                          <div className="text-xl font-black text-white tracking-tighter uppercase">
+                            Price Varies by Work
                           </div>
-                          <div className={`text-[10px] font-black uppercase tracking-[0.3em] mt-2 ${w.isAvailable ? 'text-accent-green' : 'text-text-muted opacity-60'}`}>
-                            {w.isAvailable ? 'AVAILABLE NOW' : 'MODULE BUSY'}
+                          <div className="text-[9px] font-black text-accent-bright uppercase tracking-widest mt-1">
+                             Contact for Quote
                           </div>
                         </div>
                         <PremiumButton
                           variant="gold"
                           size="lg"
                           onClick={() => navigate(`/workers/${w._id}`)}
-                          className="px-12 py-5 font-black uppercase tracking-widest shadow-[0_15px_30px_rgba(244,81,11,0.4)]"
+                          className="px-12 py-5 font-black uppercase tracking-widest shadow-orange"
                         >
-                          ACCESS
+                          View Profile
                         </PremiumButton>
                       </div>
                     </GlassCard>
@@ -503,12 +494,12 @@ const SearchPage = () => {
                   <div className="w-24 h-24 bg-background-dark rounded-[1.5rem] flex items-center justify-center mx-auto mb-10 shadow-3xl border border-white/5">
                     <Sparkles className="w-12 h-12 text-accent-bright opacity-20" />
                   </div>
-                  <h3 className="font-sora font-black text-3xl text-white mb-4 tracking-tighter">NULL DATA RETURNED</h3>
+                  <h3 className="font-sora font-black text-3xl text-white mb-4 tracking-tighter">NO WORKERS FOUND</h3>
                   <p className="text-sm text-text-muted mb-12 max-w-sm mx-auto font-bold uppercase tracking-widest leading-relaxed opacity-80">
-                    THE CURRENT SCAN PARAMETERS PRODUCED NO MATCHING NODES. ADJUST FILTERS TO CONTINUE.
+                    We could not find any workers matching your search. Try changing your filters.
                   </p>
                   <PremiumButton variant="gold" size="lg" className="px-16" onClick={() => { setCategory(''); setVerified(false); setMinRating(0); setQuery(''); setArea(''); setSearchParams(new URLSearchParams()); }}>
-                    PURGE SCAN SETTINGS
+                    Reset Filters
                   </PremiumButton>
                 </div>
               )}

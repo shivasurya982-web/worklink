@@ -106,7 +106,7 @@ const FeaturedWorkers = () => {
             <WorkerCard
               key={worker._id}
               worker={worker}
-              onBook={(w) => navigate(`/workers/${w._id}`)}
+              onBook={(w) => navigate(`/workers/${w._id}?book=true`)}
             />
           ))}
         </div>

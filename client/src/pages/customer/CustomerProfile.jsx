@@ -67,9 +67,7 @@ const CustomerProfile = () => {
       if (avatarFile) {
         const imgData = new FormData();
         imgData.append('image', avatarFile);
-        const imgRes = await API.post('/upload/image', imgData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        const imgRes = await API.post('/upload/image', imgData);
         if (imgRes.success && imgRes.data?.url) {
           uploadedAvatarUrl = imgRes.data.url;
         }
@@ -88,7 +86,7 @@ const CustomerProfile = () => {
 
       if (res.success && res.data?.customer) {
         updateUserProfile(res.data.customer);
-        showToast('Profile Updated', 'Node parameters synchronized.', 'success');
+        showToast('Profile Updated', 'Your details have been saved.', 'success');
         setAvatarFile(null);
         setIsEditingProfile(false);
       }
@@ -102,32 +100,32 @@ const CustomerProfile = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      showToast('Mismatch', 'Security keys do not match.', 'error');
+      showToast('Error', 'New passwords do not match.', 'error');
       return;
     }
     if (newPassword.length < 6) {
-      showToast('Too Short', 'Key must be at least 6 characters.', 'error');
+      showToast('Error', 'Password must be at least 6 characters.', 'error');
       return;
     }
     setPwLoading(true);
     try {
       const res = await API.put('/auth/change-password', { currentPassword, newPassword });
       if (res.success) {
-        showToast('Key Rotated', 'Password updated. Resetting terminal...', 'success');
+        showToast('Success', 'Password updated. Please login again.', 'success');
         setTimeout(() => {
           logout();
           navigate('/login');
         }, 2000);
       }
     } catch (err) {
-      showToast('Error', err.message || 'Key rotation failed', 'error');
+      showToast('Error', err.message || 'Failed to change password', 'error');
     } finally {
       setPwLoading(false);
     }
   };
 
   return (
-    <DashboardLayout title="Terminal Settings" subtitle="Configure consumer profile and security protocols">
+    <DashboardLayout title="My Account" subtitle="Manage your profile and security">
       <div className="max-w-2xl mx-auto space-y-8 pb-24">
 
         {/* Profile Card */}
@@ -136,7 +134,7 @@ const CustomerProfile = () => {
 
           <div className="flex items-center justify-between mb-10 pb-5 border-b border-white/5 relative z-10">
             <h3 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
-              <User className="w-6 h-6 text-accent-bright" /> IDENTIFIER DATA
+              <User className="w-6 h-6 text-accent-bright" /> My Information
             </h3>
             <button
               onClick={() => setIsEditingProfile(!isEditingProfile)}
@@ -165,17 +163,17 @@ const CustomerProfile = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                  <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Comms Node</p>
-                    <p className="text-sm font-bold text-white uppercase">{phone || 'SIGNAL LOST'}</p>
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Phone</p>
+                    <p className="text-sm font-bold text-white uppercase">{phone || 'Not set'}</p>
                  </div>
                  <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Security Hint</p>
-                    <p className="text-sm font-bold text-white uppercase italic">"{securityHint || 'NULL'}"</p>
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Secret Word</p>
+                    <p className="text-sm font-bold text-white uppercase italic">"{securityHint || 'None'}"</p>
                  </div>
                  <div className="p-6 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner sm:col-span-2">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-3">Service Coordinates</p>
+                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-3">Address</p>
                     <p className="text-sm font-bold text-white uppercase leading-relaxed tracking-tight">
-                      {street ? `${street}, ${city}, ${state} - ${zip}` : 'COORDINATES NOT INITIALIZED'}
+                      {street ? `${street}, ${city}, ${state} , PIN: ${zip}` : 'Address not set'}
                     </p>
                  </div>
               </div>
@@ -186,7 +184,7 @@ const CustomerProfile = () => {
                 onClick={() => setIsEditingProfile(true)}
                 className="py-5 font-black uppercase tracking-widest text-[11px] !rounded-2xl"
               >
-                 <Edit3 className="w-4 h-4 mr-2" /> Modify Profile Dataset
+                 <Edit3 className="w-4 h-4 mr-2" /> EDIT MY PROFILE
               </PremiumButton>
             </div>
           ) : (
@@ -202,36 +200,36 @@ const CustomerProfile = () => {
                 <div className="flex flex-col items-center gap-3">
                   <input type="file" id="avatar-input" accept="image/*" onChange={handleAvatarChange} className="hidden" />
                   <label htmlFor="avatar-input" className="cursor-pointer px-6 py-3 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all inline-flex items-center gap-2.5 uppercase tracking-widest shadow-xl">
-                    <Camera className="w-4 h-4" /> Upload Avatar Module
+                    <Camera className="w-4 h-4" /> Change Photo
                   </label>
                 </div>
               </div>
 
               <div className="space-y-6">
-                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Personal Parameters</h4>
-                <FloatingInput id="email" label="Identifier (Email)" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                <FloatingInput id="name" label="Full Designation" icon={User} value={name} onChange={(e) => setName(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                <FloatingInput id="phone" label="Comms Frequency" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Personal Info</h4>
+                <FloatingInput id="email" label="Email Address" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="name" label="Full Name" icon={User} value={name} onChange={(e) => setName(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="phone" label="Phone Number" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
 
                 <div className="pt-4">
-                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-[0.3em] ml-2 mb-3 block">Recovery Token</label>
+                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-[0.3em] ml-2 mb-3 block">Recovery Word</label>
                   <FloatingInput id="securityHint" icon={ShieldCheck} value={securityHint} onChange={(e) => setSecurityHint(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
                 </div>
               </div>
 
               <div className="space-y-6 pt-8 border-t border-white/5">
-                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Spatial Metadata</h4>
-                <FloatingInput id="street" label="Street Node" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">My Address</h4>
+                <FloatingInput id="street" label="Street Name" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
                 <div className="grid grid-cols-2 gap-5">
                   <FloatingInput id="city" label="City" value={city} onChange={(e) => setCity(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                  <FloatingInput id="state" label="Region" value={state} onChange={(e) => setState(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                  <FloatingInput id="state" label="State" value={state} onChange={(e) => setState(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
                 </div>
-                <FloatingInput id="zip" label="Postal Index" value={zip} onChange={(e) => setZip(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="zip" label="Pin Code" value={zip} onChange={(e) => setZip(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)} className="py-4 !rounded-2xl">Abort</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-4 !rounded-2xl shadow-orange">Push Updates</PremiumButton>
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)} className="py-4 !rounded-2xl">Cancel</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-4 !rounded-2xl shadow-orange font-black">SAVE CHANGES</PremiumButton>
               </div>
             </form>
           )}
@@ -246,32 +244,32 @@ const CustomerProfile = () => {
               <div className="w-12 h-12 rounded-2xl bg-background-dark flex items-center justify-center border border-white/5 shadow-xl">
                  <Lock className="w-6 h-6 text-accent-bright" />
               </div>
-              <h3 className="font-sora font-black text-xl text-white uppercase tracking-tighter">Security Protocols</h3>
+              <h3 className="font-sora font-black text-xl text-white uppercase tracking-tighter">Security</h3>
             </div>
             {!isEditingPassword && (
               <button
                 onClick={() => setIsEditingPassword(true)}
                 className="px-5 py-2.5 rounded-xl border border-accent-orange/30 text-[10px] font-black text-accent-bright hover:bg-accent-orange/10 transition-all uppercase tracking-widest shadow-lg"
               >
-                Rotate Keys
+                Change
               </button>
             )}
           </div>
 
           {!isEditingPassword ? (
-             <p className="text-xs font-bold text-text-muted uppercase tracking-widest leading-relaxed opacity-70">ENCRYPT YOUR ACCESS WITH A HIGH-ENTROPY UNIQUE KEY TO PREVENT UNAUTHORIZED SYSTEM ENTRY.</p>
+             <p className="text-xs font-bold text-text-muted uppercase tracking-widest leading-relaxed opacity-70">Protect your account by using a strong password. It's good to change it every few months.</p>
           ) : (
             <form onSubmit={handleChangePassword} className="space-y-8 animate-slide-up mt-8 relative z-10">
               <div className="space-y-6 pt-6 border-t border-white/5">
-                <FloatingInput id="currentPassword" label="Current Key" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
-                <FloatingInput id="newPassword" label="New Key" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
-                <FloatingInput id="confirmPassword" label="Verify New Key" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+                <FloatingInput id="currentPassword" label="Current Password" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+                <FloatingInput id="newPassword" label="New Password" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+                <FloatingInput id="confirmPassword" label="Confirm New Password" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)} className="py-4 !rounded-2xl">Abort</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock} className="py-4 !rounded-2xl shadow-orange">
-                    Execute Rotation
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)} className="py-4 !rounded-2xl">Cancel</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock} className="py-4 !rounded-2xl shadow-orange font-black">
+                    UPDATE PASSWORD
                  </PremiumButton>
               </div>
             </form>
@@ -280,7 +278,7 @@ const CustomerProfile = () => {
 
         <div className="lg:hidden px-4 pt-6">
           <button onClick={() => { logout(); navigate('/login'); }} className="w-full flex items-center justify-center gap-3 py-5 rounded-[2rem] text-xs font-black text-red-400 bg-red-950/20 border-2 border-red-500/20 shadow-2xl uppercase tracking-widest">
-            <LogOut className="w-6 h-6" /> Terminate Session
+            <LogOut className="w-6 h-6" /> Logout
           </button>
         </div>
       </div>

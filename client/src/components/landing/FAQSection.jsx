@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'How do payments work for booked services?',
-    a: 'Payment is settled directly between you and the worker after service completion. Transparent pricing and hourly rates are displayed upfront on every worker profile.',
+    a: 'Payment is settled directly between you and the worker after service completion. Pricing varies depending on the specific job requirements. You can chat directly with professionals to get a suitable quote for your work.',
   },
   {
     q: 'Can I cancel or reschedule a service booking?',

@@ -62,7 +62,7 @@ const CustomerFavorites = () => {
               worker={fav.worker}
               isFavorite={true}
               onToggleFavorite={() => handleToggleFavorite(fav.worker._id)}
-              onBook={(w) => navigate(`/workers/${w._id}`)}
+              onBook={(w) => navigate(`/workers/${w._id}?book=true`)}
             />
           ))}
         </div>

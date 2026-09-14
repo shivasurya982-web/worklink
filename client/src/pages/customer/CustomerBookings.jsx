@@ -7,7 +7,7 @@ import PremiumButton from '../../components/common/PremiumButton';
 import RatingStars from '../../components/common/RatingStars';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { Calendar, Clock, MapPin, AlertCircle, MessageSquare, Star, Trash2 } from 'lucide-react';
+import { Calendar, Clock, MapPin, AlertCircle, MessageSquare, Star, Trash2, Maximize2, LayoutGrid } from 'lucide-react';
 import API from '../../services/api';
 
 const CustomerBookings = () => {
@@ -127,13 +127,28 @@ const CustomerBookings = () => {
                     <div className="absolute inset-0 bg-accent-orange/10 rounded-[1.5rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="font-sora font-black text-base text-white group-hover:text-accent-bright transition-colors uppercase tracking-tight">
-                      {booking.worker?.name}
-                    </h4>
+                    <div className="flex items-center gap-2">
+                       <h4 className="font-sora font-black text-base text-white group-hover:text-accent-bright transition-colors uppercase tracking-tight">
+                        {booking.worker?.name}
+                      </h4>
+                      <Badge variant="gold" size="xs" className="!rounded-lg px-2 py-0.5 font-black text-[8px] uppercase">
+                        {booking.bookingType === 'large' ? <><Maximize2 className="w-2.5 h-2.5 inline-block mr-1" /> Large</> : <><LayoutGrid className="w-2.5 h-2.5 inline-block mr-1" /> Small</>}
+                      </Badge>
+                    </div>
                     <p className="text-[10px] font-black text-accent-light uppercase tracking-widest mt-1 opacity-80">{booking.worker?.profession}</p>
-                    <div className="flex items-center gap-4 mt-3 text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">
-                      <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-accent-bright" /> {new Date(booking.scheduledDate).toLocaleDateString()}</span>
-                      <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-accent-light" /> {booking.scheduledTime}</span>
+
+                    <div className="flex flex-wrap items-center gap-4 mt-3 text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">
+                      {booking.bookingType === 'large' ? (
+                        <>
+                          <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-accent-bright" /> {new Date(booking.scheduledDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}</span>
+                          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-accent-light" /> {booking.workingHours}</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-accent-bright" /> {new Date(booking.scheduledDate).toLocaleDateString()}</span>
+                          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-accent-light" /> {booking.scheduledTime}</span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -141,7 +156,7 @@ const CustomerBookings = () => {
                 {/* Status & Actions */}
                 <div className="flex flex-col sm:items-end gap-5 shrink-0">
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Signal Status:</span>
+                    <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Status:</span>
                     <Badge
                       variant={
                         booking.status === 'completed'
@@ -167,7 +182,7 @@ const CustomerBookings = () => {
                       onClick={() => navigate(`/customer/messages?worker=${booking.worker?._id}`)}
                       className="px-5 !rounded-xl"
                     >
-                      Communicate
+                      Chat
                     </PremiumButton>
 
                     {['pending', 'accepted'].includes(booking.status) && (
@@ -177,7 +192,7 @@ const CustomerBookings = () => {
                         onClick={() => handleCancelBooking(booking._id)}
                         className="px-5 !rounded-xl"
                       >
-                        Abort
+                        Cancel
                       </PremiumButton>
                     )}
 
@@ -189,7 +204,7 @@ const CustomerBookings = () => {
                         onClick={() => handleOpenReviewModal(booking)}
                         className="px-5 !rounded-xl shadow-orange"
                       >
-                        Rate Pro
+                        Rate
                       </PremiumButton>
                     )}
 
@@ -197,7 +212,7 @@ const CustomerBookings = () => {
                       <button
                         onClick={() => handleDeleteBooking(booking._id)}
                         className="p-3 rounded-xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-lg"
-                        title="Purge Record"
+                        title="Delete Record"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -216,7 +231,7 @@ const CustomerBookings = () => {
                 </div>
                 {booking.description && (
                   <div className="bg-background-cardSecondary/60 p-4 rounded-2xl border border-border-primary/10">
-                    <span className="text-[9px] font-black block text-accent-light mb-2 uppercase tracking-widest">Service Parameters:</span>
+                    <span className="text-[9px] font-black block text-accent-light mb-2 uppercase tracking-widest">Details:</span>
                     <p className="text-[11px] font-medium leading-relaxed italic">"{booking.description}"</p>
                   </div>
                 )}

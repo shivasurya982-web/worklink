@@ -14,8 +14,11 @@ exports.createBooking = async (req, res, next) => {
     const {
       worker: workerId,
       category,
+      bookingType,
       scheduledDate,
+      endDate,
       scheduledTime,
+      workingHours,
       address,
       description,
       estimatedCost,
@@ -49,8 +52,11 @@ exports.createBooking = async (req, res, next) => {
       customer: req.user._id,
       worker: workerId,
       category: bookingCategory,
+      bookingType: bookingType || 'small',
       scheduledDate: scheduledDate || new Date(),
+      endDate: bookingType === 'large' ? endDate : undefined,
       scheduledTime: scheduledTime || '10:00',
+      workingHours: workingHours || '',
       address: address
         ? typeof address === 'string'
           ? JSON.parse(address)

@@ -46,47 +46,49 @@ const Services = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col">
+    <div className="min-h-screen bg-background-primary flex flex-col relative overflow-hidden">
+       <div className="absolute top-0 left-0 w-full h-[600px] bg-accent-orange/10 blur-[150px] pointer-events-none" />
+
       <Navbar />
 
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pt-32 sm:pt-40 pb-24 relative z-10">
         {/* Header Section */}
         <section className="py-12 sm:py-16">
           <div className="container-responsive text-center max-w-3xl mx-auto">
-            <span className="text-xs font-bold text-accent-gold uppercase tracking-[0.2em] mb-4 block animate-fade-in">Service Directory</span>
-            <h1 className="text-3xl sm:text-5xl font-sora font-extrabold text-text-primary mb-6 leading-tight">
-               Every Local Service <br className="hidden sm:block" />
-               <span className="text-accent-gold">At Your Fingertips</span>
+            <span className="text-xs font-black text-white uppercase tracking-[0.4em] mb-6 block opacity-80 animate-fade-in">Our Services</span>
+            <h1 className="text-4xl sm:text-7xl font-sora font-black text-white mb-8 leading-tight tracking-tighter">
+               Find help for <br className="hidden sm:block" />
+               <span className="orange-gradient-text">every task</span>
             </h1>
-            <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-10 px-4">
-              Explore our wide range of professional home and commercial services. From urgent repairs to personal tutors, Worklyn connects you with verified experts in seconds.
+            <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-12 px-4 font-bold opacity-90 uppercase tracking-wide">
+              Explore our wide range of home and office services. From repairs to cleaning, Worklyn connects you with verified local workers.
             </p>
 
             {/* In-page Search */}
             <div className="max-w-xl mx-auto relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-accent-gold transition-colors" />
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-text-muted group-focus-within:text-accent-bright transition-colors" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search categories (e.g. Electrician, Plumber...)"
-                className="w-full bg-white border border-gray-200 rounded-2xl py-4 pl-12 pr-4 text-sm shadow-xl shadow-amber-900/5 focus:outline-none focus:border-accent-gold transition-all"
+                placeholder="What service do you need? (e.g. Plumber...)"
+                className="w-full bg-background-dark/80 border-2 border-border-primary/30 rounded-3xl py-5 pl-16 pr-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main transition-all shadow-2xl uppercase tracking-widest"
               />
             </div>
           </div>
         </section>
 
         {/* Categories Grid */}
-        <section className="py-12 bg-background-secondary/30">
+        <section className="py-12">
           <div className="container-responsive">
             {loading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                  <div key={i} className="h-48 rounded-3xl bg-gray-100 animate-pulse" />
+                  <div key={i} className="h-56 rounded-[2.5rem] bg-white/5 animate-pulse" />
                 ))}
               </div>
             ) : filteredCategories.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-10">
                 {filteredCategories.map((cat) => {
                   const Icon = iconMap[cat.icon] || Wrench;
                   return (
@@ -95,16 +97,16 @@ const Services = () => {
                       to={`/search?category=${cat.slug}`}
                       className="group"
                     >
-                      <GlassCard goldBorder className="p-6 h-full flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-glow">
-                        <div className="w-14 h-14 rounded-2xl bg-amber-50 text-accent-gold flex items-center justify-center mb-4 group-hover:bg-accent-gold group-hover:text-white transition-all shadow-sm">
-                           <Icon className="w-7 h-7" />
+                      <GlassCard goldBorder className="p-8 h-full flex flex-col items-center text-center transition-all duration-500 group-hover:-translate-y-2 !bg-background-card border-border-primary/40 shadow-2xl">
+                        <div className="w-16 h-16 rounded-2xl bg-background-widget text-accent-bright flex items-center justify-center mb-6 group-hover:bg-accent-orange group-hover:text-white transition-all shadow-xl">
+                           <Icon className="w-8 h-8" />
                         </div>
-                        <h3 className="font-sora font-bold text-sm sm:text-base text-text-primary mb-2 truncate w-full">{cat.name}</h3>
-                        <p className="text-[10px] text-text-muted mb-4 line-clamp-2 leading-relaxed">
-                          {cat.description || 'Quality professional services near you.'}
+                        <h3 className="font-sora font-black text-base sm:text-lg text-white mb-3 uppercase tracking-tight truncate w-full group-hover:text-accent-bright">{cat.name}</h3>
+                        <p className="text-[10px] text-text-muted mb-6 line-clamp-2 leading-relaxed font-bold uppercase tracking-widest opacity-80">
+                          {cat.description || 'Verified local professionals ready to help.'}
                         </p>
-                        <span className="text-[10px] font-bold text-accent-gold bg-amber-50 px-3 py-1 rounded-full border border-accent-gold/10 flex items-center gap-1">
-                           {cat.workerCount || 0} Professionals <ArrowRight className="w-3 h-3" />
+                        <span className="text-[9px] font-black text-accent-light bg-accent-orange/10 px-4 py-2 rounded-full border border-accent-orange/20 flex items-center gap-2 uppercase tracking-widest mt-auto group-hover:bg-accent-orange group-hover:text-white transition-all">
+                           {cat.workerCount || 0} Workers <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </GlassCard>
                     </Link>
@@ -112,41 +114,41 @@ const Services = () => {
                 })}
               </div>
             ) : (
-              <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200">
-                <Sparkles className="w-12 h-12 text-accent-gold mx-auto mb-4 opacity-30" />
-                <h3 className="font-sora font-bold text-text-primary">No categories found</h3>
-                <p className="text-xs text-text-muted mt-1">Try a different search term or browse all services.</p>
-                <PremiumButton variant="outline" size="sm" className="mt-6" onClick={() => setSearchQuery('')}>Clear Search</PremiumButton>
+              <div className="text-center py-20 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
+                <Sparkles className="w-12 h-12 text-accent-bright mx-auto mb-4 opacity-30" />
+                <h3 className="font-sora font-bold text-white uppercase tracking-tighter">No categories found</h3>
+                <p className="text-xs text-text-muted mt-2 uppercase tracking-widest">Try searching for something else.</p>
+                <PremiumButton variant="outline" size="sm" className="mt-8" onClick={() => setSearchQuery('')}>Clear Search</PremiumButton>
               </div>
             )}
           </div>
         </section>
 
-        {/* ─── Why Worklyn ─── */}
+        {/* Why Choose Us */}
         <section className="py-24 overflow-hidden relative">
-          <div className="container-responsive grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="container-responsive grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-2xl sm:text-4xl font-bold font-sora text-text-primary mb-6 leading-tight">
-                 Why Choose <span className="text-accent-gold text-hero">Worklyn?</span>
+              <h2 className="text-3xl sm:text-5xl font-black font-sora text-white mb-8 uppercase tracking-tighter">
+                 Why book through <span className="orange-gradient-text">Worklyn?</span>
               </h2>
-              <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-8">
-                We've built a platform that puts trust, speed, and quality at the heart of every interaction. Experience the modern way of booking local services.
+              <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-10 font-bold uppercase tracking-wide opacity-90">
+                We make it easy to find good workers while keeping you safe and your data private.
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                  {[
-                   { icon: ShieldCheck, title: 'Identity Verified', desc: 'Every professional undergoes a multi-step background and document check.' },
-                   { icon: Clock, title: 'Under 30s Matching', desc: 'Our matching system finds you the best available workers in real-time.' },
-                   { icon: Star, title: 'Quality Guaranteed', desc: 'We only maintain partnerships with high-rated, skilled local professionals.' },
-                   { icon: MessageSquare, title: 'Direct Communication', desc: 'Secure in-app chat for seamless updates and coordination.' }
+                   { icon: ShieldCheck, title: 'Safe & Verified', desc: 'Every worker on our app has their identity checked before they can join.' },
+                   { icon: Clock, title: 'Fast Booking', desc: 'Find the right person for your job in under 30 seconds.' },
+                   { icon: Star, title: 'Good Ratings', desc: 'We only keep workers who do a great job and have high ratings.' },
+                   { icon: MessageSquare, title: 'Direct Chat', desc: 'Talk to your worker inside the app to coordinate and get updates.' }
                  ].map((item, i) => (
-                   <div key={i} className="flex gap-4 p-4 rounded-2xl bg-white border border-gray-100 hover:border-accent-gold/20 hover:shadow-sm transition-all">
-                      <div className="w-10 h-10 rounded-xl bg-blue-50 text-accent-blue flex items-center justify-center shrink-0">
-                         <item.icon className="w-5 h-5" />
+                   <div key={i} className="flex gap-5 p-6 rounded-[2rem] bg-background-card border border-border-primary/40 hover:border-accent-orange/40 transition-all shadow-xl group">
+                      <div className="w-12 h-12 rounded-xl bg-background-widget text-accent-bright flex items-center justify-center shrink-0 group-hover:bg-accent-orange group-hover:text-white transition-all">
+                         <item.icon className="w-6 h-6" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-sm text-text-primary">{item.title}</h4>
-                         <p className="text-[11px] text-text-muted leading-tight mt-0.5">{item.desc}</p>
+                         <h4 className="font-black text-base text-white uppercase tracking-tight group-hover:text-accent-bright transition-colors">{item.title}</h4>
+                         <p className="text-[11px] text-text-muted font-bold leading-relaxed uppercase tracking-wider mt-1 opacity-80">{item.desc}</p>
                       </div>
                    </div>
                  ))}
@@ -154,17 +156,14 @@ const Services = () => {
             </div>
 
             <div className="relative">
-               <div className="aspect-square max-w-md mx-auto relative rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
+               <div className="aspect-square max-w-md mx-auto relative rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/5">
                   <img src="https://images.unsplash.com/photo-1581578731522-a2049a4571ff?w=800" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-2xl border border-white/30 text-white animate-float">
-                     <p className="text-xs font-bold mb-1 flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5 text-accent-gold" /> Verified Success</p>
-                     <p className="text-[10px] font-medium opacity-90 leading-tight">Over 50,000 service requests successfully completed this year through our platform.</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark/60 to-transparent" />
+                  <div className="absolute bottom-8 left-8 right-8 p-6 glass-card rounded-2xl border border-white/20 text-white shadow-2xl animate-float">
+                     <p className="text-xs font-black mb-2 flex items-center gap-2 uppercase tracking-widest text-accent-bright"><CheckCircle2 className="w-4 h-4" /> Thousands Happy</p>
+                     <p className="text-[10px] font-bold leading-relaxed uppercase tracking-wider opacity-90">Over 50,000 jobs successfully finished this year on Worklyn.</p>
                   </div>
                </div>
-               {/* Decorative elements */}
-               <div className="absolute -top-6 -right-6 w-24 h-24 bg-accent-gold/10 rounded-full blur-2xl" />
-               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent-blue/10 rounded-full blur-2xl" />
             </div>
           </div>
         </section>
@@ -172,29 +171,29 @@ const Services = () => {
         {/* CTA */}
         <section className="py-12">
           <div className="container-responsive">
-            <GlassCard goldBorder className="p-8 sm:p-12 bg-gradient-to-r from-accent-gold to-amber-500 rounded-[40px] text-center text-white relative overflow-hidden group">
-               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+            <GlassCard goldBorder className="p-10 sm:p-20 !bg-background-card border-border-primary/40 rounded-[4rem] text-center text-white relative overflow-hidden group shadow-2xl">
+               <div className="absolute top-0 right-0 w-80 h-80 bg-accent-orange/10 blur-[120px] pointer-events-none" />
                <div className="relative z-10">
-                 <h2 className="text-2xl sm:text-4xl font-sora font-extrabold mb-4">Ready to Get Started?</h2>
-                 <p className="text-sm sm:text-lg font-medium opacity-90 mb-8 max-w-xl mx-auto">
-                   Join thousands of happy customers who trust Worklyn for all their home service needs.
+                 <h2 className="text-3xl sm:text-6xl font-sora font-black mb-6 uppercase tracking-tighter">Ready to start?</h2>
+                 <p className="text-sm sm:text-xl font-bold opacity-80 mb-12 max-w-2xl mx-auto uppercase tracking-wide">
+                   Join thousands of people who use Worklyn for all their house work.
                  </p>
-                 <div className="flex flex-col sm:flex-row justify-center gap-4">
+                 <div className="flex flex-col sm:flex-row justify-center gap-6">
                     <PremiumButton
-                      variant="white"
+                      variant="gold"
                       size="lg"
-                      className="px-10 py-4 rounded-full text-accent-gold font-bold shadow-xl hover:scale-105 transition-transform"
+                      className="px-16 py-6 shadow-orange font-black"
                       onClick={() => navigate('/register/customer')}
                     >
-                      Book a Service
+                      BOOK A WORKER
                     </PremiumButton>
                     <PremiumButton
                       variant="outline"
                       size="lg"
-                      className="px-10 py-4 rounded-full border-2 border-white text-white font-bold hover:bg-white hover:text-accent-gold transition-all"
+                      className="px-16 py-6 font-black"
                       onClick={() => navigate('/register/worker')}
                     >
-                      Join as Professional
+                      JOIN AS WORKER
                     </PremiumButton>
                  </div>
                </div>

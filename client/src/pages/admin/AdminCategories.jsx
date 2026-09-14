@@ -61,15 +61,11 @@ const AdminCategories = () => {
     try {
       let res;
       if (editingCategory) {
-        res = await API.put(`/categories/${editingCategory._id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        showToast('Sync Successful', 'Service domain updated.', 'success');
+        res = await API.put(`/categories/${editingCategory._id}`, formData);
+        showToast('Success', 'Category updated successfully.', 'success');
       } else {
-        res = await API.post('/categories', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        showToast('Node Created', 'New service segment initialized.', 'success');
+        res = await API.post('/categories', formData);
+        showToast('Success', 'New category created.', 'success');
       }
 
       if (res.success) {
@@ -84,12 +80,12 @@ const AdminCategories = () => {
   };
 
   const handleDeleteCategory = async (catId) => {
-    if (!window.confirm('PERMANENTLY PURGE this category? This will affect node filtering.')) return;
+    if (!window.confirm('Are you sure you want to DELETE this category?')) return;
 
     try {
       const res = await API.delete(`/categories/${catId}`);
       if (res.success) {
-        showToast('Data Purged', 'Domain segment removed.', 'info');
+        showToast('Deleted', 'Category removed.', 'info');
         setCategories((prev) => prev.filter((c) => c._id !== catId));
       }
     } catch (err) {
@@ -99,8 +95,8 @@ const AdminCategories = () => {
 
   return (
     <DashboardLayout
-      title="Domain Architecture"
-      subtitle="Ecosystem segmentation and service node categorization"
+      title="Service Categories"
+      subtitle="Manage the types of services available on the website"
     >
       <div className="space-y-10">
         <div className="flex justify-end">
@@ -109,9 +105,9 @@ const AdminCategories = () => {
             size="md"
             icon={Plus}
             onClick={handleOpenAddModal}
-            className="px-8 shadow-orange"
+            className="px-8 shadow-orange font-black"
           >
-            INITIALIZE SEGMENT
+            ADD NEW CATEGORY
           </PremiumButton>
         </div>
 
@@ -128,11 +124,11 @@ const AdminCategories = () => {
                     <h4 className="font-sora font-black text-base text-white truncate pr-2 uppercase tracking-tight group-hover:text-accent-bright transition-colors">
                       {cat.name}
                     </h4>
-                    <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Operational Module</p>
+                    <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Service Type</p>
                   </div>
                   <div className="bg-background-widget px-3 py-1 rounded-lg border border-accent-orange/20 shadow-xl shrink-0">
                     <span className="text-[10px] font-black text-accent-bright uppercase tracking-tighter">
-                      {cat.workerCount || 0} NODES
+                      {cat.workerCount || 0} Workers
                     </span>
                   </div>
                 </div>
@@ -141,14 +137,14 @@ const AdminCategories = () => {
                   <button
                     onClick={() => handleOpenEditModal(cat)}
                     className="p-3 rounded-xl bg-background-widget hover:bg-accent-orange/20 hover:text-accent-bright text-text-muted transition-all border border-white/5"
-                    title="Sync Config"
+                    title="Edit Category"
                   >
                     <Edit className="w-4.5 h-4.5" />
                   </button>
                   <button
                     onClick={() => handleDeleteCategory(cat._id)}
                     className="p-3 rounded-xl bg-red-950/20 hover:bg-red-900/40 text-red-400 transition-all border border-red-500/20"
-                    title="Purge Domain"
+                    title="Delete Category"
                   >
                     <Trash2 className="w-4.5 h-4.5" />
                   </button>
@@ -161,7 +157,7 @@ const AdminCategories = () => {
              <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
                 <Grid className="w-10 h-10 text-accent-bright opacity-20" />
              </div>
-             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO DOMAIN SEGMENTS INITIALIZED.</p>
+             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO CATEGORIES FOUND.</p>
           </div>
         )}
       </div>
@@ -171,23 +167,23 @@ const AdminCategories = () => {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          title={editingCategory ? 'DOMAIN RECONFIGURATION' : 'SEGMENT INITIALIZATION'}
+          title={editingCategory ? 'EDIT CATEGORY' : 'NEW CATEGORY'}
         >
           <form onSubmit={handleSubmit} className="space-y-10 pt-6">
             <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner">
                <FloatingInput
                 id="name"
-                label="SEGMENT IDENTIFIER"
+                label="CATEGORY NAME"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
                 className="!bg-background-cardSecondary border-border-primary/30"
               />
-              <p className="text-[10px] font-bold text-text-muted mt-4 uppercase tracking-[0.2em] px-2 italic">DETERMINE THE PRIMARY LABEL FOR THIS SERVICE CATEGORY MODULE.</p>
+              <p className="text-[10px] font-bold text-text-muted mt-4 uppercase tracking-[0.2em] px-2 italic">Enter the main name for this category.</p>
             </div>
 
             <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={formLoading} className="py-5 text-base shadow-orange font-black">
-              {editingCategory ? 'SYNC PARAMETERS' : 'EXECUTE INITIALIZATION'}
+              {editingCategory ? 'SAVE CHANGES' : 'CREATE CATEGORY'}
             </PremiumButton>
           </form>
         </Modal>

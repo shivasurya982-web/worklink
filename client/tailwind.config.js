@@ -8,23 +8,23 @@ export default {
       },
       colors: {
         background: {
-          primary: '#F4510B',   // Primary Orange
-          secondary: '#D8430A', // Deep Orange
-          deep: '#B93808',      // Dark Orange
+          primary: '#FF651E',   // Primary Orange (rgb(255, 101, 30))
+          secondary: '#E65410', // Deep Orange
+          deep: '#CC4800',      // Dark Orange
           card: '#080808',      // Black/Dark Card
           dark: '#0D0D0D',      // Near Black
           cardSecondary: '#15110E', // Dark Charcoal
           widget: '#241208',    // Dark Orange Card
         },
         accent: {
-          main: '#F97316',      // Main Orange
-          bright: '#FF7A18',    // Bright Orange
-          light: '#FF9A4D',     // Light Orange
+          main: '#FF651E',      // Main Orange
+          bright: '#FF7A2E',    // Bright Orange
+          light: '#FF9A66',     // Light Orange
           peach: '#FFD0A8',     // Soft Peach
-          highlight: '#FF6A00', // Pure Orange Highlight
-          gold: '#F97316',      // Alias for main orange to support existing components
-          goldLight: '#FF7A18', // Alias for bright orange
-          orange: '#F4510B',    // Primary orange
+          highlight: '#FF651E', // Pure Orange Highlight
+          gold: '#FF651E',      // Alias for main orange
+          goldLight: '#FF7A2E', // Alias for bright orange
+          orange: '#FF651E',    // Primary orange
           red: '#EF4444',       // Error Red
           green: '#22C55E',     // Success Green
           amber: '#FF9800',     // Warning Orange
@@ -36,8 +36,8 @@ export default {
         },
         border: {
           primary: '#8F3208',   // Muted Orange Border
-          orange: '#D94B0B',    // Strong Orange Border
-          active: '#FF6A00',    // Bright Active Border
+          orange: '#FF651E',    // Strong Orange Border
+          active: '#FF651E',    // Bright Active Border
         }
       },
       fontFamily: {
@@ -51,9 +51,9 @@ export default {
       },
       boxShadow: {
         glass: '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
-        'glass-hover': '0 14px 40px 0 rgba(249, 115, 22, 0.18)',
-        orange: '0 0 20px rgba(249, 115, 22, 0.25)',
-        bright: '0 0 25px rgba(255, 106, 0, 0.3)',
+        'glass-hover': '0 14px 40px 0 rgba(255, 101, 30, 0.18)',
+        orange: '0 0 20px rgba(255, 101, 30, 0.25)',
+        bright: '0 0 25px rgba(255, 101, 30, 0.3)',
       },
       backdropBlur: {
         glass: '20px',
@@ -72,8 +72,8 @@ export default {
           '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
-          '0%, 100%': { filter: 'drop-shadow(0 0 2px #F97316)', opacity: '1' },
-          '50%': { filter: 'drop-shadow(0 0 8px #FF6A00)', opacity: '0.8' },
+          '0%, 100%': { filter: 'drop-shadow(0 0 2px #FF651E)', opacity: '1' },
+          '50%': { filter: 'drop-shadow(0 0 8px #FF651E)', opacity: '0.8' },
         },
         slideUpFade: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
@@ -84,8 +84,8 @@ export default {
           '50%': { transform: 'translateY(-10px)' },
         },
         pulseGlow: {
-          '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(249, 115, 22, 0.4))' },
-          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(249, 115, 22, 0.8))' },
+          '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(255, 101, 30, 0.4))' },
+          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(255, 101, 30, 0.8))' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },

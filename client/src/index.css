@@ -6,14 +6,14 @@
 @tailwind utilities;
 
 :root {
-  --wl-orange-primary: #F4510B;
-  --wl-orange-main: #F97316;
-  --wl-orange-deep: #D8430A;
-  --wl-orange-dark: #B93808;
-  --wl-orange-bright: #FF7A18;
-  --wl-orange-light: #FF9A4D;
+  --wl-orange-primary: #FF651E;
+  --wl-orange-main: #FF651E;
+  --wl-orange-deep: #E65410;
+  --wl-orange-dark: #CC4800;
+  --wl-orange-bright: #FF7A2E;
+  --wl-orange-light: #FF9A66;
   --wl-orange-peach: #FFD0A8;
-  --wl-orange-highlight: #FF6A00;
+  --wl-orange-highlight: #FF651E;
 
   --wl-black: #080808;
   --wl-near-black: #0D0D0D;
@@ -25,8 +25,8 @@
   --wl-text-muted: #C9A58E;
 
   --wl-border: #8F3208;
-  --wl-border-orange: #D94B0B;
-  --wl-border-active: #FF6A00;
+  --wl-border-orange: #FF651E;
+  --wl-border-active: #FF651E;
 
   --wl-success: #22C55E;
   --wl-error: #EF4444;
@@ -47,7 +47,7 @@
   }
 
   body {
-    background: linear-gradient(135deg, #B93808 0%, #D8430A 35%, #F4510B 70%, #F97316 100%);
+    background: linear-gradient(135deg, #CC4800 0%, #E65410 35%, #FF651E 70%, #FF7A2E 100%);
     background-attachment: fixed;
     color: var(--wl-text-primary);
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -99,7 +99,7 @@
   background: rgba(13, 13, 13, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 75, 11, 0.3);
+  border: 1px solid rgba(255, 101, 30, 0.3);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
 }
 
@@ -116,15 +116,15 @@
   background: rgba(13, 13, 13, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(217, 75, 11, 0.2);
+  border-bottom: 1px solid rgba(255, 101, 30, 0.2);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #F4510B 0%, #FF7A18 100%);
+  background: linear-gradient(135deg, #FF651E 0%, #FF7A2E 100%);
   color: #FFFFFF;
   font-weight: 700;
   border-radius: 12px;
-  border: 1px solid #FF7A18;
+  border: 1px solid #FF7A2E;
   padding: 0.75rem 1.5rem;
   display: inline-flex;
   align-items: center;
@@ -154,7 +154,7 @@
   background: rgba(13, 13, 13, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(217, 75, 11, 0.3);
+  border-top: 1px solid rgba(255, 101, 30, 0.3);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -170,7 +170,7 @@
 
 /* ── Orange Gradient Text ── */
 .orange-gradient-text {
-  background: linear-gradient(90deg, #FF7A18 0%, #F4510B 50%, #FF9A4D 100%);
+  background: linear-gradient(90deg, #FF7A2E 0%, #FF651E 50%, #FF9A66 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

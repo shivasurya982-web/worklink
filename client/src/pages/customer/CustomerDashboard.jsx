@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, Calendar, Heart, Bell, Search, ArrowRight, CheckCircle2, Star } from 'lucide-react';
+import { Sparkles, Calendar, Heart, Bell, Search, ArrowRight, Star } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
 import WorkerCard from '../../components/common/WorkerCard';
 import PremiumButton from '../../components/common/PremiumButton';
-import Badge from '../../components/common/Badge';
 import Modal from '../../components/common/Modal';
 import RatingStars from '../../components/common/RatingStars';
 import { useAuth } from '../../context/AuthContext';
@@ -113,52 +112,52 @@ const CustomerDashboard = () => {
       subtitle="Welcome back to your account"
     >
       <div className="relative mb-8 z-30">
-        <GlassCard className="!bg-background-dark/80 p-4 sm:p-6 rounded-[2rem] border border-accent-main/30 shadow-2xl">
+        <GlassCard className="!bg-white/80 p-4 sm:p-6 rounded-[2rem] border border-white/60 shadow-sm">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               navigate(`/customer/search?q=${encodeURIComponent(searchQuery)}`);
               setShowSuggestions(false);
             }}
-            className="flex flex-col md:flex-row items-center gap-4"
+            className="flex flex-col md:flex-row items-center gap-3"
           >
             <div className="relative flex-1 w-full group">
-              <Search className="w-5 h-5 text-accent-bright absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-5 h-5 text-accent-main absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.trim() && setShowSuggestions(true)}
                 placeholder="Search for services or workers..."
-                className="w-full bg-background-cardSecondary border border-white/5 rounded-2xl pl-14 pr-6 py-4 text-sm font-bold focus:outline-none focus:border-accent-main focus:ring-4 focus:ring-accent-main/10 shadow-2xl text-white placeholder:text-text-muted"
+                className="w-full bg-white border border-gray-200 rounded-2xl pl-12 pr-5 py-3.5 text-sm font-bold focus:outline-none focus:border-accent-main focus:ring-4 focus:ring-blue-500/10 shadow-xs text-text-primary placeholder:text-text-muted"
                 autoComplete="off"
               />
             </div>
             <div className="flex items-center gap-3 w-full md:w-auto shrink-0">
-               <PremiumButton type="submit" variant="gold" size="md" icon={Search} className="flex-1 md:flex-none px-8 font-black">SEARCH</PremiumButton>
-               <PremiumButton type="button" variant="ai" size="md" icon={Sparkles} className="flex-1 md:flex-none px-8 font-black" onClick={() => setBroadcastModalOpen(true)}>POST REQUEST</PremiumButton>
+               <PremiumButton type="submit" variant="gold" size="md" icon={Search} className="flex-1 md:flex-none px-6 font-black">SEARCH</PremiumButton>
+               <PremiumButton type="button" variant="ai" size="md" icon={Sparkles} className="flex-1 md:flex-none px-6 font-black" onClick={() => setBroadcastModalOpen(true)}>POST REQUEST</PremiumButton>
             </div>
           </form>
         </GlassCard>
 
         {showSuggestions && (suggestions.categories.length > 0 || suggestions.workers.length > 0) && (
-          <div className="absolute top-full left-0 right-0 mt-3 bg-background-cardSecondary rounded-3xl shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-border-primary/40 overflow-hidden animate-fade-in z-30 max-h-[400px] overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 rounded-2xl shadow-xl border border-white/60 overflow-hidden z-30 max-h-[400px] overflow-y-auto">
              {suggestions.categories.length > 0 && (
-               <div className="p-3 border-b border-white/5">
+               <div className="p-2 border-b border-gray-100">
                  {suggestions.categories.map(cat => (
-                   <button key={cat._id} onClick={() => navigate(`/customer/search?category=${cat.slug}`)} className="w-full text-left px-5 py-3 rounded-2xl hover:bg-white/5 flex items-center gap-4 transition-all">
-                      <Sparkles className="w-4 h-4 text-accent-bright" />
-                      <span className="text-sm font-bold text-white uppercase tracking-tight">{cat.name}</span>
+                   <button key={cat._id} onClick={() => navigate(`/customer/search?category=${cat.slug}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-blue-50/60 flex items-center gap-3 transition-all">
+                      <Sparkles className="w-4 h-4 text-accent-main" />
+                      <span className="text-xs font-bold text-text-primary uppercase tracking-tight">{cat.name}</span>
                    </button>
                  ))}
                </div>
              )}
              {suggestions.workers.length > 0 && (
-               <div className="p-3">
+               <div className="p-2">
                  {suggestions.workers.map(w => (
-                   <button key={w._id} onClick={() => navigate(`/workers/${w._id}`)} className="w-full text-left px-5 py-3 rounded-2xl hover:bg-white/5 flex items-center gap-4 transition-all">
-                      <img src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))} className="w-10 h-10 rounded-full object-cover border-2 border-accent-main" />
-                      <div><p className="text-sm font-bold text-white uppercase">{w.name}</p><p className="text-[10px] text-text-muted font-bold">{w.profession}</p></div>
+                   <button key={w._id} onClick={() => navigate(`/workers/${w._id}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-blue-50/60 flex items-center gap-3 transition-all">
+                      <img src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))} className="w-9 h-9 rounded-full object-cover border border-accent-main" />
+                      <div><p className="text-xs font-bold text-text-primary uppercase">{w.name}</p><p className="text-[10px] text-text-muted font-semibold">{w.profession}</p></div>
                    </button>
                  ))}
                </div>
@@ -167,52 +166,52 @@ const CustomerDashboard = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
         {[
-          { label: 'My Bookings', val: stats.totalBookings || 0, icon: Calendar, color: 'text-accent-bright' },
+          { label: 'My Bookings', val: stats.totalBookings || 0, icon: Calendar, color: 'text-accent-main' },
           { label: 'Favorites', val: stats.favoritesCount || 0, icon: Heart, color: 'text-red-500' },
-          { label: 'Alerts', val: notifications.filter(n => !n.isRead).length || 0, icon: Bell, color: 'text-accent-bright' },
+          { label: 'Alerts', val: notifications.filter(n => !n.isRead).length || 0, icon: Bell, color: 'text-accent-main' },
         ].map((s, i) => (
-          <GlassCard key={i} className="flex items-center gap-5 p-5 sm:p-6 !bg-background-card border-border-primary/20 shadow-2xl group">
-             <div className="w-14 h-14 rounded-2xl bg-background-widget flex items-center justify-center border border-white/5 group-hover:bg-accent-orange transition-all duration-500">
-               <s.icon className={`w-7 h-7 ${s.color} group-hover:text-white transition-colors`} />
+          <GlassCard key={i} className="flex items-center gap-4 p-5 !bg-white/70 border border-white/60 shadow-xs group">
+             <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100 group-hover:bg-accent-main transition-all duration-300">
+               <s.icon className={`w-6 h-6 ${s.color} group-hover:text-white transition-colors`} />
              </div>
              <div>
-                <p className="text-2xl sm:text-3xl font-sora font-black text-white tracking-tighter">{s.val}</p>
-                <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] mt-1">{s.label}</p>
+                <p className="text-2xl font-sora font-black text-text-primary tracking-tight">{s.val}</p>
+                <p className="text-[9px] font-bold text-text-muted uppercase tracking-wider mt-0.5">{s.label}</p>
              </div>
           </GlassCard>
         ))}
       </div>
 
       {pendingReviews.length > 0 && (
-        <div className="mb-12">
-          <h3 className="text-xl font-sora font-black text-white mb-6 uppercase tracking-tight flex items-center gap-3"><Star className="w-6 h-6 text-accent-bright fill-accent-bright" /> Pending Reviews</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="mb-10">
+          <h3 className="text-lg font-sora font-black text-text-primary mb-4 uppercase tracking-tight flex items-center gap-2.5"><Star className="w-5 h-5 text-amber-500 fill-amber-500" /> Pending Reviews</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {pendingReviews.map(b => (
-              <GlassCard key={b._id} className="p-5 flex items-center justify-between gap-4 border border-border-primary/40 !bg-background-cardSecondary shadow-2xl">
-                 <div className="flex items-center gap-4 min-w-0">
-                    <img src={getImageUrl(b.worker?.avatar, DEFAULT_AVATAR(b.worker?.name || 'P'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(b.worker?.name || 'P'))} className="w-14 h-14 rounded-2xl object-cover border-2 border-accent-main" />
-                    <div className="min-w-0"><h4 className="text-sm font-black text-white truncate">{b.worker?.name}</h4><p className="text-[10px] text-accent-light font-bold uppercase tracking-widest mt-0.5">{b.worker?.profession}</p></div>
+              <GlassCard key={b._id} className="p-4 flex items-center justify-between gap-3 border border-white/60 !bg-white/80 shadow-xs">
+                 <div className="flex items-center gap-3 min-w-0">
+                    <img src={getImageUrl(b.worker?.avatar, DEFAULT_AVATAR(b.worker?.name || 'P'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(b.worker?.name || 'P'))} className="w-12 h-12 rounded-2xl object-cover border border-accent-main" />
+                    <div className="min-w-0"><h4 className="text-xs font-black text-text-primary truncate">{b.worker?.name}</h4><p className="text-[10px] text-accent-main font-bold uppercase tracking-wider mt-0.5">{b.worker?.profession}</p></div>
                  </div>
-                 <PremiumButton variant="gold" size="sm" onClick={() => handleOpenReview(b)} className="font-black px-6">REVIEW</PremiumButton>
+                 <PremiumButton variant="gold" size="sm" onClick={() => handleOpenReview(b)} className="font-black px-5">REVIEW</PremiumButton>
               </GlassCard>
             ))}
           </div>
         </div>
       )}
 
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <h3 className="text-xl font-sora font-black text-white uppercase tracking-tight flex items-center gap-3"><Sparkles className="w-6 h-6 text-accent-bright" /> Recommended for You</h3>
-          <Link to="/customer/search" className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] hover:text-white transition-colors">See All <ArrowRight className="w-4 h-4 inline-block ml-1" /></Link>
+      <div className="mb-10">
+        <div className="flex items-center justify-between mb-6 px-1">
+          <h3 className="text-lg font-sora font-black text-text-primary uppercase tracking-tight flex items-center gap-2.5"><Sparkles className="w-5 h-5 text-accent-main" /> Recommended for You</h3>
+          <Link to="/customer/search" className="text-[9px] font-bold text-accent-main uppercase tracking-wider hover:underline">See All <ArrowRight className="w-3.5 h-3.5 inline-block ml-0.5" /></Link>
         </div>
         {recommendedWorkers.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {recommendedWorkers.map(w => <WorkerCard key={w._id} worker={w} onBook={worker => navigate(`/workers/${worker._id}?book=true`)} />)}
           </div>
         ) : (
-          <div className="text-center py-24 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20 opacity-50"><p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em]">Loading recommendations...</p></div>
+          <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200"><p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Loading recommendations...</p></div>
         )}
       </div>
 
@@ -220,10 +219,10 @@ const CustomerDashboard = () => {
 
       {reviewModalOpen && (
         <Modal isOpen={reviewModalOpen} onClose={() => setReviewModalOpen(false)} title="Give Feedback">
-          <form onSubmit={handleSubmitReview} className="space-y-8 pt-4">
-             <div className="flex flex-col items-center gap-6"><p className="text-[10px] font-black uppercase tracking-widest text-accent-light">Rate your experience</p><RatingStars rating={rating} interactive={true} onChange={setRating} size="lg" /></div>
-             <textarea rows={5} value={comment} onChange={e => setComment(e.target.value)} placeholder="Tell us what you liked or how they can improve..." className="w-full bg-background-dark/50 border-2 border-white/5 rounded-3xl p-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-2xl" required />
-             <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={reviewLoading} className="py-5 font-black shadow-orange">SUBMIT REVIEW</PremiumButton>
+          <form onSubmit={handleSubmitReview} className="space-y-6 pt-2">
+             <div className="flex flex-col items-center gap-4"><p className="text-[10px] font-bold uppercase tracking-widest text-accent-main">Rate your experience</p><RatingStars rating={rating} interactive={true} onChange={setRating} size="lg" /></div>
+             <textarea rows={4} value={comment} onChange={e => setComment(e.target.value)} placeholder="Tell us what you liked or how they can improve..." className="w-full bg-white border border-gray-200 rounded-2xl p-4 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main shadow-xs" required />
+             <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={reviewLoading} className="py-4 font-black">SUBMIT REVIEW</PremiumButton>
           </form>
         </Modal>
       )}

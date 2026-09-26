@@ -1,4 +1,4 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
@@ -127,53 +127,50 @@ const CustomerProfile = () => {
 
   return (
     <DashboardLayout title="My Account" subtitle="Manage your profile and security">
-      <div className="max-w-2xl mx-auto space-y-8 pb-24">
+      <div className="max-w-2xl mx-auto space-y-6 pb-20">
 
         {/* Profile Card */}
-        <GlassCard goldBorder className="!bg-background-card p-6 sm:p-10 rounded-[2.5rem] shadow-2xl overflow-hidden border-border-primary/40 relative">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-accent-orange/5 blur-3xl pointer-events-none" />
-
-          <div className="flex items-center justify-between mb-10 pb-5 border-b border-white/5 relative z-10">
-            <h3 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
-              <User className="w-6 h-6 text-accent-bright" /> My Information
+        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2.5rem] shadow-sm border border-white/60 relative">
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100 relative z-10">
+            <h3 className="font-sora font-black text-lg text-text-primary flex items-center gap-2 uppercase tracking-tight">
+              <User className="w-5 h-5 text-accent-main" /> My Information
             </h3>
             <button
               onClick={() => setIsEditingProfile(!isEditingProfile)}
-              className={`p-3 rounded-2xl transition-all shadow-xl ${isEditingProfile ? 'bg-red-950/20 text-red-400 border border-red-500/20' : 'bg-background-widget text-accent-bright border border-white/5'}`}
+              className={`p-2.5 rounded-xl transition-all shadow-xs ${isEditingProfile ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-blue-50 text-accent-main border border-blue-100'}`}
             >
-              {isEditingProfile ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
+              {isEditingProfile ? <X className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
             </button>
           </div>
 
           {!isEditingProfile ? (
-            <div className="space-y-10 animate-fade-in relative z-10">
-              <div className="flex flex-col items-center sm:items-start gap-6">
-                <div className="relative group">
+            <div className="space-y-8 animate-fade-in relative z-10">
+              <div className="flex flex-col sm:flex-row items-center gap-5">
+                <div className="relative">
                    <img
                     src={getImageUrl(avatarPreview, DEFAULT_AVATAR(name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'User'))}
                     alt="Avatar"
-                    className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
+                    className="w-24 h-28 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
                    />
-                   <div className="absolute inset-0 bg-accent-orange/10 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <div>
-                   <h4 className="font-sora font-black text-3xl text-white tracking-tighter uppercase">{name}</h4>
-                   <p className="text-sm font-bold text-accent-light uppercase tracking-[0.2em] mt-2 opacity-80">{email}</p>
+                <div className="text-center sm:text-left">
+                   <h4 className="font-sora font-black text-2xl text-text-primary tracking-tight uppercase">{name}</h4>
+                   <p className="text-xs font-bold text-accent-main uppercase tracking-wider mt-1">{email}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                 <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Phone</p>
-                    <p className="text-sm font-bold text-white uppercase">{phone || 'Not set'}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Phone</p>
+                    <p className="text-xs font-bold text-text-primary uppercase">{phone || 'Not set'}</p>
                  </div>
-                 <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-2">Secret Word</p>
-                    <p className="text-sm font-bold text-white uppercase italic">"{securityHint || 'None'}"</p>
+                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Secret Word</p>
+                    <p className="text-xs font-bold text-text-primary uppercase italic">"{securityHint || 'None'}"</p>
                  </div>
-                 <div className="p-6 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner sm:col-span-2">
-                    <p className="text-[9px] font-black text-accent-bright uppercase tracking-[0.3em] mb-3">Address</p>
-                    <p className="text-sm font-bold text-white uppercase leading-relaxed tracking-tight">
+                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60 sm:col-span-2">
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Address</p>
+                    <p className="text-xs font-bold text-text-primary uppercase leading-relaxed tracking-tight">
                       {street ? `${street}, ${city}, ${state} , PIN: ${zip}` : 'Address not set'}
                     </p>
                  </div>
@@ -183,74 +180,72 @@ const CustomerProfile = () => {
                 variant="outline"
                 fullWidth
                 onClick={() => setIsEditingProfile(true)}
-                className="py-5 font-black uppercase tracking-widest text-[11px] !rounded-2xl"
+                className="py-3.5 font-black uppercase tracking-wider text-xs !rounded-xl"
               >
                  <Edit3 className="w-4 h-4 mr-2" /> EDIT MY PROFILE
               </PremiumButton>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-10 animate-slide-up relative z-10">
-              <div className="flex flex-col items-center gap-6 pb-6">
+            <form onSubmit={handleSubmit} className="space-y-6 animate-slide-up relative z-10">
+              <div className="flex flex-col items-center gap-4 pb-4">
                 <div className="relative">
                   <img
                     src={getImageUrl(avatarPreview, DEFAULT_AVATAR(name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'User'))}
                     alt="Avatar"
-                    className="w-28 h-28 rounded-[2rem] object-cover border-4 border-accent-main shadow-2xl"
+                    className="w-24 h-24 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
                   />
                 </div>
-                <div className="flex flex-col items-center gap-3">
+                <div className="flex flex-col items-center gap-2">
                   <input type="file" id="avatar-input" accept="image/*" onChange={handleAvatarChange} className="hidden" />
-                  <label htmlFor="avatar-input" className="cursor-pointer px-6 py-3 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all inline-flex items-center gap-2.5 uppercase tracking-widest shadow-xl">
+                  <label htmlFor="avatar-input" className="cursor-pointer px-4 py-2 bg-blue-50 text-accent-main rounded-xl text-[10px] font-bold border border-blue-100 hover:bg-blue-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs">
                     <Camera className="w-4 h-4" /> Change Photo
                   </label>
                 </div>
               </div>
 
-              <div className="space-y-6">
-                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">Personal Info</h4>
-                <FloatingInput id="email" label="Email Address" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                <FloatingInput id="name" label="Full Name" icon={User} value={name} onChange={(e) => setName(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                <FloatingInput id="phone" label="Phone Number" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+              <div className="space-y-4">
+                <h4 className="font-sora font-black text-xs text-text-primary uppercase tracking-wider border-l-4 border-accent-main pl-3 mb-4">Personal Info</h4>
+                <FloatingInput id="email" label="Email Address" icon={Mail} value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <FloatingInput id="name" label="Full Name" icon={User} value={name} onChange={(e) => setName(e.target.value)} required />
+                <FloatingInput id="phone" label="Phone Number" icon={Phone} value={phone} onChange={(e) => setPhone(e.target.value)} required />
 
-                <div className="pt-4">
-                  <label className="text-[10px] font-black text-accent-bright uppercase tracking-[0.3em] ml-2 mb-3 block">Recovery Word</label>
-                  <FloatingInput id="securityHint" icon={ShieldCheck} value={securityHint} onChange={(e) => setSecurityHint(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <div className="pt-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1 mb-2 block">Recovery Word</label>
+                  <FloatingInput id="securityHint" icon={ShieldCheck} value={securityHint} onChange={(e) => setSecurityHint(e.target.value)} required />
                 </div>
               </div>
 
-              <div className="space-y-6 pt-8 border-t border-white/5">
-                <h4 className="font-sora font-black text-sm text-white uppercase tracking-widest border-l-4 border-accent-bright pl-4 mb-8">My Address</h4>
-                <FloatingInput id="street" label="Street Name" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                <div className="grid grid-cols-2 gap-5">
-                  <FloatingInput id="city" label="City" value={city} onChange={(e) => setCity(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
-                  <FloatingInput id="state" label="State" value={state} onChange={(e) => setState(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+              <div className="space-y-4 pt-6 border-t border-gray-100">
+                <h4 className="font-sora font-black text-xs text-text-primary uppercase tracking-wider border-l-4 border-accent-main pl-3 mb-4">My Address</h4>
+                <FloatingInput id="street" label="Street Name" icon={MapPin} value={street} onChange={(e) => setStreet(e.target.value)} required />
+                <div className="grid grid-cols-2 gap-4">
+                  <FloatingInput id="city" label="City" value={city} onChange={(e) => setCity(e.target.value)} required />
+                  <FloatingInput id="state" label="State" value={state} onChange={(e) => setState(e.target.value)} required />
                 </div>
-                <FloatingInput id="zip" label="Pin Code" value={zip} onChange={(e) => setZip(e.target.value)} required className="!bg-background-dark/50 border-border-primary/30" />
+                <FloatingInput id="zip" label="Pin Code" value={zip} onChange={(e) => setZip(e.target.value)} required />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)} className="py-4 !rounded-2xl">Cancel</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-4 !rounded-2xl shadow-orange font-black">SAVE CHANGES</PremiumButton>
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingProfile(false)} className="py-3.5 !rounded-xl">Cancel</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-3.5 !rounded-xl font-black">SAVE CHANGES</PremiumButton>
               </div>
             </form>
           )}
         </GlassCard>
 
         {/* Change Password Card */}
-        <GlassCard className="!bg-background-cardSecondary p-6 sm:p-10 rounded-[2.5rem] shadow-2xl border border-border-primary/20 relative overflow-hidden">
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent-orange/5 blur-3xl pointer-events-none" />
-
-          <div className="flex items-center justify-between mb-8 relative z-10">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-background-dark flex items-center justify-center border border-white/5 shadow-xl">
-                 <Lock className="w-6 h-6 text-accent-bright" />
+        <GlassCard className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2.5rem] shadow-sm border border-white/60 relative overflow-hidden">
+          <div className="flex items-center justify-between mb-6 relative z-10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100">
+                 <Lock className="w-5 h-5 text-accent-main" />
               </div>
-              <h3 className="font-sora font-black text-xl text-white uppercase tracking-tighter">Security</h3>
+              <h3 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">Security</h3>
             </div>
             {!isEditingPassword && (
               <button
                 onClick={() => setIsEditingPassword(true)}
-                className="px-5 py-2.5 rounded-xl border border-accent-orange/30 text-[10px] font-black text-accent-bright hover:bg-accent-orange/10 transition-all uppercase tracking-widest shadow-lg"
+                className="px-4 py-2 rounded-xl border border-blue-200 text-[10px] font-black text-accent-main hover:bg-blue-50 transition-all uppercase tracking-wider shadow-xs"
               >
                 Change
               </button>
@@ -258,18 +253,18 @@ const CustomerProfile = () => {
           </div>
 
           {!isEditingPassword ? (
-             <p className="text-xs font-bold text-text-muted uppercase tracking-widest leading-relaxed opacity-70">Protect your account by using a strong password. It's good to change it every few months.</p>
+             <p className="text-xs font-semibold text-text-muted uppercase tracking-wider leading-relaxed">Protect your account by using a strong password. It's good to change it every few months.</p>
           ) : (
-            <form onSubmit={handleChangePassword} className="space-y-8 animate-slide-up mt-8 relative z-10">
-              <div className="space-y-6 pt-6 border-t border-white/5">
-                <FloatingInput id="currentPassword" label="Current Password" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
-                <FloatingInput id="newPassword" label="New Password" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
-                <FloatingInput id="confirmPassword" label="Confirm New Password" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="!bg-background-card border-border-primary/20" />
+            <form onSubmit={handleChangePassword} className="space-y-6 animate-slide-up mt-6 relative z-10">
+              <div className="space-y-4 pt-4 border-t border-gray-100">
+                <FloatingInput id="currentPassword" label="Current Password" type="password" icon={Lock} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
+                <FloatingInput id="newPassword" label="New Password" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                <FloatingInput id="confirmPassword" label="Confirm New Password" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)} className="py-4 !rounded-2xl">Cancel</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock} className="py-4 !rounded-2xl shadow-orange font-black">
+              <div className="flex flex-col sm:flex-row gap-3">
+                 <PremiumButton type="button" variant="outline" fullWidth onClick={() => setIsEditingPassword(false)} className="py-3.5 !rounded-xl">Cancel</PremiumButton>
+                 <PremiumButton type="submit" variant="gold" fullWidth loading={pwLoading} icon={Lock} className="py-3.5 !rounded-xl font-black">
                     UPDATE PASSWORD
                  </PremiumButton>
               </div>
@@ -277,9 +272,9 @@ const CustomerProfile = () => {
           )}
         </GlassCard>
 
-        <div className="lg:hidden px-4 pt-6">
-          <button onClick={() => { logout(); navigate('/login'); }} className="w-full flex items-center justify-center gap-3 py-5 rounded-[2rem] text-xs font-black text-red-400 bg-red-950/20 border-2 border-red-500/20 shadow-2xl uppercase tracking-widest">
-            <LogOut className="w-6 h-6" /> Logout
+        <div className="lg:hidden px-2 pt-4">
+          <button onClick={() => { logout(); navigate('/login'); }} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-xs font-black text-red-600 bg-red-50 border border-red-200 shadow-xs uppercase tracking-wider">
+            <LogOut className="w-5 h-5" /> Logout
           </button>
         </div>
       </div>

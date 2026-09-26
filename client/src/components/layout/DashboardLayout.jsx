@@ -7,7 +7,7 @@ const DashboardLayout = ({ children, title, subtitle }) => {
     <div className="min-h-screen bg-transparent flex flex-col overflow-x-hidden">
       <Navbar />
 
-      <div className="flex-1 pt-20 sm:pt-24 lg:pt-28 pb-24 lg:pb-12 relative z-10">
+      <div className="flex-1 pt-24 sm:pt-28 lg:pt-32 pb-24 lg:pb-12 relative z-10">
         <div className="container-responsive h-full">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-12 items-start h-full">
 
@@ -17,14 +17,14 @@ const DashboardLayout = ({ children, title, subtitle }) => {
             {/* Main Content Area */}
             <main className="flex-1 min-w-0 w-full animate-fade-in">
               {(title || subtitle) && (
-                <div className="mb-8 sm:mb-10 text-center lg:text-left">
+                <div className="mb-6 sm:mb-8 text-center lg:text-left">
                   {title && (
-                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-sora font-black text-white tracking-tighter drop-shadow-xl">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-sora font-black text-text-primary tracking-tight">
                       {title}
                     </h1>
                   )}
                   {subtitle && (
-                    <p className="text-xs sm:text-sm lg:text-base text-text-secondary mt-3 max-w-2xl mx-auto lg:mx-0 font-bold opacity-80 uppercase tracking-widest">
+                    <p className="text-xs sm:text-sm text-text-secondary mt-1.5 max-w-2xl mx-auto lg:mx-0 font-bold uppercase tracking-wider">
                       {subtitle}
                     </p>
                   )}

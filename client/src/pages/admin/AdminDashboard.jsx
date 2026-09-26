@@ -1,7 +1,6 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Users, CheckSquare, ShieldCheck, Calendar, AlertCircle, Check, X, Eye, RefreshCw, Download } from 'lucide-react';
+import { Users, CheckSquare, ShieldCheck, Eye, RefreshCw, Download } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
 import PremiumButton from '../../components/common/PremiumButton';
@@ -71,111 +70,108 @@ const AdminDashboard = () => {
       subtitle="Manage users, workers, and website settings"
     >
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-orange/10 transition-all" />
-          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-bright flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-orange group-hover:text-white transition-all duration-500">
-            <Users className="w-8 h-8" />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+        <GlassCard className="flex items-center gap-5 p-6 !bg-white/80 border border-white/60 shadow-xs relative overflow-hidden group">
+          <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center shrink-0 border border-blue-100 shadow-xs group-hover:bg-accent-main group-hover:text-white transition-all">
+            <Users className="w-7 h-7" />
           </div>
           <div className="min-w-0">
-            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
+            <div className="text-3xl font-sora font-black text-text-primary tracking-tight">
               {stats?.totalCustomers || 0}
             </div>
-            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Total Customers</div>
+            <div className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Total Customers</div>
           </div>
         </GlassCard>
 
-        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-green/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-green/10 transition-all" />
-          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-green flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-green group-hover:text-white transition-all duration-500">
-            <ShieldCheck className="w-8 h-8" />
+        <GlassCard className="flex items-center gap-5 p-6 !bg-white/80 border border-white/60 shadow-xs relative overflow-hidden group">
+          <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100 shadow-xs group-hover:bg-emerald-600 group-hover:text-white transition-all">
+            <ShieldCheck className="w-7 h-7" />
           </div>
           <div className="min-w-0">
-            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
+            <div className="text-3xl font-sora font-black text-text-primary tracking-tight">
               {stats?.totalWorkers || 0}
             </div>
-            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Approved Workers</div>
+            <div className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Approved Workers</div>
           </div>
         </GlassCard>
 
-        <GlassCard className="flex items-center gap-6 p-6 md:p-8 !bg-background-card border-border-primary/40 shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-accent-orange/10 transition-all" />
-          <div className="w-16 h-16 rounded-[1.5rem] bg-background-widget text-accent-bright flex items-center justify-center shrink-0 border border-white/5 shadow-2xl group-hover:bg-accent-bright group-hover:text-white transition-all duration-500">
-            <CheckSquare className="w-8 h-8" />
+        <GlassCard className="flex items-center gap-5 p-6 !bg-white/80 border border-white/60 shadow-xs relative overflow-hidden group">
+          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-100 shadow-xs group-hover:bg-amber-500 group-hover:text-white transition-all">
+            <CheckSquare className="w-7 h-7" />
           </div>
           <div className="min-w-0">
-            <div className="text-3xl md:text-4xl font-sora font-black text-white tracking-tighter">
+            <div className="text-3xl font-sora font-black text-text-primary tracking-tight">
               {stats?.pendingWorkers || pendingWorkers.length}
             </div>
-            <div className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mt-1">Waiting for Approval</div>
+            <div className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Waiting for Approval</div>
           </div>
         </GlassCard>
       </div>
 
       {/* Verification Queue */}
-      <div className="mb-16">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <h3 className="font-sora font-black text-2xl text-white flex items-center gap-4 tracking-tight uppercase">
-            <CheckSquare className="w-8 h-8 text-accent-bright" /> New Worker Applications ({pendingWorkers.length})
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6 px-1">
+          <h3 className="font-sora font-black text-xl text-text-primary flex items-center gap-3 tracking-tight uppercase">
+            <CheckSquare className="w-6 h-6 text-accent-main" /> New Worker Applications ({pendingWorkers.length})
           </h3>
           <button
             onClick={fetchAdminData}
-            className="flex items-center gap-2 px-5 py-2.5 bg-background-widget border border-white/5 rounded-xl text-[10px] font-black text-white hover:bg-background-secondary transition-all shadow-lg uppercase tracking-widest"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-[10px] font-black text-text-primary hover:bg-gray-100 transition-all shadow-xs uppercase tracking-wider cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-accent-bright ${loading ? 'animate-spin' : ''}`} /> Refresh Apps
+            <RefreshCw className={`w-3.5 h-3.5 text-accent-main ${loading ? 'animate-spin' : ''}`} /> Refresh Apps
           </button>
         </div>
 
         {loading ? (
            <div className="flex justify-center py-20">
-             <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
+             <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
            </div>
         ) : pendingWorkers.length > 0 ? (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {pendingWorkers.map((worker) => (
-              <GlassCard key={worker._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl group">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                  <div className="flex items-center gap-6">
+              <GlassCard key={worker._id} hover={false} className="p-6 !bg-white/80 border border-white/60 shadow-xs group">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
                     <img
                       src={getImageUrl(worker.avatar, DEFAULT_AVATAR(worker.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(worker.name))}
                       alt={worker.name}
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
+                      className="w-16 h-16 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
                     />
                     <div className="min-w-0">
-                      <h4 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
+                      <h4 className="font-sora font-black text-lg text-text-primary flex items-center gap-3 uppercase tracking-tight">
                         {worker.name}
                         <Badge variant="warning" size="xs">
                           Pending
                         </Badge>
                       </h4>
-                      <div className="flex flex-wrap items-center gap-5 mt-3">
-                        <p className="text-[10px] font-black text-accent-light uppercase tracking-widest bg-background-widget/40 px-3 py-1.5 rounded-lg border border-white/5">
+                      <div className="flex flex-wrap items-center gap-3 mt-2">
+                        <p className="text-[10px] font-bold text-accent-main uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
                           {worker.profession}
                         </p>
-                        <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
+                        <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
                           Phone: {worker.phone}
                         </p>
-                        <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">
+                        <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
                           Exp: {worker.experience} Years
                         </p>
                       </div>
-                      <p className="text-[10px] text-text-muted font-bold mt-3 opacity-60 uppercase tracking-tighter">
+                      <p className="text-[10px] text-text-muted font-bold mt-2 uppercase tracking-wider">
                         Email: {worker.email}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 shrink-0 self-end lg:self-center">
+                  <div className="flex items-center gap-3 shrink-0 self-end lg:self-center">
                     <button
                       onClick={() => setSelectedWorker(worker)}
-                      className="px-6 py-3.5 rounded-2xl bg-background-widget border border-white/5 text-[10px] font-black text-white hover:bg-background-secondary transition-all flex items-center gap-2.5 uppercase tracking-widest shadow-xl"
+                      className="px-5 py-2.5 rounded-xl bg-white border border-gray-200 text-[10px] font-black text-text-primary hover:bg-gray-100 transition-all flex items-center gap-2 uppercase tracking-wider shadow-xs cursor-pointer"
                     >
-                      <Eye className="w-4 h-4 text-accent-bright" /> Review Info
+                      <Eye className="w-4 h-4 text-accent-main" /> Review Info
                     </button>
 
                     <button
                       onClick={() => handleRejectWorker(worker._id)}
-                      className="px-6 py-3.5 rounded-2xl bg-red-950/20 border border-red-500/20 text-[10px] font-black text-red-400 hover:bg-red-900/30 transition-all uppercase tracking-widest"
+                      className="px-5 py-2.5 rounded-xl bg-red-50 border border-red-200 text-[10px] font-black text-red-600 hover:bg-red-100 transition-all uppercase tracking-wider cursor-pointer"
                     >
                       Reject
                     </button>
@@ -184,7 +180,7 @@ const AdminDashboard = () => {
                       variant="gold"
                       size="sm"
                       onClick={() => handleApproveWorker(worker._id)}
-                      className="px-8 !rounded-xl shadow-orange"
+                      className="px-6 !rounded-xl"
                     >
                       Approve
                     </PremiumButton>
@@ -194,11 +190,11 @@ const AdminDashboard = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
-             <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
-                <CheckSquare className="w-10 h-10 text-accent-green opacity-20" />
+          <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
+             <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                <CheckSquare className="w-8 h-8 text-emerald-600" />
              </div>
-             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO NEW APPLICATIONS TO REVIEW.</p>
+             <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO NEW APPLICATIONS TO REVIEW.</p>
           </div>
         )}
       </div>
@@ -210,69 +206,62 @@ const AdminDashboard = () => {
           onClose={() => setSelectedWorker(null)}
           title={`Review Worker: ${selectedWorker.name}`}
         >
-          <div className="space-y-8 pt-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-background-dark/50 rounded-[2rem] border border-white/5 shadow-inner">
-               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">PROFESSION</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.profession}</p></div>
-               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">EXPERIENCE</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.experience} YEARS</p></div>
-               <div className="space-y-1"><p className="text-[9px) font-black text-accent-light uppercase tracking-widest">EMAIL</p><p className="text-sm font-bold text-white lowercase break-all">{selectedWorker.email}</p></div>
-               <div className="space-y-1"><p className="text-[9px] font-black text-accent-light uppercase tracking-widest">PHONE</p><p className="text-sm font-bold text-white uppercase">{selectedWorker.phone}</p></div>
+          <div className="space-y-6 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 bg-blue-50/50 rounded-2xl border border-blue-100">
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">PROFESSION</p><p className="text-xs font-bold text-text-primary uppercase">{selectedWorker.profession}</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">EXPERIENCE</p><p className="text-xs font-bold text-text-primary uppercase">{selectedWorker.experience} YEARS</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">EMAIL</p><p className="text-xs font-bold text-text-primary lowercase break-all">{selectedWorker.email}</p></div>
+               <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">PHONE</p><p className="text-xs font-bold text-text-primary uppercase">{selectedWorker.phone}</p></div>
                <div className="space-y-1 sm:col-span-2">
-                 <p className="text-[9px] font-black text-accent-light uppercase tracking-widest">ADDRESS</p>
-                 <p className="text-sm font-bold text-white uppercase leading-relaxed">
+                 <p className="text-[9px] font-black text-accent-main uppercase tracking-wider">ADDRESS</p>
+                 <p className="text-xs font-bold text-text-primary uppercase leading-relaxed">
                    {selectedWorker.address?.street}, {selectedWorker.address?.city}, {selectedWorker.address?.state} , PIN: {selectedWorker.address?.zip}
                  </p>
                </div>
             </div>
 
             {selectedWorker.description && (
-              <div className="space-y-3">
-                <span className="text-[10px] font-black text-white uppercase tracking-[0.3em] block ml-2">Bio / Description:</span>
-                <p className="p-6 bg-background-dark/30 rounded-[2rem] text-sm text-text-secondary leading-relaxed font-bold italic opacity-90 border border-white/5 shadow-inner">"{selectedWorker.description}"</p>
+              <div className="space-y-2">
+                <span className="text-[10px] font-black text-text-primary uppercase tracking-wider block ml-1">Bio / Description:</span>
+                <p className="p-4 bg-white rounded-2xl text-xs text-text-secondary leading-relaxed font-semibold italic border border-gray-200">"{selectedWorker.description}"</p>
               </div>
             )}
 
-            <div className="space-y-3">
-              <div className="flex items-center justify-between mb-3 px-2">
-                <span className="text-[10px] font-black text-white uppercase tracking-[0.3em] block">Verification Document:</span>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between mb-2 px-1">
+                <span className="text-[10px] font-black text-text-primary uppercase tracking-wider block">Verification Document:</span>
                 {selectedWorker.identityProof && (
                   <a
                     href={selectedWorker.identityProof}
                     download={`verification_${selectedWorker.name}.jpg`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[9px] font-black text-accent-bright hover:text-white transition-colors flex items-center gap-1.5 uppercase tracking-widest"
+                    className="text-[9px] font-bold text-accent-main hover:underline flex items-center gap-1 uppercase tracking-wider"
                   >
                     <Download className="w-3.5 h-3.5" /> Download ID
                   </a>
                 )}
               </div>
               {selectedWorker.identityProof ? (
-                <div className="relative group rounded-[2.5rem] overflow-hidden border-2 border-border-primary/30 shadow-2xl bg-background-dark p-2">
+                <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white p-2">
                    <img
                     src={getImageUrl(selectedWorker.identityProof)}
                     alt="ID Proof"
-                    className="max-h-80 w-full object-contain rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
-                    onError={(e) => {
-                      if (!e.target.src.includes('placehold.co')) {
-                        e.target.src = `https://placehold.co/600x400/080808/F4510B?text=IMAGE+NOT+FOUND`;
-                      }
-                    }}
+                    className="max-h-72 w-full object-contain rounded-xl"
                    />
-                   <div className="absolute inset-0 bg-accent-orange/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                 </div>
               ) : (
-                <div className="p-10 bg-background-dark/30 rounded-[2.5rem] border-2 border-dashed border-white/5 text-center">
-                   <AlertCircle className="w-10 h-10 text-accent-orange mx-auto mb-4 opacity-40" />
-                   <p className="text-[10px] font-black text-text-muted uppercase tracking-widest leading-relaxed">No verification image recorded in database.<br/>Worker may need to re-register.</p>
+                <div className="p-8 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 text-center">
+                   <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">No verification image uploaded.</p>
                 </div>
               )}
             </div>
 
-            <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4">
-              <PremiumButton variant="danger" size="lg" fullWidth onClick={() => handleRejectWorker(selectedWorker._id)} className="py-4 font-black">
+            <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
+              <PremiumButton variant="danger" size="lg" fullWidth onClick={() => handleRejectWorker(selectedWorker._id)} className="py-3.5 font-black">
                 REJECT WORKER
               </PremiumButton>
-              <PremiumButton variant="gold" size="lg" fullWidth onClick={() => handleApproveWorker(selectedWorker._id)} className="py-4 shadow-orange font-black">
+              <PremiumButton variant="gold" size="lg" fullWidth onClick={() => handleApproveWorker(selectedWorker._id)} className="py-3.5 font-black">
                 APPROVE WORKER
               </PremiumButton>
             </div>

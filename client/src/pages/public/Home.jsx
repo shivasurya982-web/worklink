@@ -4,9 +4,6 @@ import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import HeroSection from '../../components/landing/HeroSection';
-import CategoryGrid from '../../components/landing/CategoryGrid';
-import HowItWorks from '../../components/landing/HowItWorks';
-import AIFeaturesSection from '../../components/landing/AIFeaturesSection';
 import StatsSection from '../../components/landing/StatsSection';
 
 const Home = () => {
@@ -14,8 +11,8 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background-primary">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
       </div>
     );
   }
@@ -28,7 +25,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       <Navbar />
       <main className="flex-1">
         <HeroSection />

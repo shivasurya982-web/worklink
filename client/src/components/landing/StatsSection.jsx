@@ -25,28 +25,36 @@ const StatsSection = () => {
   }, []);
 
   const statItems = [
-    { label: 'Happy Customers', value: `${stats.totalCustomers}+`, icon: Users, color: 'text-accent-bright' },
-    { label: 'Verified Workers', value: `${stats.totalWorkers}+`, icon: ShieldCheck, color: 'text-accent-bright' },
-    { label: 'Service Types', value: `${stats.totalCategories}+`, icon: LayoutGrid, color: 'text-accent-bright' },
-    { label: 'Avg Rating', value: `${stats.averageRating}★`, icon: Zap, color: 'text-accent-bright' },
+    { label: 'Verified Experts', value: `${stats.totalWorkers}+`, icon: ShieldCheck },
+    { label: 'Happy Customers', value: `${stats.totalCustomers}+`, icon: Users },
+    { label: 'Service Types', value: `${stats.totalCategories}+`, icon: LayoutGrid },
+    { label: 'Platform Rating', value: `${stats.averageRating}★`, icon: Zap },
   ];
 
   return (
-    <section className="py-20 sm:py-24 relative overflow-hidden bg-background-dark/30">
+    <section className="py-20 sm:py-28 relative overflow-hidden">
       <div className="container-responsive relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
           {statItems.map((item, i) => (
-            <GlassCard key={i} className="p-8 sm:p-10 text-center flex flex-col items-center space-y-6 border border-border-primary/20 !bg-background-cardSecondary shadow-2xl group hover:-translate-y-2 transition-all">
-              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-[1.5rem] bg-background-dark ${item.color} border border-white/5 flex items-center justify-center shadow-xl group-hover:bg-accent-orange group-hover:text-white transition-all`}>
-                <item.icon className="w-8 h-8" />
-              </div>
-              <div>
-                <div className="text-2xl sm:text-4xl font-sora font-black text-white tracking-tighter">
-                   {loading && stats.totalCustomers === 0 ? '...' : item.value}
+            <div key={i} className="group relative">
+              <GlassCard className="h-full text-center flex flex-col items-center justify-center p-6 sm:p-10 border-white/60 !bg-white/70 backdrop-blur-2xl relative overflow-hidden shadow-sm hover:shadow-md transition-all">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 text-accent-main border border-blue-100 flex items-center justify-center mb-6 shadow-sm transition-all duration-300 group-hover:bg-accent-main group-hover:text-white group-hover:scale-105">
+                  <item.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
-                <div className="text-[9px] sm:text-[10px] font-black text-accent-light uppercase tracking-[0.3em] mt-2 opacity-70">{item.label}</div>
-              </div>
-            </GlassCard>
+
+                <div className="space-y-2">
+                  <div className="text-2xl sm:text-4xl font-sora font-black text-text-primary tracking-tight">
+                     {loading && stats.totalCustomers === 0 ? '...' : item.value}
+                  </div>
+                  <div className="text-[10px] sm:text-[11px] font-bold text-text-muted uppercase tracking-widest group-hover:text-accent-main transition-colors">
+                    {item.label}
+                  </div>
+                </div>
+
+                {/* Bottom Border Accent */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-accent-main group-hover:w-full transition-all duration-500 rounded-full" />
+              </GlassCard>
+            </div>
           ))}
         </div>
       </div>

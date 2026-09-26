@@ -8,36 +8,41 @@ export default {
       },
       colors: {
         background: {
-          primary: '#FF651E',   // Primary Orange (rgb(255, 101, 30))
-          secondary: '#E65410', // Deep Orange
-          deep: '#CC4800',      // Dark Orange
-          card: '#080808',      // Black/Dark Card
-          dark: '#0D0D0D',      // Near Black
-          cardSecondary: '#15110E', // Dark Charcoal
-          widget: '#241208',    // Dark Orange Card
+          primary: '#F3F4F6',   // Pearl Gray Base
+          secondary: '#FFFFFF', // White Surface
+          deep: '#E5E7EB',
+          card: 'rgba(255, 255, 255, 0.6)',      // Light Glass Card Base
+          dark: '#F3F4F6',      // Replaced Dark with Pearl Gray
+          cardSecondary: 'rgba(255, 255, 255, 0.75)',
+          widget: 'rgba(239, 246, 255, 0.7)',    // Soft Ocean Blue Tint
         },
         accent: {
-          main: '#FF651E',      // Main Orange
-          bright: '#FF7A2E',    // Bright Orange
-          light: '#FF9A66',     // Light Orange
-          peach: '#FFD0A8',     // Soft Peach
-          highlight: '#FF651E', // Pure Orange Highlight
-          gold: '#FF651E',      // Alias for main orange
-          goldLight: '#FF7A2E', // Alias for bright orange
-          orange: '#FF651E',    // Primary orange
-          red: '#EF4444',       // Error Red
-          green: '#22C55E',     // Success Green
-          amber: '#FF9800',     // Warning Orange
+          main: '#2563EB',      // Primary Blue Accent
+          bright: '#3B82F6',    // Bright Blue
+          light: '#60A5FA',     // Soft Blue
+          peach: '#DBEAFE',     // Light Ocean Blue Highlight
+          highlight: '#2563EB',
+          gold: '#2563EB',
+          goldLight: '#3B82F6',
+          orange: '#2563EB',    // Mapped orange references to primary blue
+          red: '#EF4444',
+          green: '#10B981',
+          amber: '#F59E0B',
+          blue: '#2563EB',
+          blueLight: '#DBEAFE',
+          blueSoft: '#BFDBFE',
         },
         text: {
-          primary: '#FFF7F0',   // Warm White
-          secondary: '#F3D5C0', // Soft Peach/Cream
-          muted: '#C9A58E',     // Muted Brownish Orange
+          primary: '#111827',   // Primary Dark Text for Light Theme
+          secondary: '#4B5563', // Secondary Text
+          muted: '#6B7280',     // Muted Text
+          disabled: '#9CA3AF',  // Disabled Text
         },
         border: {
-          primary: '#8F3208',   // Muted Orange Border
-          orange: '#FF651E',    // Strong Orange Border
-          active: '#FF651E',    // Bright Active Border
+          primary: 'rgba(37, 99, 235, 0.15)',   // Subtle Blue Glow Border
+          orange: 'rgba(37, 99, 235, 0.25)',
+          active: '#2563EB',
+          glass: 'rgba(255, 255, 255, 0.4)',   // Light Glass Border
         }
       },
       fontFamily: {
@@ -46,25 +51,28 @@ export default {
         jakarta: ['Plus Jakarta Sans', 'sans-serif'],
       },
       borderRadius: {
-        '2xl': '20px',
-        '3xl': '24px',
+        '2xl': '24px',
+        '3xl': '32px',
+        '4xl': '40px',
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
-        'glass-hover': '0 14px 40px 0 rgba(255, 101, 30, 0.18)',
-        orange: '0 0 20px rgba(255, 101, 30, 0.25)',
-        bright: '0 0 25px rgba(255, 101, 30, 0.3)',
+        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.04)',
+        'glass-hover': '0 12px 40px 0 rgba(37, 99, 235, 0.08)',
+        orange: '0 4px 20px rgba(37, 99, 235, 0.2)',
+        bright: '0 6px 25px rgba(37, 99, 235, 0.3)',
+        premium: '0 10px 40px rgba(31, 38, 135, 0.06)',
       },
       backdropBlur: {
         glass: '20px',
+        premium: '30px',
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-        'shimmer': 'shimmer 2s linear infinite',
-        'slide-up-fade': 'slideUpFade 0.5s ease-out forwards',
-        'glow': 'glow 2s ease-in-out infinite',
-        'title-shimmer': 'titleShimmer 3s linear infinite',
+        'float': 'float 8s ease-in-out infinite',
+        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+        'shimmer': 'shimmer 2.5s linear infinite',
+        'slide-up-fade': 'slideUpFade 0.6s ease-out forwards',
+        'glow': 'glow 3s ease-in-out infinite',
+        'title-shimmer': 'titleShimmer 4s linear infinite',
       },
       keyframes: {
         titleShimmer: {
@@ -72,20 +80,20 @@ export default {
           '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
-          '0%, 100%': { filter: 'drop-shadow(0 0 2px #FF651E)', opacity: '1' },
-          '50%': { filter: 'drop-shadow(0 0 8px #FF651E)', opacity: '0.8' },
+          '0%, 100%': { filter: 'drop-shadow(0 0 2px #2563EB)', opacity: '1' },
+          '50%': { filter: 'drop-shadow(0 0 12px #2563EB)', opacity: '0.9' },
         },
         slideUpFade: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '50%': { transform: 'translateY(-20px)' },
         },
         pulseGlow: {
-          '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(255, 101, 30, 0.4))' },
-          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(255, 101, 30, 0.8))' },
+          '0%, 100%': { opacity: '0.3', filter: 'drop-shadow(0 0 20px rgba(37, 99, 235, 0.2))' },
+          '50%': { opacity: '0.6', filter: 'drop-shadow(0 0 40px rgba(37, 99, 235, 0.4))' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },

@@ -135,23 +135,23 @@ export const NotificationProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto p-4 rounded-2xl glass-card border flex items-start gap-3 shadow-xl transition-all duration-300 animate-slide-in ${
+            className={`pointer-events-auto p-4 rounded-2xl border flex items-start gap-3 shadow-lg transition-all duration-300 animate-slide-in backdrop-blur-xl ${
               toast.type === 'error'
-                ? 'border-accent-red/50 bg-red-50/90'
+                ? 'border-red-200 bg-red-50/95 text-red-900'
                 : toast.type === 'info'
-                ? 'border-accent-blue/50 bg-blue-50/90'
-                : 'border-accent-gold/50 bg-amber-50/90'
+                ? 'border-blue-200 bg-blue-50/95 text-blue-900'
+                : 'border-emerald-200 bg-emerald-50/95 text-emerald-900'
             }`}
           >
             <div className="flex-1">
-              <h4 className="text-sm font-semibold text-text-primary">{toast.title}</h4>
+              <h4 className="text-xs font-black uppercase tracking-wider">{toast.title}</h4>
               {toast.message && (
-                <p className="text-xs text-text-secondary mt-1">{toast.message}</p>
+                <p className="text-xs font-medium mt-1">{toast.message}</p>
               )}
             </div>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-text-muted hover:text-text-primary text-xs"
+              className="text-text-muted hover:text-text-primary text-xs font-bold p-1 cursor-pointer"
             >
               ✕
             </button>

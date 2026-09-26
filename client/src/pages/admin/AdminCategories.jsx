@@ -98,14 +98,14 @@ const AdminCategories = () => {
       title="Service Categories"
       subtitle="Manage the types of services available on the website"
     >
-      <div className="space-y-10">
+      <div className="space-y-8">
         <div className="flex justify-end">
           <PremiumButton
             variant="gold"
             size="md"
             icon={Plus}
             onClick={handleOpenAddModal}
-            className="px-8 shadow-orange font-black"
+            className="px-6 font-black"
           >
             ADD NEW CATEGORY
           </PremiumButton>
@@ -113,51 +113,51 @@ const AdminCategories = () => {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
           </div>
         ) : categories.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat) => (
-              <GlassCard key={cat._id} goldBorder className="flex flex-col justify-between h-full p-6 !bg-background-card border-border-primary/40 shadow-2xl group">
-                <div className="flex items-center justify-between mb-8">
+              <GlassCard key={cat._id} goldBorder className="flex flex-col justify-between h-full p-6 !bg-white/80 border border-white/60 shadow-xs group">
+                <div className="flex items-center justify-between mb-6">
                   <div className="min-w-0">
-                    <h4 className="font-sora font-black text-base text-white truncate pr-2 uppercase tracking-tight group-hover:text-accent-bright transition-colors">
+                    <h4 className="font-sora font-black text-base text-text-primary truncate pr-2 uppercase tracking-tight group-hover:text-accent-main transition-colors">
                       {cat.name}
                     </h4>
-                    <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Service Type</p>
+                    <p className="text-[9px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Service Type</p>
                   </div>
-                  <div className="bg-background-widget px-3 py-1 rounded-lg border border-accent-orange/20 shadow-xl shrink-0">
-                    <span className="text-[10px] font-black text-accent-bright uppercase tracking-tighter">
+                  <div className="bg-blue-50 px-3 py-1 rounded-lg border border-blue-100 shrink-0">
+                    <span className="text-[10px] font-black text-accent-main uppercase tracking-tight">
                       {cat.workerCount || 0} Workers
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-3 pt-6 border-t border-white/5">
+                <div className="flex items-center justify-end gap-2 pt-4 border-t border-gray-100">
                   <button
                     onClick={() => handleOpenEditModal(cat)}
-                    className="p-3 rounded-xl bg-background-widget hover:bg-accent-orange/20 hover:text-accent-bright text-text-muted transition-all border border-white/5"
+                    className="p-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-accent-main transition-all border border-blue-100 cursor-pointer"
                     title="Edit Category"
                   >
-                    <Edit className="w-4.5 h-4.5" />
+                    <Edit className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteCategory(cat._id)}
-                    className="p-3 rounded-xl bg-red-950/20 hover:bg-red-900/40 text-red-400 transition-all border border-red-500/20"
+                    className="p-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 transition-all border border-red-200 cursor-pointer"
                     title="Delete Category"
                   >
-                    <Trash2 className="w-4.5 h-4.5" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </GlassCard>
             ))}
           </div>
         ) : (
-          <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
-             <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
-                <Grid className="w-10 h-10 text-accent-bright opacity-20" />
+          <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
+             <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                <Grid className="w-8 h-8 text-accent-main" />
              </div>
-             <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO CATEGORIES FOUND.</p>
+             <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO CATEGORIES FOUND.</p>
           </div>
         )}
       </div>
@@ -169,20 +169,19 @@ const AdminCategories = () => {
           onClose={() => setModalOpen(false)}
           title={editingCategory ? 'EDIT CATEGORY' : 'NEW CATEGORY'}
         >
-          <form onSubmit={handleSubmit} className="space-y-10 pt-6">
-            <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner">
+          <form onSubmit={handleSubmit} className="space-y-6 pt-2">
+            <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
                <FloatingInput
                 id="name"
                 label="CATEGORY NAME"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="!bg-background-cardSecondary border-border-primary/30"
               />
-              <p className="text-[10px] font-bold text-text-muted mt-4 uppercase tracking-[0.2em] px-2 italic">Enter the main name for this category.</p>
+              <p className="text-[10px] font-bold text-text-muted mt-3 uppercase tracking-wider px-1 italic">Enter the main name for this category.</p>
             </div>
 
-            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={formLoading} className="py-5 text-base shadow-orange font-black">
+            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={formLoading} className="py-4 font-black">
               {editingCategory ? 'SAVE CHANGES' : 'CREATE CATEGORY'}
             </PremiumButton>
           </form>

@@ -1,17 +1,14 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
 import PremiumButton from '../../components/common/PremiumButton';
 import { useNotification } from '../../context/NotificationContext';
 import {
-  Settings,
   Save,
   Sparkles,
   Phone,
-  Mail,
   Upload,
-  Image as ImageIcon,
   Trash2,
   RefreshCw,
 } from 'lucide-react';
@@ -107,12 +104,12 @@ const AdminSettings = () => {
     >
       {loading ? (
         <div className="flex justify-center py-20">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-10 max-w-5xl">
+        <form onSubmit={handleSubmit} className="space-y-8 max-w-5xl">
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-3 overflow-x-auto pb-4 border-b border-white/5 custom-scrollbar">
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 border-b border-gray-100 custom-scrollbar">
             {[
               { id: 'hero', label: 'Homepage Text', icon: Sparkles },
               { id: 'contact', label: 'Contact & Footer', icon: Phone },
@@ -121,10 +118,10 @@ const AdminSettings = () => {
                 key={id}
                 type="button"
                 onClick={() => setActiveTab(id)}
-                className={`px-6 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all shrink-0 ${
+                className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-2 transition-all shrink-0 cursor-pointer ${
                   activeTab === id
-                    ? 'bg-accent-orange text-white shadow-xl scale-105'
-                    : 'bg-background-cardSecondary text-text-muted hover:text-white border border-border-primary/20'
+                    ? 'bg-accent-main text-white shadow-xs'
+                    : 'bg-white text-text-muted hover:text-text-primary border border-gray-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -135,63 +132,63 @@ const AdminSettings = () => {
 
           {/* TAB 1: HERO & BANNER */}
           {activeTab === 'hero' && (
-            <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-10 animate-fade-in border-border-primary/40 shadow-2xl">
-              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
-                <Sparkles className="w-7 h-7 text-accent-bright" /> Homepage Header
+            <GlassCard goldBorder className="!bg-white/80 p-6 sm:p-8 rounded-[2.5rem] space-y-8 animate-fade-in border border-white/60 shadow-xs">
+              <h3 className="font-sora font-black text-lg text-text-primary flex items-center gap-3 border-b border-gray-100 pb-4 uppercase tracking-tight">
+                <Sparkles className="w-6 h-6 text-accent-main" /> Homepage Header
               </h3>
 
-              <div className="grid grid-cols-1 gap-8">
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">TOP SMALL TEXT</label>
+              <div className="grid grid-cols-1 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">TOP SMALL TEXT</label>
                   <input
                     type="text"
                     name="announcementText"
                     value={formData.announcementText}
                     onChange={handleChange}
-                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                     required
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">MAIN BIG TITLE</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">MAIN BIG TITLE</label>
                   <input
                     type="text"
                     name="heroTitle"
                     value={formData.heroTitle}
                     onChange={handleChange}
-                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                     required
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUBTITLE TEXT</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">SUBTITLE TEXT</label>
                   <textarea
-                    rows={4}
+                    rows={3}
                     name="heroSubtitle"
                     value={formData.heroSubtitle}
                     onChange={handleChange}
-                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-[2rem] p-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-2xl p-4 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                     required
                   />
                 </div>
               </div>
 
               {/* Banner Image Upload */}
-              <div className="pt-8 border-t border-white/5">
-                <label className="text-[10px] font-black text-white uppercase tracking-widest block mb-6 ml-1">
+              <div className="pt-6 border-t border-gray-100">
+                <label className="text-[10px] font-black text-text-primary uppercase tracking-widest block mb-4 ml-1">
                   MAIN IMAGE (HERO BANNER)
                 </label>
                 {formData.heroBannerImage && (
-                  <div className="mb-6 relative rounded-[2.5rem] overflow-hidden max-h-56 border-2 border-border-primary/40 shadow-2xl bg-background-dark p-2">
-                    <img src={getImageUrl(formData.heroBannerImage)} alt="Banner" className="w-full h-52 object-cover rounded-[2rem]" />
+                  <div className="mb-4 relative rounded-2xl overflow-hidden max-h-48 border border-gray-200 bg-white p-2">
+                    <img src={getImageUrl(formData.heroBannerImage)} alt="Banner" className="w-full h-44 object-cover rounded-xl" />
                     <button
                       type="button"
                       onClick={() => setFormData((prev) => ({ ...prev, heroBannerImage: '' }))}
-                      className="absolute top-6 right-6 p-2.5 bg-red-600/90 text-white rounded-xl hover:bg-red-700 shadow-2xl transition-all"
+                      className="absolute top-4 right-4 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
                     >
-                      <Trash2 className="w-5 h-5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 )}
@@ -204,7 +201,7 @@ const AdminSettings = () => {
                     disabled={uploadingBanner}
                     className="hidden"
                   />
-                  <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-background-widget text-accent-bright rounded-2xl text-[10px] font-black border border-white/5 hover:bg-background-secondary transition-all uppercase tracking-widest shadow-xl">
+                  <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-blue-50 text-accent-main rounded-xl text-[10px] font-black border border-blue-100 hover:bg-blue-100 transition-all uppercase tracking-wider shadow-xs">
                     {uploadingBanner ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                     {uploadingBanner ? 'UPLOADING...' : 'UPLOAD NEW IMAGE'}
                   </label>
@@ -215,51 +212,51 @@ const AdminSettings = () => {
 
           {/* TAB 2: CONTACT & FOOTER */}
           {activeTab === 'contact' && (
-            <GlassCard className="!bg-background-card p-8 sm:p-10 rounded-[3rem] space-y-8 animate-fade-in border-border-primary/40 shadow-2xl">
-              <h3 className="font-sora font-black text-xl text-white flex items-center gap-4 border-b border-white/5 pb-6 uppercase tracking-tighter">
-                <Phone className="w-7 h-7 text-accent-light" /> Contact Info & Footer
+            <GlassCard className="!bg-white/80 p-6 sm:p-8 rounded-[2.5rem] space-y-6 animate-fade-in border border-white/60 shadow-xs">
+              <h3 className="font-sora font-black text-lg text-text-primary flex items-center gap-3 border-b border-gray-100 pb-4 uppercase tracking-tight">
+                <Phone className="w-6 h-6 text-accent-main" /> Contact Info & Footer
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUPPORT PHONE</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">SUPPORT PHONE</label>
                   <input
                     type="text"
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleChange}
-                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">SUPPORT EMAIL</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">SUPPORT EMAIL</label>
                   <input
                     type="email"
                     name="contactEmail"
                     value={formData.contactEmail}
                     onChange={handleChange}
-                    className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                   />
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-1">FOOTER COPYRIGHT TEXT</label>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">FOOTER COPYRIGHT TEXT</label>
                 <input
                   type="text"
                   name="footerCopyrightText"
                   value={formData.footerCopyrightText}
                   onChange={handleChange}
-                  className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-2xl p-5 text-sm font-bold text-white focus:outline-none focus:border-accent-main shadow-inner"
+                  className="w-full bg-white border border-gray-200 rounded-xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main"
                 />
               </div>
             </GlassCard>
           )}
 
           {/* Save Button */}
-          <div className="flex justify-end pt-6">
-            <PremiumButton type="submit" variant="gold" size="lg" icon={Save} loading={saving} className="px-16 py-6 text-base font-black shadow-orange">
+          <div className="flex justify-end pt-4">
+            <PremiumButton type="submit" variant="gold" size="lg" icon={Save} loading={saving} className="px-12 py-4 text-sm font-black">
               SAVE ALL SETTINGS
             </PremiumButton>
           </div>

@@ -1,4 +1,4 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_COVER } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
@@ -6,7 +6,7 @@ import PremiumButton from '../../components/common/PremiumButton';
 import FloatingInput from '../../components/common/FloatingInput';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { Upload, X, Briefcase, Plus, Type, FileText, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Briefcase, Plus, Image as ImageIcon } from 'lucide-react';
 import API from '../../services/api';
 
 const WorkerPortfolio = () => {
@@ -104,55 +104,54 @@ const WorkerPortfolio = () => {
       title="My Work Photos"
       subtitle="Show customers what you can do by adding photos of your past jobs"
     >
-      <div className="space-y-10">
+      <div className="space-y-8">
         {/* Action Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-center bg-background-cardSecondary p-8 rounded-[2.5rem] border border-white/5 shadow-2xl gap-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2rem] border border-white/60 shadow-xs gap-4">
           <div className="text-center sm:text-left">
-            <h3 className="font-sora font-black text-xl text-white uppercase tracking-tighter">Portfolio</h3>
-            <p className="text-[10px] text-text-muted font-bold mt-1 uppercase tracking-widest opacity-80">You have {portfolio.length} work samples</p>
+            <h3 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">Portfolio</h3>
+            <p className="text-[10px] text-text-muted font-bold mt-0.5 uppercase tracking-wider">You have {portfolio.length} work samples</p>
           </div>
           <PremiumButton
             variant="gold"
             size="lg"
             icon={Plus}
             onClick={() => setShowAddModal(true)}
-            className="w-full sm:w-auto px-10 shadow-orange"
+            className="w-full sm:w-auto px-8"
           >
             Add New Photo
           </PremiumButton>
         </div>
 
         {/* Portfolio gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolio.length > 0 ? (
             portfolio.map((item, index) => (
-              <GlassCard key={item._id || index} className="p-0 overflow-hidden !bg-background-card border-border-primary/40 flex flex-col group h-full shadow-2xl relative">
-                <div className="relative h-56 overflow-hidden bg-background-widget">
+              <GlassCard key={item._id || index} className="p-0 overflow-hidden !bg-white/80 border border-white/60 flex flex-col group h-full shadow-xs relative">
+                <div className="relative h-48 overflow-hidden bg-gray-100">
                   <img
                     src={getImageUrl(item.url, DEFAULT_COVER)}
                     alt={item.title || 'Work sample'}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => handleImageError(e, DEFAULT_COVER)}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                   <button
                     onClick={() => handleRemoveItem(item)}
-                    className="absolute top-4 right-4 p-2.5 bg-red-950/40 text-red-400 hover:bg-red-500 hover:text-white rounded-xl transition-all backdrop-blur-md opacity-0 group-hover:opacity-100 active:scale-95 border border-red-500/30 shadow-2xl z-10"
+                    className="absolute top-3 right-3 p-2 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white rounded-xl transition-all opacity-0 group-hover:opacity-100 border border-red-200 shadow-xs"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="p-6 flex flex-col flex-1 relative">
-                  <h4 className="font-sora font-black text-base text-white mb-2 uppercase tracking-tight group-hover:text-accent-bright transition-colors">
+                <div className="p-5 flex flex-col flex-1 relative">
+                  <h4 className="font-sora font-black text-sm text-text-primary mb-1 uppercase tracking-tight group-hover:text-accent-main transition-colors">
                     {item.title || `Work Sample #${index + 1}`}
                   </h4>
-                  <p className="text-[11px] text-text-secondary leading-relaxed flex-1 font-bold italic opacity-90 mb-6">
+                  <p className="text-[11px] text-text-secondary leading-relaxed flex-1 font-semibold italic mb-4">
                     {item.description ? `"${item.description}"` : 'No description added.'}
                   </p>
-                  <div className="mt-auto pt-4 border-t border-white/5 flex justify-between items-center">
-                    <span className="flex items-center gap-2 text-[9px] font-black text-accent-light uppercase tracking-widest">
+                  <div className="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                    <span className="flex items-center gap-1.5 text-[9px] font-black text-accent-main uppercase tracking-wider">
                       <Briefcase className="w-3 h-3" /> VERIFIED WORK
                     </span>
                     {item.createdAt && <span className="text-[9px] font-bold text-text-muted">{new Date(item.createdAt).toLocaleDateString()}</span>}
@@ -162,16 +161,16 @@ const WorkerPortfolio = () => {
             ))
           ) : (
             <div className="col-span-full">
-              <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[4rem] border-2 border-dashed border-border-primary/20 shadow-inner group">
-                <div className="w-20 h-20 rounded-[1.5rem] bg-background-dark text-accent-bright flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5 group-hover:scale-110 transition-all">
-                   <ImageIcon className="w-10 h-10 opacity-40" />
+              <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200 shadow-xs">
+                <div className="w-16 h-16 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                   <ImageIcon className="w-8 h-8" />
                 </div>
-                <h3 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">Empty Portfolio</h3>
-                <p className="max-w-xs mx-auto text-xs font-bold text-text-muted uppercase tracking-widest mt-3 leading-relaxed opacity-70">Add photos of your work to help customers trust you more!</p>
+                <h3 className="font-sora font-black text-xl text-text-primary uppercase tracking-tight">Empty Portfolio</h3>
+                <p className="max-w-xs mx-auto text-xs font-semibold text-text-muted uppercase tracking-wider mt-1 leading-relaxed">Add photos of your work to help customers trust you more!</p>
                 <PremiumButton
                   variant="gold"
                   size="lg"
-                  className="mt-10 px-12 shadow-orange"
+                  className="mt-6 px-10"
                   onClick={() => setShowAddModal(true)}
                 >
                   Add Your First Photo
@@ -188,33 +187,33 @@ const WorkerPortfolio = () => {
         onClose={() => { setShowAddModal(false); resetForm(); }}
         title="ADD WORK PHOTO"
       >
-        <form onSubmit={handleUploadItem} className="space-y-8 pt-4 pb-2">
+        <form onSubmit={handleUploadItem} className="space-y-6 pt-2 pb-2">
           {/* File Picker */}
           <div className="relative group">
             {previewUrl ? (
-              <div className="relative w-full h-56 rounded-3xl overflow-hidden border-2 border-accent-main shadow-2xl">
+              <div className="relative w-full h-48 rounded-2xl overflow-hidden border-2 border-accent-main shadow-xs">
                 <img src={previewUrl} className="w-full h-full object-cover" alt="Preview" />
                 <button
                   type="button"
                   onClick={() => { setSelectedFile(null); setPreviewUrl(null); }}
-                  className="absolute top-4 right-4 p-2 bg-black/60 text-white rounded-xl hover:bg-accent-red border border-white/10"
+                  className="absolute top-3 right-3 p-1.5 bg-black/60 text-white rounded-lg hover:bg-red-500"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
             ) : (
-              <label className="flex flex-col items-center justify-center cursor-pointer py-12 bg-background-dark/50 border-2 border-dashed border-border-primary/40 rounded-3xl hover:border-accent-orange transition-all group shadow-inner">
-                <div className="w-16 h-16 bg-background-cardSecondary rounded-2xl shadow-2xl border border-white/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Upload className="w-7 h-7 text-accent-bright" />
+              <label className="flex flex-col items-center justify-center cursor-pointer py-10 bg-white/80 border-2 border-dashed border-gray-200 rounded-2xl hover:border-accent-main transition-all group shadow-xs">
+                <div className="w-14 h-14 bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center mb-3">
+                  <Upload className="w-6 h-6 text-accent-main" />
                 </div>
-                <span className="text-xs font-black text-white uppercase tracking-widest">Pick a Photo</span>
-                <span className="text-[10px] text-text-muted font-bold mt-1 uppercase tracking-tighter">JPG / PNG / WEBP</span>
+                <span className="text-xs font-black text-text-primary uppercase tracking-wider">Pick a Photo</span>
+                <span className="text-[10px] text-text-muted font-bold mt-0.5 uppercase tracking-wider">JPG / PNG / WEBP</span>
                 <input type="file" className="hidden" accept="image/*" onChange={handleFileSelect} />
               </label>
             )}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             <FloatingInput
               id="title"
               label="Job Title (e.g. House Painting)"
@@ -222,33 +221,32 @@ const WorkerPortfolio = () => {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               required
-              className="!bg-background-dark/50 border-border-primary/20"
             />
 
-            <div className="space-y-3">
-              <label className="text-[10px] font-black text-accent-light uppercase tracking-widest ml-2">Job Description</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1">Job Description</label>
               <textarea
                 value={newDesc}
                 onChange={(e) => setNewDesc(e.target.value)}
                 placeholder="Briefly explain what you did in this job..."
-                className="w-full bg-background-dark/50 border-2 border-border-primary/30 rounded-3xl p-6 text-sm font-bold text-white focus:outline-none focus:border-accent-main min-h-[120px] shadow-inner uppercase tracking-wider"
+                className="w-full bg-white border border-gray-200 rounded-2xl p-4 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main min-h-[100px] shadow-xs"
                 required
               />
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               type="button"
               onClick={() => { setShowAddModal(false); resetForm(); }}
-              className="flex-1 py-4 text-xs font-black text-text-muted uppercase tracking-widest bg-background-widget/40 rounded-2xl hover:bg-background-widget transition-colors border border-white/5"
+              className="flex-1 py-3.5 text-xs font-bold text-text-muted uppercase tracking-wider bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <PremiumButton
               type="submit"
               variant="gold"
-              className="flex-[2] py-4 shadow-orange"
+              className="flex-[2] py-3.5 font-black"
               loading={uploading}
             >
               UPLOAD PHOTO

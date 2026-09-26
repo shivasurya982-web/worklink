@@ -1,4 +1,4 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
@@ -6,7 +6,7 @@ import Badge from '../../components/common/Badge';
 import PremiumButton from '../../components/common/PremiumButton';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { ShieldAlert, Trash2, Eye, User, Mail, Phone, MapPin, Calendar, ShieldCheck, Search, RefreshCw } from 'lucide-react';
+import { ShieldAlert, Trash2, Eye, User, Mail, Phone, MapPin, Calendar, ShieldCheck, RefreshCw } from 'lucide-react';
 import API from '../../services/api';
 
 const AdminCustomers = () => {
@@ -83,31 +83,31 @@ const AdminCustomers = () => {
       title="Manage Customers"
       subtitle="View and manage all registered users"
     >
-      <div className="flex items-center justify-end mb-8">
+      <div className="flex items-center justify-end mb-6">
         <button
           onClick={fetchCustomers}
-          className="p-3.5 rounded-2xl bg-background-widget border border-border-primary/20 hover:bg-background-secondary text-[10px] font-black text-white flex items-center gap-2.5 shrink-0 shadow-lg uppercase tracking-widest transition-all"
+          className="p-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-100 text-[10px] font-black text-text-primary flex items-center gap-2 shrink-0 shadow-xs uppercase tracking-wider cursor-pointer"
         >
-          <RefreshCw className={`w-4 h-4 text-accent-bright ${loading ? 'animate-spin' : ''}`} /> Refresh Data
+          <RefreshCw className={`w-3.5 h-3.5 text-accent-main ${loading ? 'animate-spin' : ''}`} /> Refresh Data
         </button>
       </div>
       {loading ? (
         <div className="flex justify-center py-20">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
         </div>
       ) : customers.length > 0 ? (
-        <div className="space-y-5">
+        <div className="space-y-4">
           {customers.map((c) => (
-            <GlassCard key={c._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl group">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                <div className="flex items-center gap-6">
+            <GlassCard key={c._id} hover={false} className="p-6 !bg-white/80 border border-white/60 shadow-xs group">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
                   <img
                     src={getImageUrl(c.avatar, DEFAULT_AVATAR(c.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(c.name))}
                     alt={c.name}
-                    className="w-16 h-16 sm:w-20 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all"
+                    className="w-16 h-16 sm:w-20 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
                   />
                   <div className="min-w-0">
-                    <h4 className="font-sora font-black text-xl text-white flex items-center gap-3 uppercase tracking-tighter">
+                    <h4 className="font-sora font-black text-lg text-text-primary flex items-center gap-2 uppercase tracking-tight">
                       {c.name}
                       <Badge
                         variant={c.isSuspended ? 'danger' : 'success'}
@@ -117,26 +117,26 @@ const AdminCustomers = () => {
                         {c.isSuspended ? 'Suspended' : 'Active'}
                       </Badge>
                     </h4>
-                    <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mt-2 opacity-80">
+                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-1">
                       Email: {c.email} | Phone: {c.phone || 'N/A'}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 self-end lg:self-center flex-wrap">
+                <div className="flex items-center gap-2 shrink-0 self-end lg:self-center flex-wrap">
                   <button
                     onClick={() => openViewModal(c)}
-                    className="px-6 py-3.5 rounded-2xl bg-background-widget border border-white/5 text-[10px] font-black text-white hover:bg-background-secondary transition-all flex items-center gap-2.5 uppercase tracking-widest shadow-xl"
+                    className="px-5 py-2.5 rounded-xl bg-white border border-gray-200 text-[10px] font-black text-text-primary hover:bg-gray-100 transition-all flex items-center gap-2 uppercase tracking-wider shadow-xs cursor-pointer"
                   >
-                    <Eye className="w-4 h-4 text-accent-bright" /> View Info
+                    <Eye className="w-4 h-4 text-accent-main" /> View Info
                   </button>
 
                   <button
                     onClick={() => handleSuspendCustomer(c._id, c.isSuspended)}
-                    className={`px-6 py-3.5 rounded-2xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${
+                    className={`px-5 py-2.5 rounded-xl border text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
                       c.isSuspended
-                        ? 'bg-emerald-950/20 text-emerald-400 border-emerald-500/20 hover:bg-emerald-900/30'
-                        : 'bg-red-950/20 text-red-400 border-red-500/20 hover:bg-red-900/30'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                        : 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100'
                     }`}
                   >
                     {c.isSuspended ? 'Activate' : 'Suspend'}
@@ -144,10 +144,10 @@ const AdminCustomers = () => {
 
                   <button
                     onClick={() => handleDeleteCustomer(c._id)}
-                    className="p-3.5 rounded-2xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-xl"
+                    className="p-2.5 rounded-xl bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-all shadow-xs cursor-pointer"
                     title="Delete Account"
                   >
-                    <Trash2 className="w-5 h-5" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -155,11 +155,11 @@ const AdminCustomers = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
-           <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
-              <User className="w-10 h-10 text-accent-bright opacity-20" />
+        <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
+           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+              <User className="w-8 h-8 text-accent-main" />
            </div>
-           <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO CUSTOMERS FOUND IN THIS LIST.</p>
+           <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO CUSTOMERS FOUND IN THIS LIST.</p>
         </div>
       )}
 
@@ -170,44 +170,41 @@ const AdminCustomers = () => {
           onClose={() => setViewModalOpen(false)}
           title={`Customer Info: ${selectedCustomer.name}`}
         >
-          <div className="space-y-10 pt-4">
+          <div className="space-y-6 pt-2">
             <div className="flex flex-col items-center text-center">
-               <div className="relative mb-6">
+               <div className="relative mb-4">
                  <img
                    src={getImageUrl(selectedCustomer.avatar, DEFAULT_AVATAR(selectedCustomer.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(selectedCustomer.name))}
-                   className="w-32 h-32 rounded-[2.5rem] border-4 border-accent-main shadow-[0_20px_50px_rgba(0,0,0,0.5)] object-cover"
+                   className="w-24 h-24 rounded-2xl border-2 border-accent-main shadow-xs object-cover"
                  />
-                 <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-background-dark border-2 border-white/10 flex items-center justify-center shadow-2xl">
-                    <ShieldCheck className={`w-6 h-6 ${selectedCustomer.isSuspended ? 'text-red-500' : 'text-accent-green'}`} />
-                 </div>
                </div>
-               <h3 className="font-sora font-black text-3xl text-white tracking-tighter uppercase">{selectedCustomer.name}</h3>
-               <p className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] mt-3">{selectedCustomer.isSuspended ? 'ACCOUNT SUSPENDED' : 'ACCOUNT ACTIVE'}</p>
+               <h3 className="font-sora font-black text-2xl text-text-primary tracking-tight uppercase">{selectedCustomer.name}</h3>
+               <p className="text-[10px] font-black text-accent-main uppercase tracking-wider mt-1">{selectedCustomer.isSuspended ? 'ACCOUNT SUSPENDED' : 'ACCOUNT ACTIVE'}</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 flex items-start gap-4 sm:col-span-2">
-                 <div className="w-10 h-10 rounded-xl bg-background-widget flex items-center justify-center border border-accent-bright/20 shrink-0"><Mail className="w-5 h-5 text-accent-bright" /></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Mail className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
-                    <p className="text-[9px] font-black text-accent-light uppercase tracking-widest mb-1">EMAIL</p>
-                    <p className="text-sm font-bold text-white break-all">{selectedCustomer.email}</p>
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">EMAIL</p>
+                    <p className="text-xs font-bold text-text-primary break-all">{selectedCustomer.email}</p>
                  </div>
               </div>
 
-              <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 flex items-start gap-4 sm:col-span-2">
-                 <div className="w-10 h-10 rounded-xl bg-background-widget flex items-center justify-center border border-accent-bright/20 shrink-0"><Phone className="w-5 h-5 text-accent-bright" /></div>
+              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Phone className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
-                    <p className="text-[9px] font-black text-accent-light uppercase tracking-widest mb-1">PHONE</p>
-                    <p className="text-sm font-bold text-white">{selectedCustomer.phone || 'N/A'}</p>
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">PHONE</p>
+                    <p className="text-xs font-bold text-text-primary">{selectedCustomer.phone || 'N/A'}</p>
                  </div>
               </div>
 
-              <div className="p-5 bg-background-dark/50 rounded-[2.5rem] border border-white/5 flex items-start gap-4 sm:col-span-2">
-                 <div className="w-10 h-10 rounded-xl bg-background-widget flex items-center justify-center border border-accent-bright/20 shrink-0"><MapPin className="w-5 h-5 text-accent-bright" /></div>
+              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><MapPin className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0 flex-1">
-                    <p className="text-[9px] font-black text-accent-light uppercase tracking-widest mb-1">ADDRESS</p>
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">ADDRESS</p>
                     {selectedCustomer.address?.street || selectedCustomer.address?.city ? (
-                      <p className="text-sm font-bold text-white leading-relaxed uppercase tracking-tighter break-words">
+                      <p className="text-xs font-bold text-text-primary leading-relaxed uppercase tracking-tight break-words">
                         {[
                           selectedCustomer.address?.street,
                           selectedCustomer.address?.city,
@@ -216,40 +213,40 @@ const AdminCustomers = () => {
                         {selectedCustomer.address?.zip ? ` , PIN: ${selectedCustomer.address.zip}` : ''}
                       </p>
                     ) : (
-                      <p className="text-[10px] font-black text-accent-orange uppercase tracking-widest italic opacity-70">NO ADDRESS PROVIDED BY CUSTOMER</p>
+                      <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider italic">NO ADDRESS PROVIDED BY CUSTOMER</p>
                     )}
                  </div>
               </div>
 
-              <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 flex items-start gap-4">
-                 <div className="w-10 h-10 rounded-xl bg-background-widget flex items-center justify-center border border-accent-bright/20 shrink-0"><Calendar className="w-5 h-5 text-accent-bright" /></div>
+              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Calendar className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
-                    <p className="text-[9px] font-black text-accent-light uppercase tracking-widest mb-1">JOINED ON</p>
-                    <p className="text-sm font-bold text-white">{new Date(selectedCustomer.createdAt).toLocaleDateString()}</p>
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">JOINED ON</p>
+                    <p className="text-xs font-bold text-text-primary">{new Date(selectedCustomer.createdAt).toLocaleDateString()}</p>
                  </div>
               </div>
 
-              <div className="p-5 bg-background-dark/50 rounded-[2rem] border border-white/5 flex items-start gap-4">
-                 <div className="w-10 h-10 rounded-xl bg-background-widget flex items-center justify-center border border-accent-bright/20 shrink-0"><ShieldCheck className="w-5 h-5 text-accent-bright" /></div>
+              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><ShieldCheck className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
-                    <p className="text-[9px] font-black text-accent-light uppercase tracking-widest mb-1">RECOVERY HINT</p>
-                    <p className="text-sm font-bold text-accent-light italic break-words">"{selectedCustomer.securityHint || 'None'}"</p>
+                    <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">RECOVERY HINT</p>
+                    <p className="text-xs font-bold text-accent-main italic break-words">"{selectedCustomer.securityHint || 'None'}"</p>
                  </div>
               </div>
             </div>
 
             {selectedCustomer.isSuspended && selectedCustomer.suspendReason && (
-              <div className="p-6 bg-red-950/20 border-2 border-red-500/20 rounded-[2rem] shadow-inner">
-                 <p className="text-[10px] font-black text-red-400 uppercase tracking-widest mb-3 flex items-center gap-2"><ShieldAlert className="w-4 h-4" /> REASON FOR SUSPENSION</p>
-                 <p className="text-sm text-text-primary italic leading-relaxed font-bold opacity-90">"{selectedCustomer.suspendReason}"</p>
+              <div className="p-4 bg-red-50 border border-red-200 rounded-2xl">
+                 <p className="text-[10px] font-black text-red-600 uppercase tracking-wider mb-1 flex items-center gap-1.5"><ShieldAlert className="w-4 h-4" /> REASON FOR SUSPENSION</p>
+                 <p className="text-xs text-text-primary italic leading-relaxed font-bold">"{selectedCustomer.suspendReason}"</p>
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-white/5">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
                <PremiumButton
                  variant={selectedCustomer.isSuspended ? 'gold' : 'outline'}
                  fullWidth
-                 className="py-5 text-base font-black"
+                 className="py-3.5 text-xs font-black"
                  onClick={() => handleSuspendCustomer(selectedCustomer._id, selectedCustomer.isSuspended)}
                >
                  {selectedCustomer.isSuspended ? 'ACTIVATE ACCOUNT' : 'SUSPEND ACCOUNT'}
@@ -257,7 +254,7 @@ const AdminCustomers = () => {
                <PremiumButton
                  variant="danger"
                  fullWidth
-                 className="py-5 text-base font-black"
+                 className="py-3.5 text-xs font-black"
                  onClick={() => handleDeleteCustomer(selectedCustomer._id)}
                >
                  DELETE ACCOUNT

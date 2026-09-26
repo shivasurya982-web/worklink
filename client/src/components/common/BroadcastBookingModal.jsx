@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, FileText, Sparkles, LayoutGrid, Maximize2, X } from 'lucide-react';
+import { Calendar, Clock, LayoutGrid, Maximize2 } from 'lucide-react';
 import API from '../../services/api';
 import PremiumButton from './PremiumButton';
 import Modal from './Modal';
@@ -100,12 +100,12 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
       <form onSubmit={handleSubmit} className="space-y-6 relative z-10 pb-2">
 
         {/* Booking Type Toggle */}
-        <div className="flex bg-background-dark/50 p-1.5 rounded-2xl border border-white/5 mb-6">
+        <div className="flex bg-blue-50/80 p-1.5 rounded-2xl border border-blue-100 mb-6">
            <button
              type="button"
              onClick={() => setBookingType('small')}
              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-               bookingType === 'small' ? 'bg-accent-orange text-white shadow-xl' : 'text-text-muted hover:text-text-secondary'
+               bookingType === 'small' ? 'bg-accent-main text-white shadow-sm' : 'text-text-muted hover:text-text-primary'
              }`}
            >
              <LayoutGrid className="w-4 h-4" /> Small Work
@@ -114,7 +114,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
              type="button"
              onClick={() => setBookingType('large')}
              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-               bookingType === 'large' ? 'bg-accent-orange text-white shadow-xl' : 'text-text-muted hover:text-text-secondary'
+               bookingType === 'large' ? 'bg-accent-main text-white shadow-sm' : 'text-text-muted hover:text-text-primary'
              }`}
            >
              <Maximize2 className="w-4 h-4" /> Large Work
@@ -122,14 +122,14 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
         </div>
 
         {error && (
-          <div className="p-3 rounded-xl bg-red-950/20 border border-red-500/30 text-[10px] text-red-400 font-black text-center uppercase tracking-widest animate-shake">
+          <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-[10px] text-red-600 font-black text-center uppercase tracking-widest">
             {error}
           </div>
         )}
 
-        <div className="space-y-5 bg-background-dark/30 p-5 sm:p-6 rounded-3xl border border-white/5 shadow-inner">
+        <div className="space-y-5 bg-white/60 p-5 sm:p-6 rounded-3xl border border-white/60 shadow-sm">
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">
+            <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">
               WHAT SERVICE DO YOU NEED?
             </label>
             <select
@@ -137,18 +137,18 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
               value={form.category}
               onChange={handleChange}
               required
-              className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
+              className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-black text-text-primary focus:outline-none focus:border-accent-main uppercase tracking-widest"
               disabled={fetchingCats}
             >
               <option value="">SELECT CATEGORY</option>
               {categories.map((cat) => (
-                <option key={cat._id} value={cat._id} className="bg-background-card">{cat.name}</option>
+                <option key={cat._id} value={cat._id} className="bg-white">{cat.name}</option>
               ))}
             </select>
           </div>
 
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">
+            <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">
               YOUR CITY / AREA
             </label>
             <div className="grid grid-cols-2 gap-4">
@@ -159,7 +159,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                 onChange={handleChange}
                 placeholder="e.g. Tiruchendur"
                 required
-                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
+                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-black text-text-primary focus:outline-none focus:border-accent-main uppercase tracking-widest placeholder:text-text-muted"
               />
               <input
                 type="text"
@@ -168,7 +168,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                 onChange={handleChange}
                 placeholder="Pin Code"
                 required
-                className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest placeholder:text-text-muted"
+                className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-black text-text-primary focus:outline-none focus:border-accent-main uppercase tracking-widest placeholder:text-text-muted"
               />
             </div>
           </div>
@@ -177,12 +177,12 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
           {bookingType === 'small' ? (
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">DATE</label>
+                <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">DATE</label>
                 <div className="relative group cursor-pointer" onClick={(e) => {
                   const input = e.currentTarget.querySelector('input');
                   if (input) input.showPicker();
                 }}>
-                  <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                  <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-main z-10 pointer-events-none" />
                   <input
                     type="date"
                     name="scheduledDate"
@@ -190,24 +190,24 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                     onChange={handleChange}
                     min={today}
                     required
-                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3 pl-10 text-[10px] font-black text-text-primary focus:outline-none focus:border-accent-main relative"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">TIME</label>
+                <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">TIME</label>
                 <div className="relative group cursor-pointer" onClick={(e) => {
                   const input = e.currentTarget.querySelector('input');
                   if (input) input.showPicker();
                 }}>
-                  <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                  <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-main z-10 pointer-events-none" />
                   <input
                     type="time"
                     name="scheduledTime"
                     value={form.scheduledTime}
                     onChange={handleChange}
                     required
-                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3 pl-10 text-[10px] font-black text-text-primary focus:outline-none focus:border-accent-main relative"
                   />
                 </div>
               </div>
@@ -216,12 +216,12 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
             <div className="space-y-5">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">START DATE</label>
+                  <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">START DATE</label>
                   <div className="relative group cursor-pointer" onClick={(e) => {
                     const input = e.currentTarget.querySelector('input');
                     if (input) input.showPicker();
                   }}>
-                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-main z-10 pointer-events-none" />
                     <input
                       type="date"
                       name="scheduledDate"
@@ -229,17 +229,17 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                       onChange={handleChange}
                       min={today}
                       required
-                      className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                      className="w-full bg-white border border-gray-200 rounded-xl p-3 pl-10 text-[10px] font-black text-text-primary focus:outline-none focus:border-accent-main relative"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">END DATE</label>
+                  <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">END DATE</label>
                   <div className="relative group cursor-pointer" onClick={(e) => {
                     const input = e.currentTarget.querySelector('input');
                     if (input) input.showPicker();
                   }}>
-                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-bright group-focus-within:text-white transition-colors z-10 pointer-events-none" />
+                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-main z-10 pointer-events-none" />
                     <input
                       type="date"
                       name="endDate"
@@ -247,20 +247,20 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                       onChange={handleChange}
                       min={form.scheduledDate || today}
                       required
-                      className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 pl-10 text-[10px] font-black text-white focus:outline-none focus:border-accent-main shadow-2xl relative"
+                      className="w-full bg-white border border-gray-200 rounded-xl p-3 pl-10 text-[10px] font-black text-text-primary focus:outline-none focus:border-accent-main relative"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">DAILY AVAILABILITY</label>
+                <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">DAILY AVAILABILITY</label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
                     onClick={() => setForm(prev => ({...prev, workingHours: 'full-day'}))}
                     className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                      form.workingHours === 'full-day' ? 'bg-accent-orange/20 border-accent-orange text-white' : 'bg-background-card border-white/5 text-text-muted'
+                      form.workingHours === 'full-day' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                     }`}
                   >
                     Full Day
@@ -269,7 +269,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                     type="button"
                     onClick={() => setForm(prev => ({...prev, workingHours: 'custom'}))}
                     className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                      form.workingHours === 'custom' ? 'bg-accent-orange/20 border-accent-orange text-white' : 'bg-background-card border-white/5 text-text-muted'
+                      form.workingHours === 'custom' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                     }`}
                   >
                     Custom Time
@@ -282,7 +282,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                     placeholder="e.g. 10 AM to 4 PM"
                     value={form.customHours}
                     onChange={handleChange}
-                    className="w-full bg-background-card border border-border-primary/30 rounded-xl p-3 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl mt-2 uppercase tracking-widest"
+                    className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-black text-text-primary focus:outline-none focus:border-accent-main mt-2 uppercase tracking-widest"
                     required={form.workingHours === 'custom'}
                   />
                 )}
@@ -291,14 +291,14 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
           )}
 
           <div className="space-y-2">
-            <label className="text-[9px] font-black text-accent-light uppercase tracking-widest ml-1">JOB DETAILS</label>
+            <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">JOB DETAILS</label>
             <textarea
               name="description"
               value={form.description}
               onChange={handleChange}
               placeholder="Describe what you need help with..."
               rows={3}
-              className="w-full bg-background-card border border-border-primary/30 rounded-2xl p-4 text-xs font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl resize-none uppercase tracking-wider"
+              className="w-full bg-white border border-gray-200 rounded-2xl p-4 text-xs font-bold focus:outline-none focus:border-accent-main text-text-primary resize-none uppercase tracking-wider"
             />
           </div>
         </div>
@@ -309,7 +309,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
           variant="gold"
           size="lg"
           fullWidth
-          className="py-4 text-sm font-black shadow-orange"
+          className="py-4 text-sm font-black"
         >
           {loading ? 'SENDING...' : 'SEND REQUEST'}
         </PremiumButton>

@@ -1,7 +1,7 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Mail, Lock, Phone, Wrench, MapPin, Upload, Sparkles, CheckCircle2, ArrowRight, ArrowLeft, ShieldCheck, Home, FileText, Image as ImageIcon } from 'lucide-react';
+import { User, Mail, Lock, Phone, Wrench, MapPin, Upload, CheckCircle2, ArrowRight, ShieldCheck, Home } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import FloatingInput from '../../components/common/FloatingInput';
@@ -125,7 +125,6 @@ const RegisterWorker = () => {
     try {
       const data = new FormData();
 
-      // Manually add each field to ensure no empty values override files
       data.append('name', formData.name);
       data.append('email', formData.email);
       data.append('phone', formData.phone);
@@ -157,63 +156,63 @@ const RegisterWorker = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-primary flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-4 sm:p-6 pt-24 sm:pt-28 relative overflow-hidden">
       {/* Home Button */}
       <Link
         to="/"
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-background-dark/80 backdrop-blur-md rounded-full border border-accent-main/30 shadow-2xl hover:shadow-accent-main/10 transition-all text-text-primary text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/60 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
       >
-        <Home className="w-4 h-4 text-accent-bright" />
+        <Home className="w-4 h-4 text-accent-main" />
         <span>Home</span>
       </Link>
 
-      <div className="max-w-xl w-full relative z-10">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <img src="/logo.png" alt="Worklyn Logo" className="h-12 w-auto object-contain mx-auto" />
+      <div className="max-w-xl w-full relative z-10 my-auto pb-10">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 mb-3">
+            <img src="/logo.png" alt="Worklyn Logo" className="h-10 sm:h-12 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-xs text-text-secondary font-bold uppercase tracking-widest opacity-80">Worker Registration</p>
+          <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">Worker Registration</p>
         </div>
 
-        <GlassCard goldBorder className="!bg-background-card p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-border-primary/30">
+        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-3xl shadow-sm border-white/60">
           {step <= 5 && (
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-border-primary/10">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
               {['Info', 'Skills', 'Place', 'Verify', 'Secret'].map((sName, idx) => (
-                <div key={sName} className="flex items-center gap-2">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-accent-orange text-white shadow-lg' : step > idx + 1 ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/30' : 'bg-background-secondary text-text-muted'}`}>
+                <div key={sName} className="flex items-center gap-1.5">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-accent-main text-white shadow-xs' : step > idx + 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-text-muted'}`}>
                     {step > idx + 1 ? '✓' : idx + 1}
                   </div>
-                  <span className={`text-[9px] font-bold uppercase hidden sm:inline ${step === idx + 1 ? 'text-accent-bright' : 'text-text-muted'}`}>{sName}</span>
+                  <span className={`text-[9px] font-bold uppercase hidden sm:inline ${step === idx + 1 ? 'text-accent-main' : 'text-text-muted'}`}>{sName}</span>
                 </div>
               ))}
             </div>
           )}
 
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-900/20 border border-red-500/20 text-xs text-red-400 font-bold animate-shake text-center uppercase">
+            <div className="mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-600 font-bold text-center uppercase">
               {error}
             </div>
           )}
 
           {step === 1 && (
             <form onSubmit={handleNextStep1} className="space-y-4">
-              <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-              <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-              <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-              <FloatingInput id="password" type="password" label="Create Password" icon={Lock} value={formData.password} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+              <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required />
+              <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required />
+              <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required />
+              <FloatingInput id="password" type="password" label="Create Password" icon={Lock} value={formData.password} onChange={handleChange} required />
               <PremiumButton type="submit" variant="gold" fullWidth icon={ArrowRight}>Next: Your Work</PremiumButton>
             </form>
           )}
 
           {step === 2 && (
             <form onSubmit={handleNextStep2} className="space-y-4">
-              <FloatingInput id="profession" label="Profession (e.g. Electrician)" icon={Wrench} value={formData.profession} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-              <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-background-cardSecondary border border-border-primary/20 rounded-xl px-4 py-3.5 text-xs focus:outline-none focus:border-accent-orange text-text-primary">
-                <option value="" className="bg-background-card">Select Category (Optional)</option>
-                {categories.map(c => <option key={c._id} value={c._id} className="bg-background-card">{c.name}</option>)}
+              <FloatingInput id="profession" label="Profession (e.g. Electrician)" icon={Wrench} value={formData.profession} onChange={handleChange} required />
+              <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-xs focus:outline-none focus:border-accent-main text-text-primary">
+                <option value="" className="bg-white">Select Category (Optional)</option>
+                {categories.map(c => <option key={c._id} value={c._id} className="bg-white">{c.name}</option>)}
               </select>
               <div className="grid grid-cols-1 gap-4">
-                <FloatingInput id="experience" type="number" label="Experience (Years)" value={formData.experience} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+                <FloatingInput id="experience" type="number" label="Experience (Years)" value={formData.experience} onChange={handleChange} required />
               </div>
               <div className="flex gap-3">
                 <PremiumButton type="button" onClick={() => { setError(''); setStep(1); }} variant="outline" className="flex-1">Back</PremiumButton>
@@ -224,12 +223,12 @@ const RegisterWorker = () => {
 
           {step === 3 && (
             <form onSubmit={handleNextStep3} className="space-y-4">
-              <FloatingInput id="street" label="Street Name" icon={MapPin} value={formData.street} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+              <FloatingInput id="street" label="Street Name" icon={MapPin} value={formData.street} onChange={handleChange} required />
               <div className="grid grid-cols-2 gap-4">
-                <FloatingInput id="city" label="City" value={formData.city} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-                <FloatingInput id="state" label="State" value={formData.state} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+                <FloatingInput id="city" label="City" value={formData.city} onChange={handleChange} required />
+                <FloatingInput id="state" label="State" value={formData.state} onChange={handleChange} required />
               </div>
-              <FloatingInput id="zip" label="Pin Code" value={formData.zip} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+              <FloatingInput id="zip" label="Pin Code" value={formData.zip} onChange={handleChange} required />
               <div className="flex gap-3">
                 <PremiumButton type="button" onClick={() => { setError(''); setStep(2); }} variant="outline" className="flex-1">Back</PremiumButton>
                 <PremiumButton type="submit" variant="gold" className="flex-[2]">Next: Verification</PremiumButton>
@@ -240,25 +239,25 @@ const RegisterWorker = () => {
           {step === 4 && (
             <form onSubmit={handleNextStep4} className="space-y-6">
               <div className="text-center">
-                <h3 className="font-sora font-black text-white mb-2 uppercase tracking-tight">Identity Verification</h3>
-                <p className="text-[11px] text-text-secondary leading-relaxed font-bold opacity-80 uppercase tracking-widest mb-6">Upload a photo of your ID Card (e.g. Aadhaar, PAN) or a photo of you working at a job site.</p>
+                <h3 className="font-sora font-black text-text-primary mb-1 uppercase tracking-tight">Identity Verification</h3>
+                <p className="text-[11px] text-text-secondary leading-relaxed font-semibold uppercase tracking-wider mb-4">Upload a photo of your ID Card (e.g. Aadhaar, PAN) or a photo of you working at a job site.</p>
               </div>
 
               <div className="space-y-4">
-                <div className={`relative border-2 border-dashed rounded-[2rem] p-8 text-center transition-all ${idFile ? 'border-accent-bright bg-accent-orange/5' : 'border-border-primary/30 hover:border-accent-orange/40'}`}>
+                <div className={`relative border-2 border-dashed rounded-[2rem] p-6 text-center transition-all ${idFile ? 'border-accent-main bg-blue-50/50' : 'border-gray-200 hover:border-accent-main'}`}>
                   {idPreview ? (
-                    <div className="space-y-4">
-                       <img src={getImageUrl(idPreview)} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-2xl border border-white/10" />
-                       <button type="button" onClick={() => { setIdFile(null); setIdPreview(''); }} className="text-[10px] font-black text-red-400 uppercase tracking-widest hover:underline">Remove & Reselect</button>
+                    <div className="space-y-3">
+                       <img src={getImageUrl(idPreview)} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-xs border border-gray-200" />
+                       <button type="button" onClick={() => { setIdFile(null); setIdPreview(''); }} className="text-[10px] font-black text-red-500 uppercase tracking-wider hover:underline">Remove & Reselect</button>
                     </div>
                   ) : (
-                    <label htmlFor="id-upload" className="cursor-pointer space-y-4 block">
-                       <div className="w-16 h-16 bg-background-widget rounded-2xl flex items-center justify-center mx-auto border border-white/5 shadow-xl">
-                          <Upload className="w-8 h-8 text-accent-bright" />
+                    <label htmlFor="id-upload" className="cursor-pointer space-y-3 block">
+                       <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto border border-blue-100 shadow-xs">
+                          <Upload className="w-7 h-7 text-accent-main" />
                        </div>
                        <div>
-                          <p className="text-xs font-black text-white uppercase tracking-widest">Select ID Image</p>
-                          <p className="text-[9px] text-text-muted mt-1 uppercase font-bold">JPG, PNG allowed (Max 5MB)</p>
+                          <p className="text-xs font-black text-text-primary uppercase tracking-wider">Select ID Image</p>
+                          <p className="text-[9px] text-text-muted mt-0.5 uppercase font-bold">JPG, PNG allowed (Max 5MB)</p>
                        </div>
                        <input type="file" id="id-upload" accept="image/*" onChange={handleFileChange} className="hidden" />
                     </label>
@@ -276,8 +275,8 @@ const RegisterWorker = () => {
           {step === 5 && (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="text-center">
-                <h3 className="font-sora font-black text-white mb-2 uppercase tracking-tight">Recover Your Account</h3>
-                <p className="text-[11px] text-text-secondary leading-relaxed font-bold opacity-80 uppercase tracking-widest">Set a secret word to get back into your account if you forget your password.</p>
+                <h3 className="font-sora font-black text-text-primary mb-1 uppercase tracking-tight">Recover Your Account</h3>
+                <p className="text-[11px] text-text-secondary leading-relaxed font-semibold uppercase tracking-wider">Set a secret word to get back into your account if you forget your password.</p>
               </div>
 
               <div className="pt-2">
@@ -289,7 +288,6 @@ const RegisterWorker = () => {
                   value={formData.registerHint}
                   onChange={handleChange}
                   required
-                  className="!bg-background-cardSecondary border-border-primary/20"
                 />
               </div>
 
@@ -302,17 +300,17 @@ const RegisterWorker = () => {
 
           {step === 6 && (
             <div className="text-center py-8">
-              <div className="w-20 h-20 bg-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
-                 <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-200">
+                 <CheckCircle2 className="w-8 h-8 text-emerald-600" />
               </div>
-              <h3 className="font-sora font-black text-2xl text-white mb-3 uppercase tracking-tighter">WE RECEIVED YOUR APPLICATION!</h3>
-              <p className="text-xs font-bold text-text-muted mb-8 leading-relaxed max-w-[280px] mx-auto uppercase tracking-widest">Our team is reviewing your profile and identity proof. You'll get an email once your account is approved.</p>
+              <h3 className="font-sora font-black text-xl text-text-primary mb-2 uppercase tracking-tight">WE RECEIVED YOUR APPLICATION!</h3>
+              <p className="text-xs font-semibold text-text-muted mb-6 leading-relaxed max-w-[280px] mx-auto uppercase tracking-wider">Our team is reviewing your profile and identity proof. You'll get an email once your account is approved.</p>
               <Link to="/login"><PremiumButton variant="gold" size="lg" fullWidth>BACK TO LOGIN</PremiumButton></Link>
             </div>
           )}
 
-          <div className="mt-8 pt-6 border-t border-white/5 text-center text-xs text-text-secondary font-bold uppercase tracking-widest">
-            Already registered? <Link to="/login" className="text-accent-bright hover:underline">Sign In</Link>
+          <div className="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-text-muted font-bold uppercase tracking-widest">
+            Already registered? <Link to="/login" className="text-accent-main hover:underline">Sign In</Link>
           </div>
         </GlassCard>
       </div>

@@ -62,14 +62,14 @@ const RegisterCustomer = () => {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-background-primary flex items-center justify-center p-6">
-         <GlassCard goldBorder className="max-w-md w-full p-10 text-center space-y-8 !bg-background-card border-border-primary/30">
-            <div className="w-24 h-24 bg-emerald-950/30 rounded-[2rem] flex items-center justify-center mx-auto mb-2 border border-emerald-500/30 shadow-2xl">
-               <CheckCircle2 className="w-12 h-12 text-emerald-400" />
+      <div className="min-h-screen bg-transparent flex items-center justify-center p-6">
+         <GlassCard goldBorder className="max-w-md w-full p-8 sm:p-10 text-center space-y-6 !bg-white/80 border border-white/60">
+            <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto mb-2 border border-emerald-200 shadow-sm">
+               <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
-            <div className="space-y-2">
-               <h2 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">WELCOME!</h2>
-               <p className="text-sm text-text-secondary font-bold opacity-80">Your account is ready. You can now start booking services.</p>
+            <div className="space-y-1">
+               <h2 className="font-sora font-black text-2xl text-text-primary uppercase tracking-tight">WELCOME!</h2>
+               <p className="text-sm text-text-secondary font-bold">Your account is ready. You can now start booking services.</p>
             </div>
             <PremiumButton variant="gold" size="lg" fullWidth onClick={() => navigate('/customer/dashboard')}>GO TO DASHBOARD</PremiumButton>
          </GlassCard>
@@ -78,38 +78,38 @@ const RegisterCustomer = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background-primary flex flex-col items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-4 sm:p-6 pt-24 sm:pt-28 relative overflow-hidden">
       <Link
         to="/"
-        className="fixed top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-background-dark/80 backdrop-blur-md rounded-full border border-accent-main/30 shadow-2xl hover:shadow-accent-main/10 transition-all text-text-primary text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/60 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
       >
-        <Home className="w-4 h-4 text-accent-bright" />
+        <Home className="w-4 h-4 text-accent-main" />
         <span>Home</span>
       </Link>
 
-      <div className="max-w-md w-full relative z-10 py-12">
-        <div className="text-center mb-10">
-          <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <img src="/logo.png" alt="Worklyn Logo" className="h-12 w-auto object-contain mx-auto" />
+      <div className="max-w-md w-full relative z-10 my-auto pb-10">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 mb-3">
+            <img src="/logo.png" alt="Worklyn Logo" className="h-10 sm:h-12 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-[11px] text-accent-light font-black uppercase tracking-[0.3em] opacity-90">Create Customer Account</p>
+          <p className="text-[11px] text-accent-main font-black uppercase tracking-[0.2em]">Create Customer Account</p>
         </div>
 
-        <GlassCard goldBorder className="!bg-background-card p-8 sm:p-10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.7)] border-border-primary/30">
+        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-10 rounded-[2.5rem] shadow-sm border-white/60">
           {error && (
-            <div className="mb-8 p-4 rounded-2xl bg-red-950/20 border border-red-500/30 text-[11px] text-red-400 font-black animate-shake text-center uppercase tracking-wider">
+            <div className="mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-[11px] text-red-600 font-black text-center uppercase tracking-wider">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
-            <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required className="!bg-background-cardSecondary border-border-primary/20" />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required />
+            <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required />
+            <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required />
+            <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required />
 
-            <div className="pt-4 border-t border-white/5">
-               <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.3em] ml-2 mb-3 block">Security Hint</label>
+            <div className="pt-4 border-t border-gray-100">
+               <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1 mb-2 block">Security Hint</label>
                <FloatingInput
                 id="securityHint"
                 type="text"
@@ -118,22 +118,21 @@ const RegisterCustomer = () => {
                 value={formData.securityHint}
                 onChange={handleChange}
                 required
-                className="!bg-background-cardSecondary border-border-primary/20"
                />
-               <p className="text-[9px] text-text-muted mt-3 px-2 leading-relaxed italic uppercase font-black tracking-widest opacity-60">REQUIRED TO RECOVER YOUR ACCOUNT IF YOU FORGET YOUR PASSWORD.</p>
+               <p className="text-[9px] text-text-muted mt-2 px-1 leading-relaxed font-bold uppercase tracking-wider">Required to recover your account if you forget your password.</p>
             </div>
 
-            <div className="pt-6">
-              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={ArrowRight} className="py-5 shadow-orange">
+            <div className="pt-4">
+              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={ArrowRight} className="py-4">
                 CREATE ACCOUNT
               </PremiumButton>
             </div>
           </form>
 
-          <div className="mt-10 pt-8 border-t border-white/5 text-center">
+          <div className="mt-6 sm:mt-8 pt-6 border-t border-gray-100 text-center">
             <p className="text-xs text-text-muted font-bold uppercase tracking-widest">
               Already have an account?{' '}
-              <Link to="/login" className="text-accent-bright hover:underline transition-all">
+              <Link to="/login" className="text-accent-main hover:underline font-extrabold">
                 Login
               </Link>
             </p>

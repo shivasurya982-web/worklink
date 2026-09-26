@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { CheckCircle2, MapPin, Heart, Star, Briefcase } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { MapPin, Heart } from 'lucide-react';
 import GlassCard from './GlassCard';
 import RatingStars from './RatingStars';
 import Badge from './Badge';
-import PremiumButton from './PremiumButton';
 import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) => {
@@ -17,7 +16,6 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
     rating = 0,
     totalReviews = 0,
     experience = 0,
-    pricing,
     isVerified,
     isAvailable,
     distance,
@@ -27,20 +25,20 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
   const avatarUrl = getImageUrl(avatar, fallbackAvatar);
 
   return (
-    <GlassCard goldBorder className="relative flex flex-col justify-between h-full group !bg-background-card border-border-primary/60 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+    <GlassCard goldBorder className="relative flex flex-col justify-between h-full group !bg-white/70 border border-white/60 shadow-sm hover:shadow-md transition-all">
 
       {/* Top Section */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between mb-5">
         <div className="relative shrink-0">
           <img
             src={avatarUrl}
             alt={name}
             loading="lazy"
             onError={(e) => handleImageError(e, fallbackAvatar)}
-            className="w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] object-cover border-2 border-accent-main shadow-2xl group-hover:scale-105 transition-all duration-500"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] object-cover border-2 border-accent-main shadow-md group-hover:scale-105 transition-all duration-300"
           />
           {isAvailable && (
-            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent-green border-4 border-background-card rounded-xl shadow-xl" />
+            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-sm" />
           )}
         </div>
 
@@ -49,54 +47,54 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
           {onToggleFavorite && (
             <button
               onClick={(e) => { e.preventDefault(); onToggleFavorite(_id); }}
-              className="p-2 rounded-xl bg-background-cardSecondary border border-white/5 hover:border-accent-red transition-all text-text-muted hover:text-accent-red"
+              className="p-2 rounded-xl bg-white/80 border border-gray-200 hover:border-red-400 transition-all text-gray-400 hover:text-red-500 shadow-sm"
             >
-              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-accent-red text-accent-red shadow-lg' : ''}`} />
+              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
             </button>
           )}
         </div>
       </div>
 
       {/* Info Section */}
-      <div className="flex-1 mb-6">
-        <h4 className="font-sora font-black text-base text-white line-clamp-1 leading-tight group-hover:text-accent-bright transition-colors uppercase tracking-tight">
+      <div className="flex-1 mb-5">
+        <h4 className="font-sora font-black text-base text-text-primary line-clamp-1 leading-tight group-hover:text-accent-main transition-colors uppercase tracking-tight">
           {name}
         </h4>
-        <p className="text-[10px] font-black text-accent-light uppercase tracking-widest mt-1 opacity-90">{profession}</p>
+        <p className="text-[10px] font-bold text-accent-main uppercase tracking-widest mt-1">{profession}</p>
 
-        <div className="mt-4">
+        <div className="mt-3">
           <RatingStars rating={rating} totalReviews={totalReviews} size="xs" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mt-6 text-[10px] font-black text-text-secondary bg-background-cardSecondary/60 rounded-2xl p-4 border border-border-primary/20 shadow-inner">
-          <div className="space-y-1">
-            <p className="text-text-muted uppercase tracking-widest opacity-60">Experience</p>
-            <p className="text-white">{experience} Yrs</p>
+        <div className="grid grid-cols-2 gap-3 mt-5 text-[10px] font-bold text-text-secondary bg-blue-50/50 rounded-2xl p-3.5 border border-blue-100/60">
+          <div className="space-y-0.5">
+            <p className="text-text-muted uppercase tracking-widest text-[9px]">Experience</p>
+            <p className="text-text-primary font-black">{experience} Yrs</p>
           </div>
-          <div className="space-y-1">
-            <p className="text-text-muted uppercase tracking-widest opacity-60">Pricing</p>
-            <p className="text-accent-bright leading-tight">Price Varies by Work</p>
+          <div className="space-y-0.5">
+            <p className="text-text-muted uppercase tracking-widest text-[9px]">Pricing</p>
+            <p className="text-accent-main font-black leading-tight">Varies by Work</p>
           </div>
           {(worker.address?.city || distance) && (
-            <div className="col-span-2 flex items-center gap-2 text-text-muted border-t border-white/5 pt-2 mt-1">
-              <MapPin className="w-3 h-3 text-accent-bright" />
-              <span className="truncate uppercase tracking-tighter opacity-80">{worker.address?.city || `${distance} KM`}</span>
+            <div className="col-span-2 flex items-center gap-1.5 text-text-muted border-t border-blue-100/60 pt-2 mt-1">
+              <MapPin className="w-3.5 h-3.5 text-accent-main shrink-0" />
+              <span className="truncate uppercase tracking-tight font-semibold">{worker.address?.city || `${distance} KM`}</span>
             </div>
           )}
         </div>
       </div>
 
       {/* Actions */}
-      <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/5">
+      <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
         <button
           onClick={() => navigate(`/workers/${_id}`)}
-          className="flex-1 py-3 rounded-xl border border-border-primary/40 text-[10px] font-black text-white hover:bg-white/5 uppercase tracking-widest transition-all"
+          className="flex-1 py-2.5 rounded-xl border border-gray-300 text-[10px] font-black text-text-primary hover:bg-gray-100 uppercase tracking-widest transition-all"
         >
           PROFILE
         </button>
         <button
           onClick={() => onBook && onBook(worker)}
-          className="flex-1 py-3 rounded-xl bg-accent-orange text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-accent-bright hover:-translate-y-1 transition-all border border-accent-highlight/30"
+          className="flex-1 py-2.5 rounded-xl bg-accent-main text-white text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-blue-700 hover:-translate-y-0.5 transition-all"
         >
           BOOK NOW
         </button>

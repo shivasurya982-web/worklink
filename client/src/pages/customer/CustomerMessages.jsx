@@ -1,8 +1,7 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import GlassCard from '../../components/common/GlassCard';
 import PremiumButton from '../../components/common/PremiumButton';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
@@ -10,8 +9,8 @@ import { useSocket } from '../../context/SocketContext';
 import {
   MessageSquare, Send, MapPin,
   CheckCheck, Phone, Edit2,
-  Trash2, Navigation, ArrowLeft, Copy,
-  Paperclip, Loader2, Search, X
+  Trash2, ArrowLeft, Copy,
+  Loader2, Search, X
 } from 'lucide-react';
 import API from '../../services/api';
 import LocationMessage from '../../components/chat/LocationMessage';
@@ -226,20 +225,7 @@ const CustomerMessages = () => {
       },
       (error) => {
         setLocationLoading(false);
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            showToast('Permission Denied', 'Please allow location access in your browser settings and try again.', 'error');
-            break;
-          case error.POSITION_UNAVAILABLE:
-            showToast('Position Unavailable', 'Your current location is unavailable. Please check your device settings.', 'error');
-            break;
-          case error.TIMEOUT:
-            showToast('Timeout', 'Location request timed out. Please try again.', 'error');
-            break;
-          default:
-            showToast('Error', 'Unable to get your current location. Please try again.', 'error');
-            break;
-        }
+        showToast('Error', 'Unable to get your current location. Please try again.', 'error');
       },
       geoOptions
     );
@@ -336,8 +322,8 @@ const CustomerMessages = () => {
 
     if (currentDate !== prevDate) {
       return (
-        <div className="flex justify-center my-6">
-          <span className="bg-background-secondary text-accent-light text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-border-primary/20 shadow-lg">
+        <div className="flex justify-center my-4">
+          <span className="bg-blue-100 text-accent-main text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200">
             {formatMessageDate(currentMsg.createdAt)}
           </span>
         </div>
@@ -352,22 +338,22 @@ const CustomerMessages = () => {
 
   return (
     <DashboardLayout title="Inbox" subtitle="Secure communication with professionals">
-      <div className="bg-background-card rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.6)] border border-border-primary/40 overflow-hidden flex h-[750px] max-h-[85vh]">
+      <div className="bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-sm border border-white/60 overflow-hidden flex h-[750px] max-h-[85vh]">
 
         {/* ── Sidebar: Thread List ── */}
-        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-border-primary/20 bg-background-widget/40`}>
-          <div className="p-6 border-b border-border-primary/10 bg-background-dark/30">
-            <h3 className="font-sora font-black text-lg text-white mb-5 flex items-center gap-2 uppercase tracking-widest">
-              Messages <span className="text-[10px] bg-accent-orange text-white px-2.5 py-0.5 rounded-full shadow-lg">{conversations.length}</span>
+        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-gray-200 bg-blue-50/30`}>
+          <div className="p-5 border-b border-gray-200 bg-white/60">
+            <h3 className="font-sora font-black text-base text-text-primary mb-4 flex items-center gap-2 uppercase tracking-wider">
+              Messages <span className="text-[10px] bg-accent-main text-white px-2.5 py-0.5 rounded-full shadow-xs">{conversations.length}</span>
             </h3>
             <div className="relative group">
-              <Search className="w-4 h-4 text-text-muted absolute left-4 top-1/2 -translate-y-1/2 group-focus-within:text-accent-bright" />
+              <Search className="w-4 h-4 text-text-muted absolute left-3.5 top-1/2 -translate-y-1/2 group-focus-within:text-accent-main" />
               <input
                 type="text"
                 placeholder="Search chats..."
                 value={searchTerm}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-background-card border-border-primary/30 rounded-2xl py-3 pl-11 pr-4 text-xs focus:ring-4 focus:ring-accent-main/10 focus:border-accent-main transition-all font-bold text-white placeholder:text-text-muted uppercase tracking-widest"
+                className="w-full bg-white border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs focus:ring-2 focus:ring-blue-500/10 focus:border-accent-main transition-all font-bold text-text-primary placeholder:text-text-muted uppercase tracking-wider"
               />
             </div>
           </div>
@@ -375,7 +361,7 @@ const CustomerMessages = () => {
           <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
             {loading ? (
               <div className="flex justify-center items-center h-40">
-                <Loader2 className="w-8 h-8 text-accent-bright animate-spin" />
+                <Loader2 className="w-8 h-8 text-accent-main animate-spin" />
               </div>
             ) : filteredConversations.length > 0 ? (
               filteredConversations.map((conv) => {
@@ -386,58 +372,58 @@ const CustomerMessages = () => {
                   <div
                     key={conv._id}
                     onClick={() => setSelectedConversation(conv)}
-                    className={`p-4 rounded-3xl flex items-center gap-4 transition-all cursor-pointer group relative ${
-                      isSelected ? 'bg-accent-orange text-white shadow-2xl' : 'hover:bg-white/5 border border-transparent hover:border-border-primary/10'
+                    className={`p-3.5 rounded-2xl flex items-center gap-3.5 transition-all cursor-pointer group relative ${
+                      isSelected ? 'bg-accent-main text-white shadow-sm' : 'hover:bg-white/80 border border-transparent'
                     }`}
                   >
                     <div className="relative shrink-0">
                       <img
                         src={getImageUrl(recipient.avatar, DEFAULT_AVATAR(recipient.name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(recipient.name || 'User'))}
                         alt={recipient.name}
-                        className={`w-14 h-14 rounded-2xl object-cover border-2 shadow-xl ${isSelected ? 'border-white' : 'border-accent-main'}`}
+                        className={`w-12 h-12 rounded-2xl object-cover border-2 shadow-xs ${isSelected ? 'border-white' : 'border-accent-main'}`}
                       />
-                      {online && <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent-green rounded-full border-2 border-background-card shadow-lg" />}
+                      {online && <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-center mb-1">
                         <h4 className="text-xs font-black truncate uppercase tracking-tight">{recipient.name}</h4>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-[9px] font-black ${isSelected ? 'text-white/70' : 'text-text-muted'}`}>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`text-[9px] font-bold ${isSelected ? 'text-white/80' : 'text-text-muted'}`}>
                             {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
                           </span>
                           <button
                             onClick={(e) => handleDeleteConversation(e, conv._id)}
-                            className={`p-1.5 rounded-lg transition-all opacity-0 group-hover:opacity-100 ${isSelected ? 'hover:bg-white/20 text-white' : 'hover:bg-red-500/10 text-accent-red'}`}
+                            className={`p-1 rounded-lg transition-all opacity-0 group-hover:opacity-100 ${isSelected ? 'hover:bg-white/20 text-white' : 'hover:bg-red-50 text-red-500'}`}
                             title="Delete Chat"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
-                      <p className={`text-[11px] truncate flex items-center gap-1 font-bold ${isSelected ? 'text-white/80' : 'text-text-muted'}`}>
-                         {conv.lastMessage || 'Initialize transmission...'}
+                      <p className={`text-[11px] truncate font-medium ${isSelected ? 'text-white/90' : 'text-text-muted'}`}>
+                         {conv.lastMessage || 'Initialize conversation...'}
                       </p>
                     </div>
                   </div>
                 );
               })
             ) : (
-              <div className="text-center py-24 px-6 opacity-50">
-                <MessageSquare className="w-12 h-12 text-text-muted/20 mx-auto mb-4" />
-                <p className="text-xs font-black text-text-muted uppercase tracking-[0.2em]">Zero Threads Detected</p>
+              <div className="text-center py-20 px-6 opacity-60">
+                <MessageSquare className="w-10 h-10 text-text-muted mx-auto mb-3" />
+                <p className="text-xs font-bold text-text-muted uppercase tracking-wider">No conversations found</p>
               </div>
             )}
           </div>
         </div>
 
         {/* ── Chat Window ── */}
-        <div className={`${view === 'list' ? 'hidden md:flex' : 'flex'} flex-1 flex-col bg-background-dark/20 relative backdrop-blur-3xl`}>
+        <div className={`${view === 'list' ? 'hidden md:flex' : 'flex'} flex-1 flex-col bg-white/40 relative backdrop-blur-2xl`}>
           {selectedConversation ? (
             <>
               {/* Header */}
-              <div className="flex items-center gap-4 p-5 border-b border-border-primary/20 bg-background-dark/95 backdrop-blur-2xl z-10 sticky top-0 shrink-0">
-                <button onClick={() => setView('list')} className="md:hidden p-2 -ml-2 rounded-xl hover:bg-background-widget text-white">
-                  <ArrowLeft className="w-6 h-6" />
+              <div className="flex items-center gap-4 p-4 border-b border-gray-200 bg-white/80 backdrop-blur-xl z-10 sticky top-0 shrink-0">
+                <button onClick={() => setView('list')} className="md:hidden p-2 -ml-2 rounded-xl hover:bg-gray-100 text-text-primary">
+                  <ArrowLeft className="w-5 h-5" />
                 </button>
                 {(() => {
                   const recipient = getRecipient(selectedConversation);
@@ -447,27 +433,27 @@ const CustomerMessages = () => {
                       <div className="relative cursor-pointer group" onClick={() => navigate(`/workers/${recipient._id}`)}>
                         <img
                           src={getImageUrl(recipient.avatar, DEFAULT_AVATAR(recipient.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(recipient.name))}
-                          className="w-12 h-12 rounded-2xl object-cover shadow-2xl border-2 border-accent-main group-hover:border-accent-bright transition-all"
+                          className="w-11 h-11 rounded-2xl object-cover shadow-xs border-2 border-accent-main"
                         />
-                        {online && <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent-green rounded-full border-2 border-background-card shadow-lg" />}
+                        {online && <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />}
                       </div>
                       <div className="flex-1 min-w-0 cursor-pointer" onClick={() => navigate(`/workers/${recipient._id}`)}>
-                        <h4 className="font-sora font-black text-base text-white truncate tracking-tight">{recipient.name}</h4>
-                        <div className="flex items-center gap-2">
-                           <div className={`w-2 h-2 rounded-full ${online ? 'bg-accent-green animate-pulse shadow-[0_0_8px_#22C55E]' : 'bg-text-muted'}`} />
-                           <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${online ? 'text-accent-green' : 'text-text-muted'}`}>
+                        <h4 className="font-sora font-black text-base text-text-primary truncate tracking-tight">{recipient.name}</h4>
+                        <div className="flex items-center gap-1.5">
+                           <div className={`w-2 h-2 rounded-full ${online ? 'bg-emerald-500' : 'bg-text-muted'}`} />
+                           <p className={`text-[10px] font-bold uppercase tracking-wider ${online ? 'text-emerald-600' : 'text-text-muted'}`}>
                              {online ? 'ONLINE' : 'OFFLINE'}
                            </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
                         {recipient.phone && (
                           <button
                             onClick={() => handleCallAction(recipient.phone)}
-                            className="p-3.5 rounded-2xl bg-background-widget text-accent-bright hover:bg-accent-orange hover:text-white transition-all border border-border-primary/40 shadow-xl"
+                            className="p-3 rounded-2xl bg-blue-50 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-blue-100 shadow-xs"
                             title="Call Professional"
                           >
-                            <Phone className="w-5 h-5" />
+                            <Phone className="w-4 h-4" />
                           </button>
                         )}
                       </div>
@@ -476,8 +462,8 @@ const CustomerMessages = () => {
                 })()}
               </div>
 
-              {/* Chat Background & Messages */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-2 bg-transparent relative custom-scrollbar">
+              {/* Chat Messages */}
+              <div className="flex-1 overflow-y-auto p-5 space-y-2 bg-transparent relative custom-scrollbar">
                 {messages.length > 0 ? (
                   messages.map((msg, index) => {
                     const isOwn = String(msg.sender?._id || msg.sender) === String(user?._id || user);
@@ -489,22 +475,22 @@ const CustomerMessages = () => {
                           <div className={`relative max-w-[85%] sm:max-w-[75%] flex flex-col ${isOwn ? 'items-end' : 'items-start'}`}>
 
                             {/* Actions Overlay */}
-                            <div className={`absolute -top-8 ${isOwn ? 'right-0' : 'left-0'} opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1.5 bg-background-cardSecondary rounded-xl shadow-2xl border border-border-primary/30 p-1 z-20`}>
-                               <button onClick={() => handleCopyMessage(msg.content)} className="p-2 hover:bg-background-widget rounded-lg text-text-muted hover:text-white" title="Copy"><Copy className="w-4 h-4" /></button>
+                            <div className={`absolute -top-7 ${isOwn ? 'right-0' : 'left-0'} opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1 bg-white rounded-xl shadow-md border border-gray-200 p-1 z-20`}>
+                               <button onClick={() => handleCopyMessage(msg.content)} className="p-1.5 hover:bg-gray-100 rounded-lg text-text-muted hover:text-text-primary" title="Copy"><Copy className="w-3.5 h-3.5" /></button>
                                {isOwn && msg.type === 'text' && (
                                  <>
-                                   <button onClick={() => { setEditingMessage(msg); setMessageText(msg.content); }} className="p-2 hover:bg-background-widget rounded-lg text-text-muted hover:text-accent-bright" title="Edit"><Edit2 className="w-4 h-4" /></button>
-                                   <button onClick={() => handleDeleteMessage(msg._id)} className="p-2 hover:bg-red-500/10 rounded-lg text-accent-red" title="Delete"><Trash2 className="w-4 h-4" /></button>
+                                   <button onClick={() => { setEditingMessage(msg); setMessageText(msg.content); }} className="p-1.5 hover:bg-gray-100 rounded-lg text-text-muted hover:text-accent-main" title="Edit"><Edit2 className="w-3.5 h-3.5" /></button>
+                                   <button onClick={() => handleDeleteMessage(msg._id)} className="p-1.5 hover:bg-red-50 rounded-lg text-red-500" title="Delete"><Trash2 className="w-3.5 h-3.5" /></button>
                                  </>
                                )}
                             </div>
 
                             {/* Message Bubble */}
                             <div
-                              className={`rounded-3xl px-5 py-4 text-sm shadow-2xl transition-all relative ${
+                              className={`rounded-2xl px-4 py-3 text-sm shadow-xs transition-all relative ${
                                 isOwn
-                                  ? 'bg-accent-orange text-white rounded-tr-none shadow-[0_15px_30px_rgba(244,81,11,0.2)]'
-                                  : 'bg-background-cardSecondary text-white rounded-tl-none border border-border-primary/20'
+                                  ? 'bg-accent-main text-white rounded-tr-none'
+                                  : 'bg-white/80 text-text-primary rounded-tl-none border border-gray-200'
                               }`}
                             >
                               {msg.type === 'location' ? (
@@ -513,12 +499,12 @@ const CustomerMessages = () => {
                                 <p className="leading-relaxed whitespace-pre-wrap font-medium">{msg.content}</p>
                               )}
 
-                              <div className={`flex items-center gap-2 mt-2 ${isOwn ? 'justify-end' : 'justify-start'}`}>
-                                <span className={`text-[9px] font-black uppercase tracking-widest ${isOwn ? 'text-white/60' : 'text-text-muted'}`}>
+                              <div className={`flex items-center gap-1.5 mt-1.5 ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                                <span className={`text-[9px] font-bold uppercase tracking-wider ${isOwn ? 'text-white/70' : 'text-text-muted'}`}>
                                   {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                                 {isOwn && (
-                                  <CheckCheck className={`w-3.5 h-3.5 ${msg.isRead ? 'text-white drop-shadow-[0_0_5px_#fff]' : 'text-white/20'}`} />
+                                  <CheckCheck className={`w-3.5 h-3.5 ${msg.isRead ? 'text-white' : 'text-white/40'}`} />
                                 )}
                               </div>
                             </div>
@@ -528,19 +514,19 @@ const CustomerMessages = () => {
                     );
                   })
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-center p-12 space-y-6">
-                     <div className="w-24 h-24 bg-background-widget rounded-[2rem] flex items-center justify-center shadow-2xl border border-white/5 opacity-20">
-                        <MessageSquare className="w-12 h-12 text-accent-bright" />
+                  <div className="flex flex-col items-center justify-center h-full text-center p-10 space-y-4">
+                     <div className="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center border border-blue-100">
+                        <MessageSquare className="w-10 h-10 text-accent-main" />
                      </div>
-                     <div className="space-y-2">
-                        <h4 className="font-sora font-black text-xl text-white tracking-tight uppercase">Secure Link Established</h4>
-                        <p className="text-xs font-bold text-text-muted max-w-[280px] leading-relaxed uppercase tracking-widest">TRANSMISSION READY. COMMENCE DIALOGUE REGARDING SERVICE REQUIREMENTS.</p>
+                     <div className="space-y-1">
+                        <h4 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">Send a Message</h4>
+                        <p className="text-xs font-semibold text-text-muted max-w-[280px] leading-relaxed">Discuss work requirements and quotes with the professional directly.</p>
                      </div>
                   </div>
                 )}
                 {isTyping && (
-                  <div className="flex justify-start mb-6">
-                    <div className="bg-background-cardSecondary/80 border border-border-primary/20 rounded-2xl px-5 py-2.5 text-[10px] text-accent-bright font-black uppercase tracking-[0.2em] italic animate-pulse shadow-lg">
+                  <div className="flex justify-start mb-4">
+                    <div className="bg-white/80 border border-gray-200 rounded-xl px-4 py-2 text-[10px] text-accent-main font-bold uppercase tracking-wider italic animate-pulse shadow-xs">
                       Professional is typing...
                     </div>
                   </div>
@@ -549,26 +535,26 @@ const CustomerMessages = () => {
               </div>
 
               {/* Input Area */}
-              <div className="p-4 sm:p-6 border-t border-border-primary/20 bg-background-dark/95 backdrop-blur-2xl shrink-0">
+              <div className="p-4 border-t border-gray-200 bg-white/80 backdrop-blur-xl shrink-0">
                 <form onSubmit={handleSendMessage} className="max-w-5xl mx-auto">
                   {editingMessage && (
-                    <div className="flex items-center justify-between bg-accent-orange/10 px-4 py-2 rounded-xl border border-accent-orange/30 animate-slide-up mb-3">
-                      <span className="text-[10px] font-black text-accent-bright flex items-center gap-2 uppercase tracking-widest">
+                    <div className="flex items-center justify-between bg-blue-50 px-4 py-2 rounded-xl border border-blue-200 mb-2">
+                      <span className="text-[10px] font-bold text-accent-main flex items-center gap-2 uppercase tracking-wider">
                          <Edit2 className="w-3.5 h-3.5" /> Editing Message
                       </span>
-                      <button type="button" onClick={() => { setEditingMessage(null); setMessageText(''); }} className="text-text-muted hover:text-accent-red p-1"><X className="w-4 h-4" /></button>
+                      <button type="button" onClick={() => { setEditingMessage(null); setMessageText(''); }} className="text-text-muted hover:text-red-500 p-1"><X className="w-4 h-4" /></button>
                     </div>
                   )}
 
-                  <div className="flex items-end gap-2 sm:gap-3 bg-background-cardSecondary/50 p-2 rounded-[2rem] border border-white/5 shadow-inner">
+                  <div className="flex items-end gap-2 bg-white/90 p-2 rounded-2xl border border-gray-200 shadow-xs">
                     <button
                       type="button"
                       onClick={handleShareLocation}
                       disabled={locationLoading || !selectedConversation}
-                      className="p-3 sm:p-4 rounded-full bg-background-card text-accent-bright hover:bg-accent-orange hover:text-white transition-all border border-border-primary/20 shadow-xl disabled:opacity-30 shrink-0"
+                      className="p-3 rounded-xl bg-blue-50 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-blue-100 disabled:opacity-40 shrink-0"
                       title="Share Location"
                     >
-                      {locationLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />}
+                      {locationLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5" />}
                     </button>
 
                     <textarea
@@ -580,7 +566,7 @@ const CustomerMessages = () => {
                         e.target.style.height = e.target.scrollHeight + 'px';
                       }}
                       placeholder="Write a message..."
-                      className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium py-3 px-2 text-white placeholder:text-text-muted resize-none max-h-32 custom-scrollbar overflow-y-auto"
+                      className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium py-2.5 px-2 text-text-primary placeholder:text-text-muted resize-none max-h-32 custom-scrollbar overflow-y-auto"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
@@ -592,25 +578,24 @@ const CustomerMessages = () => {
                     <button
                       type="submit"
                       disabled={!messageText.trim() || sending}
-                      className="p-3 sm:p-4 bg-accent-orange text-white rounded-full shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0 border border-accent-bright/30"
+                      className="p-3 bg-accent-main text-white rounded-xl shadow-xs hover:bg-blue-700 active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0"
                     >
-                      {sending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />}
+                      {sending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 fill-current" />}
                     </button>
                   </div>
                 </form>
               </div>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center p-16 space-y-8 bg-transparent">
-              <div className="w-32 h-32 bg-background-cardSecondary rounded-[3rem] flex items-center justify-center shadow-[0_30px_70px_rgba(0,0,0,0.8)] mb-4 border border-white/5 relative group">
-                 <div className="absolute inset-0 bg-accent-orange/5 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity" />
-                 <MessageSquare className="w-14 h-14 text-accent-bright opacity-10 group-hover:opacity-30 transition-opacity" />
+            <div className="flex flex-col items-center justify-center h-full text-center p-12 space-y-6">
+              <div className="w-24 h-24 bg-white/80 rounded-3xl flex items-center justify-center shadow-xs border border-gray-200">
+                 <MessageSquare className="w-12 h-12 text-accent-main" />
               </div>
-              <div className="space-y-3">
-                 <h3 className="font-sora font-black text-2xl text-white uppercase tracking-tighter">Communication Terminal</h3>
-                 <p className="text-xs font-bold text-text-muted mt-2 max-w-[320px] mx-auto leading-relaxed uppercase tracking-[0.2em] opacity-80">SELECT A VERIFIED PROFESSIONAL FROM THE REGISTRY TO INITIALIZE A SECURE DIALOGUE CHANNEL.</p>
+              <div className="space-y-2">
+                 <h3 className="font-sora font-black text-xl text-text-primary uppercase tracking-tight">Messages</h3>
+                 <p className="text-xs font-bold text-text-muted max-w-[280px] mx-auto leading-relaxed uppercase tracking-wider">Select a chat thread from the left list to view or send messages.</p>
               </div>
-              <PremiumButton variant="gold" size="lg" className="mt-6 px-12 shadow-[0_15px_40px_rgba(244,81,11,0.4)]" onClick={() => navigate('/customer/search')}>ACCESS DIRECTORY</PremiumButton>
+              <PremiumButton variant="gold" size="md" onClick={() => navigate('/customer/search')}>Find Workers</PremiumButton>
             </div>
           )}
         </div>

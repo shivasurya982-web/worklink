@@ -2,7 +2,7 @@ import React from 'react';
 
 const PremiumButton = ({
   children,
-  variant = 'gold', // 'gold' | 'ai' | 'outline' | 'danger' | 'ghost'
+  variant = 'gold', // 'gold' | 'ai' | 'outline' | 'danger' | 'ghost' | 'glass'
   size = 'md',      // 'xs' | 'sm' | 'md' | 'lg'
   icon: Icon,
   loading = false,
@@ -11,25 +11,24 @@ const PremiumButton = ({
   ...props
 }) => {
   const base =
-    'inline-flex items-center justify-center font-outfit font-black rounded-2xl transition-all duration-300 ' +
-    'active:scale-95 disabled:opacity-50 disabled:pointer-events-none disabled:transform-none ' +
-    'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-main/30 ' +
-    'touch-manipulation select-none tracking-widest uppercase';
+    'inline-flex items-center justify-center font-sora font-black transition-all duration-200 ' +
+    'active:scale-95 disabled:opacity-40 disabled:pointer-events-none ' +
+    'focus:outline-none touch-manipulation select-none tracking-[0.12em] uppercase cursor-pointer';
 
   const variants = {
-    gold:    'bg-gradient-to-r from-[#F4510B] to-[#FF7A18] text-white shadow-xl shadow-black/20 border-2 border-[#FF7A18]/30 hover:shadow-[#F4510B]/40 hover:-translate-y-1',
-    ai:      'bg-[#F97316] text-white shadow-xl shadow-black/20 border-2 border-[#FF7A18]/30 hover:bg-[#FF7A18] hover:-translate-y-1',
-    outline: 'bg-[#080808]/80 border-2 border-[#8F3208] text-[#FF9A4D] hover:border-[#FF7A18] hover:bg-[#080808] hover:-translate-y-1',
-    danger:  'bg-red-600 text-white shadow-lg border-2 border-red-500/30 hover:bg-red-700 hover:-translate-y-1',
-    ghost:   'bg-transparent text-text-secondary hover:text-text-primary hover:bg-white/5',
-    white:   'bg-white text-[#F4510B] shadow-xl hover:bg-[#FFF7F0] hover:-translate-y-1',
+    gold:    'bg-[#2563EB] text-white shadow-md border border-[#2563EB] hover:bg-[#1D4ED8] hover:border-[#1D4ED8]',
+    ai:      'bg-[#2563EB] text-white shadow-md border border-[#2563EB] hover:bg-[#1D4ED8]',
+    outline: 'bg-white/80 border border-gray-300 text-[#111827] hover:border-[#2563EB] hover:text-[#2563EB] hover:bg-blue-50/50',
+    danger:  'bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white',
+    ghost:   'bg-transparent text-[#4B5563] hover:text-[#111827] hover:bg-white/50',
+    glass:   'bg-white/60 backdrop-blur-md border border-white/40 text-[#111827] hover:bg-white/80 hover:border-[#2563EB]/40 shadow-sm',
   };
 
   const sizes = {
-    xs: 'px-3 py-1.5 text-[9px] gap-1.5 min-h-[36px]',
-    sm: 'px-4 py-2.5 text-[10px] gap-2 min-h-[42px]',
-    md: 'px-6 py-3 text-xs gap-2.5 min-h-[48px]',
-    lg: 'px-8 py-4 text-sm gap-3 min-h-[56px] rounded-3xl',
+    xs: 'px-3.5 py-1.5 text-[9px] gap-1.5 rounded-xl min-h-[32px]',
+    sm: 'px-5 py-2.5 text-[10px] gap-2 rounded-2xl min-h-[40px]',
+    md: 'px-7 py-3.5 text-xs gap-2.5 rounded-[1.2rem] min-h-[48px]',
+    lg: 'px-9 py-4 text-xs gap-3 rounded-[1.5rem] min-h-[56px]',
   };
 
   return (
@@ -43,7 +42,7 @@ const PremiumButton = ({
       {loading ? (
         <span className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent" />
       ) : Icon ? (
-        <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+        <Icon className="w-4 h-4 shrink-0" />
       ) : null}
       <span className="truncate">{children}</span>
     </button>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
-import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
 
 const HowItWorks = () => {
@@ -37,33 +36,31 @@ const HowItWorks = () => {
   const icons = [Search, Calendar, MapPin, CheckCircle2];
 
   return (
-    <section className="py-24 sm:py-32 bg-background-dark relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[100%] h-[100%] bg-accent-orange/5 blur-[200px] pointer-events-none" />
-
+    <section className="py-20 sm:py-28 relative overflow-hidden">
       <div className="container-responsive relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-32">
-           <span className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] mb-6 block">Direct & Simple</span>
-           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-sora font-black text-white mb-8 tracking-tighter">{settings.howItWorksTitle}</h2>
-           <p className="text-sm sm:text-lg text-text-secondary leading-relaxed font-medium opacity-80">{settings.howItWorksSubtitle}</p>
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+           <span className="text-[11px] font-black text-accent-main uppercase tracking-[0.3em] mb-4 block">Direct & Simple</span>
+           <h2 className="text-3xl sm:text-5xl font-sora font-black text-text-primary mb-4 tracking-tight">{settings.howItWorksTitle}</h2>
+           <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold uppercase tracking-widest">{settings.howItWorksSubtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 relative">
           {/* Connector Line (Desktop) */}
-          <div className="hidden lg:block absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-accent-orange/30 to-transparent pointer-events-none" />
+          <div className="hidden lg:block absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-blue-200 pointer-events-none" />
 
           {settings.howItWorksSteps.map((step, i) => {
             const Icon = icons[i % icons.length];
             return (
-              <div key={i} className="flex flex-col items-center text-center space-y-10 relative group">
-                 <div className="w-24 h-24 rounded-[2.5rem] bg-background-cardSecondary text-accent-bright flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border-primary/40 group-hover:bg-accent-orange group-hover:text-white group-hover:-translate-y-3 group-hover:shadow-accent-orange/20 transition-all duration-500 z-10 relative">
-                    <Icon className="w-10 h-10" />
-                    <span className="absolute -top-4 -right-4 w-12 h-12 rounded-2xl bg-accent-bright text-white text-xs font-black flex items-center justify-center border-4 border-background-dark shadow-2xl">
+              <div key={i} className="flex flex-col items-center text-center space-y-6 relative group">
+                 <div className="w-20 h-20 rounded-3xl bg-white text-accent-main flex items-center justify-center shadow-md border border-white/60 group-hover:bg-accent-main group-hover:text-white group-hover:-translate-y-1 transition-all duration-300 z-10 relative">
+                    <Icon className="w-8 h-8" />
+                    <span className="absolute -top-3 -right-3 w-10 h-10 rounded-xl bg-accent-main text-white text-xs font-black flex items-center justify-center border-2 border-white shadow-sm">
                       {step.step || `0${i+1}`}
                     </span>
                  </div>
-                 <div className="space-y-4">
-                    <h3 className="font-sora font-black text-xl text-white group-hover:text-accent-bright transition-colors tracking-tight">{step.title}</h3>
-                    <p className="text-xs sm:text-sm text-text-muted leading-relaxed max-w-[260px] mx-auto font-medium opacity-90">
+                 <div className="space-y-2">
+                    <h3 className="font-sora font-black text-lg text-text-primary group-hover:text-accent-main transition-colors tracking-tight">{step.title}</h3>
+                    <p className="text-xs text-text-secondary leading-relaxed max-w-[260px] mx-auto font-medium">
                       {step.description}
                     </p>
                  </div>

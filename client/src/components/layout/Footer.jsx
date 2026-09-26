@@ -21,31 +21,31 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-background-dark border-t border-border-primary/20 mt-20 sm:mt-32 shadow-[0_-30px_80px_rgba(0,0,0,0.7)] relative overflow-hidden">
-      {/* Subtle Glow */}
-      <div className="absolute bottom-0 right-0 w-[50%] h-[50%] bg-accent-orange/5 blur-[100px] pointer-events-none" />
+    <footer className="bg-white/50 backdrop-blur-xl border-t border-white/60 mt-20 sm:mt-32 shadow-sm relative overflow-hidden">
+      {/* Soft Blue Glow */}
+      <div className="absolute bottom-0 right-0 w-[50%] h-[50%] bg-blue-100/40 blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-8 sm:pb-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8 sm:pb-12 relative z-10">
 
         {/* Main Grid */}
-        <div className="mb-16 sm:mb-20">
+        <div className="mb-12 sm:mb-16">
           {/* Brand */}
           <div className="max-w-2xl">
-            <Link to="/" className="inline-flex items-center gap-2 mb-8 group">
-              <span className="font-sora font-black text-3xl text-white tracking-tighter group-hover:text-accent-bright transition-colors">
+            <Link to="/" className="inline-flex items-center gap-2 mb-6 group">
+              <span className="font-sora font-black text-3xl text-text-primary tracking-tight group-hover:text-accent-main transition-colors">
                 Worklyn
               </span>
             </Link>
-            <p className="text-sm sm:text-lg text-text-secondary mb-10 leading-relaxed font-medium opacity-80 uppercase">
+            <p className="text-sm sm:text-base text-text-secondary mb-8 leading-relaxed font-medium">
               Worklyn is a platform that helps you find the best local workers for your home or business needs.
             </p>
-            <div className="flex flex-wrap gap-8 text-[11px] font-black text-accent-light uppercase tracking-[0.3em]">
-              <span className="flex items-center gap-2.5 group">
-                <ShieldCheck className="w-6 h-6 text-accent-green flex-shrink-0 group-hover:scale-110 transition-transform" />
+            <div className="flex flex-wrap gap-8 text-[11px] font-black text-accent-main uppercase tracking-widest">
+              <span className="flex items-center gap-2 group">
+                <ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0 group-hover:scale-110 transition-transform" />
                 Verified Workers
               </span>
-              <span className="flex items-center gap-2.5 group">
-                <Sparkles className="w-6 h-6 text-accent-bright flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="flex items-center gap-2 group">
+                <Sparkles className="w-5 h-5 text-accent-main flex-shrink-0 group-hover:scale-110 transition-transform" />
                 Smart Matching
               </span>
             </div>
@@ -53,11 +53,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-white/5 flex flex-col sm:sm:flex-row items-center justify-between gap-8 text-[10px] sm:text-[11px] font-black text-text-muted uppercase tracking-[0.4em]">
+        <div className="pt-8 border-t border-gray-200/60 flex flex-col sm:flex-row items-center justify-between gap-6 text-[10px] sm:text-[11px] font-bold text-text-muted uppercase tracking-widest">
           <p>© {year} {cmsSettings.footerCopyrightText || 'Worklyn. All rights reserved.'}</p>
           <div className="flex flex-wrap items-center justify-center gap-8">
-             <span className="flex items-center gap-2.5">
-              Made with <Heart className="w-5 h-5 text-accent-red fill-accent-red animate-pulse" /> by Worklyn
+             <span className="flex items-center gap-2">
+              Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> by Worklyn
             </span>
           </div>
         </div>

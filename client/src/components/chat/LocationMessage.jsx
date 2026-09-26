@@ -16,28 +16,28 @@ const LocationMessage = ({ location, isOwn }) => {
   const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
 
   return (
-    <div className={`space-y-4 p-2 min-w-[220px] ${isOwn ? 'text-white' : 'text-white'}`}>
-      <div className="flex items-center gap-3 font-black mb-1">
-        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-xl border ${isOwn ? 'bg-white/10 border-white/20' : 'bg-background-dark/50 border-accent-bright/30'}`}>
-          <MapPin className={`w-5 h-5 ${isOwn ? 'text-white' : 'text-accent-bright'}`} />
+    <div className={`space-y-3 p-1 min-w-[200px] ${isOwn ? 'text-white' : 'text-text-primary'}`}>
+      <div className="flex items-center gap-3 font-bold mb-1">
+        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-xs border ${isOwn ? 'bg-white/20 border-white/30' : 'bg-blue-50 border-blue-100'}`}>
+          <MapPin className={`w-4 h-4 ${isOwn ? 'text-white' : 'text-accent-main'}`} />
         </div>
         <div className="flex flex-col">
-           <span className="text-xs uppercase tracking-widest font-black">Live Coordinates</span>
-           <span className="text-[9px] opacity-50 uppercase font-bold tracking-tighter">Secure GPS Ping</span>
+           <span className="text-xs uppercase tracking-wider font-extrabold">Live Location</span>
+           <span className="text-[9px] opacity-70 uppercase font-semibold">GPS Coordinates</span>
         </div>
       </div>
 
       <button
         type="button"
         onClick={() => window.open(googleMapsUrl, "_blank", "noopener,noreferrer")}
-        className={`w-full py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 transition-all active:scale-[0.98] shadow-2xl ${
+        className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-xs cursor-pointer ${
           isOwn
-            ? 'bg-white text-accent-orange hover:bg-opacity-90 border-2 border-transparent'
-            : 'bg-accent-main text-white hover:bg-accent-bright border-2 border-accent-bright/30 shadow-orange'
+            ? 'bg-white text-accent-main hover:bg-blue-50'
+            : 'bg-accent-main text-white hover:bg-blue-700'
         }`}
       >
-        <Navigation className="w-4 h-4" />
-        Launch Nav
+        <Navigation className="w-3.5 h-3.5" />
+        Open Map
       </button>
     </div>
   );

@@ -82,20 +82,20 @@ const FeaturedWorkers = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-background-secondary/50 relative">
+    <section className="py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-blue/10 text-accent-blue text-xs font-semibold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-accent-main text-xs font-bold mb-2">
               <Sparkles className="w-3.5 h-3.5" /> AI Recommended
             </div>
-            <h2 className="text-3xl font-sora font-bold text-text-primary">
+            <h2 className="text-3xl font-sora font-black text-text-primary">
               Featured Local Professionals
             </h2>
           </div>
           <Link
             to="/search"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-gold hover:underline mt-4 md:mt-0"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-accent-main hover:underline mt-4 md:mt-0 uppercase tracking-wider"
           >
             Explore All Workers <ArrowRight className="w-3.5 h-3.5" />
           </Link>

@@ -39,29 +39,28 @@ const AIFeaturesSection = () => {
   const icons = [Sparkles, FileText, Navigation, ShieldCheck, MessageSquare, BarChart2];
 
   return (
-    <section className="py-24 sm:py-32 relative overflow-hidden bg-background-dark/10">
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent-orange/5 rounded-full blur-[150px] pointer-events-none" />
+    <section className="py-20 sm:py-28 relative overflow-hidden">
       <div className="container-responsive relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24">
-          <span className="text-[11px] font-black text-accent-bright uppercase tracking-[0.4em] mb-6 block">Features</span>
-          <h2 className="text-3xl sm:text-5xl font-sora font-black text-white tracking-tighter mb-6 uppercase">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <span className="text-[11px] font-black text-accent-main uppercase tracking-[0.3em] mb-4 block">Features</span>
+          <h2 className="text-3xl sm:text-5xl font-sora font-black text-text-primary tracking-tight mb-4 uppercase">
              {settings.aiSectionTitle}
           </h2>
-          <p className="text-sm sm:text-lg text-text-secondary leading-relaxed font-medium opacity-80 uppercase tracking-widest">
+          <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold uppercase tracking-widest">
             {settings.aiSectionSubtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
            {settings.aiFeaturesList.map((feature, i) => {
              const Icon = icons[i % icons.length];
              return (
-               <GlassCard key={i} className="p-10 sm:p-12 border border-border-primary/20 !bg-background-card/80 hover:!bg-background-card hover:border-accent-orange/50 transition-all duration-500 group hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                  <div className="w-16 h-16 rounded-[2rem] bg-background-widget text-accent-bright flex items-center justify-center mb-8 group-hover:bg-accent-orange group-hover:text-white transition-all duration-500 shadow-2xl group-hover:shadow-accent-orange/30 border border-white/5">
-                     <Icon className="w-8 h-8" />
+               <GlassCard key={i} className="p-8 sm:p-10 border border-white/60 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mb-6 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
+                     <Icon className="w-7 h-7" />
                   </div>
-                  <h3 className="font-sora font-black text-lg sm:text-xl text-white mb-4 tracking-tight group-hover:text-accent-bright transition-colors uppercase">{feature.title}</h3>
-                  <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-bold uppercase tracking-widest opacity-90">
+                  <h3 className="font-sora font-black text-lg text-text-primary mb-3 tracking-tight group-hover:text-accent-main transition-colors uppercase">{feature.title}</h3>
+                  <p className="text-xs text-text-secondary leading-relaxed font-medium">
                     {feature.description}
                   </p>
                </GlassCard>

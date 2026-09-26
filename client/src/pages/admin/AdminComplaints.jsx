@@ -1,4 +1,4 @@
-import { getImageUrl, handleImageError, DEFAULT_AVATAR, DEFAULT_COVER } from '../../utils/imageUtils';
+import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
@@ -6,7 +6,7 @@ import PremiumButton from '../../components/common/PremiumButton';
 import Badge from '../../components/common/Badge';
 import Modal from '../../components/common/Modal';
 import { useNotification } from '../../context/NotificationContext';
-import { AlertCircle, CheckCircle2, XCircle, Clock, Search, ShieldCheck, Trash2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, ShieldCheck, Trash2 } from 'lucide-react';
 import API from '../../services/api';
 
 const AdminComplaints = () => {
@@ -16,7 +16,6 @@ const AdminComplaints = () => {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [updating, setUpdating] = useState(false);
-  const [deleting, setDeleting] = useState(false);
 
   const [newStatus, setNewStatus] = useState('resolved');
   const [resolutionNotes, setResolutionNotes] = useState('');
@@ -74,7 +73,6 @@ const AdminComplaints = () => {
   const handleDeleteComplaint = async (id) => {
     if (!window.confirm('Delete this complaint record forever?')) return;
 
-    setDeleting(true);
     try {
       const res = await API.delete(`/complaints/admin/${id}`);
       if (res.success) {
@@ -83,8 +81,6 @@ const AdminComplaints = () => {
       }
     } catch (err) {
       showToast('Error', err.message || 'Failed to delete complaint', 'error');
-    } finally {
-      setDeleting(false);
     }
   };
 
@@ -108,7 +104,7 @@ const AdminComplaints = () => {
       subtitle="View and resolve issues reported by users and workers"
     >
       {/* Tabs */}
-      <div className="flex flex-wrap gap-3 mb-10 border-b border-white/5 pb-5">
+      <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-100 pb-4">
         {[
           { id: 'all', label: `ALL (${complaints.length})` },
           { id: 'open', label: `NEW (${complaints.filter((c) => c.status === 'open').length})` },
@@ -119,10 +115,10 @@ const AdminComplaints = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
+            className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
               activeTab === tab.id
-                ? 'bg-accent-orange text-white shadow-xl scale-105'
-                : 'bg-background-cardSecondary text-text-muted hover:text-white border border-border-primary/20'
+                ? 'bg-accent-main text-white shadow-xs'
+                : 'bg-white text-text-muted hover:text-text-primary border border-gray-200'
             }`}
           >
             {tab.label}
@@ -132,92 +128,90 @@ const AdminComplaints = () => {
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-accent-bright border-t-transparent shadow-orange" />
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
         </div>
       ) : filteredComplaints.length > 0 ? (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {filteredComplaints.map((c) => (
-            <GlassCard key={c._id} hover={false} className="p-6 sm:p-8 !bg-background-card border-border-primary/40 shadow-2xl space-y-6 group relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-24 h-24 bg-accent-orange/5 blur-3xl pointer-events-none" />
-
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-6 relative z-10">
+            <GlassCard key={c._id} hover={false} className="p-6 !bg-white/80 border border-white/60 shadow-xs space-y-4 group relative overflow-hidden">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-4 relative z-10">
                 {/* Complainant User Info */}
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-4">
                   <img
                     src={getImageUrl(c.user?.avatar, DEFAULT_AVATAR(c.user?.name || 'User'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(c.user?.name || 'User'))}
                     alt={c.user?.name}
-                    className="w-16 h-16 rounded-[1.5rem] object-cover border-2 border-accent-main shadow-2xl shrink-0"
+                    className="w-14 h-14 rounded-2xl object-cover border-2 border-accent-main shadow-xs shrink-0"
                   />
                   <div className="min-w-0">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-sora font-black text-xl text-white tracking-tighter uppercase">{c.user?.name}</h4>
-                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-black uppercase">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-sora font-black text-lg text-text-primary tracking-tight uppercase">{c.user?.name}</h4>
+                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-bold uppercase">
                         {c.userModel}
                       </Badge>
                     </div>
-                    <p className="text-[10px] font-black text-text-muted mt-2 uppercase tracking-widest opacity-80">
+                    <p className="text-[10px] font-bold text-text-muted mt-1 uppercase tracking-wider">
                       Email: {c.user?.email} | Phone: {c.user?.phone || 'N/A'}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 shrink-0 self-end md:self-center">
-                  <Badge variant={statusVariant(c.status)} size="md" className="!rounded-xl px-5 font-black uppercase">
+                <div className="flex items-center gap-3 shrink-0 self-end md:self-center">
+                  <Badge variant={statusVariant(c.status)} size="md" className="!rounded-xl px-4 font-bold uppercase">
                     {(c.status || 'open').replace(/_/g, ' ')}
                   </Badge>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <PremiumButton
                       variant="gold"
                       size="sm"
                       onClick={() => handleOpenActionModal(c)}
-                      className="px-6 shadow-orange font-black"
+                      className="px-5 font-black"
                     >
                       Update
                     </PremiumButton>
                     <button
                       onClick={() => handleDeleteComplaint(c._id)}
-                      className="p-3 rounded-2xl bg-red-950/20 text-red-400 border border-red-500/20 hover:bg-red-900/30 transition-all shadow-xl"
+                      className="p-2.5 rounded-xl bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-all shadow-xs cursor-pointer"
                       title="Delete Ticket"
                     >
-                      <Trash2 className="w-5 h-5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Subject & Description */}
-              <div className="relative z-10 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-background-widget flex items-center justify-center border border-accent-bright/20"><AlertCircle className="w-4 h-4 text-accent-bright" /></div>
-                  <span className="font-black text-sm text-white uppercase tracking-tight">{c.subject}</span>
-                  <div className="bg-background-dark/50 px-3 py-1 rounded-lg border border-white/5">
-                    <span className="text-[9px] font-black text-accent-light uppercase tracking-widest">TYPE: {c.category}</span>
+              <div className="relative z-10 space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center border border-blue-100"><AlertCircle className="w-4 h-4 text-accent-main" /></div>
+                  <span className="font-black text-sm text-text-primary uppercase tracking-tight">{c.subject}</span>
+                  <div className="bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100">
+                    <span className="text-[9px] font-black text-accent-main uppercase tracking-wider">TYPE: {c.category}</span>
                   </div>
                 </div>
-                <div className="bg-background-dark/30 p-6 rounded-[2rem] border-2 border-white/5 shadow-inner relative group min-h-[100px] hover:border-accent-main/20 transition-all">
-                  <p className="text-sm text-text-secondary leading-relaxed font-bold italic opacity-90 pr-8">
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-xs relative">
+                  <p className="text-xs text-text-secondary leading-relaxed font-semibold italic">
                     "{c.description}"
                   </p>
                 </div>
               </div>
 
               {c.resolutionNotes && (
-                <div className="p-6 bg-emerald-950/20 rounded-[2rem] text-sm text-emerald-400 border-2 border-emerald-500/20 shadow-inner animate-fade-in relative z-10">
-                  <span className="font-black text-emerald-400 block mb-3 flex items-center gap-2 uppercase tracking-[0.2em]">
-                    <CheckCircle2 className="w-5 h-5 text-accent-green" /> Support Team Response:
+                <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 animate-fade-in relative z-10">
+                  <span className="font-bold text-emerald-700 block mb-1 flex items-center gap-1.5 uppercase tracking-wider text-[10px]">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Support Team Response:
                   </span>
-                  <p className="font-bold leading-relaxed">{c.resolutionNotes}</p>
+                  <p className="text-xs font-bold text-text-primary leading-relaxed">{c.resolutionNotes}</p>
                 </div>
               )}
             </GlassCard>
           ))}
         </div>
       ) : (
-        <div className="text-center py-32 bg-background-cardSecondary/40 rounded-[3rem] border-2 border-dashed border-border-primary/20">
-           <div className="w-20 h-20 bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl border border-white/5">
-              <ShieldCheck className="w-10 h-10 text-accent-green opacity-20" />
+        <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
+           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+              <ShieldCheck className="w-8 h-8 text-emerald-600" />
            </div>
-           <p className="text-xs font-black text-text-muted uppercase tracking-[0.4em]">NO COMPLAINTS FOUND HERE.</p>
+           <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO COMPLAINTS FOUND HERE.</p>
         </div>
       )}
 
@@ -228,14 +222,14 @@ const AdminComplaints = () => {
           onClose={() => setModalOpen(false)}
           title={`Update Complaint: ${selectedComplaint?.subject}`}
         >
-          <form onSubmit={handleUpdateStatus} className="space-y-10 pt-6">
-            <div className="bg-background-dark/50 p-8 rounded-[2.5rem] border border-white/5 shadow-inner space-y-8">
+          <form onSubmit={handleUpdateStatus} className="space-y-6 pt-2">
+            <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 space-y-4">
               <div>
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">STATUS</label>
+                <label className="text-[10px] font-black text-accent-main uppercase tracking-widest block mb-2">STATUS</label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="w-full bg-background-card border-2 border-border-primary/40 rounded-2xl p-4 text-xs font-black text-white focus:outline-none focus:border-accent-main shadow-2xl uppercase tracking-widest"
+                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main uppercase tracking-wider"
                 >
                   <option value="in_review">Mark as Under Review</option>
                   <option value="resolved">Mark as Resolved</option>
@@ -245,19 +239,19 @@ const AdminComplaints = () => {
               </div>
 
               <div>
-                <label className="text-[10px] font-black text-accent-light uppercase tracking-[0.4em] block mb-4 ml-2">REPLY TO USER</label>
+                <label className="text-[10px] font-black text-accent-main uppercase tracking-widest block mb-2">REPLY TO USER</label>
                 <textarea
-                  rows={5}
+                  rows={4}
                   value={resolutionNotes}
                   onChange={(e) => setResolutionNotes(e.target.value)}
                   placeholder="Tell the user how you are fixing this..."
-                  className="w-full bg-background-card border-2 border-border-primary/40 rounded-[2rem] p-6 text-sm font-bold focus:outline-none focus:border-accent-main text-white shadow-2xl"
+                  className="w-full bg-white border border-gray-200 rounded-2xl p-4 text-xs font-bold focus:outline-none focus:border-accent-main text-text-primary"
                   required
                 />
               </div>
             </div>
 
-            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={updating} className="py-5 text-base shadow-orange font-black">
+            <PremiumButton type="submit" variant="gold" size="lg" fullWidth loading={updating} className="py-4 font-black">
               SAVE UPDATE
             </PremiumButton>
           </form>

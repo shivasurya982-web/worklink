@@ -7,9 +7,6 @@ import NotFound from '../pages/public/NotFound';
 
 // Public Pages
 import Home from '../pages/public/Home';
-import About from '../pages/public/About';
-import Contact from '../pages/public/Contact';
-import Services from '../pages/public/Services';
 import SearchPage from '../pages/customer/SearchPage';
 import CustomerSearch from '../pages/customer/CustomerSearch';
 import WorkerProfilePage from '../pages/customer/WorkerProfilePage';
@@ -47,8 +44,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background-primary">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-gold border-t-transparent" />
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
       </div>
     );
   }

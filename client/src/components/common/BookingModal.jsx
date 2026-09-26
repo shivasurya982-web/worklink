@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { X, Calendar, Clock, MapPin, FileText, DollarSign, Sparkles } from 'lucide-react';
-import FloatingInput from './FloatingInput';
 import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
 
 const BookingModal = ({ worker, onClose, onBook }) => {
@@ -44,35 +43,34 @@ const BookingModal = ({ worker, onClose, onBook }) => {
   const hourlyRate = worker.hourlyRate || 500;
   const estimatedCost = hourlyRate * form.estimatedHours;
 
-  // Get today's date in YYYY-MM-DD format for min date
   const today = new Date().toISOString().split('T')[0];
   const fallbackAvatar = DEFAULT_AVATAR(worker.name);
   const avatarUrl = getImageUrl(worker.avatar, fallbackAvatar);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/30 backdrop-blur-md">
       <div
-        className="glass-card bg-white/98 rounded-3xl p-6 w-full max-w-lg shadow-2xl border border-accent-gold/20 animate-slide-up"
+        className="glass-card bg-white/90 backdrop-blur-xl rounded-3xl p-6 w-full max-w-lg shadow-2xl border border-white/60 animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between mb-6 pb-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
             <img
               src={avatarUrl}
               alt={worker.name}
               onError={(e) => handleImageError(e, fallbackAvatar)}
-              className="w-12 h-12 rounded-2xl object-cover border border-accent-gold/30"
+              className="w-12 h-12 rounded-2xl object-cover border border-accent-main"
             />
             <div>
-              <h3 className="font-sora font-bold text-text-primary">{worker.name}</h3>
-              <p className="text-xs text-text-muted">{worker.category?.name || worker.category}</p>
-              <p className="text-xs font-semibold text-accent-gold">₹{hourlyRate}/hr</p>
+              <h3 className="font-sora font-black text-text-primary text-base">{worker.name}</h3>
+              <p className="text-xs text-text-muted font-semibold">{worker.category?.name || worker.category}</p>
+              <p className="text-xs font-bold text-accent-main mt-0.5">₹{hourlyRate}/hr</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-text-muted hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-xl text-text-muted hover:bg-gray-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -80,7 +78,7 @@ const BookingModal = ({ worker, onClose, onBook }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium">
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-bold">
               {error}
             </div>
           )}
@@ -88,8 +86,8 @@ const BookingModal = ({ worker, onClose, onBook }) => {
           {/* Date & Time */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-text-secondary mb-1.5 block">
-                <Calendar className="w-3.5 h-3.5 inline mr-1" />Date *
+              <label className="text-xs font-bold text-text-secondary mb-1.5 block">
+                <Calendar className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Date *
               </label>
               <input
                 type="date"
@@ -98,12 +96,12 @@ const BookingModal = ({ worker, onClose, onBook }) => {
                 onChange={handleChange}
                 min={today}
                 required
-                className="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent-gold/30 focus:border-accent-gold text-text-primary"
+                className="w-full text-xs font-semibold px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:border-accent-main text-text-primary"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-text-secondary mb-1.5 block">
-                <Clock className="w-3.5 h-3.5 inline mr-1" />Time *
+              <label className="text-xs font-bold text-text-secondary mb-1.5 block">
+                <Clock className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Time *
               </label>
               <input
                 type="time"
@@ -111,15 +109,15 @@ const BookingModal = ({ worker, onClose, onBook }) => {
                 value={form.scheduledTime}
                 onChange={handleChange}
                 required
-                className="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent-gold/30 focus:border-accent-gold text-text-primary"
+                className="w-full text-xs font-semibold px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:border-accent-main text-text-primary"
               />
             </div>
           </div>
 
           {/* Address */}
           <div>
-            <label className="text-xs font-semibold text-text-secondary mb-1.5 block">
-              <MapPin className="w-3.5 h-3.5 inline mr-1" />Service Address *
+            <label className="text-xs font-bold text-text-secondary mb-1.5 block">
+              <MapPin className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Service Address *
             </label>
             <input
               type="text"
@@ -128,20 +126,20 @@ const BookingModal = ({ worker, onClose, onBook }) => {
               onChange={handleChange}
               placeholder="Enter your full address"
               required
-              className="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent-gold/30 focus:border-accent-gold text-text-primary placeholder-text-muted"
+              className="w-full text-xs font-semibold px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:border-accent-main text-text-primary placeholder:text-text-muted"
             />
           </div>
 
           {/* Estimated Hours */}
           <div>
-            <label className="text-xs font-semibold text-text-secondary mb-1.5 block">
-              <Clock className="w-3.5 h-3.5 inline mr-1" />Estimated Hours
+            <label className="text-xs font-bold text-text-secondary mb-1.5 block">
+              <Clock className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Estimated Hours
             </label>
             <select
               name="estimatedHours"
               value={form.estimatedHours}
               onChange={handleChange}
-              className="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent-gold/30 focus:border-accent-gold text-text-primary"
+              className="w-full text-xs font-semibold px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:border-accent-main text-text-primary"
             >
               {[1, 2, 3, 4, 5, 6, 8].map((h) => (
                 <option key={h} value={h}>{h} hour{h > 1 ? 's' : ''}</option>
@@ -151,8 +149,8 @@ const BookingModal = ({ worker, onClose, onBook }) => {
 
           {/* Description */}
           <div>
-            <label className="text-xs font-semibold text-text-secondary mb-1.5 block">
-              <FileText className="w-3.5 h-3.5 inline mr-1" />Description / Issues
+            <label className="text-xs font-bold text-text-secondary mb-1.5 block">
+              <FileText className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Description / Issues
             </label>
             <textarea
               name="description"
@@ -160,27 +158,27 @@ const BookingModal = ({ worker, onClose, onBook }) => {
               onChange={handleChange}
               placeholder="Describe the work you need done..."
               rows={3}
-              className="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent-gold/30 focus:border-accent-gold text-text-primary placeholder-text-muted resize-none"
+              className="w-full text-xs font-semibold px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:border-accent-main text-text-primary placeholder:text-text-muted resize-none"
             />
           </div>
 
           {/* Estimated Cost */}
-          <div className="p-4 rounded-2xl bg-amber-50 border border-accent-gold/20 flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-100 flex items-center justify-between">
             <div className="flex items-center gap-2 text-text-secondary text-sm">
-              <DollarSign className="w-4 h-4 text-accent-gold" />
-              <span className="font-medium">Estimated Total</span>
+              <DollarSign className="w-4 h-4 text-accent-main" />
+              <span className="font-bold">Estimated Total</span>
             </div>
-            <span className="font-sora font-bold text-lg text-accent-gold">₹{estimatedCost.toLocaleString()}</span>
+            <span className="font-sora font-black text-lg text-accent-main">₹{estimatedCost.toLocaleString()}</span>
           </div>
 
           {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary py-3 rounded-full text-sm font-bold flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full py-3.5 rounded-2xl bg-accent-main hover:bg-blue-700 text-white text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-60"
           >
             {loading ? (
-              <div className="w-4 h-4 border-2 border-text-primary/30 border-t-text-primary rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
               <Sparkles className="w-4 h-4" />
             )}

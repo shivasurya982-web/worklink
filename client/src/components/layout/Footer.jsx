@@ -21,44 +21,41 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-white/55 backdrop-blur-2xl border-t border-white/75 mt-20 sm:mt-32 shadow-sm relative overflow-hidden">
-      {/* Soft Orange Fluid Refraction */}
-      <div className="absolute bottom-0 right-0 w-[50%] h-[50%] bg-orange-200/30 blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8 sm:pb-12 relative z-10">
+    <footer className="bg-slate-900 text-white border-t border-slate-800 mt-20 sm:mt-28 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8 relative z-10">
 
         {/* Main Grid */}
-        <div className="mb-12 sm:mb-16">
+        <div className="mb-12">
           {/* Brand */}
           <div className="max-w-2xl">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6 group">
-              <span className="font-sora font-black text-3xl text-text-primary tracking-tight group-hover:text-accent-main transition-colors">
+            <Link to="/" className="inline-flex items-center gap-2 mb-4 group">
+              <span className="font-sora font-bold text-2xl text-white tracking-tight group-hover:text-indigo-400 transition-colors">
                 Worklyn
               </span>
             </Link>
-            <p className="text-sm sm:text-base text-text-secondary mb-8 leading-relaxed font-medium">
-              Worklyn is a platform that helps you find the best local workers for your home or business needs.
+            <p className="text-sm text-slate-400 mb-6 leading-relaxed font-medium">
+              Worklyn connects you with trusted local service professionals for all your home, office, and maintenance needs.
             </p>
-            <div className="flex flex-wrap gap-8 text-[11px] font-black text-accent-main uppercase tracking-widest">
-              <span className="flex items-center gap-2 group">
-                <ShieldCheck className="w-5 h-5 text-emerald-600 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                Verified Workers
+            <div className="flex flex-wrap gap-6 text-[11px] font-bold text-indigo-400 uppercase tracking-wider">
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                Verified Professionals
               </span>
-              <span className="flex items-center gap-2 group">
-                <Sparkles className="w-5 h-5 text-accent-main flex-shrink-0 group-hover:scale-110 transition-transform" />
-                Smart Matching
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-indigo-400" />
+                Smart Local Matching
               </span>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-200/60 flex flex-col sm:flex-row items-center justify-between gap-6 text-[10px] sm:text-[11px] font-bold text-text-muted uppercase tracking-widest">
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-400">
           <p>© {year} {cmsSettings.footerCopyrightText || 'Worklyn. All rights reserved.'}</p>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-             <span className="flex items-center gap-2">
-              Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> by Worklyn
-            </span>
+          <div className="flex items-center gap-2">
+             <span>Made with</span>
+             <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+             <span>by Worklyn</span>
           </div>
         </div>
       </div>

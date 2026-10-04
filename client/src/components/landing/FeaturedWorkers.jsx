@@ -82,20 +82,20 @@ const FeaturedWorkers = () => {
   }, []);
 
   return (
-    <section className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+    <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-orange-100/80 text-accent-main text-xs font-bold mb-2 shadow-xs border border-orange-200/60">
-              <Sparkles className="w-3.5 h-3.5" /> AI Recommended
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-xs font-bold mb-2 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" /> AI Recommended
             </div>
-            <h2 className="text-3xl font-sora font-black text-text-primary uppercase tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 uppercase tracking-tight">
               Featured Local Professionals
             </h2>
           </div>
           <Link
             to="/search"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-accent-main hover:underline mt-4 md:mt-0 uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:underline uppercase tracking-wider"
           >
             Explore All Workers <ArrowRight className="w-3.5 h-3.5" />
           </Link>

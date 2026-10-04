@@ -29,39 +29,38 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="py-20 relative">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="text-xs font-bold text-accent-main uppercase tracking-widest font-outfit">
+    <section className="py-16 sm:py-20 bg-[#F8FAFC]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-xl mx-auto mb-12">
+          <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-1">
             Help Center
           </span>
-          <h2 className="text-3xl font-sora font-black text-text-primary mt-1 uppercase">
+          <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 uppercase tracking-tight">
             Frequently Asked Questions
           </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <GlassCard
                 key={faq.q}
-                orangeBorder={isOpen}
-                className="cursor-pointer transition-all !bg-white/70 border border-white/75"
+                className="cursor-pointer transition-all bg-white border border-slate-200/80 p-5"
                 onClick={() => setOpenIndex(isOpen ? -1 : index)}
               >
                 <div className="flex items-center justify-between gap-4">
-                  <h3 className="font-sora font-bold text-sm text-text-primary">
+                  <h3 className="font-sora font-bold text-sm text-slate-900">
                     {faq.q}
                   </h3>
                   <ChevronDown
-                    className={`w-4 h-4 text-accent-main transition-transform duration-300 ${
+                    className={`w-4 h-4 text-indigo-600 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </div>
                 {isOpen && (
-                  <p className="text-xs text-text-secondary leading-relaxed mt-3 pt-3 border-t border-gray-100 animate-fade-in font-medium">
+                  <p className="text-xs text-slate-600 leading-relaxed mt-3 pt-3 border-t border-slate-100 animate-fade-in font-medium">
                     {faq.a}
                   </p>
                 )}

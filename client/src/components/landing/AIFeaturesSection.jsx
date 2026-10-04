@@ -39,28 +39,28 @@ const AIFeaturesSection = () => {
   const icons = [Sparkles, FileText, Navigation, ShieldCheck, MessageSquare, BarChart2];
 
   return (
-    <section className="py-20 sm:py-28 relative overflow-hidden">
-      <div className="container-responsive relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <span className="text-[11px] font-black text-accent-main uppercase tracking-[0.3em] mb-4 block">Features</span>
-          <h2 className="text-3xl sm:text-5xl font-sora font-black text-text-primary tracking-tight mb-4 uppercase">
+    <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
+      <div className="container-responsive">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 block">Features</span>
+          <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 tracking-tight mb-3 uppercase">
              {settings.aiSectionTitle}
           </h2>
-          <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold uppercase tracking-widest">
+          <p className="text-xs sm:text-sm text-slate-500 font-medium uppercase tracking-wider">
             {settings.aiSectionSubtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
            {settings.aiFeaturesList.map((feature, i) => {
              const Icon = icons[i % icons.length];
              return (
-               <GlassCard key={i} className="p-8 sm:p-10 border border-white/75 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm">
-                  <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center mb-6 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-xs border border-orange-100/80">
-                     <Icon className="w-7 h-7" />
+               <GlassCard key={i} className="p-6 sm:p-8 bg-white border border-slate-200/80 hover:border-slate-300 shadow-xs hover:shadow-md transition-all group">
+                  <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mb-5 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-xs">
+                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-sora font-black text-lg text-text-primary mb-3 tracking-tight group-hover:text-accent-main transition-colors uppercase">{feature.title}</h3>
-                  <p className="text-xs text-text-secondary leading-relaxed font-medium">
+                  <h3 className="font-sora font-bold text-base text-slate-900 mb-2 tracking-tight group-hover:text-indigo-600 transition-colors uppercase">{feature.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-medium">
                     {feature.description}
                   </p>
                </GlassCard>

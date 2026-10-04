@@ -16,22 +16,22 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-lg' }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/30 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
       {/* Background Overlay click to close */}
       <div className="absolute inset-0" onClick={onClose} />
 
       <div
-        className={`relative w-full ${maxWidth} mx-auto bg-white/85 backdrop-blur-3xl rounded-[2.5rem] shadow-2xl border border-white/85 overflow-hidden max-h-[90vh] flex flex-col z-10`}
+        className={`relative w-full ${maxWidth} mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col z-10`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 sm:px-8 sm:py-6 border-b border-gray-100 bg-orange-50/40 shrink-0">
-          <h3 className="text-lg sm:text-xl font-sora font-black text-text-primary tracking-tight uppercase">{title}</h3>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-slate-50 shrink-0">
+          <h3 className="text-base sm:text-lg font-sora font-bold text-slate-900 tracking-tight uppercase">{title}</h3>
           <button
             onClick={onClose}
-            className="p-2.5 rounded-2xl bg-white text-text-muted hover:text-accent-main border border-gray-200 hover:border-accent-main transition-all shadow-sm"
+            className="p-2 rounded-xl bg-white text-slate-400 hover:text-slate-900 border border-slate-200 transition-all shadow-xs cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 

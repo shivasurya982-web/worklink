@@ -36,31 +36,31 @@ const HowItWorks = () => {
   const icons = [Search, Calendar, MapPin, CheckCircle2];
 
   return (
-    <section className="py-20 sm:py-28 relative overflow-hidden">
-      <div className="container-responsive relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
-           <span className="text-[11px] font-black text-accent-main uppercase tracking-[0.3em] mb-4 block">Direct & Simple</span>
-           <h2 className="text-3xl sm:text-5xl font-sora font-black text-text-primary mb-4 tracking-tight uppercase">{settings.howItWorksTitle}</h2>
-           <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-bold uppercase tracking-widest">{settings.howItWorksSubtitle}</p>
+    <section className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
+      <div className="container-responsive">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+           <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 block">Direct & Simple</span>
+           <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 mb-3 tracking-tight uppercase">{settings.howItWorksTitle}</h2>
+           <p className="text-xs sm:text-sm text-slate-500 font-medium uppercase tracking-wider">{settings.howItWorksSubtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 relative">
-          {/* Connector Line (Desktop) */}
-          <div className="hidden lg:block absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-orange-200/60 pointer-events-none" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {/* Connector Line */}
+          <div className="hidden lg:block absolute top-[36px] left-[10%] right-[10%] h-[2px] bg-slate-200 pointer-events-none" />
 
           {settings.howItWorksSteps.map((step, i) => {
             const Icon = icons[i % icons.length];
             return (
-              <div key={i} className="flex flex-col items-center text-center space-y-6 relative group">
-                 <div className="w-20 h-20 rounded-3xl bg-white/80 backdrop-blur-md text-accent-main flex items-center justify-center shadow-md border border-white/80 group-hover:bg-accent-main group-hover:text-white group-hover:-translate-y-1 transition-all duration-300 z-10 relative">
-                    <Icon className="w-8 h-8" />
-                    <span className="absolute -top-3 -right-3 w-10 h-10 rounded-xl bg-accent-main text-white text-xs font-black flex items-center justify-center border-2 border-white shadow-xs">
+              <div key={i} className="flex flex-col items-center text-center space-y-4 relative group">
+                 <div className="w-16 h-16 rounded-2xl bg-white border-2 border-slate-200 text-indigo-600 flex items-center justify-center shadow-xs group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200 z-10 relative">
+                    <Icon className="w-7 h-7" />
+                    <span className="absolute -top-2.5 -right-2.5 w-8 h-8 rounded-lg bg-indigo-600 text-white text-[11px] font-bold flex items-center justify-center border-2 border-white shadow-xs">
                       {step.step || `0${i+1}`}
                     </span>
                  </div>
-                 <div className="space-y-2">
-                    <h3 className="font-sora font-black text-lg text-text-primary group-hover:text-accent-main transition-colors tracking-tight uppercase">{step.title}</h3>
-                    <p className="text-xs text-text-secondary leading-relaxed max-w-[260px] mx-auto font-medium">
+                 <div className="space-y-1.5">
+                    <h3 className="font-sora font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors tracking-tight uppercase">{step.title}</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed max-w-[240px] mx-auto font-medium">
                       {step.description}
                     </p>
                  </div>

@@ -37,52 +37,51 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 lg:pb-28 overflow-hidden min-h-screen flex items-center">
+    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F1F5F9] border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
         {settings.heroBannerImage && (
-          <div className="mb-12 max-w-5xl mx-auto rounded-[3rem] overflow-hidden shadow-lg border border-white/80 group relative glass-panel">
+          <div className="mb-10 max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200 group relative">
             <img
               src={getImageUrl(settings.heroBannerImage)}
               alt="Hero Banner"
               onError={(e) => { e.target.style.display = 'none'; }}
-              className="w-full max-h-[480px] object-cover transition-transform duration-[2s] group-hover:scale-105"
+              className="w-full max-h-[440px] object-cover transition-transform duration-700 group-hover:scale-102"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F7F9FC]/80 via-transparent to-transparent" />
           </div>
         )}
 
-        <div className="text-center max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/70 backdrop-blur-2xl border border-white/80 text-[10px] font-black text-accent-main mb-10 shadow-xs animate-fade-in uppercase tracking-[0.3em]">
-            <Sparkles className="w-4 h-4 text-accent-main animate-pulse" />
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200/80 text-xs font-bold text-indigo-700 mb-8 shadow-xs uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-indigo-600" />
             <span>{settings.announcementText}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sora font-black text-text-primary tracking-tight mb-8 animate-premium-up leading-none">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sora font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
             {settings.heroTitle.split(' ').map((word, i) => (
-              <span key={i} className={i % 3 === 2 ? 'text-accent-main block sm:inline italic' : ''}>
+              <span key={i} className={i % 3 === 2 ? 'text-indigo-600 block sm:inline' : ''}>
                 {word}{' '}
               </span>
             ))}
           </h1>
 
-          <p className="text-sm sm:text-lg lg:text-xl text-text-secondary leading-relaxed font-jakarta max-w-3xl mx-auto mb-12 animate-premium-up [animation-delay:200ms] font-medium tracking-wide">
+          <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-jakarta max-w-2xl mx-auto mb-10 font-medium tracking-wide">
             {settings.heroSubtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 animate-premium-up [animation-delay:400ms]">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
               <PremiumButton
-                variant="black"
+                variant="gold"
                 size="lg"
                 onClick={() => navigate('/register/worker')}
-                className="w-full sm:w-auto px-14 group shadow-md"
+                className="w-full sm:w-auto px-8 group shadow-sm"
               >
                 Become a Partner
-                <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-2" />
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </PremiumButton>
 
-              <div className="text-left hidden sm:block">
-                 <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">PRO NETWORK</p>
-                 <p className="text-xs font-bold text-accent-main">Join 500+ Experts</p>
+              <div className="text-left hidden sm:block pl-2 border-l-2 border-slate-200">
+                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">PRO NETWORK</p>
+                 <p className="text-xs font-bold text-indigo-600">Join 500+ Experts</p>
               </div>
           </div>
         </div>

@@ -11,26 +11,26 @@ const PremiumButton = ({
   ...props
 }) => {
   const base =
-    'inline-flex items-center justify-center font-sora font-black transition-all duration-200 ' +
-    'active:scale-95 disabled:opacity-40 disabled:pointer-events-none ' +
-    'focus:outline-none touch-manipulation select-none tracking-[0.12em] uppercase cursor-pointer rounded-full';
+    'inline-flex items-center justify-center font-sora font-bold transition-all duration-200 ' +
+    'active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none ' +
+    'focus:outline-none touch-manipulation select-none tracking-wider uppercase cursor-pointer rounded-xl';
 
   const variants = {
-    black:   'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E] hover:-translate-y-0.5',
-    gold:    'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E] hover:-translate-y-0.5',
-    orange:  'bg-gradient-to-b from-[#FF8A3D] to-[#F97316] text-white shadow-md border border-[#FF8A3D] hover:from-[#FF9500] hover:to-[#FF7A18] hover:-translate-y-0.5',
-    ai:      'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E]',
-    outline: 'bg-white/70 border border-white/80 text-[#111111] hover:border-[#FF7A18] hover:text-[#FF7A18] hover:bg-white/90 shadow-xs',
+    gold:    'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700 hover:border-indigo-700',
+    primary: 'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700 hover:border-indigo-700',
+    black:   'bg-slate-900 text-white shadow-xs border border-slate-900 hover:bg-slate-800',
+    ai:      'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700',
+    outline: 'bg-white border border-slate-200 text-slate-800 shadow-xs hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900',
     danger:  'bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white',
-    ghost:   'bg-transparent text-[#2C2C2E] hover:text-[#111111] hover:bg-white/50',
-    glass:   'bg-white/60 backdrop-blur-md border border-white/80 text-[#111111] hover:bg-white/80 hover:border-[#FF7A18]/40 shadow-xs',
+    ghost:   'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100',
+    glass:   'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-slate-200 shadow-xs',
   };
 
   const sizes = {
-    xs: 'px-3.5 py-1.5 text-[9px] gap-1.5 min-h-[32px]',
-    sm: 'px-5 py-2.5 text-[10px] gap-2 min-h-[40px]',
-    md: 'px-7 py-3.5 text-xs gap-2.5 min-h-[48px]',
-    lg: 'px-9 py-4 text-xs gap-3 min-h-[56px]',
+    xs: 'px-3 py-1.5 text-[10px] gap-1.5 min-h-[32px]',
+    sm: 'px-4 py-2 text-xs gap-2 min-h-[38px]',
+    md: 'px-6 py-2.5 text-xs gap-2.5 min-h-[44px]',
+    lg: 'px-8 py-3.5 text-xs gap-3 min-h-[50px]',
   };
 
   return (

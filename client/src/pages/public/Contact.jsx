@@ -43,8 +43,8 @@ const Contact = () => {
                   { icon: Clock, label: 'Response Time', val: 'Fast (under 15 mins)', color: 'text-emerald-600' },
                   { icon: Globe, label: 'Headquarters', val: 'Tiruchendur, India', color: 'text-text-primary' }
                 ].map((item, i) => (
-                  <GlassCard key={i} className="p-5 !bg-white/70 border border-white/60 flex items-center gap-4 group hover:border-accent-main/40 transition-all shadow-sm">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100 group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs">
+                  <GlassCard key={i} className="p-5 !bg-white/70 border border-white/75 flex items-center gap-4 group hover:border-accent-main/40 transition-all shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-orange-50/80 flex items-center justify-center shrink-0 border border-orange-100/80 group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs">
                         <item.icon className={`w-6 h-6 ${item.color} group-hover:text-white`} />
                     </div>
                     <div>
@@ -57,7 +57,7 @@ const Contact = () => {
 
              {/* Contact Form */}
              <div className="lg:col-span-2">
-                <GlassCard goldBorder className="p-8 sm:p-10 !bg-white/80 border border-white/60 shadow-sm relative overflow-hidden">
+                <GlassCard orangeBorder className="p-8 sm:p-10 !bg-white/80 border border-white/80 shadow-sm relative overflow-hidden">
                    <h2 className="text-xl font-sora font-black text-text-primary mb-8 flex items-center gap-3 uppercase tracking-tight">
                       <MessageSquare className="w-6 h-6 text-accent-main" /> Send a Message
                    </h2>

@@ -38,14 +38,14 @@ const NotFound = () => {
               </button>
               <Link
                 to="/"
-                className="flex items-center justify-center gap-2 bg-accent-main text-white px-5 py-2.5 rounded-full text-xs font-bold hover:bg-blue-700 transition-all shadow-xs"
+                className="flex items-center justify-center gap-2 bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider hover:from-[#3A3A3C] hover:to-[#2C2C2E] transition-all shadow-md"
               >
-                <Home className="w-4 h-4" />
+                <Home className="w-4 h-4 text-accent-main" />
                 Back to Home
               </Link>
               <Link
                 to="/search"
-                className="flex items-center justify-center gap-2 bg-blue-50 text-accent-main border border-blue-200 px-5 py-2.5 rounded-full text-xs font-bold hover:bg-blue-100 transition-all"
+                className="flex items-center justify-center gap-2 bg-orange-50/80 text-accent-main border border-orange-200/80 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider hover:bg-orange-100 transition-all"
               >
                 <Search className="w-4 h-4" />
                 Find a Worker

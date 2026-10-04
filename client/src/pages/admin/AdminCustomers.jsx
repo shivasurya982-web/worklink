@@ -183,24 +183,24 @@ const AdminCustomers = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
-                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Mail className="w-4 h-4 text-accent-main" /></div>
+              <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/80 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-orange-100/80 shrink-0"><Mail className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">EMAIL</p>
                     <p className="text-xs font-bold text-text-primary break-all">{selectedCustomer.email}</p>
                  </div>
               </div>
 
-              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
-                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Phone className="w-4 h-4 text-accent-main" /></div>
+              <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/80 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-orange-100/80 shrink-0"><Phone className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">PHONE</p>
                     <p className="text-xs font-bold text-text-primary">{selectedCustomer.phone || 'N/A'}</p>
                  </div>
               </div>
 
-              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3 sm:col-span-2">
-                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><MapPin className="w-4 h-4 text-accent-main" /></div>
+              <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/80 flex items-start gap-3 sm:col-span-2">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-orange-100/80 shrink-0"><MapPin className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0 flex-1">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">ADDRESS</p>
                     {selectedCustomer.address?.street || selectedCustomer.address?.city ? (

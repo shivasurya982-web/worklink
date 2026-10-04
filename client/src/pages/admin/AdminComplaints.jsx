@@ -182,9 +182,9 @@ const AdminComplaints = () => {
               {/* Subject & Description */}
               <div className="relative z-10 space-y-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center border border-blue-100"><AlertCircle className="w-4 h-4 text-accent-main" /></div>
+                  <div className="w-7 h-7 rounded-lg bg-orange-50/80 flex items-center justify-center border border-orange-100/80"><AlertCircle className="w-4 h-4 text-accent-main" /></div>
                   <span className="font-black text-sm text-text-primary uppercase tracking-tight">{c.subject}</span>
-                  <div className="bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100">
+                  <div className="bg-orange-50/80 px-2.5 py-0.5 rounded-lg border border-orange-100/80">
                     <span className="text-[9px] font-black text-accent-main uppercase tracking-wider">TYPE: {c.category}</span>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ const AdminComplaints = () => {
         </div>
       ) : (
         <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+           <div className="w-16 h-16 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100/80">
               <ShieldCheck className="w-8 h-8 text-emerald-600" />
            </div>
            <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO COMPLAINTS FOUND HERE.</p>
@@ -223,7 +223,7 @@ const AdminComplaints = () => {
           title={`Update Complaint: ${selectedComplaint?.subject}`}
         >
           <form onSubmit={handleUpdateStatus} className="space-y-6 pt-2">
-            <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 space-y-4">
+            <div className="bg-orange-50/60 p-6 rounded-2xl border border-orange-100/80 space-y-4">
               <div>
                 <label className="text-[10px] font-black text-accent-main uppercase tracking-widest block mb-2">STATUS</label>
                 <select

@@ -160,15 +160,15 @@ const CustomerProfile = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                 <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Phone</p>
                     <p className="text-xs font-bold text-text-primary uppercase">{phone || 'Not set'}</p>
                  </div>
-                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                 <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Secret Word</p>
                     <p className="text-xs font-bold text-text-primary uppercase italic">"{securityHint || 'None'}"</p>
                  </div>
-                 <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60 sm:col-span-2">
+                 <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60 sm:col-span-2">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-widest mb-1">Address</p>
                     <p className="text-xs font-bold text-text-primary uppercase leading-relaxed tracking-tight">
                       {street ? `${street}, ${city}, ${state} , PIN: ${zip}` : 'Address not set'}
@@ -177,10 +177,10 @@ const CustomerProfile = () => {
               </div>
 
               <PremiumButton
-                variant="outline"
+                variant="black"
                 fullWidth
                 onClick={() => setIsEditingProfile(true)}
-                className="py-3.5 font-black uppercase tracking-wider text-xs !rounded-xl"
+                className="py-3.5 font-black uppercase tracking-wider text-xs !rounded-full"
               >
                  <Edit3 className="w-4 h-4 mr-2" /> EDIT MY PROFILE
               </PremiumButton>
@@ -197,7 +197,7 @@ const CustomerProfile = () => {
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <input type="file" id="avatar-input" accept="image/*" onChange={handleAvatarChange} className="hidden" />
-                  <label htmlFor="avatar-input" className="cursor-pointer px-4 py-2 bg-blue-50 text-accent-main rounded-xl text-[10px] font-bold border border-blue-100 hover:bg-blue-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs">
+                  <label htmlFor="avatar-input" className="cursor-pointer px-4 py-2 bg-orange-50/80 text-accent-main rounded-xl text-[10px] font-bold border border-orange-100/80 hover:bg-orange-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs">
                     <Camera className="w-4 h-4" /> Change Photo
                   </label>
                 </div>

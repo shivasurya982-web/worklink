@@ -9,20 +9,28 @@ try {
 }
 
 const connectDB = async () => {
-  const atlasUri = process.env.MONGO_URI;
+  const uris = [
+    process.env.MONGO_URI,
+    process.env.MONGO_URI_ATLAS_DIRECT,
+    process.env.MONGO_LOCAL_URI || 'mongodb://127.0.0.1:27017/worklink-ai'
+  ].filter(Boolean);
 
-  try {
-    console.log('📡 [DB]: Connecting to MongoDB Atlas Cloud...');
-    const conn = await mongoose.connect(atlasUri, {
-      serverSelectionTimeoutMS: 10000,
-      connectTimeoutMS: 10000,
-    });
-    console.log(`✅ [DB]: Connected to MongoDB Atlas Cloud Cluster (${conn.connection.host})`);
-    return conn;
-  } catch (err) {
-    console.error(`❌ [DB ERROR]: Could not connect to Atlas: ${err.message}`);
-    return null;
+  for (const uri of uris) {
+    try {
+      console.log(`📡 [DB]: Connecting to MongoDB (${uri.startsWith('mongodb+srv') ? 'Atlas SRV' : uri.includes('mongodb.net') ? 'Atlas Direct' : 'Local Host'})...`);
+      const conn = await mongoose.connect(uri, {
+        serverSelectionTimeoutMS: 4000,
+        connectTimeoutMS: 4000,
+      });
+      console.log(`✅ [DB]: Connected successfully to MongoDB (${conn.connection.host})`);
+      return conn;
+    } catch (err) {
+      console.warn(`⚠️ [DB]: Connection attempt failed for ${uri.substring(0, 35)}... (${err.message})`);
+    }
   }
+
+  console.error('❌ [DB ERROR]: Could not connect to any MongoDB instance.');
+  return null;
 };
 
 module.exports = connectDB;

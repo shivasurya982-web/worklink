@@ -283,9 +283,9 @@ const SearchPage = () => {
                           setShowSuggestions(false);
                           setQuery('');
                         }}
-                        className="w-full text-left px-4 py-3 rounded-2xl hover:bg-blue-50/60 flex items-center gap-4 transition-all group"
+                        className="w-full text-left px-4 py-3 rounded-2xl hover:bg-orange-50/60 flex items-center gap-4 transition-all group"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100 shadow-xs">
+                        <div className="w-10 h-10 rounded-xl bg-orange-50/80 flex items-center justify-center border border-orange-100/80 shadow-xs">
                           <Sparkles className="w-5 h-5 text-accent-main" />
                         </div>
                         <p className="text-sm font-black text-text-primary uppercase tracking-wider">{cat.name}</p>
@@ -305,7 +305,7 @@ const SearchPage = () => {
                           setShowSuggestions(false);
                           setQuery('');
                         }}
-                        className="w-full text-left px-4 py-3 rounded-2xl hover:bg-blue-50/60 flex items-center gap-4 transition-all group"
+                        className="w-full text-left px-4 py-3 rounded-2xl hover:bg-orange-50/60 flex items-center gap-4 transition-all group"
                       >
                         <img
                           src={getImageUrl(worker.avatar, DEFAULT_AVATAR(worker.name))}
@@ -324,7 +324,7 @@ const SearchPage = () => {
 
                 <button
                   onClick={() => { handleSearch(); setShowSuggestions(false); }}
-                  className="w-full p-4 bg-gray-50 text-center text-xs font-black text-accent-main hover:bg-blue-50 transition-all border-t border-gray-100 flex items-center justify-center gap-2 uppercase tracking-widest"
+                  className="w-full p-4 bg-gray-50 text-center text-xs font-black text-accent-main hover:bg-orange-50/80 transition-all border-t border-gray-100 flex items-center justify-center gap-2 uppercase tracking-widest cursor-pointer"
                 >
                   See All Results <ArrowRight className="w-4 h-4" />
                 </button>

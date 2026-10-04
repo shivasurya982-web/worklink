@@ -447,7 +447,7 @@ const WorkerProfilePage = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-16 bg-blue-50/40 rounded-2xl border-2 border-dashed border-blue-100">
+                <div className="text-center py-16 bg-orange-50/40 rounded-2xl border-2 border-dashed border-orange-100/80">
                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">NO REVIEWS YET.</p>
                 </div>
               )}
@@ -456,29 +456,29 @@ const WorkerProfilePage = () => {
 
           {/* Right Column */}
           <div className="space-y-6">
-            <GlassCard goldBorder className="p-6 sm:p-8 rounded-[2rem] space-y-5 !bg-white/80 border border-white/60 shadow-xs">
+            <GlassCard orangeBorder className="p-6 sm:p-8 rounded-[2rem] space-y-5 !bg-white/80 border border-white/80 shadow-xs">
               <h3 className="font-sora font-black text-base text-text-primary border-b border-gray-100 pb-4 uppercase tracking-wider">
                 DETAILS
               </h3>
 
               <div className="space-y-3">
-                 <div className="flex items-center justify-between p-3.5 bg-blue-50/50 rounded-xl border border-blue-100/60">
+                 <div className="flex items-center justify-between p-3.5 bg-orange-50/50 rounded-xl border border-orange-100/60">
                    <span className="text-[9px] font-black text-text-muted uppercase tracking-wider">STATUS</span>
                    <Badge variant="verified" size="xs" className="font-black">ACTIVE</Badge>
                  </div>
 
-                 <div className="flex flex-col p-3.5 bg-blue-50/50 rounded-xl border border-blue-100/60 space-y-1">
+                 <div className="flex flex-col p-3.5 bg-orange-50/50 rounded-xl border border-orange-100/60 space-y-1">
                    <span className="text-[9px] font-black text-text-muted uppercase tracking-wider">PRICING</span>
                    <p className="text-xs font-black text-text-primary uppercase tracking-tight">Price varies by work</p>
                    <p className="text-[9px] text-accent-main font-bold uppercase tracking-wider">Contact worker for a quote</p>
                  </div>
 
-                 <div className="flex items-center justify-between p-3.5 bg-blue-50/50 rounded-xl border border-blue-100/60">
+                 <div className="flex items-center justify-between p-3.5 bg-orange-50/50 rounded-xl border border-orange-100/60">
                    <span className="text-[9px] font-black text-text-muted uppercase tracking-wider">EXPERIENCE</span>
                    <span className="font-black text-text-primary uppercase text-xs">{worker.experience || 0} YEARS</span>
                  </div>
 
-                 <div className="flex items-center justify-between p-3.5 bg-blue-50/50 rounded-xl border border-blue-100/60">
+                 <div className="flex items-center justify-between p-3.5 bg-orange-50/50 rounded-xl border border-orange-100/60">
                    <span className="text-[9px] font-black text-text-muted uppercase tracking-wider">JOBS COMPLETED</span>
                    <span className="font-black text-text-primary uppercase text-xs">{worker.completedJobs || 0} DONE</span>
                  </div>
@@ -487,13 +487,13 @@ const WorkerProfilePage = () => {
               <div className="pt-4 space-y-3">
                 <button
                   onClick={handleStartChat}
-                  className="w-full py-3 rounded-xl bg-blue-50 text-accent-main border border-blue-200 font-black text-[10px] uppercase tracking-widest shadow-xs hover:bg-blue-100 transition-all cursor-pointer"
+                  className="w-full py-3 rounded-full bg-orange-50/80 text-accent-main border border-orange-200/80 font-black text-[10px] uppercase tracking-widest shadow-xs hover:bg-orange-100 transition-all cursor-pointer"
                 >
                   <MessageSquare className="w-4 h-4 inline-block mr-2" /> CHAT FOR PRICING
                 </button>
 
                 <PremiumButton
-                  variant="gold"
+                  variant="black"
                   size="lg"
                   fullWidth
                   onClick={() => setBookingModalOpen(true)}

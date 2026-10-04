@@ -227,7 +227,7 @@ const CustomerBookings = () => {
                   </span>
                 </div>
                 {booking.description && (
-                  <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100/60">
+                  <div className="bg-orange-50/50 p-3 rounded-xl border border-orange-100/60">
                     <span className="text-[9px] font-black block text-accent-main mb-1 uppercase tracking-wider">Details:</span>
                     <p className="text-[11px] font-medium italic">"{booking.description}"</p>
                   </div>
@@ -238,12 +238,12 @@ const CustomerBookings = () => {
         </div>
       ) : (
         <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+           <div className="w-16 h-16 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100/80">
               <Calendar className="w-8 h-8 text-accent-main" />
            </div>
-           <h4 className="font-sora font-black text-lg text-text-primary mb-2">No Bookings Found</h4>
+           <h4 className="font-sora font-black text-lg text-text-primary mb-2 uppercase tracking-tight">No Bookings Found</h4>
            <p className="text-xs text-text-muted max-w-[280px] mx-auto leading-relaxed font-semibold uppercase tracking-wider mb-6">Find and book professionals near you.</p>
-           <PremiumButton variant="gold" size="lg" onClick={() => navigate('/customer/search')}>FIND PROFESSIONALS</PremiumButton>
+           <PremiumButton variant="black" size="lg" onClick={() => navigate('/customer/search')}>FIND PROFESSIONALS</PremiumButton>
         </div>
       )}
 
@@ -255,7 +255,7 @@ const CustomerBookings = () => {
           title={`REVIEW: ${selectedBooking?.worker?.name}`}
         >
           <form onSubmit={handleSubmitReview} className="space-y-6 pt-2">
-            <div className="bg-blue-50/60 p-6 rounded-2xl border border-blue-100">
+            <div className="bg-orange-50/60 p-6 rounded-2xl border border-orange-100/80">
               <label className="text-[10px] font-black text-accent-main uppercase tracking-widest block mb-4 text-center">
                 Quality Index Rating
               </label>

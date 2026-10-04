@@ -38,28 +38,21 @@ const HeroSection = () => {
 
   return (
     <section className="relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 lg:pb-28 overflow-hidden min-h-screen flex items-center">
-      {/* Background Ocean Blue Blobs */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
-         <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#DBEAFE] rounded-full blur-[100px] opacity-80" />
-         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#BFDBFE] rounded-full blur-[120px] opacity-70" />
-         <div className="absolute top-[30%] left-[20%] w-[25%] h-[25%] bg-blue-100 rounded-full blur-[80px] opacity-60" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
         {settings.heroBannerImage && (
-          <div className="mb-12 max-w-5xl mx-auto rounded-[3rem] overflow-hidden shadow-lg border border-white/60 group relative">
+          <div className="mb-12 max-w-5xl mx-auto rounded-[3rem] overflow-hidden shadow-lg border border-white/80 group relative glass-panel">
             <img
               src={getImageUrl(settings.heroBannerImage)}
               alt="Hero Banner"
               onError={(e) => { e.target.style.display = 'none'; }}
               className="w-full max-h-[480px] object-cover transition-transform duration-[2s] group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F3F4F6]/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F7F9FC]/80 via-transparent to-transparent" />
           </div>
         )}
 
         <div className="text-center max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/80 backdrop-blur-xl border border-white/60 text-[10px] font-black text-accent-main mb-10 shadow-sm animate-fade-in uppercase tracking-[0.3em]">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/70 backdrop-blur-2xl border border-white/80 text-[10px] font-black text-accent-main mb-10 shadow-xs animate-fade-in uppercase tracking-[0.3em]">
             <Sparkles className="w-4 h-4 text-accent-main animate-pulse" />
             <span>{settings.announcementText}</span>
           </div>
@@ -78,7 +71,7 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 animate-premium-up [animation-delay:400ms]">
               <PremiumButton
-                variant="gold"
+                variant="black"
                 size="lg"
                 onClick={() => navigate('/register/worker')}
                 className="w-full sm:w-auto px-14 group shadow-md"

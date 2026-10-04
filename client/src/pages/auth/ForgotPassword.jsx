@@ -72,14 +72,11 @@ const ForgotPassword = () => {
       {/* Home Button */}
       <Link
         to="/"
-        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/60 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/75 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
       >
         <Home className="w-4 h-4 text-accent-main" />
         <span>Home</span>
       </Link>
-
-      <div className="absolute top-0 right-0 w-[70%] h-[70%] bg-[#DBEAFE] rounded-full blur-[120px] pointer-events-none opacity-80" />
-      <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-[#BFDBFE] rounded-full blur-[120px] pointer-events-none opacity-70" />
 
       <div className="max-w-md w-full relative z-10 my-auto">
         <div className="text-center mb-6 sm:mb-8">
@@ -89,7 +86,7 @@ const ForgotPassword = () => {
           <p className="text-[11px] text-accent-main font-black uppercase tracking-[0.2em]">Forgot Password?</p>
         </div>
 
-        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-10 rounded-[2.5rem] shadow-sm border-white/60 relative">
+        <GlassCard orangeBorder className="!bg-white/80 backdrop-blur-3xl p-6 sm:p-10 rounded-[2.5rem] shadow-md border-white/80 relative">
           {error && (
             <div className="mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-[11px] text-red-600 font-black text-center uppercase tracking-wider flex items-center justify-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" /> {error}
@@ -98,20 +95,20 @@ const ForgotPassword = () => {
 
           {step === 1 && (
             <form onSubmit={handleCheckAccount} className="space-y-5">
-              <div className="flex bg-blue-50/80 p-1.5 rounded-2xl border border-blue-100">
-                <button type="button" onClick={() => setRole('customer')} className={`flex-1 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-[11px] font-black uppercase tracking-widest transition-all cursor-pointer ${role === 'customer' ? 'bg-accent-main text-white shadow-xs' : 'text-text-muted'}`}>CUSTOMER</button>
-                <button type="button" onClick={() => setRole('worker')} className={`flex-1 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-[11px] font-black uppercase tracking-widest transition-all cursor-pointer ${role === 'worker' ? 'bg-accent-main text-white shadow-xs' : 'text-text-muted'}`}>WORKER</button>
+              <div className="flex bg-orange-50/80 p-1.5 rounded-full border border-orange-100/80">
+                <button type="button" onClick={() => setRole('customer')} className={`flex-1 py-2.5 sm:py-3 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-widest transition-all cursor-pointer ${role === 'customer' ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : 'text-text-muted'}`}>CUSTOMER</button>
+                <button type="button" onClick={() => setRole('worker')} className={`flex-1 py-2.5 sm:py-3 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-widest transition-all cursor-pointer ${role === 'worker' ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : 'text-text-muted'}`}>WORKER</button>
               </div>
               <p className="text-xs text-text-secondary text-center leading-relaxed font-semibold uppercase tracking-wider px-2">Enter your email or phone to find your account.</p>
               <FloatingInput label="Email or Phone Number" icon={Mail} value={identifier} onChange={(e) => setIdentifier(e.target.value)} required />
-              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} icon={ArrowRight}>FIND ACCOUNT</PremiumButton>
+              <PremiumButton type="submit" variant="black" fullWidth loading={loading} icon={ArrowRight}>FIND ACCOUNT</PremiumButton>
             </form>
           )}
 
           {step === 2 && (
             <form onSubmit={handleVerifyHint} className="space-y-6 animate-fade-in">
               <div className="text-center space-y-3">
-                 <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto border border-blue-100 shadow-xs">
+                 <div className="w-14 h-14 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto border border-orange-100/80 shadow-xs">
                     <ShieldCheck className="w-7 h-7 text-accent-main animate-pulse" />
                  </div>
                  <h3 className="font-sora font-black text-base sm:text-lg text-text-primary uppercase tracking-tight">Security Question</h3>
@@ -120,7 +117,7 @@ const ForgotPassword = () => {
               <FloatingInput label="Enter secret word" icon={ShieldCheck} value={hint} onChange={(e) => setHint(e.target.value)} required />
               <div className="flex flex-col sm:flex-row gap-3">
                  <PremiumButton type="button" variant="outline" onClick={() => setStep(1)} icon={ArrowLeft} className="py-3 flex-1">Back</PremiumButton>
-                 <PremiumButton type="submit" variant="gold" fullWidth loading={loading} className="py-3 flex-[2]">Verify Word</PremiumButton>
+                 <PremiumButton type="submit" variant="black" fullWidth loading={loading} className="py-3 flex-[2]">Verify Word</PremiumButton>
               </div>
             </form>
           )}
@@ -135,7 +132,7 @@ const ForgotPassword = () => {
                 <FloatingInput label="New Password" type="password" icon={Lock} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
                 <FloatingInput label="Confirm New Password" type="password" icon={Lock} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
               </div>
-              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} icon={CheckCircle2} className="py-3.5">CHANGE PASSWORD</PremiumButton>
+              <PremiumButton type="submit" variant="black" fullWidth loading={loading} icon={CheckCircle2} className="py-3.5">CHANGE PASSWORD</PremiumButton>
             </form>
           )}
 
@@ -148,7 +145,7 @@ const ForgotPassword = () => {
                  <h3 className="font-sora font-black text-xl text-text-primary uppercase tracking-tight">SUCCESS!</h3>
                  <p className="text-xs text-text-secondary font-bold uppercase tracking-wider leading-relaxed px-2">Your password has been changed. You can now login with your new password.</p>
               </div>
-              <PremiumButton variant="gold" fullWidth onClick={() => navigate('/login')} className="py-3.5">LOGIN NOW</PremiumButton>
+              <PremiumButton variant="black" fullWidth onClick={() => navigate('/login')} className="py-3.5">LOGIN NOW</PremiumButton>
             </div>
           )}
 

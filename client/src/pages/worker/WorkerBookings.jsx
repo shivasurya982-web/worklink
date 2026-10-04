@@ -154,8 +154,8 @@ const WorkerBookings = () => {
                     </div>
 
                     <div className="p-6 space-y-6 relative z-10">
-                       <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
-                          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-blue-100 shadow-xs shrink-0">
+                       <div className="flex items-start gap-3 p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
+                          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-orange-100/80 shadow-xs shrink-0">
                             <MapPin className="w-5 h-5 text-accent-main" />
                           </div>
                           <div className="min-w-0">

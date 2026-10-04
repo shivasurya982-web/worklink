@@ -36,15 +36,15 @@ const TestimonialsSection = () => {
           <span className="text-xs font-bold text-accent-main uppercase tracking-widest font-outfit">
             User Feedback
           </span>
-          <h2 className="text-3xl font-sora font-black text-text-primary mt-1">
+          <h2 className="text-3xl font-sora font-black text-text-primary mt-1 uppercase">
             What Customers & Workers Say
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t) => (
-            <GlassCard key={t.name} goldBorder className="flex flex-col justify-between relative !bg-white/70 border border-white/60">
-              <Quote className="w-8 h-8 text-blue-200 absolute top-4 right-4" />
+            <GlassCard key={t.name} orangeBorder className="flex flex-col justify-between relative !bg-white/70 border border-white/75 shadow-sm">
+              <Quote className="w-8 h-8 text-orange-200/80 absolute top-4 right-4" />
               <div>
                 <RatingStars rating={t.rating} size="sm" />
                 <p className="text-xs text-text-secondary leading-relaxed mt-4 mb-6 italic font-medium">
@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
                   className="w-10 h-10 rounded-full object-cover border border-accent-main"
                 />
                 <div>
-                  <h4 className="text-xs font-bold text-text-primary">{t.name}</h4>
+                  <h4 className="text-xs font-bold text-text-primary uppercase">{t.name}</h4>
                   <p className="text-[11px] text-text-muted">{t.role}</p>
                 </div>
               </div>

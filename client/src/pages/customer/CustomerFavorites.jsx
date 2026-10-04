@@ -67,12 +67,12 @@ const CustomerFavorites = () => {
         </div>
       ) : (
         <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+           <div className="w-16 h-16 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100/80">
               <Heart className="w-8 h-8 text-accent-main" />
            </div>
-           <h4 className="font-sora font-black text-xl text-text-primary mb-2">No Favorites Yet</h4>
+           <h4 className="font-sora font-black text-xl text-text-primary mb-2 uppercase tracking-tight">No Favorites Yet</h4>
            <p className="text-xs text-text-muted max-w-[280px] mx-auto leading-relaxed font-semibold uppercase tracking-wider mb-6">Explore workers and tap the heart icon to save them for later.</p>
-           <PremiumButton variant="gold" size="lg" onClick={() => navigate('/customer/search')}>EXPLORE WORKERS</PremiumButton>
+           <PremiumButton variant="black" size="lg" onClick={() => navigate('/customer/search')}>EXPLORE WORKERS</PremiumButton>
         </div>
       )}
     </DashboardLayout>

@@ -27,11 +27,11 @@ const FloatingInput = ({
           id={id}
           type={inputType}
           placeholder=" "
-          className={`peer w-full bg-white/80 border border-gray-300 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 ${
+          className={`peer w-full bg-white/60 backdrop-blur-md border border-white/75 rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 ${
             Icon ? 'pl-12 sm:pl-14' : ''
           } ${
             isPassword ? 'pr-12 sm:pr-14' : ''
-          } text-text-primary placeholder-transparent focus:outline-none focus:border-accent-main focus:ring-4 focus:ring-blue-500/10 focus:bg-white transition-all text-xs sm:text-sm shadow-sm ${
+          } text-text-primary placeholder-transparent focus:outline-none focus:border-accent-main/50 focus:ring-4 focus:ring-orange-500/10 focus:bg-white/90 transition-all text-xs sm:text-sm shadow-xs ${
             error ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : ''
           } ${className}`}
           {...props}

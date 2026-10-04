@@ -25,7 +25,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
   const avatarUrl = getImageUrl(avatar, fallbackAvatar);
 
   return (
-    <GlassCard goldBorder className="relative flex flex-col justify-between h-full group !bg-white/70 border border-white/60 shadow-sm hover:shadow-md transition-all">
+    <GlassCard orangeBorder className="relative flex flex-col justify-between h-full group !bg-white/70 border border-white/75 shadow-sm hover:shadow-md transition-all">
 
       {/* Top Section */}
       <div className="flex items-start justify-between mb-5">
@@ -66,7 +66,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
           <RatingStars rating={rating} totalReviews={totalReviews} size="xs" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mt-5 text-[10px] font-bold text-text-secondary bg-blue-50/50 rounded-2xl p-3.5 border border-blue-100/60">
+        <div className="grid grid-cols-2 gap-3 mt-5 text-[10px] font-bold text-text-secondary bg-orange-50/50 rounded-2xl p-3.5 border border-orange-100/60">
           <div className="space-y-0.5">
             <p className="text-text-muted uppercase tracking-widest text-[9px]">Experience</p>
             <p className="text-text-primary font-black">{experience} Yrs</p>
@@ -76,7 +76,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
             <p className="text-accent-main font-black leading-tight">Varies by Work</p>
           </div>
           {(worker.address?.city || distance) && (
-            <div className="col-span-2 flex items-center gap-1.5 text-text-muted border-t border-blue-100/60 pt-2 mt-1">
+            <div className="col-span-2 flex items-center gap-1.5 text-text-muted border-t border-orange-100/60 pt-2 mt-1">
               <MapPin className="w-3.5 h-3.5 text-accent-main shrink-0" />
               <span className="truncate uppercase tracking-tight font-semibold">{worker.address?.city || `${distance} KM`}</span>
             </div>
@@ -85,16 +85,16 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
       </div>
 
       {/* Actions */}
-      <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
+      <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-100/80">
         <button
           onClick={() => navigate(`/workers/${_id}`)}
-          className="flex-1 py-2.5 rounded-xl border border-gray-300 text-[10px] font-black text-text-primary hover:bg-gray-100 uppercase tracking-widest transition-all"
+          className="flex-1 py-2.5 rounded-full border border-gray-300/80 bg-white/70 text-[10px] font-black text-text-primary hover:bg-white uppercase tracking-widest transition-all shadow-xs"
         >
           PROFILE
         </button>
         <button
           onClick={() => onBook && onBook(worker)}
-          className="flex-1 py-2.5 rounded-xl bg-accent-main text-white text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-blue-700 hover:-translate-y-0.5 transition-all"
+          className="flex-1 py-2.5 rounded-full bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white text-[10px] font-black uppercase tracking-widest shadow-md hover:from-[#3A3A3C] hover:to-[#2C2C2E] hover:-translate-y-0.5 transition-all"
         >
           BOOK NOW
         </button>

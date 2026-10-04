@@ -55,8 +55,8 @@ const AIFeaturesSection = () => {
            {settings.aiFeaturesList.map((feature, i) => {
              const Icon = icons[i % icons.length];
              return (
-               <GlassCard key={i} className="p-8 sm:p-10 border border-white/60 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mb-6 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
+               <GlassCard key={i} className="p-8 sm:p-10 border border-white/75 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm">
+                  <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center mb-6 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-xs border border-orange-100/80">
                      <Icon className="w-7 h-7" />
                   </div>
                   <h3 className="font-sora font-black text-lg text-text-primary mb-3 tracking-tight group-hover:text-accent-main transition-colors uppercase">{feature.title}</h3>

@@ -312,7 +312,7 @@ const WorkerMessages = () => {
       <div className="bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-sm border border-white/60 overflow-hidden flex h-[750px] max-h-[85vh]">
 
         {/* ── Sidebar ── */}
-        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-gray-200 bg-blue-50/30`}>
+        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-gray-200 bg-orange-50/30`}>
           <div className="p-5 border-b border-gray-200 bg-white/60">
             <h3 className="font-sora font-black text-base text-text-primary mb-4 flex items-center gap-2 uppercase tracking-wider">
               Clients <span className="text-[10px] bg-accent-main text-white px-2.5 py-0.5 rounded-full shadow-xs">{conversations.length}</span>
@@ -470,11 +470,11 @@ const WorkerMessages = () => {
                               )}
 
                               <div className={`flex items-center gap-1.5 mt-1.5 ${isOwn ? 'justify-end' : 'justify-start'}`}>
-                                <span className={`text-[9px] font-bold uppercase tracking-wider ${isOwn ? 'text-white/70' : 'text-text-muted'}`}>
+                                <span className={`text-[9px] font-bold uppercase tracking-wider ${isOwn ? 'text-white/80' : 'text-text-muted'}`}>
                                   {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                                 {isOwn && (
-                                  <CheckCheck className={`w-3.5 h-3.5 ${msg.isRead ? 'text-white' : 'text-white/40'}`} />
+                                  <CheckCheck className={`w-3.5 h-3.5 ${msg.isRead ? 'text-white' : 'text-white/50'}`} />
                                 )}
                               </div>
                             </div>
@@ -485,7 +485,7 @@ const WorkerMessages = () => {
                   })
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center p-10 space-y-4">
-                     <div className="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center border border-blue-100">
+                     <div className="w-20 h-20 bg-orange-50/80 rounded-3xl flex items-center justify-center border border-orange-100/80">
                         <MessageSquare className="w-10 h-10 text-accent-main" />
                      </div>
                      <h4 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">Client Conversation</h4>
@@ -505,7 +505,7 @@ const WorkerMessages = () => {
               <div className="p-4 border-t border-gray-200 bg-white/80 backdrop-blur-xl shrink-0">
                 <form onSubmit={handleSendMessage} className="max-w-5xl mx-auto">
                   {editingMessage && (
-                    <div className="flex items-center justify-between bg-blue-50 px-4 py-2 rounded-xl border border-blue-200 mb-2">
+                    <div className="flex items-center justify-between bg-orange-50 px-4 py-2 rounded-xl border border-orange-200 mb-2">
                       <span className="text-[10px] font-bold text-accent-main flex items-center gap-2 uppercase tracking-wider">
                          <Edit2 className="w-3.5 h-3.5" /> Editing Message
                       </span>
@@ -518,7 +518,7 @@ const WorkerMessages = () => {
                       type="button"
                       onClick={handleShareLocation}
                       disabled={locationLoading || !selectedConversation}
-                      className="p-3 rounded-xl bg-blue-50 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-blue-100 disabled:opacity-40 shrink-0"
+                      className="p-3 rounded-xl bg-orange-50/80 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-orange-100/80 disabled:opacity-40 shrink-0 cursor-pointer"
                       title="Share Location"
                     >
                       {locationLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5" />}
@@ -545,7 +545,7 @@ const WorkerMessages = () => {
                     <button
                       type="submit"
                       disabled={!messageText.trim() || sending}
-                      className="p-3 bg-accent-main text-white rounded-xl shadow-xs hover:bg-blue-700 active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0"
+                      className="p-3 bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] hover:from-[#3A3A3C] hover:to-[#2C2C2E] text-white rounded-xl shadow-xs active:scale-95 disabled:opacity-50 transition-all flex items-center justify-center shrink-0 cursor-pointer"
                     >
                       {sending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 fill-current" />}
                     </button>

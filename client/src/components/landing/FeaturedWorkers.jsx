@@ -86,10 +86,10 @@ const FeaturedWorkers = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-accent-main text-xs font-bold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-orange-100/80 text-accent-main text-xs font-bold mb-2 shadow-xs border border-orange-200/60">
               <Sparkles className="w-3.5 h-3.5" /> AI Recommended
             </div>
-            <h2 className="text-3xl font-sora font-black text-text-primary">
+            <h2 className="text-3xl font-sora font-black text-text-primary uppercase tracking-tight">
               Featured Local Professionals
             </h2>
           </div>

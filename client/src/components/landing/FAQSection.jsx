@@ -35,7 +35,7 @@ const FAQSection = () => {
           <span className="text-xs font-bold text-accent-main uppercase tracking-widest font-outfit">
             Help Center
           </span>
-          <h2 className="text-3xl font-sora font-black text-text-primary mt-1">
+          <h2 className="text-3xl font-sora font-black text-text-primary mt-1 uppercase">
             Frequently Asked Questions
           </h2>
         </div>
@@ -46,8 +46,8 @@ const FAQSection = () => {
             return (
               <GlassCard
                 key={faq.q}
-                goldBorder={isOpen}
-                className="cursor-pointer transition-all !bg-white/70 border border-white/60"
+                orangeBorder={isOpen}
+                className="cursor-pointer transition-all !bg-white/70 border border-white/75"
                 onClick={() => setOpenIndex(isOpen ? -1 : index)}
               >
                 <div className="flex items-center justify-between gap-4">

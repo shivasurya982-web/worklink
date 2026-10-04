@@ -62,8 +62,8 @@ const About = () => {
                   { icon: Users, title: 'Real Help', desc: 'Our team is here to help you if anything goes wrong during a job.' },
                   { icon: Globe, title: 'Easy Access', desc: 'Book and manage your services from anywhere using your phone.' }
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-col items-center text-center space-y-4 group p-8 bg-white/70 rounded-[2.5rem] border border-white/60 hover:border-accent-main/40 transition-all shadow-sm">
-                     <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs border border-blue-100">
+                  <div key={i} className="flex flex-col items-center text-center space-y-4 group p-8 bg-white/70 rounded-[2.5rem] border border-white/75 hover:border-accent-main/40 transition-all shadow-sm">
+                     <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs border border-orange-100/80">
                         <item.icon className="w-7 h-7" />
                      </div>
                      <h3 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">{item.title}</h3>

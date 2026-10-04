@@ -58,7 +58,7 @@ const CategoryGrid = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sora font-black text-text-primary tracking-tight uppercase">{settings.categorySectionTitle}</h2>
             <p className="text-sm sm:text-base text-text-secondary mt-3 font-bold uppercase tracking-widest">{settings.categorySectionSubtitle}</p>
           </div>
-          <Link to="/search" className="hidden md:inline-flex items-center gap-2 text-xs font-black text-accent-main hover:text-blue-700 transition-all uppercase tracking-widest">
+          <Link to="/search" className="hidden md:inline-flex items-center gap-2 text-xs font-black text-accent-main hover:text-[#E06305] transition-all uppercase tracking-widest">
             See All <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -68,13 +68,13 @@ const CategoryGrid = () => {
             const Icon = iconMap[cat.icon] || Wrench;
             return (
               <Link key={cat._id} to={`/search?category=${cat.slug || cat._id}`} className="group block h-full">
-                <div className="glass-card h-full p-6 sm:p-8 rounded-[2rem] border border-white/60 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 flex flex-col items-center text-center shadow-sm">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 border border-blue-100 text-accent-main flex items-center justify-center mb-5 group-hover:scale-105 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-sm">
+                <div className="glass-card h-full p-6 sm:p-8 rounded-[2rem] border border-white/75 !bg-white/70 hover:!bg-white hover:border-accent-main/40 transition-all duration-300 flex flex-col items-center text-center shadow-sm">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-orange-50/80 border border-orange-100/80 text-accent-main flex items-center justify-center mb-5 group-hover:scale-105 group-hover:bg-accent-main group-hover:text-white transition-all duration-300 shadow-xs">
                     <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                   </div>
                   <h3 className="font-sora font-bold text-base sm:text-lg text-text-primary mb-2 group-hover:text-accent-main transition-colors uppercase tracking-tight">{cat.name}</h3>
                   <p className="text-[10px] sm:text-[11px] text-text-muted mb-5 leading-relaxed font-semibold line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified local workers ready to help.'}</p>
-                  <div className="mt-auto px-4 py-1.5 rounded-full border border-blue-200 text-[9px] font-black text-accent-main uppercase tracking-widest group-hover:bg-accent-main group-hover:text-white transition-all">Select</div>
+                  <div className="mt-auto px-4 py-1.5 rounded-full border border-orange-200/80 text-[9px] font-black text-accent-main uppercase tracking-widest group-hover:bg-accent-main group-hover:text-white transition-all">Select</div>
                 </div>
               </Link>
             );

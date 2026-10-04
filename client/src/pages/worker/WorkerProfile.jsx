@@ -201,15 +201,15 @@ const WorkerProfile = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                   <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                   <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                       <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-1 flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" /> Email</p>
                       <p className="text-xs font-bold text-text-primary truncate">{email}</p>
                    </div>
-                   <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                   <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                       <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-1 flex items-center gap-1.5"><DollarSign className="w-3.5 h-3.5" /> Pricing</p>
                       <p className="text-[10px] font-bold text-text-primary uppercase tracking-tight">Varies by work • {experience} YRS EXP</p>
                    </div>
-                   <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                   <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                       <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-1 flex items-center gap-1.5"><Wrench className="w-3.5 h-3.5" /> Category</p>
                       <p className="text-xs font-bold text-text-primary uppercase truncate">
                         {category === 'other'
@@ -217,24 +217,24 @@ const WorkerProfile = () => {
                           : categories.find(c => c._id === category || c.slug === category)?.name || 'None'}
                       </p>
                    </div>
-                   <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60 lg:col-span-2">
+                   <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60 lg:col-span-2">
                       <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-1 flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> My Address</p>
                       <p className="text-xs font-bold text-text-primary uppercase tracking-tight truncate">{street}, {city}, {state} , PIN: {zip}</p>
                    </div>
-                   <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                   <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                       <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-1 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" /> Phone</p>
                       <p className="text-xs font-bold text-text-primary truncate">{phone}</p>
                    </div>
                 </div>
 
                 {description && (
-                  <div className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                  <div className="p-5 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                      <p className="text-[10px] font-black text-accent-main uppercase tracking-wider mb-2 flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> About Me</p>
                      <p className="text-xs text-text-secondary leading-relaxed font-semibold italic">"{description}"</p>
                   </div>
                 )}
 
-                <div className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100/60">
+                <div className="p-5 bg-orange-50/50 rounded-2xl border border-orange-100/60">
                    <p className="text-[10px] font-black text-accent-main uppercase tracking-wider mb-3 flex items-center gap-1.5"><CheckSquare className="w-3.5 h-3.5" /> Verification Document</p>
                    {idPreview ? (
                       <div className="relative rounded-xl overflow-hidden border border-gray-200 max-w-xs shadow-xs">
@@ -249,10 +249,10 @@ const WorkerProfile = () => {
                 </div>
 
                 <PremiumButton
-                  variant="outline"
+                  variant="black"
                   fullWidth
                   onClick={() => setIsEditingProfile(true)}
-                  className="py-3.5 font-black uppercase tracking-wider text-xs !rounded-xl"
+                  className="py-3.5 font-black uppercase tracking-wider text-xs !rounded-full"
                 >
                    <Edit3 className="w-4 h-4 mr-2" /> EDIT MY PROFILE
                 </PremiumButton>
@@ -263,12 +263,12 @@ const WorkerProfile = () => {
                   <div className="flex flex-col items-center text-center gap-3">
                     <img src={avatarFile ? URL.createObjectURL(avatarFile) : getImageUrl(user?.avatar, DEFAULT_AVATAR(name || 'U'))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(name || 'U'))} className="w-24 h-24 rounded-2xl object-cover border-2 border-accent-main shadow-xs" />
                     <input type="file" id="avatar-worker" accept="image/*" onChange={(e) => setAvatarFile(e.target.files[0])} className="hidden" />
-                    <label htmlFor="avatar-worker" className="cursor-pointer px-4 py-2 bg-blue-50 text-accent-main rounded-xl text-[10px] font-bold border border-blue-100 hover:bg-blue-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs"><Camera className="w-4 h-4" /> CHANGE PHOTO</label>
+                    <label htmlFor="avatar-worker" className="cursor-pointer px-4 py-2 bg-orange-50/80 text-accent-main rounded-xl text-[10px] font-bold border border-orange-100/80 hover:bg-orange-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs"><Camera className="w-4 h-4" /> CHANGE PHOTO</label>
                   </div>
                   <div className="flex flex-col items-center text-center gap-3">
                     <div className="w-full h-24 bg-gray-100 rounded-2xl overflow-hidden border border-gray-200"><img src={coverFile ? URL.createObjectURL(coverFile) : getImageUrl(user?.coverImage, DEFAULT_COVER)} onError={(e) => handleImageError(e, DEFAULT_COVER)} className="w-full h-full object-cover" /></div>
                     <input type="file" id="cover-worker" accept="image/*" onChange={(e) => setCoverFile(e.target.files[0])} className="hidden" />
-                    <label htmlFor="cover-worker" className="cursor-pointer px-4 py-2 bg-blue-50 text-accent-main rounded-xl text-[10px] font-bold border border-blue-100 hover:bg-blue-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs"><Camera className="w-4 h-4" /> CHANGE COVER</label>
+                    <label htmlFor="cover-worker" className="cursor-pointer px-4 py-2 bg-orange-50/80 text-accent-main rounded-xl text-[10px] font-bold border border-orange-100/80 hover:bg-orange-100 transition-all inline-flex items-center gap-2 uppercase tracking-wider shadow-xs"><Camera className="w-4 h-4" /> CHANGE COVER</label>
                   </div>
                 </div>
 

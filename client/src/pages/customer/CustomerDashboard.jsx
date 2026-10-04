@@ -145,7 +145,7 @@ const CustomerDashboard = () => {
              {suggestions.categories.length > 0 && (
                <div className="p-2 border-b border-gray-100">
                  {suggestions.categories.map(cat => (
-                   <button key={cat._id} onClick={() => navigate(`/customer/search?category=${cat.slug}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-blue-50/60 flex items-center gap-3 transition-all">
+                   <button key={cat._id} onClick={() => navigate(`/customer/search?category=${cat.slug}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-orange-50/60 flex items-center gap-3 transition-all">
                       <Sparkles className="w-4 h-4 text-accent-main" />
                       <span className="text-xs font-bold text-text-primary uppercase tracking-tight">{cat.name}</span>
                    </button>
@@ -155,7 +155,7 @@ const CustomerDashboard = () => {
              {suggestions.workers.length > 0 && (
                <div className="p-2">
                  {suggestions.workers.map(w => (
-                   <button key={w._id} onClick={() => navigate(`/workers/${w._id}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-blue-50/60 flex items-center gap-3 transition-all">
+                   <button key={w._id} onClick={() => navigate(`/workers/${w._id}`)} className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-orange-50/60 flex items-center gap-3 transition-all">
                       <img src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))} onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))} className="w-9 h-9 rounded-full object-cover border border-accent-main" />
                       <div><p className="text-xs font-bold text-text-primary uppercase">{w.name}</p><p className="text-[10px] text-text-muted font-semibold">{w.profession}</p></div>
                    </button>
@@ -172,8 +172,8 @@ const CustomerDashboard = () => {
           { label: 'Favorites', val: stats.favoritesCount || 0, icon: Heart, color: 'text-red-500' },
           { label: 'Alerts', val: notifications.filter(n => !n.isRead).length || 0, icon: Bell, color: 'text-accent-main' },
         ].map((s, i) => (
-          <GlassCard key={i} className="flex items-center gap-4 p-5 !bg-white/70 border border-white/60 shadow-xs group">
-             <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100 group-hover:bg-accent-main transition-all duration-300">
+          <GlassCard key={i} className="flex items-center gap-4 p-5 !bg-white/70 border border-white/75 shadow-xs group">
+             <div className="w-12 h-12 rounded-2xl bg-orange-50/80 flex items-center justify-center border border-orange-100/80 group-hover:bg-accent-main transition-all duration-300">
                <s.icon className={`w-6 h-6 ${s.color} group-hover:text-white transition-colors`} />
              </div>
              <div>

@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
 import AppRouter from './routes/AppRouter';
+import AmbientFluidBackground from './components/common/AmbientFluidBackground';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <SocketProvider>
         <NotificationProvider>
           <Router>
+            <AmbientFluidBackground />
             <AppRouter />
           </Router>
         </NotificationProvider>

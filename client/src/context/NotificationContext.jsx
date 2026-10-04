@@ -139,7 +139,7 @@ export const NotificationProvider = ({ children }) => {
               toast.type === 'error'
                 ? 'border-red-200 bg-red-50/95 text-red-900'
                 : toast.type === 'info'
-                ? 'border-blue-200 bg-blue-50/95 text-blue-900'
+                ? 'border-orange-200 bg-orange-50/95 text-orange-950'
                 : 'border-emerald-200 bg-emerald-50/95 text-emerald-900'
             }`}
           >

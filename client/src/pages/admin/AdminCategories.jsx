@@ -126,7 +126,7 @@ const AdminCategories = () => {
                     </h4>
                     <p className="text-[9px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Service Type</p>
                   </div>
-                  <div className="bg-blue-50 px-3 py-1 rounded-lg border border-blue-100 shrink-0">
+                  <div className="bg-orange-50/80 px-3 py-1 rounded-lg border border-orange-100/80 shrink-0">
                     <span className="text-[10px] font-black text-accent-main uppercase tracking-tight">
                       {cat.workerCount || 0} Workers
                     </span>
@@ -136,7 +136,7 @@ const AdminCategories = () => {
                 <div className="flex items-center justify-end gap-2 pt-4 border-t border-gray-100">
                   <button
                     onClick={() => handleOpenEditModal(cat)}
-                    className="p-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-accent-main transition-all border border-blue-100 cursor-pointer"
+                    className="p-2.5 rounded-xl bg-orange-50/80 hover:bg-orange-100 text-accent-main transition-all border border-orange-100/80 cursor-pointer"
                     title="Edit Category"
                   >
                     <Edit className="w-4 h-4" />
@@ -154,7 +154,7 @@ const AdminCategories = () => {
           </div>
         ) : (
           <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-             <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+             <div className="w-16 h-16 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100/80">
                 <Grid className="w-8 h-8 text-accent-main" />
              </div>
              <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO CATEGORIES FOUND.</p>
@@ -170,7 +170,7 @@ const AdminCategories = () => {
           title={editingCategory ? 'EDIT CATEGORY' : 'NEW CATEGORY'}
         >
           <form onSubmit={handleSubmit} className="space-y-6 pt-2">
-            <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
+            <div className="bg-orange-50/60 p-6 rounded-2xl border border-orange-100/80">
                <FloatingInput
                 id="name"
                 label="CATEGORY NAME"

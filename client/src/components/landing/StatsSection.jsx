@@ -37,8 +37,8 @@ const StatsSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
           {statItems.map((item, i) => (
             <div key={i} className="group relative">
-              <GlassCard className="h-full text-center flex flex-col items-center justify-center p-6 sm:p-10 border-white/60 !bg-white/70 backdrop-blur-2xl relative overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 text-accent-main border border-blue-100 flex items-center justify-center mb-6 shadow-sm transition-all duration-300 group-hover:bg-accent-main group-hover:text-white group-hover:scale-105">
+              <GlassCard className="h-full text-center flex flex-col items-center justify-center p-6 sm:p-10 border-white/75 !bg-white/70 backdrop-blur-2xl relative overflow-hidden shadow-sm hover:shadow-md transition-all">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-orange-50/80 text-accent-main border border-orange-100/80 flex items-center justify-center mb-6 shadow-xs transition-all duration-300 group-hover:bg-accent-main group-hover:text-white group-hover:scale-105">
                   <item.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
 

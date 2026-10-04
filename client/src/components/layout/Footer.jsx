@@ -21,9 +21,9 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-white/50 backdrop-blur-xl border-t border-white/60 mt-20 sm:mt-32 shadow-sm relative overflow-hidden">
-      {/* Soft Blue Glow */}
-      <div className="absolute bottom-0 right-0 w-[50%] h-[50%] bg-blue-100/40 blur-[100px] pointer-events-none" />
+    <footer className="bg-white/55 backdrop-blur-2xl border-t border-white/75 mt-20 sm:mt-32 shadow-sm relative overflow-hidden">
+      {/* Soft Orange Fluid Refraction */}
+      <div className="absolute bottom-0 right-0 w-[50%] h-[50%] bg-orange-200/30 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8 sm:pb-12 relative z-10">
 

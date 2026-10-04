@@ -2,7 +2,7 @@ import React from 'react';
 
 const PremiumButton = ({
   children,
-  variant = 'gold', // 'gold' | 'ai' | 'outline' | 'danger' | 'ghost' | 'glass'
+  variant = 'gold', // 'gold' | 'black' | 'ai' | 'outline' | 'danger' | 'ghost' | 'glass'
   size = 'md',      // 'xs' | 'sm' | 'md' | 'lg'
   icon: Icon,
   loading = false,
@@ -13,22 +13,24 @@ const PremiumButton = ({
   const base =
     'inline-flex items-center justify-center font-sora font-black transition-all duration-200 ' +
     'active:scale-95 disabled:opacity-40 disabled:pointer-events-none ' +
-    'focus:outline-none touch-manipulation select-none tracking-[0.12em] uppercase cursor-pointer';
+    'focus:outline-none touch-manipulation select-none tracking-[0.12em] uppercase cursor-pointer rounded-full';
 
   const variants = {
-    gold:    'bg-[#2563EB] text-white shadow-md border border-[#2563EB] hover:bg-[#1D4ED8] hover:border-[#1D4ED8]',
-    ai:      'bg-[#2563EB] text-white shadow-md border border-[#2563EB] hover:bg-[#1D4ED8]',
-    outline: 'bg-white/80 border border-gray-300 text-[#111827] hover:border-[#2563EB] hover:text-[#2563EB] hover:bg-blue-50/50',
+    black:   'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E] hover:-translate-y-0.5',
+    gold:    'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E] hover:-translate-y-0.5',
+    orange:  'bg-gradient-to-b from-[#FF8A3D] to-[#F97316] text-white shadow-md border border-[#FF8A3D] hover:from-[#FF9500] hover:to-[#FF7A18] hover:-translate-y-0.5',
+    ai:      'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-md border border-[#3A3A3C] hover:from-[#3A3A3C] hover:to-[#2C2C2E]',
+    outline: 'bg-white/70 border border-white/80 text-[#111111] hover:border-[#FF7A18] hover:text-[#FF7A18] hover:bg-white/90 shadow-xs',
     danger:  'bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white',
-    ghost:   'bg-transparent text-[#4B5563] hover:text-[#111827] hover:bg-white/50',
-    glass:   'bg-white/60 backdrop-blur-md border border-white/40 text-[#111827] hover:bg-white/80 hover:border-[#2563EB]/40 shadow-sm',
+    ghost:   'bg-transparent text-[#2C2C2E] hover:text-[#111111] hover:bg-white/50',
+    glass:   'bg-white/60 backdrop-blur-md border border-white/80 text-[#111111] hover:bg-white/80 hover:border-[#FF7A18]/40 shadow-xs',
   };
 
   const sizes = {
-    xs: 'px-3.5 py-1.5 text-[9px] gap-1.5 rounded-xl min-h-[32px]',
-    sm: 'px-5 py-2.5 text-[10px] gap-2 rounded-2xl min-h-[40px]',
-    md: 'px-7 py-3.5 text-xs gap-2.5 rounded-[1.2rem] min-h-[48px]',
-    lg: 'px-9 py-4 text-xs gap-3 rounded-[1.5rem] min-h-[56px]',
+    xs: 'px-3.5 py-1.5 text-[9px] gap-1.5 min-h-[32px]',
+    sm: 'px-5 py-2.5 text-[10px] gap-2 min-h-[40px]',
+    md: 'px-7 py-3.5 text-xs gap-2.5 min-h-[48px]',
+    lg: 'px-9 py-4 text-xs gap-3 min-h-[56px]',
   };
 
   return (

@@ -1,4 +1,3 @@
-import { getImageUrl } from '../../utils/imageUtils';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Phone, Wrench, MapPin, Upload, CheckCircle2, ArrowRight, ShieldCheck, Home } from 'lucide-react';
@@ -160,7 +159,7 @@ const RegisterWorker = () => {
       {/* Home Button */}
       <Link
         to="/"
-        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/60 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/75 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
       >
         <Home className="w-4 h-4 text-accent-main" />
         <span>Home</span>
@@ -174,12 +173,12 @@ const RegisterWorker = () => {
           <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">Worker Registration</p>
         </div>
 
-        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-3xl shadow-sm border-white/60">
+        <GlassCard orangeBorder className="!bg-white/80 backdrop-blur-3xl p-6 sm:p-8 rounded-[2.5rem] shadow-md border-white/80">
           {step <= 5 && (
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
               {['Info', 'Skills', 'Place', 'Verify', 'Secret'].map((sName, idx) => (
                 <div key={sName} className="flex items-center gap-1.5">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-accent-main text-white shadow-xs' : step > idx + 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-text-muted'}`}>
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : step > idx + 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-text-muted'}`}>
                     {step > idx + 1 ? '✓' : idx + 1}
                   </div>
                   <span className={`text-[9px] font-bold uppercase hidden sm:inline ${step === idx + 1 ? 'text-accent-main' : 'text-text-muted'}`}>{sName}</span>
@@ -199,118 +198,103 @@ const RegisterWorker = () => {
               <FloatingInput id="name" label="Full Name" icon={User} value={formData.name} onChange={handleChange} required />
               <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required />
               <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required />
-              <FloatingInput id="password" type="password" label="Create Password" icon={Lock} value={formData.password} onChange={handleChange} required />
-              <PremiumButton type="submit" variant="gold" fullWidth icon={ArrowRight}>Next: Your Work</PremiumButton>
+              <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required />
+              <PremiumButton type="submit" variant="black" fullWidth icon={ArrowRight} className="py-3.5">
+                CONTINUE
+              </PremiumButton>
             </form>
           )}
 
           {step === 2 && (
             <form onSubmit={handleNextStep2} className="space-y-4">
-              <FloatingInput id="profession" label="Profession (e.g. Electrician)" icon={Wrench} value={formData.profession} onChange={handleChange} required />
-              <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-xs focus:outline-none focus:border-accent-main text-text-primary">
-                <option value="" className="bg-white">Select Category (Optional)</option>
-                {categories.map(c => <option key={c._id} value={c._id} className="bg-white">{c.name}</option>)}
-              </select>
-              <div className="grid grid-cols-1 gap-4">
-                <FloatingInput id="experience" type="number" label="Experience (Years)" value={formData.experience} onChange={handleChange} required />
+              <FloatingInput id="profession" label="Profession (e.g. Electrician, Plumber)" icon={Wrench} value={formData.profession} onChange={handleChange} required />
+              <div>
+                <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1 mb-1 block">Category</label>
+                <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-white/60 border border-white/75 rounded-2xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main shadow-xs">
+                  <option value="">-- Select Main Category --</option>
+                  {categories.map((c) => (
+                    <option key={c._id} value={c._id}>{c.name}</option>
+                  ))}
+                </select>
               </div>
-              <div className="flex gap-3">
-                <PremiumButton type="button" onClick={() => { setError(''); setStep(1); }} variant="outline" className="flex-1">Back</PremiumButton>
-                <PremiumButton type="submit" variant="gold" className="flex-[2]">Next: Address</PremiumButton>
+              <FloatingInput id="experience" type="number" label="Years of Experience" value={formData.experience} onChange={handleChange} required />
+              <div className="flex gap-3 pt-2">
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(1)} className="py-3 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
 
           {step === 3 && (
             <form onSubmit={handleNextStep3} className="space-y-4">
-              <FloatingInput id="street" label="Street Name" icon={MapPin} value={formData.street} onChange={handleChange} required />
-              <div className="grid grid-cols-2 gap-4">
-                <FloatingInput id="city" label="City" value={formData.city} onChange={handleChange} required />
+              <FloatingInput id="street" label="Street / Area" icon={MapPin} value={formData.street} onChange={handleChange} required />
+              <FloatingInput id="city" label="City" value={formData.city} onChange={handleChange} required />
+              <div className="grid grid-cols-2 gap-3">
                 <FloatingInput id="state" label="State" value={formData.state} onChange={handleChange} required />
+                <FloatingInput id="zip" label="Pincode" value={formData.zip} onChange={handleChange} required />
               </div>
-              <FloatingInput id="zip" label="Pin Code" value={formData.zip} onChange={handleChange} required />
-              <div className="flex gap-3">
-                <PremiumButton type="button" onClick={() => { setError(''); setStep(2); }} variant="outline" className="flex-1">Back</PremiumButton>
-                <PremiumButton type="submit" variant="gold" className="flex-[2]">Next: Verification</PremiumButton>
+              <div className="flex gap-3 pt-2">
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(2)} className="py-3 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
 
           {step === 4 && (
-            <form onSubmit={handleNextStep4} className="space-y-6">
-              <div className="text-center">
-                <h3 className="font-sora font-black text-text-primary mb-1 uppercase tracking-tight">Identity Verification</h3>
-                <p className="text-[11px] text-text-secondary leading-relaxed font-semibold uppercase tracking-wider mb-4">Upload a photo of your ID Card (e.g. Aadhaar, PAN) or a photo of you working at a job site.</p>
+            <form onSubmit={handleNextStep4} className="space-y-4">
+              <div className="text-center mb-2">
+                <h4 className="font-sora font-black text-sm uppercase text-text-primary">Identity Document</h4>
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Aadhaar, PAN, or Govt ID</p>
               </div>
-
-              <div className="space-y-4">
-                <div className={`relative border-2 border-dashed rounded-[2rem] p-6 text-center transition-all ${idFile ? 'border-accent-main bg-blue-50/50' : 'border-gray-200 hover:border-accent-main'}`}>
-                  {idPreview ? (
-                    <div className="space-y-3">
-                       <img src={getImageUrl(idPreview)} alt="ID Preview" className="max-h-40 mx-auto rounded-xl shadow-xs border border-gray-200" />
-                       <button type="button" onClick={() => { setIdFile(null); setIdPreview(''); }} className="text-[10px] font-black text-red-500 uppercase tracking-wider hover:underline">Remove & Reselect</button>
-                    </div>
-                  ) : (
-                    <label htmlFor="id-upload" className="cursor-pointer space-y-3 block">
-                       <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto border border-blue-100 shadow-xs">
-                          <Upload className="w-7 h-7 text-accent-main" />
-                       </div>
-                       <div>
-                          <p className="text-xs font-black text-text-primary uppercase tracking-wider">Select ID Image</p>
-                          <p className="text-[9px] text-text-muted mt-0.5 uppercase font-bold">JPG, PNG allowed (Max 5MB)</p>
-                       </div>
-                       <input type="file" id="id-upload" accept="image/*" onChange={handleFileChange} className="hidden" />
-                    </label>
-                  )}
-                </div>
+              <div className="relative border-2 border-dashed border-orange-200/80 rounded-[2rem] p-6 text-center bg-orange-50/30">
+                <input type="file" accept="image/*,.pdf" onChange={handleFileChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+                {idPreview ? (
+                  <img src={idPreview} alt="Preview" className="max-h-40 mx-auto rounded-xl object-contain shadow-xs" />
+                ) : (
+                  <div>
+                    <Upload className="w-8 h-8 text-accent-main mx-auto mb-2" />
+                    <p className="text-xs font-bold text-text-primary uppercase">Click to upload ID image</p>
+                  </div>
+                )}
               </div>
-
-              <div className="flex gap-3">
-                <PremiumButton type="button" onClick={() => { setError(''); setStep(3); }} variant="outline" className="flex-1">Back</PremiumButton>
-                <PremiumButton type="submit" variant="gold" className="flex-[2]">Next: Security</PremiumButton>
+              <div className="flex gap-3 pt-2">
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(3)} className="py-3 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
 
           {step === 5 && (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="text-center">
-                <h3 className="font-sora font-black text-text-primary mb-1 uppercase tracking-tight">Recover Your Account</h3>
-                <p className="text-[11px] text-text-secondary leading-relaxed font-semibold uppercase tracking-wider">Set a secret word to get back into your account if you forget your password.</p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="text-center mb-2">
+                <h4 className="font-sora font-black text-sm uppercase text-text-primary">Set Recovery Word</h4>
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Required for account recovery</p>
               </div>
-
-              <div className="pt-2">
-                <FloatingInput
-                  id="registerHint"
-                  type="text"
-                  label="Enter your secret word"
-                  icon={ShieldCheck}
-                  value={formData.registerHint}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
+              <FloatingInput id="registerHint" label="Enter a secret word" icon={ShieldCheck} value={formData.registerHint} onChange={handleChange} required />
               <div className="flex gap-3 pt-2">
-                <PremiumButton type="button" onClick={() => { setError(''); setStep(4); }} variant="outline" className="flex-1">Back</PremiumButton>
-                <PremiumButton type="submit" variant="gold" className="flex-[2]" loading={loading}>Submit Application</PremiumButton>
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(4)} className="py-3 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="black" loading={loading} icon={CheckCircle2} className="py-3 flex-[2]">SUBMIT APPLICATION</PremiumButton>
               </div>
             </form>
           )}
 
           {step === 6 && (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-200">
-                 <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+            <div className="text-center py-6 space-y-6">
+              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200 shadow-xs">
+                <CheckCircle2 className="w-8 h-8 text-emerald-600" />
               </div>
-              <h3 className="font-sora font-black text-xl text-text-primary mb-2 uppercase tracking-tight">WE RECEIVED YOUR APPLICATION!</h3>
-              <p className="text-xs font-semibold text-text-muted mb-6 leading-relaxed max-w-[280px] mx-auto uppercase tracking-wider">Our team is reviewing your profile and identity proof. You'll get an email once your account is approved.</p>
-              <Link to="/login"><PremiumButton variant="gold" size="lg" fullWidth>BACK TO LOGIN</PremiumButton></Link>
+              <div className="space-y-2">
+                <h3 className="font-sora font-black text-xl text-text-primary uppercase">APPLICATION RECEIVED!</h3>
+                <p className="text-xs text-text-secondary font-bold uppercase tracking-wider leading-relaxed">Your worker profile has been submitted for review. Admin will approve your account shortly.</p>
+              </div>
+              <PremiumButton variant="black" fullWidth onClick={() => navigate('/login')} className="py-3.5">GO TO LOGIN</PremiumButton>
             </div>
           )}
 
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-text-muted font-bold uppercase tracking-widest">
-            Already registered? <Link to="/login" className="text-accent-main hover:underline">Sign In</Link>
+          <div className="mt-6 sm:mt-8 pt-6 border-t border-gray-100 text-center">
+            <p className="text-xs text-text-muted font-bold uppercase tracking-widest">
+              Already registered? <Link to="/login" className="text-accent-main hover:underline">Sign In</Link>
+            </p>
           </div>
         </GlassCard>
       </div>

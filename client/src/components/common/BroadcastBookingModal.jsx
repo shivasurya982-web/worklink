@@ -100,12 +100,12 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
       <form onSubmit={handleSubmit} className="space-y-6 relative z-10 pb-2">
 
         {/* Booking Type Toggle */}
-        <div className="flex bg-blue-50/80 p-1.5 rounded-2xl border border-blue-100 mb-6">
+        <div className="flex bg-orange-50/80 p-1.5 rounded-full border border-orange-100/80 mb-6">
            <button
              type="button"
              onClick={() => setBookingType('small')}
-             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-               bookingType === 'small' ? 'bg-accent-main text-white shadow-sm' : 'text-text-muted hover:text-text-primary'
+             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
+               bookingType === 'small' ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : 'text-text-muted hover:text-text-primary'
              }`}
            >
              <LayoutGrid className="w-4 h-4" /> Small Work
@@ -113,8 +113,8 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
            <button
              type="button"
              onClick={() => setBookingType('large')}
-             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-               bookingType === 'large' ? 'bg-accent-main text-white shadow-sm' : 'text-text-muted hover:text-text-primary'
+             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
+               bookingType === 'large' ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : 'text-text-muted hover:text-text-primary'
              }`}
            >
              <Maximize2 className="w-4 h-4" /> Large Work
@@ -260,7 +260,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                     type="button"
                     onClick={() => setForm(prev => ({...prev, workingHours: 'full-day'}))}
                     className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                      form.workingHours === 'full-day' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
+                      form.workingHours === 'full-day' ? 'bg-orange-100/80 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                     }`}
                   >
                     Full Day
@@ -269,7 +269,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
                     type="button"
                     onClick={() => setForm(prev => ({...prev, workingHours: 'custom'}))}
                     className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                      form.workingHours === 'custom' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
+                      form.workingHours === 'custom' ? 'bg-orange-100/80 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                     }`}
                   >
                     Custom Time

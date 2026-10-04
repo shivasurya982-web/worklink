@@ -163,10 +163,10 @@ const BookingModal = ({ worker, onClose, onBook }) => {
           </div>
 
           {/* Estimated Cost */}
-          <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-100 flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-orange-50/80 border border-orange-100/80 flex items-center justify-between">
             <div className="flex items-center gap-2 text-text-secondary text-sm">
               <DollarSign className="w-4 h-4 text-accent-main" />
-              <span className="font-bold">Estimated Total</span>
+              <span className="font-bold uppercase tracking-wider text-xs">Estimated Total</span>
             </div>
             <span className="font-sora font-black text-lg text-accent-main">₹{estimatedCost.toLocaleString()}</span>
           </div>
@@ -175,12 +175,12 @@ const BookingModal = ({ worker, onClose, onBook }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-2xl bg-accent-main hover:bg-blue-700 text-white text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-60"
+            className="w-full py-4 rounded-full bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] hover:from-[#3A3A3C] hover:to-[#2C2C2E] text-white text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-60 cursor-pointer"
           >
             {loading ? (
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 text-accent-main" />
             )}
             {loading ? 'Booking...' : 'Confirm Booking'}
           </button>

@@ -21,11 +21,11 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-lg' }) => {
       <div className="absolute inset-0" onClick={onClose} />
 
       <div
-        className={`relative w-full ${maxWidth} mx-auto bg-white/85 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/60 overflow-hidden max-h-[90vh] flex flex-col z-10`}
+        className={`relative w-full ${maxWidth} mx-auto bg-white/85 backdrop-blur-3xl rounded-[2.5rem] shadow-2xl border border-white/85 overflow-hidden max-h-[90vh] flex flex-col z-10`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 sm:px-8 sm:py-6 border-b border-gray-100 bg-blue-50/40 shrink-0">
+        <div className="flex items-center justify-between p-6 sm:px-8 sm:py-6 border-b border-gray-100 bg-orange-50/40 shrink-0">
           <h3 className="text-lg sm:text-xl font-sora font-black text-text-primary tracking-tight uppercase">{title}</h3>
           <button
             onClick={onClose}

@@ -71,7 +71,7 @@ const WorkerDashboard = () => {
       subtitle="Here is what is happening with your work"
     >
       {/* Availability Status Header Card */}
-      <GlassCard goldBorder className="!bg-white/80 p-6 sm:p-8 rounded-[2rem] mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border border-white/60 shadow-xs relative overflow-hidden">
+      <GlassCard orangeBorder className="!bg-white/80 p-6 sm:p-8 rounded-[2rem] mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border border-white/80 shadow-xs relative overflow-hidden">
         <div className="flex items-center gap-6 relative z-10">
           <div className="relative shrink-0">
             <div
@@ -93,7 +93,7 @@ const WorkerDashboard = () => {
 
         <button
           onClick={handleToggleAvailability}
-          className={`px-8 py-3.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all shadow-xs active:scale-95 relative z-10 shrink-0 cursor-pointer ${isAvailable
+          className={`px-8 py-3.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all shadow-xs active:scale-95 relative z-10 shrink-0 cursor-pointer ${isAvailable
               ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
               : 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
             }`}
@@ -106,8 +106,8 @@ const WorkerDashboard = () => {
       {/* Metrics Row */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-10">
         {dashboardItems.map((item, i) => (
-          <GlassCard key={i} className="flex flex-col items-center text-center gap-4 p-6 !bg-white/70 border border-white/60 shadow-xs group hover:-translate-y-0.5 transition-all">
-             <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100 group-hover:bg-accent-main transition-all">
+          <GlassCard key={i} className="flex flex-col items-center text-center gap-4 p-6 !bg-white/70 border border-white/75 shadow-xs group hover:-translate-y-0.5 transition-all">
+             <div className="w-12 h-12 rounded-xl bg-orange-50/80 flex items-center justify-center border border-orange-100/80 group-hover:bg-accent-main transition-all">
                 <item.icon className={`w-6 h-6 ${item.color} group-hover:text-white transition-colors`} />
              </div>
              <div>

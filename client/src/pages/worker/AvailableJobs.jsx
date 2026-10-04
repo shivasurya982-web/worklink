@@ -108,7 +108,7 @@ const AvailableJobs = () => {
                       {job.address?.street}, {job.address?.city}
                     </span>
                   </div>
-                  <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100/60 mt-4">
+                  <div className="bg-orange-50/50 rounded-xl p-4 border border-orange-100/60 mt-4">
                     <p className="text-xs text-text-primary line-clamp-3 leading-relaxed font-semibold italic">
                       "{job.description}"
                     </p>
@@ -127,7 +127,7 @@ const AvailableJobs = () => {
               <div className="p-3 bg-gray-50 rounded-b-[1.5rem] border-t border-gray-100 relative z-10">
                 <PremiumButton
                   fullWidth
-                  variant="gold"
+                  variant="black"
                   size="md"
                   icon={CheckCircle2}
                   loading={acceptingId === job._id}
@@ -142,7 +142,7 @@ const AvailableJobs = () => {
         </div>
       ) : (
         <div className="py-28 text-center bg-white/60 rounded-[3rem] border-2 border-dashed border-gray-200 shadow-xs relative overflow-hidden">
-           <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-100">
+           <div className="w-20 h-20 bg-orange-50/80 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-orange-100/80">
               <Sparkles className="w-10 h-10 text-accent-main" />
            </div>
            <h3 className="font-sora font-black text-2xl text-text-primary mb-2">NO JOBS FOUND</h3>

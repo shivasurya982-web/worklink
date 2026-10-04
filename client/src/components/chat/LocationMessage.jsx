@@ -18,7 +18,7 @@ const LocationMessage = ({ location, isOwn }) => {
   return (
     <div className={`space-y-3 p-1 min-w-[200px] ${isOwn ? 'text-white' : 'text-text-primary'}`}>
       <div className="flex items-center gap-3 font-bold mb-1">
-        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-xs border ${isOwn ? 'bg-white/20 border-white/30' : 'bg-blue-50 border-blue-100'}`}>
+        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-xs border ${isOwn ? 'bg-white/20 border-white/30' : 'bg-orange-50 border-orange-100'}`}>
           <MapPin className={`w-4 h-4 ${isOwn ? 'text-white' : 'text-accent-main'}`} />
         </div>
         <div className="flex flex-col">
@@ -30,10 +30,10 @@ const LocationMessage = ({ location, isOwn }) => {
       <button
         type="button"
         onClick={() => window.open(googleMapsUrl, "_blank", "noopener,noreferrer")}
-        className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-xs cursor-pointer ${
+        className={`w-full py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-xs cursor-pointer ${
           isOwn
-            ? 'bg-white text-accent-main hover:bg-blue-50'
-            : 'bg-accent-main text-white hover:bg-blue-700'
+            ? 'bg-white text-accent-main hover:bg-orange-50'
+            : 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white hover:from-[#3A3A3C] hover:to-[#2C2C2E]'
         }`}
       >
         <Navigation className="w-3.5 h-3.5" />

@@ -162,13 +162,13 @@ const WorkerPortfolio = () => {
           ) : (
             <div className="col-span-full">
               <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200 shadow-xs">
-                <div className="w-16 h-16 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                <div className="w-16 h-16 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center mx-auto mb-4 border border-orange-100/80">
                    <ImageIcon className="w-8 h-8" />
                 </div>
                 <h3 className="font-sora font-black text-xl text-text-primary uppercase tracking-tight">Empty Portfolio</h3>
                 <p className="max-w-xs mx-auto text-xs font-semibold text-text-muted uppercase tracking-wider mt-1 leading-relaxed">Add photos of your work to help customers trust you more!</p>
                 <PremiumButton
-                  variant="gold"
+                  variant="black"
                   size="lg"
                   className="mt-6 px-10"
                   onClick={() => setShowAddModal(true)}
@@ -203,7 +203,7 @@ const WorkerPortfolio = () => {
               </div>
             ) : (
               <label className="flex flex-col items-center justify-center cursor-pointer py-10 bg-white/80 border-2 border-dashed border-gray-200 rounded-2xl hover:border-accent-main transition-all group shadow-xs">
-                <div className="w-14 h-14 bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center mb-3">
+                <div className="w-14 h-14 bg-orange-50/80 rounded-2xl border border-orange-100/80 flex items-center justify-center mb-3">
                   <Upload className="w-6 h-6 text-accent-main" />
                 </div>
                 <span className="text-xs font-black text-text-primary uppercase tracking-wider">Pick a Photo</span>

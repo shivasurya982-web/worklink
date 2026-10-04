@@ -56,16 +56,16 @@ const SidebarContent = ({ onClose }) => {
   return (
     <div className="flex flex-col h-full">
       {/* User Card */}
-      <div className="flex items-center gap-3 p-4 bg-blue-50/70 rounded-2xl mb-6 border border-blue-100/80 shadow-sm">
+      <div className="flex items-center gap-3 p-4 bg-orange-50/70 rounded-2xl mb-6 border border-orange-100/80 shadow-xs">
         <img
           src={getImageUrl(user?.avatar, DEFAULT_AVATAR(user?.name || 'User'))}
           alt={user?.name}
           onError={(e) => handleImageError(e, DEFAULT_AVATAR(user?.name || 'User'))}
-          className="w-11 h-11 rounded-full object-cover border-2 border-accent-main shrink-0 shadow-sm"
+          className="w-11 h-11 rounded-full object-cover border-2 border-accent-main shrink-0 shadow-xs"
         />
         <div className="flex-1 min-w-0">
           <h4 className="text-xs font-bold text-text-primary truncate uppercase">{user?.name}</h4>
-          <p className="text-[9px] text-text-muted font-extrabold uppercase tracking-tighter">{role}</p>
+          <p className="text-[9px] text-accent-main font-extrabold uppercase tracking-tighter">{role}</p>
         </div>
       </div>
 
@@ -81,16 +81,16 @@ const SidebarContent = ({ onClose }) => {
               onClick={onClose}
               className={`flex items-center justify-between px-4 py-3 rounded-[1.2rem] text-xs font-bold transition-all group ${
                 isActive
-                  ? 'bg-accent-main text-white shadow-md'
-                  : 'text-text-secondary hover:text-text-primary hover:bg-blue-50/60'
+                  ? 'bg-[rgba(255,138,61,0.14)] border border-[rgba(255,138,61,0.25)] text-[#F97316] shadow-xs'
+                  : 'text-text-secondary hover:text-text-primary hover:bg-orange-50/60'
               }`}
             >
               <div className="flex items-center gap-3">
-                <Icon className={`w-4.5 h-4.5 shrink-0 ${isActive ? 'text-white' : 'text-accent-main group-hover:scale-110 transition-transform'}`} />
+                <Icon className={`w-4.5 h-4.5 shrink-0 ${isActive ? 'text-[#F97316]' : 'text-text-muted group-hover:text-[#F97316] group-hover:scale-110 transition-transform'}`} />
                 <span>{item.label}</span>
               </div>
               {item.label === 'Messages' && unreadMessagesCount > 0 && (
-                <span className="bg-blue-100 text-accent-main px-2 py-0.5 rounded-full text-[9px] font-black shadow-xs">
+                <span className="bg-orange-100 text-[#F97316] px-2 py-0.5 rounded-full text-[9px] font-black shadow-xs">
                   {unreadMessagesCount > 9 ? '9+' : unreadMessagesCount}
                 </span>
               )}
@@ -102,7 +102,7 @@ const SidebarContent = ({ onClose }) => {
       {/* Logout */}
       <button
         onClick={handleLogout}
-        className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-xs font-bold text-red-600 hover:bg-red-50 transition-all w-full mt-6 border border-red-200 bg-white/60 shadow-xs"
+        className="flex items-center gap-3 px-4 py-3.5 rounded-full text-xs font-bold text-red-600 hover:bg-red-50 transition-all w-full mt-6 border border-red-200/80 bg-white/60 shadow-xs"
       >
         <LogOut className="w-5 h-5 shrink-0" />
         <span>Sign Out</span>
@@ -141,7 +141,7 @@ export const MobileBottomNav = () => {
       ];
 
   return (
-    <nav className="mobile-bottom-nav lg:hidden bg-white/80 backdrop-blur-xl border-t border-white/60 shadow-lg fixed bottom-0 left-0 right-0 z-40">
+    <nav className="mobile-bottom-nav lg:hidden bg-white/80 backdrop-blur-2xl border-t border-white/75 shadow-lg fixed bottom-0 left-0 right-0 z-40">
       <div className="flex items-center justify-around px-1 py-2 sm:py-3">
         {items.map((item) => {
           const Icon = item.icon;
@@ -151,7 +151,7 @@ export const MobileBottomNav = () => {
               key={item.path}
               to={item.path}
               className={`relative flex flex-col items-center gap-1 px-2 py-1 rounded-xl transition-all min-w-[60px] ${
-                isActive ? 'text-accent-main' : 'text-text-muted'
+                isActive ? 'text-[#F97316]' : 'text-text-muted'
               }`}
             >
               <div className="relative">
@@ -162,9 +162,9 @@ export const MobileBottomNav = () => {
                   </span>
                 )}
               </div>
-              <span className={`text-[9px] font-black leading-none uppercase tracking-tighter ${isActive ? 'text-accent-main' : 'opacity-70'}`}>{item.label}</span>
+              <span className={`text-[9px] font-black leading-none uppercase tracking-tighter ${isActive ? 'text-[#F97316]' : 'opacity-70'}`}>{item.label}</span>
               {isActive && (
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent-main rounded-full" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#F97316] rounded-full" />
               )}
             </Link>
           );
@@ -178,7 +178,7 @@ export const MobileBottomNav = () => {
 const Sidebar = () => {
   return (
     <aside className="hidden lg:flex w-64 xl:w-72 shrink-0 sticky top-28 h-[calc(100vh-140px)]">
-      <div className="glass-panel !bg-white/65 backdrop-blur-2xl rounded-[2.5rem] p-6 border border-white/60 shadow-xs w-full flex flex-col overflow-hidden relative group">
+      <div className="glass-panel !bg-white/55 backdrop-blur-2xl rounded-[2.5rem] p-6 border border-white/75 shadow-xs w-full flex flex-col overflow-hidden relative group">
         <SidebarContent />
       </div>
     </aside>

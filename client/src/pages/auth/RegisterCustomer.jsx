@@ -63,7 +63,7 @@ const RegisterCustomer = () => {
   if (isSuccess) {
     return (
       <div className="min-h-screen bg-transparent flex items-center justify-center p-6">
-         <GlassCard goldBorder className="max-w-md w-full p-8 sm:p-10 text-center space-y-6 !bg-white/80 border border-white/60">
+         <GlassCard orangeBorder className="max-w-md w-full p-8 sm:p-10 text-center space-y-6 !bg-white/80 border border-white/80">
             <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto mb-2 border border-emerald-200 shadow-sm">
                <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
@@ -71,7 +71,7 @@ const RegisterCustomer = () => {
                <h2 className="font-sora font-black text-2xl text-text-primary uppercase tracking-tight">WELCOME!</h2>
                <p className="text-sm text-text-secondary font-bold">Your account is ready. You can now start booking services.</p>
             </div>
-            <PremiumButton variant="gold" size="lg" fullWidth onClick={() => navigate('/customer/dashboard')}>GO TO DASHBOARD</PremiumButton>
+            <PremiumButton variant="black" size="lg" fullWidth onClick={() => navigate('/customer/dashboard')}>GO TO DASHBOARD</PremiumButton>
          </GlassCard>
       </div>
     );
@@ -81,7 +81,7 @@ const RegisterCustomer = () => {
     <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-4 sm:p-6 pt-24 sm:pt-28 relative overflow-hidden">
       <Link
         to="/"
-        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/60 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/75 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
       >
         <Home className="w-4 h-4 text-accent-main" />
         <span>Home</span>
@@ -95,7 +95,7 @@ const RegisterCustomer = () => {
           <p className="text-[11px] text-accent-main font-black uppercase tracking-[0.2em]">Create Customer Account</p>
         </div>
 
-        <GlassCard goldBorder className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-10 rounded-[2.5rem] shadow-sm border-white/60">
+        <GlassCard orangeBorder className="!bg-white/80 backdrop-blur-3xl p-6 sm:p-10 rounded-[2.5rem] shadow-md border-white/80">
           {error && (
             <div className="mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-[11px] text-red-600 font-black text-center uppercase tracking-wider">
               {error}
@@ -123,7 +123,7 @@ const RegisterCustomer = () => {
             </div>
 
             <div className="pt-4">
-              <PremiumButton type="submit" variant="gold" fullWidth loading={loading} size="lg" icon={ArrowRight} className="py-4">
+              <PremiumButton type="submit" variant="black" fullWidth loading={loading} size="lg" icon={ArrowRight} className="py-4">
                 CREATE ACCOUNT
               </PremiumButton>
             </div>

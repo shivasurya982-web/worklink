@@ -95,15 +95,15 @@ const Services = () => {
                       to={`/search?category=${cat.slug}`}
                       className="group"
                     >
-                      <GlassCard goldBorder className="p-6 sm:p-8 h-full flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-1 !bg-white/70 border border-white/60 shadow-sm hover:!bg-white">
-                        <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mb-5 group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs">
+                      <GlassCard orangeBorder className="p-6 sm:p-8 h-full flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-1 !bg-white/70 border border-white/75 shadow-sm hover:!bg-white">
+                        <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center mb-5 group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs">
                            <Icon className="w-7 h-7" />
                         </div>
                         <h3 className="font-sora font-black text-base sm:text-lg text-text-primary mb-2 uppercase tracking-tight truncate w-full group-hover:text-accent-main">{cat.name}</h3>
                         <p className="text-[10px] text-text-muted mb-5 line-clamp-2 leading-relaxed font-semibold uppercase tracking-wider">
                           {cat.description || 'Verified local professionals ready to help.'}
                         </p>
-                        <span className="text-[9px] font-black text-accent-main bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100 flex items-center gap-1.5 uppercase tracking-wider mt-auto group-hover:bg-accent-main group-hover:text-white transition-all">
+                        <span className="text-[9px] font-black text-accent-main bg-orange-50/80 px-3.5 py-1.5 rounded-full border border-orange-100/80 flex items-center gap-1.5 uppercase tracking-wider mt-auto group-hover:bg-accent-main group-hover:text-white transition-all">
                            {cat.workerCount || 0} Workers <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </GlassCard>

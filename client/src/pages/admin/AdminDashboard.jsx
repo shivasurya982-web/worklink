@@ -71,8 +71,8 @@ const AdminDashboard = () => {
     >
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-        <GlassCard className="flex items-center gap-5 p-6 !bg-white/80 border border-white/60 shadow-xs relative overflow-hidden group">
-          <div className="w-14 h-14 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center shrink-0 border border-blue-100 shadow-xs group-hover:bg-accent-main group-hover:text-white transition-all">
+        <GlassCard className="flex items-center gap-5 p-6 !bg-white/80 border border-white/75 shadow-xs relative overflow-hidden group">
+          <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center shrink-0 border border-orange-100/80 shadow-xs group-hover:bg-accent-main group-hover:text-white transition-all">
             <Users className="w-7 h-7" />
           </div>
           <div className="min-w-0">

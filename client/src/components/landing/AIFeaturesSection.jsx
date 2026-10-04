@@ -42,7 +42,7 @@ const AIFeaturesSection = () => {
     <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="container-responsive">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 block">Features</span>
+          <span className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 block">Features</span>
           <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 tracking-tight mb-3 uppercase">
              {settings.aiSectionTitle}
           </h2>
@@ -56,10 +56,10 @@ const AIFeaturesSection = () => {
              const Icon = icons[i % icons.length];
              return (
                <GlassCard key={i} className="p-6 sm:p-8 bg-white border border-slate-200/80 hover:border-slate-300 shadow-xs hover:shadow-md transition-all group">
-                  <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mb-5 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-xs">
+                  <div className="w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 flex items-center justify-center mb-5 group-hover:bg-orange-600 group-hover:text-white transition-all shadow-xs">
                      <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-sora font-bold text-base text-slate-900 mb-2 tracking-tight group-hover:text-indigo-600 transition-colors uppercase">{feature.title}</h3>
+                  <h3 className="font-sora font-bold text-base text-slate-900 mb-2 tracking-tight group-hover:text-orange-600 transition-colors uppercase">{feature.title}</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-medium">
                     {feature.description}
                   </p>

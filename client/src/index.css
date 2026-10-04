@@ -6,10 +6,10 @@
 @tailwind utilities;
 
 :root {
-  /* CLEAN MODERN SAAS COLOR SYSTEM */
-  --wl-primary: #4F46E5;
-  --wl-primary-hover: #4338CA;
-  --wl-secondary: #0EA5E9;
+  /* CLEAN MODERN SAAS COLOR SYSTEM - VIBRANT ORANGE ACCENT */
+  --wl-primary: #F97316;
+  --wl-primary-hover: #EA580C;
+  --wl-secondary: #FF7A18;
   --wl-bg-base: #F8FAFC;
   --wl-bg-surface: #FFFFFF;
   --wl-bg-alt: #F1F5F9;
@@ -54,7 +54,7 @@
     color: var(--wl-text-primary);
   }
 
-  /* Clean Solid Form Elements */
+  /* Clean Solid Form Elements with Orange Focus */
   input, select, textarea {
     background: #FFFFFF !important;
     border: 1px solid #E2E8F0 !important;
@@ -65,8 +65,8 @@
 
   input:focus, select:focus, textarea:focus {
     background: #FFFFFF !important;
-    border-color: #4F46E5 !important;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+    border-color: #F97316 !important;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15) !important;
   }
 
   ::placeholder {
@@ -74,7 +74,7 @@
   }
 }
 
-/* Ambient Fluid Background fallback (Clean / subtle) */
+/* Ambient Fluid Background fallback */
 .ambient-fluid-container {
   display: none;
 }
@@ -90,7 +90,6 @@
 }
 @media (min-width: 1280px) { .container-responsive { max-width: 85rem; } }
 
-/* Replaces old white glass panel with solid SaaS panel */
 .glass-panel {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
@@ -99,7 +98,6 @@
   position: relative;
 }
 
-/* Replaces old white glass card with clean solid surface card */
 .glass-card {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
@@ -111,25 +109,25 @@
 
 .glass-card:hover {
   border-color: #CBD5E1;
-  box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 10px 25px -3px rgba(249, 115, 22, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
 }
 
 .orange-gradient-text {
-  background: linear-gradient(135deg, #0F172A 0%, #4F46E5 100%);
+  background: linear-gradient(135deg, #0F172A 0%, #F97316 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .primary-pill-btn {
-  background-color: #4F46E5;
+  background-color: #F97316;
   color: #FFFFFF;
   border-radius: 12px;
   box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
   transition: all 0.2s ease;
 }
 .primary-pill-btn:hover {
-  background-color: #4338CA;
+  background-color: #EA580C;
   transform: translateY(-1px);
 }
 

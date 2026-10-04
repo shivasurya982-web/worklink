@@ -29,20 +29,20 @@ const Footer = () => {
           {/* Brand */}
           <div className="max-w-2xl">
             <Link to="/" className="inline-flex items-center gap-2 mb-4 group">
-              <span className="font-sora font-bold text-2xl text-white tracking-tight group-hover:text-indigo-400 transition-colors">
+              <span className="font-sora font-bold text-2xl text-white tracking-tight group-hover:text-orange-400 transition-colors">
                 Worklyn
               </span>
             </Link>
             <p className="text-sm text-slate-400 mb-6 leading-relaxed font-medium">
               Worklyn connects you with trusted local service professionals for all your home, office, and maintenance needs.
             </p>
-            <div className="flex flex-wrap gap-6 text-[11px] font-bold text-indigo-400 uppercase tracking-wider">
+            <div className="flex flex-wrap gap-6 text-[11px] font-bold text-orange-400 uppercase tracking-wider">
               <span className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 Verified Professionals
               </span>
               <span className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <Sparkles className="w-4 h-4 text-orange-400" />
                 Smart Local Matching
               </span>
             </div>

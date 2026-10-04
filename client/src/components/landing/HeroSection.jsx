@@ -51,14 +51,14 @@ const HeroSection = () => {
         )}
 
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200/80 text-xs font-bold text-indigo-700 mb-8 shadow-xs uppercase tracking-wider">
-            <Sparkles className="w-4 h-4 text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200/80 text-xs font-bold text-orange-700 mb-8 shadow-xs uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-orange-600" />
             <span>{settings.announcementText}</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sora font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
             {settings.heroTitle.split(' ').map((word, i) => (
-              <span key={i} className={i % 3 === 2 ? 'text-indigo-600 block sm:inline' : ''}>
+              <span key={i} className={i % 3 === 2 ? 'text-orange-600 block sm:inline' : ''}>
                 {word}{' '}
               </span>
             ))}
@@ -81,7 +81,7 @@ const HeroSection = () => {
 
               <div className="text-left hidden sm:block pl-2 border-l-2 border-slate-200">
                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">PRO NETWORK</p>
-                 <p className="text-xs font-bold text-indigo-600">Join 500+ Experts</p>
+                 <p className="text-xs font-bold text-orange-600">Join 500+ Experts</p>
               </div>
           </div>
         </div>

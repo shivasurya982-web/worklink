@@ -83,7 +83,7 @@ const RegisterCustomer = () => {
         to="/"
         className="fixed top-4 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-xs hover:bg-slate-50 transition-all text-slate-800 text-xs font-bold uppercase tracking-wider"
       >
-        <Home className="w-4 h-4 text-indigo-600" />
+        <Home className="w-4 h-4 text-orange-600" />
         <span>Home</span>
       </Link>
 
@@ -92,7 +92,7 @@ const RegisterCustomer = () => {
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <img src="/logo.png" alt="Worklyn Logo" className="h-10 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-xs text-indigo-600 font-bold uppercase tracking-widest">Create Customer Account</p>
+          <p className="text-xs text-orange-600 font-bold uppercase tracking-widest">Create Customer Account</p>
         </div>
 
         <GlassCard className="bg-white p-6 sm:p-8 rounded-2xl shadow-md border-slate-200">
@@ -109,7 +109,7 @@ const RegisterCustomer = () => {
             <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required />
 
             <div className="pt-3 border-t border-slate-100">
-               <label className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest ml-1 mb-1.5 block">Security Hint</label>
+               <label className="text-[10px] font-bold text-orange-600 uppercase tracking-widest ml-1 mb-1.5 block">Security Hint</label>
                <FloatingInput
                 id="securityHint"
                 type="text"
@@ -132,7 +132,7 @@ const RegisterCustomer = () => {
           <div className="mt-6 pt-5 border-t border-slate-100 text-center">
             <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
               Already have an account?{' '}
-              <Link to="/login" className="text-indigo-600 hover:underline font-bold">
+              <Link to="/login" className="text-orange-600 hover:underline font-bold">
                 Login
               </Link>
             </p>

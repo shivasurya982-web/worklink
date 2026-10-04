@@ -4,7 +4,7 @@ const GlassCard = ({ children, className = '', hover = true, goldBorder = false,
   return (
     <div
       className={`bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-xs relative overflow-hidden transition-all ${
-        goldBorder || orangeBorder ? 'border-t-2 border-t-indigo-600' : ''
+        goldBorder || orangeBorder ? 'border-t-2 border-t-orange-600' : ''
       } ${hover ? 'hover:shadow-md hover:border-slate-300' : ''} ${className}`}
       {...props}
     >

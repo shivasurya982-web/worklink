@@ -14,19 +14,20 @@ export default {
           dark: '#0F172A',      // Dark Slate 900
           card: '#FFFFFF',
           cardSecondary: '#F8FAFC',
-          widget: '#F1F5F9',
+          widget: '#FFF7ED',
         },
         accent: {
-          main: '#4F46E5',      // Primary Indigo 600
-          primary: '#4F46E5',
-          hover: '#4338CA',     // Indigo 700
-          brand: '#4F46E5',
-          light: '#EEF2FF',     // Indigo 50
-          soft: '#E0E7FF',      // Indigo 100
-          secondary: '#0EA5E9', // Sky 500
-          gold: '#4F46E5',
-          orange: '#4F46E5',
-          blue: '#4F46E5',
+          main: '#F97316',      // Primary Orange 500
+          primary: '#F97316',
+          hover: '#EA580C',     // Orange 600
+          brand: '#F97316',
+          light: '#FFF7ED',     // Orange 50
+          soft: '#FFEDD5',      // Orange 100
+          secondary: '#F97316', // Orange 500
+          gold: '#F97316',
+          orange: '#F97316',
+          blue: '#F97316',
+          indigo: '#F97316',
           black: '#0F172A',     // Slate 900
           charcoal: '#1E293B',  // Slate 800
           charcoalLight: '#334155',
@@ -43,9 +44,9 @@ export default {
         border: {
           primary: '#E2E8F0',   // Slate 200
           subtle: '#F1F5F9',    // Slate 100
-          active: '#4F46E5',    // Indigo 600
+          active: '#F97316',    // Orange 500
           glass: '#E2E8F0',
-          orange: '#E2E8F0',
+          orange: '#FFEDD5',
         }
       },
       fontFamily: {
@@ -66,7 +67,7 @@ export default {
         lg: '0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.08)',
         xl: '0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1)',
         card: '0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06)',
-        'card-hover': '0 10px 20px -3px rgba(79, 70, 229, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05)',
+        'card-hover': '0 10px 20px -3px rgba(249, 115, 22, 0.12), 0 4px 6px -4px rgba(15, 23, 42, 0.05)',
       },
       animation: {
         'float': 'float 8s ease-in-out infinite',

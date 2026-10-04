@@ -39,7 +39,7 @@ const HowItWorks = () => {
     <section className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
       <div className="container-responsive">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-           <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2 block">Direct & Simple</span>
+           <span className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 block">Direct & Simple</span>
            <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 mb-3 tracking-tight uppercase">{settings.howItWorksTitle}</h2>
            <p className="text-xs sm:text-sm text-slate-500 font-medium uppercase tracking-wider">{settings.howItWorksSubtitle}</p>
         </div>
@@ -52,14 +52,14 @@ const HowItWorks = () => {
             const Icon = icons[i % icons.length];
             return (
               <div key={i} className="flex flex-col items-center text-center space-y-4 relative group">
-                 <div className="w-16 h-16 rounded-2xl bg-white border-2 border-slate-200 text-indigo-600 flex items-center justify-center shadow-xs group-hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200 z-10 relative">
+                 <div className="w-16 h-16 rounded-2xl bg-white border-2 border-slate-200 text-orange-600 flex items-center justify-center shadow-xs group-hover:border-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all duration-200 z-10 relative">
                     <Icon className="w-7 h-7" />
-                    <span className="absolute -top-2.5 -right-2.5 w-8 h-8 rounded-lg bg-indigo-600 text-white text-[11px] font-bold flex items-center justify-center border-2 border-white shadow-xs">
+                    <span className="absolute -top-2.5 -right-2.5 w-8 h-8 rounded-lg bg-orange-600 text-white text-[11px] font-bold flex items-center justify-center border-2 border-white shadow-xs">
                       {step.step || `0${i+1}`}
                     </span>
                  </div>
                  <div className="space-y-1.5">
-                    <h3 className="font-sora font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors tracking-tight uppercase">{step.title}</h3>
+                    <h3 className="font-sora font-bold text-base text-slate-900 group-hover:text-orange-600 transition-colors tracking-tight uppercase">{step.title}</h3>
                     <p className="text-xs text-slate-600 leading-relaxed max-w-[240px] mx-auto font-medium">
                       {step.description}
                     </p>

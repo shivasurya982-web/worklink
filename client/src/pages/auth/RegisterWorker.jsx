@@ -155,40 +155,40 @@ const RegisterWorker = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-4 sm:p-6 pt-24 sm:pt-28 relative overflow-hidden">
+    <div className="min-h-screen bg-[#F1F5F9] flex flex-col items-center justify-center p-4 sm:p-6 pt-20 relative overflow-hidden">
       {/* Home Button */}
       <Link
         to="/"
-        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 backdrop-blur-xl rounded-full border border-white/75 shadow-sm hover:shadow-md transition-all text-text-primary text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+        className="fixed top-4 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-xs hover:bg-slate-50 transition-all text-slate-800 text-xs font-bold uppercase tracking-wider"
       >
-        <Home className="w-4 h-4 text-accent-main" />
+        <Home className="w-4 h-4 text-orange-600" />
         <span>Home</span>
       </Link>
 
       <div className="max-w-xl w-full relative z-10 my-auto pb-10">
-        <div className="text-center mb-6 sm:mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-3">
-            <img src="/logo.png" alt="Worklyn Logo" className="h-10 sm:h-12 w-auto object-contain mx-auto" />
+        <div className="text-center mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 mb-2">
+            <img src="/logo.png" alt="Worklyn Logo" className="h-10 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">Worker Registration</p>
+          <p className="text-xs text-orange-600 font-bold uppercase tracking-widest">Worker Registration</p>
         </div>
 
-        <GlassCard orangeBorder className="!bg-white/80 backdrop-blur-3xl p-6 sm:p-8 rounded-[2.5rem] shadow-md border-white/80">
+        <GlassCard className="bg-white p-6 sm:p-8 rounded-2xl shadow-md border-slate-200">
           {step <= 5 && (
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
               {['Info', 'Skills', 'Place', 'Verify', 'Secret'].map((sName, idx) => (
                 <div key={sName} className="flex items-center gap-1.5">
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-gradient-to-b from-[#2C2C2E] to-[#1C1C1E] text-white shadow-xs' : step > idx + 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-text-muted'}`}>
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${step === idx + 1 ? 'bg-orange-600 text-white shadow-xs' : step > idx + 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'}`}>
                     {step > idx + 1 ? '✓' : idx + 1}
                   </div>
-                  <span className={`text-[9px] font-bold uppercase hidden sm:inline ${step === idx + 1 ? 'text-accent-main' : 'text-text-muted'}`}>{sName}</span>
+                  <span className={`text-[10px] font-bold uppercase hidden sm:inline ${step === idx + 1 ? 'text-orange-600' : 'text-slate-400'}`}>{sName}</span>
                 </div>
               ))}
             </div>
           )}
 
           {error && (
-            <div className="mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-600 font-bold text-center uppercase">
+            <div className="mb-6 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-bold text-center uppercase tracking-wider">
               {error}
             </div>
           )}
@@ -199,7 +199,7 @@ const RegisterWorker = () => {
               <FloatingInput id="email" type="email" label="Email Address" icon={Mail} value={formData.email} onChange={handleChange} required />
               <FloatingInput id="phone" type="tel" label="Phone Number" icon={Phone} value={formData.phone} onChange={handleChange} required />
               <FloatingInput id="password" type="password" label="Password" icon={Lock} value={formData.password} onChange={handleChange} required />
-              <PremiumButton type="submit" variant="black" fullWidth icon={ArrowRight} className="py-3.5">
+              <PremiumButton type="submit" variant="gold" fullWidth icon={ArrowRight} className="py-3">
                 CONTINUE
               </PremiumButton>
             </form>
@@ -209,8 +209,8 @@ const RegisterWorker = () => {
             <form onSubmit={handleNextStep2} className="space-y-4">
               <FloatingInput id="profession" label="Profession (e.g. Electrician, Plumber)" icon={Wrench} value={formData.profession} onChange={handleChange} required />
               <div>
-                <label className="text-[10px] font-black text-accent-main uppercase tracking-widest ml-1 mb-1 block">Category</label>
-                <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-white/60 border border-white/75 rounded-2xl p-3.5 text-xs font-bold text-text-primary focus:outline-none focus:border-accent-main shadow-xs">
+                <label className="text-[10px] font-bold text-orange-600 uppercase tracking-widest ml-1 mb-1 block">Category</label>
+                <select id="category" value={formData.category} onChange={handleChange} className="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-orange-600 shadow-xs">
                   <option value="">-- Select Main Category --</option>
                   {categories.map((c) => (
                     <option key={c._id} value={c._id}>{c.name}</option>
@@ -219,8 +219,8 @@ const RegisterWorker = () => {
               </div>
               <FloatingInput id="experience" type="number" label="Years of Experience" value={formData.experience} onChange={handleChange} required />
               <div className="flex gap-3 pt-2">
-                <PremiumButton type="button" variant="outline" onClick={() => setStep(1)} className="py-3 flex-1">BACK</PremiumButton>
-                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(1)} className="py-2.5 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="gold" icon={ArrowRight} className="py-2.5 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
@@ -234,8 +234,8 @@ const RegisterWorker = () => {
                 <FloatingInput id="zip" label="Pincode" value={formData.zip} onChange={handleChange} required />
               </div>
               <div className="flex gap-3 pt-2">
-                <PremiumButton type="button" variant="outline" onClick={() => setStep(2)} className="py-3 flex-1">BACK</PremiumButton>
-                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(2)} className="py-2.5 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="gold" icon={ArrowRight} className="py-2.5 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
@@ -243,23 +243,23 @@ const RegisterWorker = () => {
           {step === 4 && (
             <form onSubmit={handleNextStep4} className="space-y-4">
               <div className="text-center mb-2">
-                <h4 className="font-sora font-black text-sm uppercase text-text-primary">Identity Document</h4>
-                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Aadhaar, PAN, or Govt ID</p>
+                <h4 className="font-sora font-bold text-sm uppercase text-slate-900">Identity Document</h4>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Aadhaar, PAN, or Govt ID</p>
               </div>
-              <div className="relative border-2 border-dashed border-orange-200/80 rounded-[2rem] p-6 text-center bg-orange-50/30">
+              <div className="relative border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center bg-slate-50">
                 <input type="file" accept="image/*,.pdf" onChange={handleFileChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
                 {idPreview ? (
                   <img src={idPreview} alt="Preview" className="max-h-40 mx-auto rounded-xl object-contain shadow-xs" />
                 ) : (
                   <div>
-                    <Upload className="w-8 h-8 text-accent-main mx-auto mb-2" />
-                    <p className="text-xs font-bold text-text-primary uppercase">Click to upload ID image</p>
+                    <Upload className="w-8 h-8 text-orange-600 mx-auto mb-2" />
+                    <p className="text-xs font-bold text-slate-800 uppercase">Click to upload ID image</p>
                   </div>
                 )}
               </div>
               <div className="flex gap-3 pt-2">
-                <PremiumButton type="button" variant="outline" onClick={() => setStep(3)} className="py-3 flex-1">BACK</PremiumButton>
-                <PremiumButton type="submit" variant="black" icon={ArrowRight} className="py-3 flex-[2]">CONTINUE</PremiumButton>
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(3)} className="py-2.5 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="gold" icon={ArrowRight} className="py-2.5 flex-[2]">CONTINUE</PremiumButton>
               </div>
             </form>
           )}
@@ -267,33 +267,33 @@ const RegisterWorker = () => {
           {step === 5 && (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="text-center mb-2">
-                <h4 className="font-sora font-black text-sm uppercase text-text-primary">Set Recovery Word</h4>
-                <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mt-0.5">Required for account recovery</p>
+                <h4 className="font-sora font-bold text-sm uppercase text-slate-900">Set Recovery Word</h4>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Required for account recovery</p>
               </div>
               <FloatingInput id="registerHint" label="Enter a secret word" icon={ShieldCheck} value={formData.registerHint} onChange={handleChange} required />
               <div className="flex gap-3 pt-2">
-                <PremiumButton type="button" variant="outline" onClick={() => setStep(4)} className="py-3 flex-1">BACK</PremiumButton>
-                <PremiumButton type="submit" variant="black" loading={loading} icon={CheckCircle2} className="py-3 flex-[2]">SUBMIT APPLICATION</PremiumButton>
+                <PremiumButton type="button" variant="outline" onClick={() => setStep(4)} className="py-2.5 flex-1">BACK</PremiumButton>
+                <PremiumButton type="submit" variant="gold" loading={loading} icon={CheckCircle2} className="py-2.5 flex-[2]">SUBMIT APPLICATION</PremiumButton>
               </div>
             </form>
           )}
 
           {step === 6 && (
-            <div className="text-center py-6 space-y-6">
+            <div className="text-center py-6 space-y-5">
               <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200 shadow-xs">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600" />
               </div>
-              <div className="space-y-2">
-                <h3 className="font-sora font-black text-xl text-text-primary uppercase">APPLICATION RECEIVED!</h3>
-                <p className="text-xs text-text-secondary font-bold uppercase tracking-wider leading-relaxed">Your worker profile has been submitted for review. Admin will approve your account shortly.</p>
+              <div className="space-y-1">
+                <h3 className="font-sora font-bold text-xl text-slate-900 uppercase">APPLICATION RECEIVED!</h3>
+                <p className="text-xs text-slate-600 font-medium uppercase tracking-wider leading-relaxed">Your worker profile has been submitted for review. Admin will approve your account shortly.</p>
               </div>
-              <PremiumButton variant="black" fullWidth onClick={() => navigate('/login')} className="py-3.5">GO TO LOGIN</PremiumButton>
+              <PremiumButton variant="gold" fullWidth onClick={() => navigate('/login')} className="py-3">GO TO LOGIN</PremiumButton>
             </div>
           )}
 
-          <div className="mt-6 sm:mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-xs text-text-muted font-bold uppercase tracking-widest">
-              Already registered? <Link to="/login" className="text-accent-main hover:underline">Sign In</Link>
+          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+              Already registered? <Link to="/login" className="text-orange-600 hover:underline font-bold">Sign In</Link>
             </p>
           </div>
         </GlassCard>

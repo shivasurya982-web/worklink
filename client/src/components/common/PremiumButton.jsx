@@ -16,14 +16,14 @@ const PremiumButton = ({
     'focus:outline-none touch-manipulation select-none tracking-wider uppercase cursor-pointer rounded-xl';
 
   const variants = {
-    gold:    'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700 hover:border-indigo-700',
-    primary: 'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700 hover:border-indigo-700',
+    gold:    'bg-orange-600 text-white shadow-xs border border-orange-600 hover:bg-orange-700 hover:border-orange-700',
+    primary: 'bg-orange-600 text-white shadow-xs border border-orange-600 hover:bg-orange-700 hover:border-orange-700',
     black:   'bg-slate-900 text-white shadow-xs border border-slate-900 hover:bg-slate-800',
-    ai:      'bg-indigo-600 text-white shadow-xs border border-indigo-600 hover:bg-indigo-700',
-    outline: 'bg-white border border-slate-200 text-slate-800 shadow-xs hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900',
+    ai:      'bg-orange-600 text-white shadow-xs border border-orange-600 hover:bg-orange-700',
+    outline: 'bg-white border border-slate-200 text-slate-800 shadow-xs hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600',
     danger:  'bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white',
     ghost:   'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100',
-    glass:   'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-slate-200 shadow-xs',
+    glass:   'bg-orange-50 border border-orange-200 text-orange-700 hover:bg-orange-100 shadow-xs',
   };
 
   const sizes = {

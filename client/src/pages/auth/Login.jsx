@@ -61,7 +61,7 @@ const Login = () => {
         to="/"
         className="fixed top-4 left-4 sm:left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-xs hover:bg-slate-50 transition-all text-slate-800 text-xs font-bold uppercase tracking-wider"
       >
-        <Home className="w-4 h-4 text-indigo-600" />
+        <Home className="w-4 h-4 text-orange-600" />
         <span>Home</span>
       </Link>
 
@@ -70,7 +70,7 @@ const Login = () => {
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <img src="/logo.png" alt="Worklyn Logo" className="h-10 w-auto object-contain mx-auto" />
           </Link>
-          <p className="text-xs text-indigo-600 font-bold uppercase tracking-widest">Login to your account</p>
+          <p className="text-xs text-orange-600 font-bold uppercase tracking-widest">Login to your account</p>
         </div>
 
         <GlassCard className="bg-white p-6 sm:p-8 rounded-2xl shadow-md border-slate-200 relative">
@@ -80,7 +80,7 @@ const Login = () => {
               onClick={() => setRole('customer')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 role === 'customer'
-                  ? 'bg-indigo-600 text-white shadow-xs'
+                  ? 'bg-orange-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -90,7 +90,7 @@ const Login = () => {
               onClick={() => setRole('worker')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 role === 'worker'
-                  ? 'bg-indigo-600 text-white shadow-xs'
+                  ? 'bg-orange-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -127,7 +127,7 @@ const Login = () => {
             <div className="flex justify-end pr-1">
               <Link
                 to="/forgot-password"
-                className="text-xs font-bold text-indigo-600 hover:underline uppercase tracking-wider"
+                className="text-xs font-bold text-orange-600 hover:underline uppercase tracking-wider"
               >
                 Forgot Password?
               </Link>
@@ -145,7 +145,7 @@ const Login = () => {
               New here?{' '}
               <Link
                 to={role === 'customer' ? '/register/customer' : '/register/worker'}
-                className="text-indigo-600 hover:underline font-bold"
+                className="text-orange-600 hover:underline font-bold"
               >
                 Create an account
               </Link>

@@ -38,7 +38,7 @@ const StatsSection = () => {
           {statItems.map((item, i) => (
             <div key={i} className="group relative">
               <GlassCard className="h-full text-center flex flex-col items-center justify-center p-6 bg-white border-slate-200/80 shadow-xs hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center mb-4 shadow-xs group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 border border-orange-100 flex items-center justify-center mb-4 shadow-xs group-hover:bg-orange-600 group-hover:text-white transition-all">
                   <item.icon className="w-6 h-6" />
                 </div>
 
@@ -46,7 +46,7 @@ const StatsSection = () => {
                   <div className="text-2xl sm:text-3xl font-sora font-extrabold text-slate-900 tracking-tight">
                      {loading && stats.totalCustomers === 0 ? '...' : item.value}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-indigo-600 transition-colors">
+                  <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-orange-600 transition-colors">
                     {item.label}
                   </div>
                 </div>

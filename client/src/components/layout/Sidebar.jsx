@@ -61,11 +61,11 @@ const SidebarContent = ({ onClose }) => {
           src={getImageUrl(user?.avatar, DEFAULT_AVATAR(user?.name || 'User'))}
           alt={user?.name}
           onError={(e) => handleImageError(e, DEFAULT_AVATAR(user?.name || 'User'))}
-          className="w-10 h-10 rounded-full object-cover border border-indigo-600 shrink-0 shadow-xs"
+          className="w-10 h-10 rounded-full object-cover border border-orange-600 shrink-0 shadow-xs"
         />
         <div className="flex-1 min-w-0">
           <h4 className="text-xs font-bold text-slate-900 truncate uppercase">{user?.name}</h4>
-          <p className="text-[10px] text-indigo-600 font-extrabold uppercase tracking-wider">{role}</p>
+          <p className="text-[10px] text-orange-600 font-extrabold uppercase tracking-wider">{role}</p>
         </div>
       </div>
 
@@ -81,16 +81,16 @@ const SidebarContent = ({ onClose }) => {
               onClick={onClose}
               className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all group ${
                 isActive
-                  ? 'bg-indigo-50 border border-indigo-200/80 text-indigo-600 shadow-xs'
+                  ? 'bg-orange-50 border border-orange-200/80 text-orange-600 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-3">
-                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-700'}`} />
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-700'}`} />
                 <span>{item.label}</span>
               </div>
               {item.label === 'Messages' && unreadMessagesCount > 0 && (
-                <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full text-[9px] font-extrabold shadow-xs">
+                <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full text-[9px] font-extrabold shadow-xs">
                   {unreadMessagesCount > 9 ? '9+' : unreadMessagesCount}
                 </span>
               )}
@@ -151,7 +151,7 @@ export const MobileBottomNav = () => {
               key={item.path}
               to={item.path}
               className={`relative flex flex-col items-center gap-1 px-2 py-1 rounded-xl transition-all min-w-[55px] ${
-                isActive ? 'text-indigo-600' : 'text-slate-400'
+                isActive ? 'text-orange-600' : 'text-slate-400'
               }`}
             >
               <div className="relative">
@@ -162,9 +162,9 @@ export const MobileBottomNav = () => {
                   </span>
                 )}
               </div>
-              <span className={`text-[9px] font-bold leading-none uppercase tracking-tight ${isActive ? 'text-indigo-600' : 'opacity-70'}`}>{item.label}</span>
+              <span className={`text-[9px] font-bold leading-none uppercase tracking-tight ${isActive ? 'text-orange-600' : 'opacity-70'}`}>{item.label}</span>
               {isActive && (
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-orange-600 rounded-full" />
               )}
             </Link>
           );

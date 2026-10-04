@@ -57,10 +57,10 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
 
       {/* Info Section */}
       <div className="flex-1 mb-5">
-        <h4 className="font-sora font-bold text-base text-slate-900 line-clamp-1 leading-tight group-hover:text-indigo-600 transition-colors uppercase tracking-tight">
+        <h4 className="font-sora font-bold text-base text-slate-900 line-clamp-1 leading-tight group-hover:text-orange-600 transition-colors uppercase tracking-tight">
           {name}
         </h4>
-        <p className="text-[11px] font-bold text-indigo-600 uppercase tracking-wider mt-1">{profession}</p>
+        <p className="text-[11px] font-bold text-orange-600 uppercase tracking-wider mt-1">{profession}</p>
 
         <div className="mt-3">
           <RatingStars rating={rating} totalReviews={totalReviews} size="xs" />
@@ -73,11 +73,11 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
           </div>
           <div className="space-y-0.5">
             <p className="text-slate-500 uppercase tracking-wider text-[9px]">Pricing</p>
-            <p className="text-indigo-600 font-bold leading-tight">Varies by Work</p>
+            <p className="text-orange-600 font-bold leading-tight">Varies by Work</p>
           </div>
           {(worker.address?.city || distance) && (
             <div className="col-span-2 flex items-center gap-1.5 text-slate-500 border-t border-slate-200/60 pt-2 mt-1">
-              <MapPin className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-orange-600 shrink-0" />
               <span className="truncate uppercase tracking-tight font-medium">{worker.address?.city || `${distance} KM`}</span>
             </div>
           )}
@@ -94,7 +94,7 @@ const WorkerCard = ({ worker, isFavorite = false, onToggleFavorite, onBook }) =>
         </button>
         <button
           onClick={() => onBook && onBook(worker)}
-          className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-xs transition-all cursor-pointer"
+          className="flex-1 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-xs transition-all cursor-pointer"
         >
           BOOK NOW
         </button>

@@ -4,7 +4,7 @@ import Sidebar, { MobileBottomNav } from './Sidebar';
 
 const DashboardLayout = ({ children, title, subtitle }) => {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col overflow-x-clip">
       <Navbar />
 
       <div className="flex-1 pt-20 sm:pt-24 pb-20 lg:pb-12 relative z-10">

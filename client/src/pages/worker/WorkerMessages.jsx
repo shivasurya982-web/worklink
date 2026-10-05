@@ -294,7 +294,7 @@ const WorkerMessages = () => {
     if (currentDate !== prevDate) {
       return (
         <div className="flex justify-center my-4">
-          <span className="bg-blue-100 text-accent-main text-[10px] font-bold px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+          <span className="bg-orange-100 text-accent-main text-[10px] font-bold px-3 py-1 rounded-full border border-orange-200 uppercase tracking-wider">
             {formatMessageDate(currentMsg.createdAt)}
           </span>
         </div>
@@ -324,7 +324,7 @@ const WorkerMessages = () => {
                 placeholder="Search clients..."
                 value={searchTerm}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs focus:ring-2 focus:ring-blue-500/10 focus:border-accent-main transition-all font-bold text-text-primary placeholder:text-text-muted uppercase tracking-wider"
+                className="w-full bg-white border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs focus:ring-2 focus:ring-accent-main/10 focus:border-accent-main transition-all font-bold text-text-primary placeholder:text-text-muted uppercase tracking-wider"
               />
             </div>
           </div>
@@ -421,7 +421,7 @@ const WorkerMessages = () => {
                         {recipient.phone && (
                           <a
                             href={`tel:${recipient.phone.replace(/\s+/g, '')}`}
-                            className="p-3 rounded-2xl bg-blue-50 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-blue-100 shadow-xs"
+                            className="p-3 rounded-2xl bg-orange-50 text-accent-main hover:bg-accent-main hover:text-white transition-all border border-orange-100 shadow-xs"
                             title="Call Client"
                           >
                             <Phone className="w-4 h-4" />

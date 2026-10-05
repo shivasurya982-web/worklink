@@ -178,7 +178,7 @@ const WorkerProfile = () => {
               </h3>
               <button
                 onClick={() => setIsEditingProfile(!isEditingProfile)}
-                className={`p-2.5 rounded-xl transition-all shadow-xs ${isEditingProfile ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-blue-50 text-accent-main border border-blue-100'}`}
+                className={`p-2.5 rounded-xl transition-all shadow-xs ${isEditingProfile ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-orange-50 text-accent-main border border-orange-100'}`}
               >
                 {isEditingProfile ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
               </button>
@@ -321,7 +321,7 @@ const WorkerProfile = () => {
 
                 <div className="space-y-4 pt-6 border-t border-gray-100">
                   <h4 className="font-sora font-black text-xs text-text-primary uppercase tracking-wider border-l-4 border-accent-main pl-3 mb-6">Verification Document</h4>
-                  <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${idFile ? 'border-accent-main bg-blue-50/50' : 'border-gray-200 hover:border-accent-main'}`}>
+                  <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${idFile ? 'border-accent-main bg-orange-50/50' : 'border-gray-200 hover:border-accent-main'}`}>
                     {idPreview ? (
                       <div className="space-y-3">
                          <img src={idFile ? URL.createObjectURL(idFile) : getImageUrl(idPreview)} alt="ID Preview" className="max-h-36 mx-auto rounded-xl shadow-xs border border-gray-200" />
@@ -366,7 +366,7 @@ const WorkerProfile = () => {
           <GlassCard className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2.5rem] shadow-sm border border-white/60 relative overflow-hidden">
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100">
+                <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center border border-orange-100">
                    <Lock className="w-5 h-5 text-accent-main" />
                 </div>
                 <div>
@@ -377,7 +377,7 @@ const WorkerProfile = () => {
               {!isEditingPassword && (
                 <button
                   onClick={() => setIsEditingPassword(true)}
-                  className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-[10px] font-black text-accent-main hover:bg-blue-100 transition-all uppercase tracking-wider shadow-xs"
+                  className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-[10px] font-black text-accent-main hover:bg-orange-100 transition-all uppercase tracking-wider shadow-xs"
                 >
                   CHANGE
                 </button>

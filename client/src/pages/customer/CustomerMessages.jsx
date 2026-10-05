@@ -341,7 +341,7 @@ const CustomerMessages = () => {
       <div className="bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-sm border border-white/60 overflow-hidden flex h-[750px] max-h-[85vh]">
 
         {/* ── Sidebar: Thread List ── */}
-        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-gray-200 bg-blue-50/30`}>
+        <div className={`${view === 'chat' ? 'hidden md:flex' : 'flex'} w-full md:w-[350px] flex-col border-r border-gray-200 bg-orange-50/30`}>
           <div className="p-5 border-b border-gray-200 bg-white/60">
             <h3 className="font-sora font-black text-base text-text-primary mb-4 flex items-center gap-2 uppercase tracking-wider">
               Messages <span className="text-[10px] bg-accent-main text-white px-2.5 py-0.5 rounded-full shadow-xs">{conversations.length}</span>
@@ -353,7 +353,7 @@ const CustomerMessages = () => {
                 placeholder="Search chats..."
                 value={searchTerm}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs focus:ring-2 focus:ring-blue-500/10 focus:border-accent-main transition-all font-bold text-text-primary placeholder:text-text-muted uppercase tracking-wider"
+                className="w-full bg-white border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs focus:ring-2 focus:ring-accent-main/10 focus:border-accent-main transition-all font-bold text-text-primary placeholder:text-text-muted uppercase tracking-wider"
               />
             </div>
           </div>

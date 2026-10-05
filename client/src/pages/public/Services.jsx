@@ -86,7 +86,7 @@ const Services = () => {
                 ))}
               </div>
             ) : filteredCategories.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
                 {filteredCategories.map((cat) => {
                   const Icon = iconMap[cat.icon] || Wrench;
                   return (
@@ -95,7 +95,7 @@ const Services = () => {
                       to={`/search?category=${cat.slug}`}
                       className="group"
                     >
-                      <GlassCard orangeBorder className="p-6 sm:p-8 h-full flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-1 !bg-white/70 border border-white/75 shadow-sm hover:!bg-white">
+                      <GlassCard orangeBorder className="p-4 sm:p-8 h-full flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-1 !bg-white/70 border border-white/75 shadow-sm hover:!bg-white">
                         <div className="w-14 h-14 rounded-2xl bg-orange-50/80 text-accent-main flex items-center justify-center mb-5 group-hover:bg-accent-main group-hover:text-white transition-all shadow-xs">
                            <Icon className="w-7 h-7" />
                         </div>
@@ -141,7 +141,7 @@ const Services = () => {
                    { icon: MessageSquare, title: 'Direct Chat', desc: 'Talk to your worker inside the app to coordinate and get updates.' }
                  ].map((item, i) => (
                    <div key={i} className="flex gap-4 p-5 rounded-[2rem] bg-white/70 border border-white/60 hover:border-accent-main/40 transition-all shadow-sm group">
-                      <div className="w-11 h-11 rounded-xl bg-blue-50 text-accent-main flex items-center justify-center shrink-0 group-hover:bg-accent-main group-hover:text-white transition-all">
+                      <div className="w-11 h-11 rounded-xl bg-orange-50 text-accent-main flex items-center justify-center shrink-0 group-hover:bg-accent-main group-hover:text-white transition-all">
                          <item.icon className="w-5 h-5" />
                       </div>
                       <div>

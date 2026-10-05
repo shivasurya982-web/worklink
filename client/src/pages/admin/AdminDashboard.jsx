@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                         </Badge>
                       </h4>
                       <div className="flex flex-wrap items-center gap-3 mt-2">
-                        <p className="text-[10px] font-bold text-accent-main uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
+                        <p className="text-[10px] font-bold text-accent-main uppercase tracking-wider bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-100">
                           {worker.profession}
                         </p>
                         <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
@@ -191,7 +191,7 @@ const AdminDashboard = () => {
           </div>
         ) : (
           <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-             <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+             <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100">
                 <CheckSquare className="w-8 h-8 text-emerald-600" />
              </div>
              <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO NEW APPLICATIONS TO REVIEW.</p>
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
           title={`Review Worker: ${selectedWorker.name}`}
         >
           <div className="space-y-6 pt-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 bg-blue-50/50 rounded-2xl border border-blue-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 bg-orange-50/50 rounded-2xl border border-orange-100">
                <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">PROFESSION</p><p className="text-xs font-bold text-text-primary uppercase">{selectedWorker.profession}</p></div>
                <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">EXPERIENCE</p><p className="text-xs font-bold text-text-primary uppercase">{selectedWorker.experience} YEARS</p></div>
                <div className="space-y-1"><p className="text-[9px] font-black text-accent-main uppercase tracking-wider">EMAIL</p><p className="text-xs font-bold text-text-primary lowercase break-all">{selectedWorker.email}</p></div>

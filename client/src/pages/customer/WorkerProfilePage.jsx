@@ -28,7 +28,7 @@ const ReviewItem = ({ review }) => {
   const [showComment, setShowComment] = useState(false);
 
   return (
-    <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-100/60 space-y-3">
+    <div className="p-4 sm:p-5 rounded-2xl bg-orange-50/50 border border-orange-100/60 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
@@ -278,7 +278,7 @@ const WorkerProfilePage = () => {
       <div className="min-h-screen bg-transparent flex flex-col">
         <Navbar />
         <div className="flex-1 flex flex-col items-center justify-center py-28 text-center">
-          <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 border border-blue-100">
+          <div className="w-20 h-20 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 border border-orange-100">
             <Sparkles className="w-10 h-10 text-accent-main" />
           </div>
           <h2 className="text-2xl font-sora font-black text-text-primary uppercase tracking-tight">Worker Not Found</h2>
@@ -520,7 +520,7 @@ const WorkerProfilePage = () => {
         <form onSubmit={handleCreateBooking} className="space-y-6 pt-2">
 
           {/* Booking Type Toggle */}
-          <div className="flex bg-blue-50/80 p-1.5 rounded-2xl border border-blue-100 mb-4">
+          <div className="flex bg-orange-50/80 p-1.5 rounded-2xl border border-orange-100 mb-4">
              <button
                type="button"
                onClick={() => setBookingType('small')}
@@ -627,7 +627,7 @@ const WorkerProfilePage = () => {
                       type="button"
                       onClick={() => setWorkingHours('full-day')}
                       className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                        workingHours === 'full-day' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
+                        workingHours === 'full-day' ? 'bg-orange-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                       }`}
                     >
                       Full Day
@@ -636,7 +636,7 @@ const WorkerProfilePage = () => {
                       type="button"
                       onClick={() => setWorkingHours('custom')}
                       className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                        workingHours === 'custom' ? 'bg-blue-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
+                        workingHours === 'custom' ? 'bg-orange-100 border-accent-main text-accent-main' : 'bg-white border-gray-200 text-text-muted'
                       }`}
                     >
                       Custom Time

@@ -112,7 +112,7 @@ const CustomerDashboard = () => {
       subtitle="Welcome back to your account"
     >
       <div className="relative mb-8 z-30">
-        <GlassCard className="!bg-white/80 p-4 sm:p-6 rounded-[2rem] border border-white/60 shadow-sm">
+        <GlassCard className="!bg-white/80 p-3.5 sm:p-6 rounded-[2rem] border border-white/60 shadow-sm">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -129,13 +129,13 @@ const CustomerDashboard = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.trim() && setShowSuggestions(true)}
                 placeholder="Search for services or workers..."
-                className="w-full bg-white border border-gray-200 rounded-2xl pl-12 pr-5 py-3.5 text-sm font-bold focus:outline-none focus:border-accent-main focus:ring-4 focus:ring-blue-500/10 shadow-xs text-text-primary placeholder:text-text-muted"
+                className="w-full bg-white border border-gray-200 rounded-2xl pl-12 pr-5 py-3 sm:py-3.5 text-xs sm:text-sm font-bold focus:outline-none focus:border-accent-main focus:ring-4 focus:ring-accent-main/10 shadow-xs text-text-primary placeholder:text-text-muted"
                 autoComplete="off"
               />
             </div>
-            <div className="flex items-center gap-3 w-full md:w-auto shrink-0">
-               <PremiumButton type="submit" variant="gold" size="md" icon={Search} className="flex-1 md:flex-none px-6 font-black">SEARCH</PremiumButton>
-               <PremiumButton type="button" variant="ai" size="md" icon={Sparkles} className="flex-1 md:flex-none px-6 font-black" onClick={() => setBroadcastModalOpen(true)}>POST REQUEST</PremiumButton>
+            <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto shrink-0">
+               <PremiumButton type="submit" variant="gold" size="md" icon={Search} className="flex-1 md:flex-none px-4 sm:px-6 font-black text-xs">SEARCH</PremiumButton>
+               <PremiumButton type="button" variant="ai" size="md" icon={Sparkles} className="flex-1 md:flex-none px-4 sm:px-6 font-black text-xs" onClick={() => setBroadcastModalOpen(true)}>POST REQUEST</PremiumButton>
             </div>
           </form>
         </GlassCard>
@@ -166,19 +166,19 @@ const CustomerDashboard = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
+      <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-8">
         {[
           { label: 'My Bookings', val: stats.totalBookings || 0, icon: Calendar, color: 'text-accent-main' },
           { label: 'Favorites', val: stats.favoritesCount || 0, icon: Heart, color: 'text-red-500' },
           { label: 'Alerts', val: notifications.filter(n => !n.isRead).length || 0, icon: Bell, color: 'text-accent-main' },
         ].map((s, i) => (
-          <GlassCard key={i} className="flex items-center gap-4 p-5 !bg-white/70 border border-white/75 shadow-xs group">
-             <div className="w-12 h-12 rounded-2xl bg-orange-50/80 flex items-center justify-center border border-orange-100/80 group-hover:bg-accent-main transition-all duration-300">
-               <s.icon className={`w-6 h-6 ${s.color} group-hover:text-white transition-colors`} />
+          <GlassCard key={i} className="flex flex-col sm:flex-row items-center sm:items-center text-center sm:text-left gap-1.5 sm:gap-4 p-2.5 sm:p-5 !bg-white/70 border border-white/75 shadow-xs group">
+             <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-orange-50/80 flex items-center justify-center border border-orange-100/80 group-hover:bg-accent-main transition-all duration-300 shrink-0">
+               <s.icon className={`w-4 h-4 sm:w-6 sm:h-6 ${s.color} group-hover:text-white transition-colors`} />
              </div>
-             <div>
-                <p className="text-2xl font-sora font-black text-text-primary tracking-tight">{s.val}</p>
-                <p className="text-[9px] font-bold text-text-muted uppercase tracking-wider mt-0.5">{s.label}</p>
+             <div className="min-w-0">
+                <p className="text-base sm:text-2xl font-sora font-black text-text-primary tracking-tight leading-none">{s.val}</p>
+                <p className="text-[8px] sm:text-[9px] font-bold text-text-muted uppercase tracking-wider mt-1 truncate">{s.label}</p>
              </div>
           </GlassCard>
         ))}

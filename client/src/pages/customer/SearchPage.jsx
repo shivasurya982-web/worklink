@@ -260,7 +260,7 @@ const SearchPage = () => {
               />
               <button
                 type="submit"
-                className="bg-accent-main hover:bg-blue-700 text-white px-8 sm:px-12 py-3.5 sm:py-4 rounded-[1.8rem] text-xs font-black uppercase tracking-wider shrink-0 shadow-xs cursor-pointer transition-all"
+                className="bg-accent-main hover:bg-orange-600 text-white px-8 sm:px-12 py-3.5 sm:py-4 rounded-[1.8rem] text-xs font-black uppercase tracking-wider shrink-0 shadow-xs cursor-pointer transition-all"
               >
                 Search
               </button>
@@ -400,7 +400,7 @@ const SearchPage = () => {
               {/* Map View */}
               {viewMode === 'map' && (
                 <GlassCard className="h-[450px] sm:h-[550px] flex flex-col items-center justify-center !bg-white/80 border-dashed border-2 border-accent-main/30 text-center p-8 rounded-[3rem] mb-8 shadow-xs relative overflow-hidden">
-                  <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 shadow-xs border border-blue-100">
+                  <div className="w-20 h-20 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 shadow-xs border border-orange-100">
                     <MapPin className="w-10 h-10 text-accent-main animate-bounce" />
                   </div>
                   <h3 className="font-sora font-black text-2xl text-text-primary tracking-tight mb-3">
@@ -433,39 +433,39 @@ const SearchPage = () => {
                     <GlassCard
                       key={w._id}
                       goldBorder
-                      className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 !bg-white/80 border border-white/60 shadow-xs hover:border-accent-main/40 transition-all"
+                      className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 !bg-white/80 border border-white/60 shadow-xs hover:border-accent-main/40 transition-all"
                     >
-                      <div className="flex items-center gap-6 min-w-0">
+                      <div className="flex items-start sm:items-center gap-3 sm:gap-6 min-w-0">
                         <div className="relative shrink-0">
                            <img
                             src={getImageUrl(w.avatar, DEFAULT_AVATAR(w.name))}
                             alt={w.name}
                             onError={(e) => handleImageError(e, DEFAULT_AVATAR(w.name))}
-                            className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
+                            className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-accent-main shadow-xs"
                             loading="lazy"
                            />
-                           {w.isAvailable && <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white" />}
+                           {w.isAvailable && <span className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-emerald-500 rounded-full border-2 border-white" />}
                         </div>
-                        <div className="min-w-0">
-                          <h3 className="font-sora font-black text-xl text-text-primary truncate tracking-tight uppercase">
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-sora font-black text-base sm:text-xl text-text-primary truncate tracking-tight uppercase">
                             {w.name}
                           </h3>
-                          <p className="text-xs font-bold text-accent-main uppercase tracking-wider mt-1">{w.profession}</p>
-                          <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider mt-4 flex-wrap">
-                            <span className="text-accent-main flex items-center gap-1.5 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
-                              <Star className="w-3.5 h-3.5 fill-accent-main" /> {w.rating} Rating
+                          <p className="text-[11px] sm:text-xs font-bold text-accent-main uppercase tracking-wider mt-0.5">{w.profession}</p>
+                          <div className="flex items-center gap-2 sm:gap-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider mt-2.5 flex-wrap">
+                            <span className="text-accent-main flex items-center gap-1 bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-100">
+                              <Star className="w-3 h-3 fill-accent-main" /> {w.rating} Rating
                             </span>
-                            <span className="text-text-secondary flex items-center gap-1.5">
-                               <Briefcase className="w-3.5 h-3.5" /> {w.experience} Yrs Exp
+                            <span className="text-text-secondary flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-lg">
+                               <Briefcase className="w-3 h-3 text-slate-500" /> {w.experience} Yrs Exp
                             </span>
-                            <span className="text-emerald-600 flex items-center gap-1.5">
-                               <ShieldCheck className="w-3.5 h-3.5" /> Verified
+                            <span className="text-emerald-600 flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">
+                               <ShieldCheck className="w-3 h-3" /> Verified
                             </span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-6 shrink-0 ml-auto sm:ml-0">
+                      <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-100 w-full sm:w-auto">
                         <div className="text-right hidden sm:block">
                           <div className="text-sm font-black text-text-primary tracking-tight uppercase">
                             Price Varies by Work
@@ -476,8 +476,13 @@ const SearchPage = () => {
                         </div>
                         <PremiumButton
                           variant="gold"
-                          size="lg"
+                          size="md"
                           onClick={() => navigate(`/workers/${w._id}`)}
+                          className="w-full sm:w-auto px-6 py-3 font-black uppercase tracking-wider text-xs"
+                        >
+                          VIEW PROFILE
+                        </PremiumButton>
+                      </div>
                           className="px-8 py-3.5 font-black uppercase tracking-wider"
                         >
                           View Profile
@@ -491,7 +496,7 @@ const SearchPage = () => {
               {/* Empty State */}
               {!loading && workers.length === 0 && (
                 <div className="text-center py-28 bg-white/60 rounded-[3rem] border-2 border-dashed border-gray-200 shadow-xs">
-                  <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-100">
+                  <div className="w-20 h-20 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-orange-100">
                     <Sparkles className="w-10 h-10 text-accent-main" />
                   </div>
                   <h3 className="font-sora font-black text-2xl text-text-primary mb-2 tracking-tight">NO WORKERS FOUND</h3>

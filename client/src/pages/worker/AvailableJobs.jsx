@@ -60,7 +60,7 @@ const AvailableJobs = () => {
       <div className="flex justify-end mb-6 px-1">
          <button
           onClick={fetchAvailableJobs}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 text-[10px] font-black text-accent-main uppercase tracking-wider hover:bg-blue-50 transition-all shadow-xs cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 text-[10px] font-black text-accent-main uppercase tracking-wider hover:bg-orange-50 transition-all shadow-xs cursor-pointer"
          >
            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
          </button>

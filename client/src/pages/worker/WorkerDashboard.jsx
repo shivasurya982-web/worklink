@@ -132,7 +132,7 @@ const WorkerDashboard = () => {
           <div className="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
             {recentReviews.length > 0 ? (
               recentReviews.map((review) => (
-                <div key={review._id} className="p-4 rounded-xl bg-blue-50/50 border border-blue-100/60 space-y-2">
+                <div key={review._id} className="p-4 rounded-xl bg-orange-50/50 border border-orange-100/60 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <img
@@ -191,7 +191,7 @@ const WorkerDashboard = () => {
         </div>
 
         <GlassCard className="p-10 text-center !bg-white/80 border-dashed border-2 border-gray-200 shadow-xs rounded-[3rem] relative overflow-hidden group hover:border-accent-main transition-all">
-           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-100 shadow-xs group-hover:scale-105 transition-transform duration-300">
+           <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-orange-100 shadow-xs group-hover:scale-105 transition-transform duration-300">
               <Users className="w-8 h-8 text-accent-main" />
            </div>
            <h4 className="font-sora font-black text-2xl text-text-primary mb-3 uppercase tracking-tight">Get More Jobs</h4>

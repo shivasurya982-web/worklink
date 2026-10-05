@@ -156,7 +156,7 @@ const AdminCustomers = () => {
         </div>
       ) : (
         <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+           <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100">
               <User className="w-8 h-8 text-accent-main" />
            </div>
            <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO CUSTOMERS FOUND IN THIS LIST.</p>
@@ -218,16 +218,16 @@ const AdminCustomers = () => {
                  </div>
               </div>
 
-              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><Calendar className="w-4 h-4 text-accent-main" /></div>
+              <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100 flex items-start gap-3">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-orange-100 shrink-0"><Calendar className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">JOINED ON</p>
                     <p className="text-xs font-bold text-text-primary">{new Date(selectedCustomer.createdAt).toLocaleDateString()}</p>
                  </div>
               </div>
 
-              <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-blue-100 shrink-0"><ShieldCheck className="w-4 h-4 text-accent-main" /></div>
+              <div className="p-4 bg-orange-50/50 rounded-2xl border border-orange-100 flex items-start gap-3">
+                 <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-orange-100 shrink-0"><ShieldCheck className="w-4 h-4 text-accent-main" /></div>
                  <div className="min-w-0">
                     <p className="text-[9px] font-black text-accent-main uppercase tracking-wider mb-0.5">RECOVERY HINT</p>
                     <p className="text-xs font-bold text-accent-main italic break-words">"{selectedCustomer.securityHint || 'None'}"</p>

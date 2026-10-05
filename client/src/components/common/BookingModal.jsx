@@ -48,9 +48,9 @@ const BookingModal = ({ worker, onClose, onBook }) => {
   const avatarUrl = getImageUrl(worker.avatar, fallbackAvatar);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/30 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-900/30 backdrop-blur-md">
       <div
-        className="glass-card bg-white/90 backdrop-blur-xl rounded-3xl p-6 w-full max-w-lg shadow-2xl border border-white/60 animate-fade-in"
+        className="glass-card bg-white/90 backdrop-blur-xl rounded-3xl p-4 sm:p-6 w-full max-w-lg shadow-2xl border border-white/60 animate-fade-in max-h-[90dvh] overflow-y-auto custom-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -84,7 +84,7 @@ const BookingModal = ({ worker, onClose, onBook }) => {
           )}
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-bold text-text-secondary mb-1.5 block">
                 <Calendar className="w-3.5 h-3.5 inline mr-1 text-accent-main" />Date *

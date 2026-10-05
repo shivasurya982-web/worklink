@@ -54,9 +54,9 @@ const SidebarContent = ({ onClose }) => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col">
       {/* User Card */}
-      <div className="flex items-center gap-3 p-3.5 bg-slate-50 rounded-xl mb-5 border border-slate-200/80">
+      <div className="flex items-center gap-3 p-3.5 bg-slate-50 rounded-xl mb-4 border border-slate-200/80 shrink-0">
         <img
           src={getImageUrl(user?.avatar, DEFAULT_AVATAR(user?.name || 'User'))}
           alt={user?.name}
@@ -70,7 +70,7 @@ const SidebarContent = ({ onClose }) => {
       </div>
 
       {/* Nav Items */}
-      <nav className="flex-1 space-y-1 overflow-y-auto custom-scrollbar pr-1">
+      <nav className="space-y-1">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
@@ -102,7 +102,7 @@ const SidebarContent = ({ onClose }) => {
       {/* Logout */}
       <button
         onClick={handleLogout}
-        className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 transition-all w-full mt-4 border border-red-200/80 bg-white shadow-xs cursor-pointer"
+        className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 transition-all w-full mt-4 border border-red-200/80 bg-white shadow-xs cursor-pointer shrink-0"
       >
         <LogOut className="w-4 h-4 shrink-0" />
         <span>Sign Out</span>
@@ -141,7 +141,7 @@ export const MobileBottomNav = () => {
       ];
 
   return (
-    <nav className="mobile-bottom-nav lg:hidden bg-white border-t border-slate-200 shadow-lg fixed bottom-0 left-0 right-0 z-40">
+    <nav className="mobile-bottom-nav lg:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-lg fixed bottom-0 left-0 right-0 z-40 pb-[env(safe-area-inset-bottom,0px)]">
       <div className="flex items-center justify-around px-1 py-2">
         {items.map((item) => {
           const Icon = item.icon;
@@ -177,8 +177,8 @@ export const MobileBottomNav = () => {
 /* ── Desktop Sidebar ── */
 const Sidebar = () => {
   return (
-    <aside className="hidden lg:flex w-64 xl:w-72 shrink-0 sticky top-24 h-[calc(100vh-120px)]">
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs w-full flex flex-col overflow-hidden relative group">
+    <aside className="hidden lg:block w-64 xl:w-72 shrink-0 sticky top-24 self-start max-h-[calc(100vh-110px)] z-20">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs w-full flex flex-col overflow-y-auto max-h-[calc(100vh-110px)] custom-scrollbar relative group">
         <SidebarContent />
       </div>
     </aside>

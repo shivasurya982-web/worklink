@@ -77,7 +77,7 @@ const CustomerComplaints = () => {
   const statusVariant = (status) => {
     switch (status) {
       case 'resolved': return 'success';
-      case 'in_review': return 'blue';
+      case 'in_review': return 'orange';
       case 'rejected': return 'danger';
       default: return 'warning';
     }
@@ -89,7 +89,7 @@ const CustomerComplaints = () => {
       subtitle="Talk to our support team about any issues"
     >
       {/* Info Banner */}
-      <div className="mb-6 p-5 rounded-2xl bg-blue-50/80 border border-blue-100 flex items-start gap-3 shadow-xs">
+      <div className="mb-6 p-5 rounded-2xl bg-orange-50/80 border border-orange-100 flex items-start gap-3 shadow-xs">
         <ShieldCheck className="w-5 h-5 text-accent-main shrink-0 mt-0.5" />
         <div>
           <p className="text-xs font-black text-text-primary uppercase tracking-wider">Help & Support</p>
@@ -124,7 +124,7 @@ const CustomerComplaints = () => {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-3 flex-wrap">
                     <h4 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight truncate">{c.subject}</h4>
-                    <Badge variant="blue" size="xs" className="!rounded-lg px-3 py-0.5 font-bold text-[9px]">
+                    <Badge variant="orange" size="xs" className="!rounded-lg px-3 py-0.5 font-bold text-[9px]">
                       {c.category.toUpperCase()}
                     </Badge>
                   </div>
@@ -142,7 +142,7 @@ const CustomerComplaints = () => {
                 </div>
               </div>
 
-              <div className="bg-blue-50/50 p-4 rounded-2xl border border-blue-100/60 relative">
+              <div className="bg-orange-50/50 p-4 rounded-2xl border border-orange-100/60 relative">
                  <p className="text-xs text-text-secondary leading-relaxed font-semibold italic">
                     "{c.description}"
                  </p>
@@ -161,7 +161,7 @@ const CustomerComplaints = () => {
         </div>
       ) : (
         <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <div className="w-16 h-16 rounded-2xl bg-blue-50 text-accent-main flex items-center justify-center mx-auto mb-4 border border-blue-100">
+           <div className="w-16 h-16 rounded-2xl bg-orange-50 text-accent-main flex items-center justify-center mx-auto mb-4 border border-orange-100">
               <Sparkles className="w-8 h-8" />
            </div>
            <h3 className="font-sora font-black text-xl text-text-primary uppercase tracking-tight">No Tickets Found</h3>

@@ -92,7 +92,7 @@ const AdminComplaints = () => {
   const statusVariant = (status) => {
     switch (status) {
       case 'resolved': return 'success';
-      case 'in_review': return 'blue';
+      case 'in_review': return 'orange';
       case 'rejected': return 'danger';
       default: return 'warning';
     }
@@ -145,7 +145,7 @@ const AdminComplaints = () => {
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h4 className="font-sora font-black text-lg text-text-primary tracking-tight uppercase">{c.user?.name}</h4>
-                      <Badge variant={c.userModel === 'Worker' ? 'blue' : 'gold'} size="xs" className="font-bold uppercase">
+                      <Badge variant={c.userModel === 'Worker' ? 'orange' : 'gold'} size="xs" className="font-bold uppercase">
                         {c.userModel}
                       </Badge>
                     </div>

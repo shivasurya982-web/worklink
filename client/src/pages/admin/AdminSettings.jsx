@@ -201,7 +201,7 @@ const AdminSettings = () => {
                     disabled={uploadingBanner}
                     className="hidden"
                   />
-                  <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-blue-50 text-accent-main rounded-xl text-[10px] font-black border border-blue-100 hover:bg-blue-100 transition-all uppercase tracking-wider shadow-xs">
+                  <label htmlFor="banner-upload" className="cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-orange-50 text-accent-main rounded-xl text-[10px] font-black border border-orange-100 hover:bg-orange-100 transition-all uppercase tracking-wider shadow-xs">
                     {uploadingBanner ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                     {uploadingBanner ? 'UPLOADING...' : 'UPLOAD NEW IMAGE'}
                   </label>

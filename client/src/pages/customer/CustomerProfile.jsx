@@ -137,7 +137,7 @@ const CustomerProfile = () => {
             </h3>
             <button
               onClick={() => setIsEditingProfile(!isEditingProfile)}
-              className={`p-2.5 rounded-xl transition-all shadow-xs ${isEditingProfile ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-blue-50 text-accent-main border border-blue-100'}`}
+              className={`p-2.5 rounded-xl transition-all shadow-xs ${isEditingProfile ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-orange-50 text-accent-main border border-orange-100'}`}
             >
               {isEditingProfile ? <X className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
             </button>
@@ -237,7 +237,7 @@ const CustomerProfile = () => {
         <GlassCard className="!bg-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2.5rem] shadow-sm border border-white/60 relative overflow-hidden">
           <div className="flex items-center justify-between mb-6 relative z-10">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100">
+              <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center border border-orange-100">
                  <Lock className="w-5 h-5 text-accent-main" />
               </div>
               <h3 className="font-sora font-black text-lg text-text-primary uppercase tracking-tight">Security</h3>
@@ -245,7 +245,7 @@ const CustomerProfile = () => {
             {!isEditingPassword && (
               <button
                 onClick={() => setIsEditingPassword(true)}
-                className="px-4 py-2 rounded-xl border border-blue-200 text-[10px] font-black text-accent-main hover:bg-blue-50 transition-all uppercase tracking-wider shadow-xs"
+                className="px-4 py-2 rounded-xl border border-orange-200 text-[10px] font-black text-accent-main hover:bg-orange-50 transition-all uppercase tracking-wider shadow-xs"
               >
                 Change
               </button>

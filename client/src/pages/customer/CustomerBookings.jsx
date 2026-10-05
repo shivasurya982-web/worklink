@@ -162,7 +162,7 @@ const CustomerBookings = () => {
                           ? 'warning'
                           : booking.status === 'cancelled'
                           ? 'danger'
-                          : 'blue'
+                          : 'orange'
                       }
                       size="sm"
                       className="!rounded-xl px-3 py-1"

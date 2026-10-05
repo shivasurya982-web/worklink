@@ -93,7 +93,7 @@ const WorkerBookings = () => {
                   <GlassCard key={booking._id} hover={false} className="p-0 !bg-white/80 border border-white/60 overflow-hidden shadow-xs relative">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-accent-main" />
 
-                    <div className="p-6 bg-blue-50/40 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-gray-100 relative">
+                    <div className="p-6 bg-orange-50/40 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-gray-100 relative">
                       <div className="flex items-center gap-4">
                         <div className="relative shrink-0">
                           <img
@@ -132,7 +132,7 @@ const WorkerBookings = () => {
                               </>
                             )}
                             {booking.customer?.phone && (
-                              <a href={`tel:${booking.customer.phone}`} className="flex items-center gap-1.5 text-[10px] font-bold text-accent-main bg-white px-3 py-1 rounded-lg border border-gray-200 uppercase tracking-wider hover:bg-blue-50 transition-all">
+                              <a href={`tel:${booking.customer.phone}`} className="flex items-center gap-1.5 text-[10px] font-bold text-accent-main bg-white px-3 py-1 rounded-lg border border-gray-200 uppercase tracking-wider hover:bg-orange-50 transition-all">
                                 <Phone className="w-3.5 h-3.5" /> {booking.customer.phone}
                               </a>
                             )}
@@ -220,7 +220,7 @@ const WorkerBookings = () => {
 
                         <div className="flex items-center gap-3 shrink-0 self-end lg:self-center">
                            <Badge
-                            variant={booking.status === 'completed' ? 'success' : booking.status === 'cancelled' ? 'danger' : 'blue'}
+                            variant={booking.status === 'completed' ? 'success' : booking.status === 'cancelled' ? 'danger' : 'orange'}
                             className="!rounded-xl px-4 py-1.5 font-bold"
                            >
                               {booking.status}
@@ -242,7 +242,7 @@ const WorkerBookings = () => {
                </div>
             ) : (
                <div className="text-center py-20 bg-white/60 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-                  <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                  <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-100">
                      <AlertCircle className="w-7 h-7 text-accent-main" />
                   </div>
                   <p className="text-xs font-bold text-text-muted uppercase tracking-wider">NO BOOKINGS YET</p>

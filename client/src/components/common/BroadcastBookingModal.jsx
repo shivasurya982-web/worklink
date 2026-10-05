@@ -151,7 +151,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
             <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">
               YOUR CITY / AREA
             </label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <input
                 type="text"
                 name="city"
@@ -175,7 +175,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
 
           {/* Date & Time based on type */}
           {bookingType === 'small' ? (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-2">
                 <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">DATE</label>
                 <div className="relative group cursor-pointer" onClick={(e) => {
@@ -214,7 +214,7 @@ const BroadcastBookingModal = ({ isOpen, onClose, onBroadcast }) => {
             </div>
           ) : (
             <div className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <label className="text-[9px] font-black text-accent-main uppercase tracking-widest ml-1">START DATE</label>
                   <div className="relative group cursor-pointer" onClick={(e) => {

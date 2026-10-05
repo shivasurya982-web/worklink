@@ -483,11 +483,6 @@ const SearchPage = () => {
                           VIEW PROFILE
                         </PremiumButton>
                       </div>
-                          className="px-8 py-3.5 font-black uppercase tracking-wider"
-                        >
-                          View Profile
-                        </PremiumButton>
-                      </div>
                     </GlassCard>
                   ))}
                 </div>

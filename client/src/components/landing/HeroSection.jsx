@@ -14,6 +14,7 @@ const HeroSection = () => {
     heroBannerImage: '',
   });
 
+  const [bannerError, setBannerError] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -37,26 +38,28 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F1F5F9] border-b border-slate-200/80">
+    <section className="relative pt-20 sm:pt-24 pb-8 sm:pb-12 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F1F5F9] border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
-        {settings.heroBannerImage && (
-          <div className="mb-10 max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200 group relative">
+        {settings.heroBannerImage && !bannerError && (
+          <div className="mb-6 max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200 group relative">
             <img
               src={getImageUrl(settings.heroBannerImage)}
               alt="Hero Banner"
-              onError={(e) => { e.target.style.display = 'none'; }}
-              className="w-full max-h-[440px] object-cover transition-transform duration-700 group-hover:scale-102"
+              onError={() => setBannerError(true)}
+              className="w-full max-h-[360px] object-cover transition-transform duration-700 group-hover:scale-102"
             />
           </div>
         )}
 
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200/80 text-xs font-bold text-orange-700 mb-8 shadow-xs uppercase tracking-wider">
-            <Sparkles className="w-4 h-4 text-orange-600" />
-            <span>{settings.announcementText}</span>
-          </div>
+          {settings.announcementText && (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200/80 text-xs font-bold text-orange-700 mb-4 shadow-xs uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-orange-600" />
+              <span>{settings.announcementText}</span>
+            </div>
+          )}
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sora font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sora font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">
             {settings.heroTitle.split(' ').map((word, i) => (
               <span key={i} className={i % 3 === 2 ? 'text-orange-600 block sm:inline' : ''}>
                 {word}{' '}
@@ -64,25 +67,29 @@ const HeroSection = () => {
             ))}
           </h1>
 
-          <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-jakarta max-w-2xl mx-auto mb-10 font-medium tracking-wide">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed font-jakarta max-w-2xl mx-auto mb-6 font-medium tracking-wide">
             {settings.heroSubtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <PremiumButton
-                variant="gold"
-                size="lg"
-                onClick={() => navigate('/register/worker')}
-                className="w-full sm:w-auto px-8 group shadow-sm"
-              >
-                Become a Partner
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </PremiumButton>
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
+            <PremiumButton
+              variant="outline"
+              size="md"
+              onClick={() => navigate('/login')}
+              className="px-6 sm:px-8 shadow-xs font-black text-xs uppercase"
+            >
+              Login
+            </PremiumButton>
 
-              <div className="text-left hidden sm:block pl-2 border-l-2 border-slate-200">
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">PRO NETWORK</p>
-                 <p className="text-xs font-bold text-orange-600">Join 500+ Experts</p>
-              </div>
+            <PremiumButton
+              variant="gold"
+              size="md"
+              onClick={() => navigate('/register/customer')}
+              className="px-6 sm:px-8 group shadow-sm font-black text-xs uppercase"
+            >
+              Register
+              <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
+            </PremiumButton>
           </div>
         </div>
       </div>

@@ -10,6 +10,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-icons': ['lucide-react', 'react-icons'],
+          'vendor-utils': ['axios', 'socket.io-client'],
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     strictPort: false,

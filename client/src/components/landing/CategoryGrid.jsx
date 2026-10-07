@@ -52,15 +52,10 @@ const CategoryGrid = () => {
   return (
     <section className="py-16 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="container-responsive">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 text-center md:text-left">
-          <div className="max-w-2xl mx-auto md:mx-0">
-            <span className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 block">Categories</span>
-            <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 tracking-tight uppercase">{settings.categorySectionTitle}</h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2 font-medium uppercase tracking-wider">{settings.categorySectionSubtitle}</p>
-          </div>
-          <Link to="/search" className="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-orange-600 hover:text-orange-800 transition-all uppercase tracking-wider">
-            See All <ArrowRight className="w-4 h-4" />
-          </Link>
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 block">Categories</span>
+          <h2 className="text-2xl sm:text-4xl font-sora font-bold text-slate-900 tracking-tight uppercase">{settings.categorySectionTitle}</h2>
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 font-medium uppercase tracking-wider">{settings.categorySectionSubtitle}</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -73,17 +68,11 @@ const CategoryGrid = () => {
                     <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   <h3 className="font-sora font-bold text-sm sm:text-base text-slate-900 mb-1 group-hover:text-orange-600 transition-colors uppercase tracking-tight">{cat.name}</h3>
-                  <p className="text-[11px] text-slate-500 mb-4 leading-relaxed font-medium line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified local workers ready to help.'}</p>
-                  <div className="mt-auto px-3.5 py-1 rounded-lg border border-slate-200 text-[10px] font-bold text-slate-700 uppercase tracking-wider group-hover:bg-orange-600 group-hover:border-orange-600 group-hover:text-white transition-all">Select</div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed font-medium line-clamp-2 uppercase tracking-wide">{cat.description || 'Verified local workers ready to help.'}</p>
                 </div>
               </Link>
             );
           })}
-        </div>
-        <div className="mt-8 md:hidden flex justify-center">
-           <Link to="/search" className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-600 uppercase tracking-wider">
-              See All <ArrowRight className="w-4 h-4" />
-           </Link>
         </div>
       </div>
     </section>

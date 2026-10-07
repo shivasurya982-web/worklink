@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const fs = require('fs');
@@ -48,6 +49,9 @@ const limiter = rateLimit({
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
 app.use('/api', limiter);
+
+// Compress all API responses
+app.use(compression());
 
 // CORS Config - Allow all origins including Vercel
 app.use(cors({ origin: true, credentials: true }));

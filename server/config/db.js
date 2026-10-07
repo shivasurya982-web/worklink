@@ -14,31 +14,38 @@ try {
 }
 
 const connectDB = async () => {
-  // Only connect to MongoDB Atlas (no local fallback)
-  const atlasUris = [
-    process.env.MONGO_URI,
-    process.env.MONGO_URI_ATLAS_DIRECT
-  ].filter(Boolean);
+  const mongoUri = process.env.MONGO_URI;
 
-  for (const uri of atlasUris) {
+  if (!mongoUri) {
+    console.error('❌ [DB ERROR]: MONGO_URI is missing in .env file.');
+    process.exit(1);
+  }
+
+  const maxRetries = 3;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const connectionType = uri.startsWith('mongodb+srv') ? 'Atlas SRV' : 'Atlas Direct';
-      console.log(`📡 [DB]: Connecting to MongoDB (${connectionType})...`);
+      console.log(`📡 [DB]: Connecting to MongoDB Atlas (Attempt ${attempt}/${maxRetries})...`);
 
-      const conn = await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 15000,
-        connectTimeoutMS: 15000,
+      const conn = await mongoose.connect(mongoUri, {
+        serverSelectionTimeoutMS: 30000,
+        socketTimeoutMS: 45000,
         family: 4, // Force IPv4 connection to Atlas cluster
+        maxPoolSize: 25, // Maintain up to 25 socket connections
+        minPoolSize: 5,  // Keep at least 5 connections open for instant queries
       });
 
       console.log(`✅ [DB]: Connected successfully to MongoDB Atlas (${conn.connection.host})`);
       return conn;
     } catch (err) {
-      console.warn(`⚠️ [DB]: Atlas connection attempt failed for ${uri.substring(0, 35)}... (${err.message})`);
+      console.warn(`⚠️ [DB]: Connection attempt ${attempt} failed: ${err.message}`);
+      if (attempt < maxRetries) {
+        console.log('⏳ [DB]: Retrying connection in 2 seconds...');
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
     }
   }
 
-  console.error('❌ [DB ERROR]: Could not connect to MongoDB Atlas cluster.');
+  console.error('❌ [DB ERROR]: Could not connect to MongoDB Atlas cluster after multiple attempts.');
   process.exit(1);
 };
 

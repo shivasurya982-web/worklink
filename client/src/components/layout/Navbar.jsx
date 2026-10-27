@@ -160,7 +160,7 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center gap-2">
                 <Link to="/login">
-                  <PremiumButton variant="outline" size="sm" className="hidden xs:flex">Login</PremiumButton>
+                  <PremiumButton variant="outline" size="sm" className="flex">Login</PremiumButton>
                 </Link>
                 <Link to="/register/customer">
                   <PremiumButton variant="gold" size="sm">Register</PremiumButton>

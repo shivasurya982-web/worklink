@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   MessageSquare,
   Star,
@@ -9,7 +9,6 @@ import {
   Award,
   Users,
   Briefcase,
-  ArrowRight,
   Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -177,21 +176,6 @@ const Home = () => {
                     Search, compare, and connect directly with verified local experts in seconds for any repair or maintenance task.
                   </p>
                 </div>
-                <div className="mt-8 pt-6 border-t border-orange-200/60 flex items-center justify-start gap-4">
-                  <Link
-                    to="/login"
-                    className="inline-flex items-center gap-2 text-xs font-black text-orange-600 hover:text-orange-700 uppercase tracking-wider"
-                  >
-                    Login <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <span className="text-slate-300">|</span>
-                  <Link
-                    to="/register/customer"
-                    className="inline-flex items-center gap-2 text-xs font-black text-orange-600 hover:text-orange-700 uppercase tracking-wider"
-                  >
-                    Register
-                  </Link>
-                </div>
               </div>
 
               <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8 sm:p-10 rounded-3xl border border-slate-700 shadow-sm flex flex-col justify-between relative overflow-hidden group">
@@ -208,21 +192,6 @@ const Home = () => {
                   <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
                     Join a trusted local network, receive direct job requests, showcase your portfolio, and double your monthly earnings.
                   </p>
-                </div>
-                <div className="mt-8 pt-6 border-t border-slate-700/80 flex items-center justify-start gap-4">
-                  <Link
-                    to="/login"
-                    className="inline-flex items-center gap-2 text-xs font-black text-orange-400 hover:text-orange-300 uppercase tracking-wider"
-                  >
-                    Login <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <span className="text-slate-700">|</span>
-                  <Link
-                    to="/register/worker"
-                    className="inline-flex items-center gap-2 text-xs font-black text-orange-400 hover:text-orange-300 uppercase tracking-wider"
-                  >
-                    Register
-                  </Link>
                 </div>
               </div>
             </div>

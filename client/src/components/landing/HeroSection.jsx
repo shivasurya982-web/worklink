@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import API from '../../services/api';
-import PremiumButton from '../common/PremiumButton';
 import { getImageUrl } from '../../utils/imageUtils';
 
 const HeroSection = () => {
@@ -15,7 +13,6 @@ const HeroSection = () => {
   });
 
   const [bannerError, setBannerError] = useState(false);
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -70,27 +67,6 @@ const HeroSection = () => {
           <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed font-jakarta max-w-2xl mx-auto mb-6 font-medium tracking-wide">
             {settings.heroSubtitle}
           </p>
-
-          <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
-            <PremiumButton
-              variant="outline"
-              size="md"
-              onClick={() => navigate('/login')}
-              className="px-6 sm:px-8 shadow-xs font-black text-xs uppercase"
-            >
-              Login
-            </PremiumButton>
-
-            <PremiumButton
-              variant="gold"
-              size="md"
-              onClick={() => navigate('/register/customer')}
-              className="px-6 sm:px-8 group shadow-sm font-black text-xs uppercase"
-            >
-              Register
-              <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
-            </PremiumButton>
-          </div>
         </div>
       </div>
     </section>

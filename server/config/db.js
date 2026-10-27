@@ -13,7 +13,14 @@ try {
   // Ignore DNS override errors
 }
 
+const path = require('path');
+
 const connectDB = async () => {
+  if (!process.env.MONGO_URI) {
+    require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+    require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });
+  }
+
   const mongoUri = process.env.MONGO_URI;
 
   if (!mongoUri) {

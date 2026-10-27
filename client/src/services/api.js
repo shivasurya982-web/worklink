@@ -1,11 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  // Always use relative /api in development to leverage Vite proxy
-  // Use environment variable only if explicitly defined (e.g. in production)
-  baseURL: import.meta.env.PROD && import.meta.env.VITE_API_URL
-    ? import.meta.env.VITE_API_URL
-    : '/api',
+  // Use VITE_API_URL if defined (e.g. Render production backend), otherwise fallback to relative '/api'
+  baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 // Request Interceptor: Attach Token

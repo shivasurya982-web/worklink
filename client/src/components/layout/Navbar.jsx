@@ -7,10 +7,12 @@ import {
   X,
   ChevronDown,
   LayoutGrid,
-  Trash2
+  Trash2,
+  Download
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
+import { usePWA } from '../../context/PWAContext';
 import PremiumButton from '../common/PremiumButton';
 import API from '../../services/api';
 import { getImageUrl, handleImageError, DEFAULT_AVATAR } from '../../utils/imageUtils';
@@ -22,6 +24,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { user, isAuthenticated, role, logout } = useAuth();
   const { unreadCount, notifications, markAllAsRead, fetchNotifications } = useNotification();
+  const { isInstalled, installApp } = usePWA();
   const location = useLocation();
   const dropdownRef = useRef(null);
   const notifRef = useRef(null);
@@ -89,6 +92,18 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Install App Button for Desktop & Mobile Header */}
+            {!isInstalled && (
+              <button
+                onClick={installApp}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200/80 text-orange-700 text-xs font-bold hover:bg-orange-100 transition-colors shadow-xs cursor-pointer"
+                title="Install Worklyn App"
+              >
+                <Download className="w-4 h-4 text-orange-600" />
+                <span className="hidden sm:inline">Install App</span>
+              </button>
+            )}
+
             {isAuthenticated ? (
               <>
                 <div className="relative" ref={notifRef}>
@@ -150,6 +165,17 @@ const Navbar = () => {
                       <Link to={getDashboardPath()} className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-700 hover:text-orange-600 hover:bg-orange-50/60 rounded-xl transition-all">
                         <LayoutGrid className="w-4 h-4" /> {getDashboardLabel()}
                       </Link>
+                      {!isInstalled && (
+                        <button
+                          onClick={() => {
+                            setProfileDropdownOpen(false);
+                            installApp();
+                          }}
+                          className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-700 hover:text-orange-600 hover:bg-orange-50/60 rounded-xl transition-all cursor-pointer"
+                        >
+                          <Download className="w-4 h-4 text-orange-600" /> Install App
+                        </button>
+                      )}
                       <button onClick={logout} className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer">
                         <LogOut className="w-4 h-4" /> Logout
                       </button>
@@ -168,14 +194,12 @@ const Navbar = () => {
               </div>
             )}
 
-            {isAuthenticated && (
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            )}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </nav>
@@ -189,12 +213,27 @@ const Navbar = () => {
               <button onClick={() => setMobileMenuOpen(false)} className="p-2 bg-slate-100 rounded-xl text-slate-700"><X className="w-5 h-5" /></button>
             </div>
             <div className="flex-1 space-y-3">
-              <Link to={getDashboardPath()} className="flex items-center gap-3 p-3.5 bg-orange-50/80 rounded-xl text-sm font-bold text-orange-700 hover:bg-orange-100">
-                <LayoutGrid className="w-5 h-5 text-orange-600" /> {getDashboardLabel()}
-              </Link>
-              <button onClick={logout} className="w-full flex items-center gap-3 p-3.5 bg-red-50 rounded-xl text-sm font-bold text-red-600 hover:bg-red-100">
-                <LogOut className="w-5 h-5" /> Logout
-              </button>
+              {isAuthenticated && (
+                <Link to={getDashboardPath()} className="flex items-center gap-3 p-3.5 bg-orange-50/80 rounded-xl text-sm font-bold text-orange-700 hover:bg-orange-100">
+                  <LayoutGrid className="w-5 h-5 text-orange-600" /> {getDashboardLabel()}
+                </Link>
+              )}
+              {!isInstalled && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    installApp();
+                  }}
+                  className="w-full flex items-center gap-3 p-3.5 bg-orange-50 rounded-xl text-sm font-bold text-orange-700 hover:bg-orange-100 cursor-pointer"
+                >
+                  <Download className="w-5 h-5 text-orange-600" /> Install App
+                </button>
+              )}
+              {isAuthenticated && (
+                <button onClick={logout} className="w-full flex items-center gap-3 p-3.5 bg-red-50 rounded-xl text-sm font-bold text-red-600 hover:bg-red-100">
+                  <LogOut className="w-5 h-5" /> Logout
+                </button>
+              )}
             </div>
           </div>
         </div>

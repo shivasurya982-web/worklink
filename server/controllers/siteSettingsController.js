@@ -19,11 +19,20 @@ const defaultStats = [
   { num: '5K+', label: 'Verified Workers' },
 ];
 
+let cachedSettings = null;
+let settingsCacheTime = 0;
+const CACHE_TTL = 60 * 1000; // 60 seconds
+
 // @desc    Get site settings (Public)
 // @route   GET /api/settings
 exports.getSettings = async (req, res, next) => {
   try {
-    let settings = await SiteSettings.findOne();
+    const now = Date.now();
+    if (cachedSettings && now - settingsCacheTime < CACHE_TTL) {
+      return ApiResponse.success(res, cachedSettings);
+    }
+
+    let settings = await SiteSettings.findOne().lean();
     if (!settings) {
       // Try to create but handle if it fails
       try {
@@ -33,6 +42,7 @@ exports.getSettings = async (req, res, next) => {
           aiFeaturesList: defaultAIFeatures,
           statsCounters: defaultStats,
         });
+        if (settings && settings.toObject) settings = settings.toObject();
       } catch (err) {
          console.warn('Initial settings creation failed, using fallback.');
       }
@@ -47,13 +57,16 @@ exports.getSettings = async (req, res, next) => {
         statsCounters: defaultStats
     };
 
+    cachedSettings = finalData;
+    settingsCacheTime = now;
+
     ApiResponse.success(res, finalData);
   } catch (error) {
     console.error('getSettings error:', error);
     // Return a 200 with fallback instead of 500 to keep UI alive
     return res.status(200).json({
       success: true,
-      data: {
+      data: cachedSettings || {
         siteName: 'Worklyn AI',
         announcementText: 'Verified Local Service Marketplace',
         heroTitle: 'Find & Book Trusted Local Experts',
@@ -75,6 +88,8 @@ exports.updateSettings = async (req, res, next) => {
       Object.assign(settings, req.body);
     }
     await settings.save();
+    cachedSettings = settings.toObject ? settings.toObject() : settings;
+    settingsCacheTime = Date.now();
     ApiResponse.success(res, settings, 'Site settings updated');
   } catch (error) {
     next(error);

@@ -98,32 +98,24 @@ exports.changePassword = async (req, res, next) => {
 exports.getDashboardData = async (req, res, next) => {
   try {
     const customerId = req.user._id;
+    const coords = req.user?.address?.coordinates?.coordinates;
 
-    const [recentBookings, totalBookings, favoritesCount, unreadNotifications] = await Promise.all([
+    const [recentBookings, totalBookings, favoritesCount, unreadNotifications, recommendedWorkers] = await Promise.all([
       Booking.find({ customer: customerId })
         .populate('worker', 'name profession avatar rating phone')
         .populate('category', 'name icon')
         .sort({ createdAt: -1 })
-        .limit(5),
+        .limit(5)
+        .lean(),
       Booking.countDocuments({ customer: customerId }),
       Favorite.countDocuments({ customer: customerId }),
       Notification.countDocuments({ recipient: customerId, isRead: false }),
-    ]);
-
-    // Recommended workers (using customer address if available)
-    const customer = await Customer.findById(customerId);
-    const coords = customer?.address?.coordinates?.coordinates;
-
-    let recommendedWorkers = [];
-    try {
-      recommendedWorkers = await AIService.getRecommendedWorkers({
+      AIService.getRecommendedWorkers({
         lat: coords ? coords[1] : null,
         lng: coords ? coords[0] : null,
         limit: 6,
-      });
-    } catch (aiErr) {
-      console.error('Recommended workers error:', aiErr.message);
-    }
+      }).catch(() => []),
+    ]);
 
     ApiResponse.success(res, {
       stats: {

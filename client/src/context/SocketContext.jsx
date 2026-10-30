@@ -12,11 +12,10 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     // Only attempt connection if we have a token
     if (token && user) {
-      // Use VITE_API_URL if defined, otherwise fallback to relative root '/' for Vite proxy
       let socketUrl = '/';
 
-      if (import.meta.env.VITE_API_URL) {
-        socketUrl = import.meta.env.VITE_API_URL.replace('/api', '');
+      if (!import.meta.env.DEV && import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL.startsWith('http')) {
+        socketUrl = import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '');
       }
 
       console.log(`[Socket] Connecting to: ${socketUrl}`);

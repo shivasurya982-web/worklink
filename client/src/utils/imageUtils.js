@@ -40,7 +40,7 @@ export const getImageUrl = (imagePath, fallback = '') => {
 
     // In production, prepend the backend host from VITE_API_URL if configured
     const apiUrl = import.meta.env.VITE_API_URL;
-    if (apiUrl) {
+    if (apiUrl && !import.meta.env.DEV && apiUrl.startsWith('http')) {
       const backendBase = apiUrl.replace(/\/api\/?$/, '');
       return `${backendBase}${cleanPath}`;
     }

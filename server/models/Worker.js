@@ -152,6 +152,10 @@ const workerSchema = new mongoose.Schema(
 
 workerSchema.index({ 'address.coordinates': '2dsphere' });
 workerSchema.index({ category: 1, approvalStatus: 1 });
+workerSchema.index({ approvalStatus: 1, isAvailable: 1 });
+workerSchema.index({ approvalStatus: 1, rating: -1 });
+workerSchema.index({ approvalStatus: 1, completedJobs: -1 });
+workerSchema.index({ 'address.city': 1, approvalStatus: 1 });
 
 workerSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

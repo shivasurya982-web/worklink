@@ -57,12 +57,14 @@ const CustomerDashboard = () => {
 
   const fetchDashboard = async () => {
     try {
-      const res = await API.get('/customers/dashboard');
+      const [res, bookingsRes] = await Promise.all([
+        API.get('/customers/dashboard'),
+        API.get('/bookings?status=completed')
+      ]);
       if (res.success) {
         setStats(res.data.stats || {});
         setRecommendedWorkers(res.data.recommendedWorkers || []);
       }
-      const bookingsRes = await API.get('/bookings?status=completed');
       if (bookingsRes.success) {
         const list = Array.isArray(bookingsRes.data) ? bookingsRes.data : (bookingsRes.data?.bookings || []);
         setPendingReviews(list.filter(b => !b.isReviewed));

@@ -4,12 +4,21 @@ const Booking = require('../models/Booking');
 const Review = require('../models/Review');
 const Category = require('../models/Category');
 
+let cachedPublicStats = null;
+let publicStatsCacheTime = 0;
+const STATS_TTL = 60 * 1000;
+
 class AnalyticsService {
   /**
    * Get public homepage statistics
    */
   static async getPublicStats() {
     try {
+      const now = Date.now();
+      if (cachedPublicStats && now - publicStatsCacheTime < STATS_TTL) {
+        return cachedPublicStats;
+      }
+
       const [
         totalCustomers,
         totalWorkers,
@@ -28,12 +37,17 @@ class AnalyticsService {
         ? Math.round(avgRatingResult[0].avgRating * 10) / 10
         : 4.8;
 
-      return {
+      const stats = {
         totalCustomers: totalCustomers || 0,
         totalWorkers: totalWorkers || 0,
         totalCategories: totalCategories || 0,
         averageRating: averageRating || 4.8
       };
+
+      cachedPublicStats = stats;
+      publicStatsCacheTime = now;
+
+      return stats;
     } catch (error) {
       console.error('getPublicStats error:', error);
       return { totalCustomers: 0, totalWorkers: 0, totalCategories: 0, averageRating: 4.8 };

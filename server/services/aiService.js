@@ -79,11 +79,15 @@ class AIService {
     const LocationService = require('./locationService');
 
     try {
-      // 1. Get approved and available workers
+      // 1. Get approved and available workers (lean, selected fields)
       let workers = await Worker.find({
         approvalStatus: 'approved',
         isAvailable: true
-      }).populate('category', 'name icon').lean();
+      })
+      .select('name profession avatar rating totalReviews experience isVerified isAvailable address category pricing')
+      .populate('category', 'name icon')
+      .limit(30)
+      .lean();
 
       // 2. Filter by distance if location is available
       if (lat && lng && !isNaN(lat) && !isNaN(lng)) {

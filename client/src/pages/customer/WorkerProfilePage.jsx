@@ -509,8 +509,6 @@ const WorkerProfilePage = () => {
         </div>
       </main>
 
-      <Footer />
-
       {/* Booking Modal */}
       <Modal
         isOpen={bookingModalOpen}

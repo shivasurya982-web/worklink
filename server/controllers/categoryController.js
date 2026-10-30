@@ -1,11 +1,26 @@
 const Category = require('../models/Category');
 const ApiResponse = require('../utils/apiResponse');
 
+let cachedCategories = null;
+let categoriesCacheTime = 0;
+const CATEGORIES_TTL = 60 * 1000;
+
+const clearCategoryCache = () => {
+  cachedCategories = null;
+  categoriesCacheTime = 0;
+};
+
 // @desc    Get all categories
 // @route   GET /api/categories
 exports.getCategories = async (req, res, next) => {
   try {
-    const categories = await Category.find({ isActive: true }).sort({ order: 1, name: 1 });
+    const now = Date.now();
+    if (cachedCategories && now - categoriesCacheTime < CATEGORIES_TTL) {
+      return ApiResponse.success(res, cachedCategories);
+    }
+    const categories = await Category.find({ isActive: true }).sort({ order: 1, name: 1 }).lean();
+    cachedCategories = categories;
+    categoriesCacheTime = now;
     ApiResponse.success(res, categories);
   } catch (error) {
     next(error);
@@ -45,6 +60,7 @@ exports.createCategory = async (req, res, next) => {
       order: order ? parseInt(order) : 0,
     });
 
+    clearCategoryCache();
     ApiResponse.created(res, category, 'Category created successfully');
   } catch (error) {
     next(error);
@@ -77,6 +93,7 @@ exports.updateCategory = async (req, res, next) => {
       return ApiResponse.notFound(res, 'Category not found');
     }
 
+    clearCategoryCache();
     ApiResponse.success(res, category, 'Category updated successfully');
   } catch (error) {
     next(error);
@@ -91,6 +108,7 @@ exports.deleteCategory = async (req, res, next) => {
     if (!category) {
       return ApiResponse.notFound(res, 'Category not found');
     }
+    clearCategoryCache();
     ApiResponse.success(res, null, 'Category deleted successfully');
   } catch (error) {
     next(error);

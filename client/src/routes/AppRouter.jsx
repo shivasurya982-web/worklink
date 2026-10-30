@@ -1,53 +1,58 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-// 404 Page
+// Direct import for instant home paint
+import Home from '../pages/public/Home';
 import NotFound from '../pages/public/NotFound';
 
-// Public Pages
-import Home from '../pages/public/Home';
-import SearchPage from '../pages/customer/SearchPage';
-import CustomerSearch from '../pages/customer/CustomerSearch';
-import WorkerProfilePage from '../pages/customer/WorkerProfilePage';
+// Lazy-loaded routes for fast initial bundle and instant response
+const SearchPage = lazy(() => import('../pages/customer/SearchPage'));
+const CustomerSearch = lazy(() => import('../pages/customer/CustomerSearch'));
+const WorkerProfilePage = lazy(() => import('../pages/customer/WorkerProfilePage'));
 
 // Auth Pages
-import Login from '../pages/auth/Login';
-import RegisterCustomer from '../pages/auth/RegisterCustomer';
-import RegisterWorker from '../pages/auth/RegisterWorker';
-import ForgotPassword from '../pages/auth/ForgotPassword';
+const Login = lazy(() => import('../pages/auth/Login'));
+const RegisterCustomer = lazy(() => import('../pages/auth/RegisterCustomer'));
+const RegisterWorker = lazy(() => import('../pages/auth/RegisterWorker'));
+const ForgotPassword = lazy(() => import('../pages/auth/ForgotPassword'));
 
-// Dashboards & Sub-pages
-import CustomerDashboard from '../pages/customer/CustomerDashboard';
-import CustomerBookings from '../pages/customer/CustomerBookings';
-import CustomerFavorites from '../pages/customer/CustomerFavorites';
-import CustomerMessages from '../pages/customer/CustomerMessages';
-import CustomerProfile from '../pages/customer/CustomerProfile';
-import CustomerComplaints from '../pages/customer/CustomerComplaints';
+// Customer Pages
+const CustomerDashboard = lazy(() => import('../pages/customer/CustomerDashboard'));
+const CustomerBookings = lazy(() => import('../pages/customer/CustomerBookings'));
+const CustomerFavorites = lazy(() => import('../pages/customer/CustomerFavorites'));
+const CustomerMessages = lazy(() => import('../pages/customer/CustomerMessages'));
+const CustomerProfile = lazy(() => import('../pages/customer/CustomerProfile'));
+const CustomerComplaints = lazy(() => import('../pages/customer/CustomerComplaints'));
 
-import WorkerDashboard from '../pages/worker/WorkerDashboard';
-import WorkerBookings from '../pages/worker/WorkerBookings';
-import AvailableJobs from '../pages/worker/AvailableJobs';
-import WorkerPortfolio from '../pages/worker/WorkerPortfolio';
-import WorkerMessages from '../pages/worker/WorkerMessages';
-import WorkerProfile from '../pages/worker/WorkerProfile';
-import WorkerComplaints from '../pages/worker/WorkerComplaints';
-import AdminDashboard from '../pages/admin/AdminDashboard';
-import AdminWorkers from '../pages/admin/AdminWorkers';
-import AdminCustomers from '../pages/admin/AdminCustomers';
-import AdminCategories from '../pages/admin/AdminCategories';
-import AdminSettings from '../pages/admin/AdminSettings';
-import AdminComplaints from '../pages/admin/AdminComplaints';
+// Worker Pages
+const WorkerDashboard = lazy(() => import('../pages/worker/WorkerDashboard'));
+const WorkerBookings = lazy(() => import('../pages/worker/WorkerBookings'));
+const AvailableJobs = lazy(() => import('../pages/worker/AvailableJobs'));
+const WorkerPortfolio = lazy(() => import('../pages/worker/WorkerPortfolio'));
+const WorkerMessages = lazy(() => import('../pages/worker/WorkerMessages'));
+const WorkerProfile = lazy(() => import('../pages/worker/WorkerProfile'));
+const WorkerComplaints = lazy(() => import('../pages/worker/WorkerComplaints'));
+
+// Admin Pages
+const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
+const AdminWorkers = lazy(() => import('../pages/admin/AdminWorkers'));
+const AdminCustomers = lazy(() => import('../pages/admin/AdminCustomers'));
+const AdminCategories = lazy(() => import('../pages/admin/AdminCategories'));
+const AdminSettings = lazy(() => import('../pages/admin/AdminSettings'));
+const AdminComplaints = lazy(() => import('../pages/admin/AdminComplaints'));
+
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center bg-transparent">
+    <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
+  </div>
+);
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, role, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-transparent">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-main border-t-transparent" />
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (!isAuthenticated) {
@@ -63,7 +68,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
 const AppRouter = () => {
   return (
-    <Routes>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<SearchPage />} />
@@ -244,6 +250,7 @@ const AppRouter = () => {
       {/* Fallback Catch-All - 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </Suspense>
   );
 };
 
